@@ -12,7 +12,7 @@ export COMPOSE_DOCKER_CLI_BUILD=1
 # Travis CI
 [ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
 # direnv
-export EDITOR=nvim
+export EDITOR=emacs
 eval "$(direnv hook zsh)"
 # pre-commit
 export PRE_COMMIT_COLOR=always

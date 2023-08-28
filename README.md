@@ -4,7 +4,7 @@
 ## Usage
 ### Clone this repository
 ```shell
-git clone --recursive https://github.com/chck/dotfiles.git
+git clone --recursive https://github.com/Tyaba/dotfiles.git
 ```
 
 ### Dry-run

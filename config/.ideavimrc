@@ -1,6 +1,0 @@
-" Swap ; for :, for US KeyBoard
-nnoremap ; :
-nnoremap : ;
-
-set visualbell                   " Turn off the bell sound
-set noerrorbells                 " Same as above

@@ -1,13 +1,12 @@
 [user]
-	name = chck
-	email = shimekiri.today@gmail.com
+	name = Tyaba
+	email = tepei@keio.jp
 [include]
   	path = .gitconfig.local
 [color]
   	ui = true
 [core]
-	excludesfile = /Users/chck/.gitignore_global
-  	editor = nvim
+  	editor = emacs
   	filemode = true
 [alias]
   	co = checkout
@@ -39,7 +38,7 @@
   	recurse = true
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
 [mergetool "sourcetree"]
 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true

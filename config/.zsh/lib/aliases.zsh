@@ -5,8 +5,6 @@ alias ....="cd ../../.."
 alias g="git"
 alias s="git status -sb"
 
-# cargo-script
-alias rust="cargo-script"
 # bat replaces cat
 alias cat="bat"
 # exa replaces ls
@@ -26,12 +24,7 @@ alias tf="terraform"
 alias gcurl='curl --header "Authorization: Bearer $(gcloud auth print-identity-token)"'
 # Docker
 alias d=docker
-# vim replaces neovim
-alias vi="nvim"
-alias vim="nvim"
 # dust replaces du
 alias du="dust"
 # bottom replaces top
 alias top="btm"
-# rust-script
-alias rust="rust-script"
