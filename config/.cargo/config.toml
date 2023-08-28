@@ -1,0 +1,13 @@
+[net]
+git-fetch-with-cli = true
+# ERROR :           stderr |     Updating crates.io index
+# ERROR :           stderr |  Downloading crates ...
+# ERROR :           stderr | warning: spurious network error (3 tries remaining): [28] Timeout was reached (failed to download any data for `hexyl v0.13.1` within 30s)
+# ERROR :           stderr | warning: spurious network error (2 tries remaining): [28] Timeout was reached (failed to download any data for `hexyl v0.13.1` within 30s)
+# ERROR :           stderr | warning: spurious network error (1 tries remaining): [28] Timeout was reached (failed to download any data for `hexyl v0.13.1` within 30s)
+# ERROR :           stderr | error: failed to download from `https://crates.io/api/v1/crates/hexyl/0.13.1/download`
+# ERROR :           stderr |
+# ERROR :           stderr | Caused by:
+# ERROR :           stderr |   [28] Timeout was reached (failed to download any data for `hexyl v0.13.1` within 30s)
+# ERROR :           Command `cargo install --force --verbose hexyl` failed. (exit status: 101)
+# ERROR :         execute[cargo install --force --verbose hexyl] Failed.
