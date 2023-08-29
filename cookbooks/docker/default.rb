@@ -23,7 +23,6 @@ when 'darwin'
     execute "mkdir -p ~/.docker/cli-plugins && curl -L https://github.com/docker/compose/releases/download/v#{docker_compose_version}/docker-compose-darwin-aarch64 -o #{docker_compose_path} && sudo chmod +x #{docker_compose_path}" do
       not_if "docker compose version | grep v#{docker_compose_version}"
     end
-    dotfile 'docker.yaml'
   end
 when 'ubuntu'
   execute 'sudo apt install -y ca-certificates curl gnupg lsb-release' do

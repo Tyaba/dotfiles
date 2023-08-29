@@ -28,3 +28,5 @@ alias d=docker
 alias du="dust"
 # bottom replaces top
 alias top="btm"
+# cargo-script
+alias rust="cargo-script"

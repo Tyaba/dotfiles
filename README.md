@@ -1,6 +1,10 @@
 # dotfiles
 > Accio, My Utensils!
 
+## TODO
+- [] linuxのときsudo locale-gen en_US.UTF-8するlocale cookbook追加
+- [] linuxのときlibffi-develをinstallするcookbook追加
+
 ## Usage
 ### Clone this repository
 ```shell
