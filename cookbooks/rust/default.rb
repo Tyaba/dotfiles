@@ -1,3 +1,4 @@
+dotfile '.cargo/config.toml'
 case node[:platform]
 when 'arch'
   package 'rust'
