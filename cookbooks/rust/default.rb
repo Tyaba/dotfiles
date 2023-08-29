@@ -44,9 +44,10 @@ when 'darwin'
     not_if 'test -d /opt/homebrew/opt/rust/'
   end
 when 'ubuntu'
-  execute 'sudo apt install -y pkg-config libssl-dev' do
+  execute 'sudo apt install -y pkg-config libssl-dev libxcb-xfixes0-dev' do
     not_if "dpkg -l | grep '^ii' | grep pkg-config"
     not_if "dpkg -l | grep '^ii' | grep libssl-dev"
+    not_if "dpkg -l | grep '^ii' | grep libxcb-xfixes0-dev"
   end
   cargo 'cargo-edit'
   cargo 'bat'
