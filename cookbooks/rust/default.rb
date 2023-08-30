@@ -20,6 +20,7 @@ else
     not_if "test -f #{rustc_path}"
   end
   execute 'rustup component add rust-src' do
+    # fixme: のinstall済み判定がうまくいかない
     not_if 'rustup component list --installed | grep rust-analyzer'
   end
 end

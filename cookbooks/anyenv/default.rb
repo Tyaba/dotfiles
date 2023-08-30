@@ -48,12 +48,13 @@ unless ENV['PATH'].include?("#{ENV['HOME']}/.anyenv/envs/pyenv/bin:")
 end
 
 if node[:platform] == 'ubuntu'
-  execute "sudo apt install -y libbz2-dev libreadline-dev libsqlite3-dev lzma liblzma-dev" do
+  execute "sudo apt install -y libbz2-dev libreadline-dev libsqlite3-dev lzma liblzma-dev python3-tk" do
     not_if "dpkg -l | grep '^ii' | grep libbz2-dev"
     not_if "dpkg -l | grep '^ii' | grep libreadline-dev"
     not_if "dpkg -l | grep '^ii' | grep libsqlite3-dev"
     not_if "dpkg -l | grep '^ii' | grep lzma"
     not_if "dpkg -l | grep '^ii' | grep liblzma-dev"
+    not_if "dpkg -l | grep '^ii' | grep python3-tk"
   end
 end
 python_version = "3.10"
@@ -62,17 +63,17 @@ execute "pyenv install #{python_version} && pyenv global #{python_version} && pi
 end
 
 # Node.js
-execute "anyenv install -f nodenv" do
-  not_if "which nodenv"
-end
-node_version = "20.2.0"
-execute "nodenv install #{node_version} && nodenv global #{node_version}" do
-  not_if "nodenv versions | grep #{node_version}"
-end
-execute 'npm i -g @antfu/ni' do
-  not_if 'which ni'
-end
-execute 'curl -fsSL https://get.pnpm.io/install.sh | sh -' do
-  not_if 'which pnpm'
-end
+# execute "anyenv install -f nodenv" do
+#   not_if "which nodenv"
+# end
+# node_version = "20.2.0"
+# execute "nodenv install #{node_version} && nodenv global #{node_version}" do
+#   not_if "nodenv versions | grep #{node_version}"
+# end
+# execute 'npm i -g @antfu/ni' do
+#   not_if 'which ni'
+# end
+# execute 'curl -fsSL https://get.pnpm.io/install.sh | sh -' do
+#   not_if 'which pnpm'
+# end
 

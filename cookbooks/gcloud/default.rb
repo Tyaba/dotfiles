@@ -4,8 +4,8 @@ when 'darwin'
     not_if 'which gcloud'
   end
 when 'ubuntu'
-  execute 'curl https://sdk.cloud.google.com | bash' do
-    not_if 'which gcloud'
+  execute 'curl https://sdk.cloud.google.com > tmp/gcloud_install.sh && bash tmp/gcloud_install.sh --disable-prompts --install-dir $HOME/bin' do
+    not_if 'ls $HOME/bin/google-cloud-sdk'
   end
 else
   raise NotImplementedError

@@ -2,13 +2,23 @@
 > Accio, My Utensils!
 
 ## TODO
-- [] linuxのときsudo locale-gen en_US.UTF-8するlocale cookbook追加
-- [] linuxのときlibffi-develをinstallするcookbook追加
+- [x] linuxのときsudo locale-gen en_US.UTF-8するlocale cookbook追加
+- [x] linuxのときlibffi-develをinstallするcookbook追加
+- [ ] cookbooks/poetryの20行目 poetry not foundになる
+  -
 
 ## Usage
 ### Clone this repository
 ```shell
 git clone --recursive https://github.com/Tyaba/dotfiles.git
+```
+### wslの場合
+windowsのPATHが入っているとinstall済と誤判定するので直す
+sudo emacs /etc/wsl.conf
+```
+# WindowsのPATHを引き継がない設定を追記する
+[interop]
+appendWindowsPath = false
 ```
 
 ### Dry-run
@@ -27,3 +37,4 @@ mkdir cookbooks/:app_name
 $EDITOR cookbooks/:app_name/default.rb
 $EDITOR roles/$(uname)/default.rb
 ```
+
