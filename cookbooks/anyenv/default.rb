@@ -77,3 +77,31 @@ end
 #   not_if 'which pnpm'
 # end
 
+# terraform
+execute "anyenv install -f tfenv" do
+  not_if "which tfenv"
+end
+
+# ~/.anyenv/envs/tfenv/binをPATHに追加
+unless ENV['PATH'].include?("#{ENV['HOME']}/.anyenv/envs/tfenv/bin:")
+  MItamae.logger.info('Prepending ~/.tfenv/bin to PATH during this execution')
+  ENV['PATH'] = "#{ENV['HOME']}/.anyenv/envs/tfenv/bin:#{ENV['PATH']}"
+end
+terraform_version = "1.5.6"
+execute "tfenv install #{terraform_version}"do
+  not_if "tfenv list | grep #{terraform_version}"
+end
+
+# tflint
+case node[:platform]
+when 'darwin'
+  execute 'brew install tflint' do
+  not_if 'which tflint'
+  end
+when 'ubuntu'
+  execute 'curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash' do
+    not_if 'which tflint'
+  end
+else
+  raise NotImplementedError
+end
