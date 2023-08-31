@@ -16,5 +16,3 @@ export EDITOR=emacs
 eval "$(direnv hook zsh)"
 # pre-commit
 export PRE_COMMIT_COLOR=always
-# fzf
-zsh /usr/share/doc/fzf/examples/key-bindings.zsh
