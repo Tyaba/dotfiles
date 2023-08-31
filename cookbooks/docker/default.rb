@@ -64,7 +64,11 @@ when 'debian'
     not_if 'which kubectl'
   end
 end
-
+# ユーザをdockerグループに追加
+execute "sudo gpasswd -a #{node[:user]} docker" do
+  not_if "cat /etc/group | grep docker | grep #{node[:user]}"
+end
+# zsh用の設定
 execute '''cat <<EOF >> ~/.zsh/lib/apps.zsh
 
 # Docker
