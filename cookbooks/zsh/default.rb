@@ -14,6 +14,9 @@ else
   end
 end
 
-dotfile '.zplug'
+# zplug
+execute "curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh" do
+  not_if 'test -d ~/.zplug'
+end
 dotfile '.zsh'
 dotfile '.zshrc'
