@@ -24,13 +24,11 @@ when 'darwin'
       not_if "docker compose version | grep v#{docker_compose_version}"
     end
   end
-when 'ubuntu'
-  execute 'sudo apt install -y ca-certificates curl gnupg lsb-release' do
-    not_if "dpkg -l | grep '^ii' | grep ca-certificates"
-    not_if "dpkg -l | grep '^ii' | grep curl"
-    not_if "dpkg -l | grep '^ii' | grep gnupg"
-    not_if "dpkg -l | grep '^ii' | grep lsb-release"
-  end
+else
+  package 'ca-certificates'
+  package 'curl'
+  package 'gnupg'
+  package 'lsb-release'
   execute 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null && sudo apt update -y && sudo apt install -y docker-ce docker-ce-cli containerd.io' do
     not_if 'which docker'
   end
@@ -42,8 +40,6 @@ when 'ubuntu'
   execute 'wget "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" -P /tmp && sudo install -o root -g root -m 0755 /tmp/kubectl /usr/local/bin/kubectl' do
     not_if 'which kubectl'
   end
-else
-  raise NotImplementedError
 end
 
 execute '''cat <<EOF >> ~/.zsh/lib/apps.zsh

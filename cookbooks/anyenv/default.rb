@@ -20,7 +20,7 @@ end
 
 # ~/.anyenvをユーザーの所有にする
 case node[:platform]
-when 'ubuntu'
+when 'ubuntu', 'debian'
   execute "sudo chown -R #{node[:user]} ~/.anyenv" do
     not_if "ls -l ~/.anyenv | awk '{print $3}' | grep $(whoami)"
   end
@@ -47,35 +47,17 @@ unless ENV['PATH'].include?("#{ENV['HOME']}/.anyenv/envs/pyenv/bin:")
   ENV['PATH'] = "#{ENV['HOME']}/.anyenv/envs/pyenv/bin:#{ENV['PATH']}"
 end
 
-if node[:platform] == 'ubuntu'
-  execute "sudo apt install -y libbz2-dev libreadline-dev libsqlite3-dev lzma liblzma-dev python3-tk" do
-    not_if "dpkg -l | grep '^ii' | grep libbz2-dev"
-    not_if "dpkg -l | grep '^ii' | grep libreadline-dev"
-    not_if "dpkg -l | grep '^ii' | grep libsqlite3-dev"
-    not_if "dpkg -l | grep '^ii' | grep lzma"
-    not_if "dpkg -l | grep '^ii' | grep liblzma-dev"
-    not_if "dpkg -l | grep '^ii' | grep python3-tk"
-  end
-end
+package 'libbz2-dev'
+package 'libreadline-dev'
+package 'libsqlite3-dev'
+package 'lzma'
+package 'liblzma-dev'
+package 'python3-tk'
+
 python_version = "3.10"
 execute "pyenv install #{python_version} && pyenv global #{python_version} && pip install -U pip && pip install cython" do
   not_if "pyenv versions | grep #{python_version}"
 end
-
-# Node.js
-# execute "anyenv install -f nodenv" do
-#   not_if "which nodenv"
-# end
-# node_version = "20.2.0"
-# execute "nodenv install #{node_version} && nodenv global #{node_version}" do
-#   not_if "nodenv versions | grep #{node_version}"
-# end
-# execute 'npm i -g @antfu/ni' do
-#   not_if 'which ni'
-# end
-# execute 'curl -fsSL https://get.pnpm.io/install.sh | sh -' do
-#   not_if 'which pnpm'
-# end
 
 # terraform
 execute "anyenv install -f tfenv" do
@@ -96,12 +78,10 @@ end
 case node[:platform]
 when 'darwin'
   execute 'brew install tflint' do
-  not_if 'which tflint'
+    package 'tflint'
   end
-when 'ubuntu'
+else
   execute 'curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash' do
     not_if 'which tflint'
   end
-else
-  raise NotImplementedError
 end

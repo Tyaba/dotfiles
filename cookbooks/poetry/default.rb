@@ -1,14 +1,5 @@
-case node[:platform]
-when 'darwin'
-  execute 'curl -sSL https://install.python-poetry.org | python3 -' do
-    not_if 'which poetry'
-  end
-when 'ubuntu'
-  execute 'curl -sSL https://install.python-poetry.org | python3 -' do
-    not_if 'which poetry'
-  end
-else
-  raise NotImplementedError
+execute 'curl -sSL https://install.python-poetry.org | python3 -' do
+  not_if 'which poetry'
 end
 
 # この実行中のみ、PATHに~/.poetry/binを追加する
@@ -23,7 +14,7 @@ when 'darwin'
   execute 'poetry completions zsh > $(brew --prefix)/share/zsh/site-functions/_poetry' do
     not_if 'test -f $(brew --prefix)/share/zsh/site-functions/_poetry'
   end
-when 'ubuntu'
+else
   execute 'mkdir ~/.zfunc && $HOME/.local/bin/poetry completions zsh > ~/.zfunc/_poetry' do
     not_if 'test -f ~/.zfunc/_poetry'
   end
