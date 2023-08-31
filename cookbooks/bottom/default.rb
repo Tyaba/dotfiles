@@ -1,11 +1,4 @@
-case node[:platform]
-when 'darwin'
-  execute 'brew install bottom' do
-    not_if "which btm"
-  end
-else
-  raise NotImplementedError
-end
+package 'bottom'
 
 execute '''cat <<EOF >> ~/.zsh/lib/aliases.zsh
 # bottom replaces top

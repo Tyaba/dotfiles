@@ -1,11 +1,4 @@
-case node[:platform]
-when 'darwin'
-  execute 'brew install lazydocker' do
-    not_if 'which lazydocker'
-  end
-else
-  raise NotImplementedError
-end
+package lazydocker
 
 execute '''cat <<EOF >> ~/.zsh/lib/aliases.zsh
 # lazydocker

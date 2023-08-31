@@ -47,12 +47,23 @@ unless ENV['PATH'].include?("#{ENV['HOME']}/.anyenv/envs/pyenv/bin:")
   ENV['PATH'] = "#{ENV['HOME']}/.anyenv/envs/pyenv/bin:#{ENV['PATH']}"
 end
 
+# pyenvに必要なパッケージのインストール
+# ref. https://github.com/pyenv/pyenv/wiki#suggested-build-environment
+package 'build-essential'
+package 'libssl-dev'
+package 'zlib1g-dev'
 package 'libbz2-dev'
 package 'libreadline-dev'
 package 'libsqlite3-dev'
-package 'lzma'
+package 'curl'
+package 'libncursesw5-dev'
+package 'xz-utils'
+package 'tk-dev'
+package 'libxml2-dev'
+package 'libxmlsec1-dev'
+package 'libffi-dev'
 package 'liblzma-dev'
-package 'python3-tk'
+package 'python3-distutils'
 
 python_version = "3.10"
 execute "pyenv install #{python_version} && pyenv global #{python_version} && pip install -U pip && pip install cython" do

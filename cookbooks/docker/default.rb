@@ -1,5 +1,10 @@
 docker_compose_version = '2.20.3'
 docker_compose_path = '~/.docker/cli-plugins/docker-compose'
+package 'ca-certificates'
+package 'curl'
+package 'gnupg'
+package 'lsb-release'
+
 case node[:platform]
 when 'darwin'
   execute 'brew install docker-slim' do
@@ -24,12 +29,30 @@ when 'darwin'
       not_if "docker compose version | grep v#{docker_compose_version}"
     end
   end
-else
-  package 'ca-certificates'
-  package 'curl'
-  package 'gnupg'
-  package 'lsb-release'
-  execute 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null && sudo apt update -y && sudo apt install -y docker-ce docker-ce-cli containerd.io' do
+when 'ubuntu'
+  execute "curl -fsSL https://download.docker.com/linux/#{node[:platform]}/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && echo 'deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/#{node[:platform]} $(lsb_release -cs) stable' | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null && sudo apt update -y && sudo apt install -y docker-ce docker-ce-cli containerd.io" do
+    not_if 'which docker'
+  end
+  # Docker Compose
+  execute "mkdir -p ~/.docker/cli-plugins && curl -L https://github.com/docker/compose/releases/download/v#{docker_compose_version}/docker-compose-#{`uname`.downcase.strip}-#{`uname -m`.strip} -o #{docker_compose_path} && sudo chmod +x #{docker_compose_path}" do
+    not_if "docker compose version | grep v#{docker_compose_version}"
+  end
+  # Kubernetes
+  execute 'wget "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" -P /tmp && sudo install -o root -g root -m 0755 /tmp/kubectl /usr/local/bin/kubectl' do
+    not_if 'which kubectl'
+  end
+when 'debian'
+  execute '
+  sudo install -m 0755 -d /etc/apt/keyrings &&
+  curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg &&
+  sudo chmod a+r /etc/apt/keyrings/docker.gpg
+  echo \
+  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null &&
+  sudo apt-get update &&
+  sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+  ' do
     not_if 'which docker'
   end
   # Docker Compose

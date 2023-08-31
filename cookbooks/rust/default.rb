@@ -20,7 +20,6 @@ else
     not_if "test -f #{rustc_path}"
   end
   execute 'rustup component add rust-src' do
-    # fixme: のinstall済み判定がうまくいかない
     not_if 'rustup component list --installed | grep rust-analyzer'
   end
 end
@@ -44,25 +43,25 @@ when 'darwin'
   execute 'ln -s $HOME/.cargo/bin/ /opt/homebrew/opt/rust' do
     not_if 'test -d /opt/homebrew/opt/rust/'
   end
-when 'ubuntu'
-  execute 'sudo apt install -y pkg-config libssl-dev libxcb-xfixes0-dev' do
-    not_if "dpkg -l | grep '^ii' | grep pkg-config"
-    not_if "dpkg -l | grep '^ii' | grep libssl-dev"
-    not_if "dpkg -l | grep '^ii' | grep libxcb-xfixes0-dev"
-  end
+when 'ubuntu', 'debian'
+  package 'libwayland-cursor0'
+  package 'libwayland-dev'
+  package 'libxcb-render0-dev'
+  package 'libxcb-shape0-dev'
+  package 'libxcb-xfixes0-dev'
   cargo 'cargo-edit'
   cargo 'bat'
   cargo 'exa'
   cargo 'du-dust'
   cargo 'bottom'
 end
+
 cargo 'rust-script'
 cargo 'cargo-update'
 cargo 'cargo-deps'
 cargo 'cargo-benchcmp'
 cargo 'cargo-expand'
 cargo 'cargo-make'
-cargo 'cargo-generate'
 cargo 'hexyl'
 cargo 'jless'
 cargo 'hyperfine'

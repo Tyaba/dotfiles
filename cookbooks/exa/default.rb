@@ -1,15 +1,4 @@
-case node[:platform]
-when 'darwin'
-  execute 'brew install exa' do
-    not_if 'which exa'
-  end
-when 'ubuntu'
-  execute 'sudo apt install exa' do
-    not_if "which exa"
-  end
-else
-  raise NotImplementedError
-end
+package 'exa'
 
 execute '''cat <<EOF >> ~/.zsh/lib/aliases.zsh
 # exa replaces ls

@@ -4,13 +4,17 @@
 ## TODO
 - [x] linuxのときsudo locale-gen en_US.UTF-8するlocale cookbook追加
 - [x] linuxのときlibffi-develをinstallするcookbook追加
-- [ ] cookbooks/poetryの20行目 poetry not foundになる
-  -
+- [x] cookbooks/poetryの20行目 poetry not foundになる
 
 ## Usage
 ### Clone this repository
 ```shell
 git clone --recursive https://github.com/Tyaba/dotfiles.git
+```
+### Clone submodule (zplug)
+```shell
+git submodule init
+git submodule update
 ```
 ### wslの場合
 windowsのPATHが入っているとinstall済と誤判定するので直す

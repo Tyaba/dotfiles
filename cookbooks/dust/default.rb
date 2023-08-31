@@ -1,11 +1,4 @@
-case node[:platform]
-when 'darwin'
-  execute 'brew install dust' do
-    not_if "which dust"
-  end
-else
-  raise NotImplementedError
-end
+package 'dust'
 
 execute '''cat <<EOF >> ~/.zsh/lib/aliases.zsh
 # dust replaces du

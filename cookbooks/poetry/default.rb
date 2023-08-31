@@ -1,4 +1,6 @@
-execute 'curl -sSL https://install.python-poetry.org | python3 -' do
+# pythonの準備
+# poetryをinstall
+execute "curl -sSL https://install.python-poetry.org | #{ENV['HOME']}/.pyenv/shims/python -" do
   not_if 'which poetry'
 end
 
