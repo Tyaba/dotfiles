@@ -2,7 +2,7 @@ source ~/.zplug/init.zsh
 
 zplug "themes/wedisagree", from:oh-my-zsh, as:theme, if:"[[ $OSTYPE == *darwin* ]]"
 zplug "themes/blinks", from:oh-my-zsh, as:theme, if:"[[ $OSTYPE == *linux* ]]"
-zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
+zplug "junegunn/fzf", as:command, from:gh-r
 zplug "b4b4r07/enhancd", use:init.sh
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-autosuggestions", defer:2

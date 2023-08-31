@@ -1,6 +1,7 @@
 [user]
 	name = Tyaba
 	email = tepei@keio.jp
+	signingkey = 1E2404A7EC2A23D1
 [include]
   	path = .gitconfig.local
 [color]

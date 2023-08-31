@@ -10,3 +10,11 @@ package 'curl'
 package 'openssh-client'
 package 'build-essential'
 package 'zip'
+# クリップボードコピー
+case node[:platform]
+when 'darwin'
+  # macはpbcopyがデフォルトで入っている
+  Mitamae.logger.info "macOS detected, skip install xclip"
+else
+  package 'xclip'
+end

@@ -1,5 +1,6 @@
 include_role 'base'
 # 依存元
+include_cookbook 'fzf'
 include_cookbook 'zsh'
 include_cookbook 'git'
 include_cookbook 'anyenv'

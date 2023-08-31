@@ -12,13 +12,16 @@ alias cat="bat"
 # rip grep replaces grep
 alias grep="rg"
 # exa replaces ls
-alias ls="exa -a"
+alias ls="exa"
 # procs replaces ps
 alias ps="procs"
 # fd replaces find
 alias find="fd"
 # bottom replaces top
 alias top="btm"
+# クリップボードコピー/ペースト
+alias pbcopy="xclip -selection clipboard"
+alias pbpaste="xclip -selection c -o"
 
 # in short
 # lazydocker

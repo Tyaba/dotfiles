@@ -1,8 +1,8 @@
 # Google Cloud SDK
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f "$HOME/bin/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/bin/google-cloud-sdk/path.zsh.inc"; fi
+if [ -f "$HOME/.bin/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/.bin/google-cloud-sdk/path.zsh.inc"; fi
 # The next line enables shell command completion for gcloud.
-if [ -f "$HOME/bin/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/bin/google-cloud-sdk/completion.zsh.inc"; fi
+if [ -f "$HOME/.bin/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/.bin/google-cloud-sdk/completion.zsh.inc"; fi
 export CLOUDSDK_PYTHON=python3
 # Kubectl
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
@@ -16,3 +16,5 @@ export EDITOR=emacs
 eval "$(direnv hook zsh)"
 # pre-commit
 export PRE_COMMIT_COLOR=always
+# fzf
+zsh /usr/share/doc/fzf/examples/key-bindings.zsh
