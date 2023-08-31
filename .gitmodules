@@ -1,3 +1,4 @@
 [submodule "config/.zplug"]
 	path = config/.zplug
 	url = https://github.com/zplug/zplug.git
+	ignore = dirty
