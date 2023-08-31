@@ -10,6 +10,7 @@ package 'curl'
 package 'openssh-client'
 package 'build-essential'
 package 'zip'
+
 # クリップボードコピー
 case node[:platform]
 when 'darwin'

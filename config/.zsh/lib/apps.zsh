@@ -16,3 +16,10 @@ export EDITOR=emacs
 eval "$(direnv hook zsh)"
 # pre-commit
 export PRE_COMMIT_COLOR=always
+# ssh agent
+if [ -z $SSH_AUTH_SOCK ]; then
+    eval `ssh-agent -s`
+    if [ -f ~/.ssh/id_ed25519 ]; then
+        ssh-add ~/.ssh/id_ed25519
+    fi
+fi
