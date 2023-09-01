@@ -4,7 +4,7 @@ package 'software-properties-common'
 package 'locales'
 case node[:platform]
 when 'ubuntu', 'debian'
-  execute 'sudo add-apt-repository -y universe'
+  execute 'sudo add-apt-repository -y universe && sudo apt-get update'
 end
 package 'locales-all'
 execute 'sudo locale-gen en_US.UTF-8' do
