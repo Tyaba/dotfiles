@@ -8,13 +8,12 @@ zplug "b4b4r07/enhancd", use:init.sh
 zplug "stedolan/jq", from:gh-r, as:command, rename-to:jq
 zplug "b4b4r07/emoji-cli", on:"stedolan/jq"
 
+zplug "zsh-users/zsh-history-substring-search", hook-build:"__zsh_version 5.3"
 # (If the defer tag is given 2 or above, run after compinit command)
 zplug "zsh-users/zsh-autosuggestions", defer:2
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-completions", defer:2
-zplug "zsh-users/zsh-history-substring-search", hook-build:"__zsh_version 5.3", defer:2
 
-zplug check || zplug install
 zplug load
 
 plugins=(git history history-substring-search mysql ruby rails gem brew rake zsh-completions kubectl)
