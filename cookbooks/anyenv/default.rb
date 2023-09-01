@@ -96,3 +96,11 @@ else
     not_if 'which tflint'
   end
 end
+
+# 最後に再び~/.anyenvをユーザーの所有にする
+case node[:platform]
+when 'ubuntu', 'debian'
+  execute "sudo chown -R #{node[:user]} ~/.anyenv" do
+    not_if "ls -l ~/.anyenv | awk '{print $3}' | grep $(whoami)"
+  end
+end
