@@ -1,6 +1,11 @@
 package 'software-properties-common'
 
-# locale-gen
+# localeをen_US.UTF-8したい。
+# デフォルトでは無い場合があるのでlocale-gen en_US.UTF-8したい。
+# en_USがないため、locales-allをinstallしたい。
+# locales-allはno installation candidateになるのでuniverseをapt repoに入れる
+# universeを入れるために、launchpad-getkeysをinstallしたい。
+# launchpad-getkeysはデフォルトでinstallできないので、ppaを追加する。
 package 'locales'
 execute 'locale-gen-setup' do
   case node[:platform]
@@ -11,14 +16,11 @@ execute 'locale-gen-setup' do
     sudo apt-get install launchpad-getkeys &&
     sudo apt-get update &&
     sudo add-apt-repository -y universe &&
-    sudo apt-get update
+    sudo apt-get update &&
+    sudo apt-get install -y locales-all &&
+    sudo locale-gen en_US.UTF-8
     "
   end
-  not_if "locale | grep en_US.UTF-8"
-end
-
-package 'locales-all'
-execute 'sudo locale-gen en_US.UTF-8' do
   not_if "locale | grep en_US.UTF-8"
 end
 
