@@ -18,12 +18,18 @@ execute 'locale-gen-setup' do
     sudo add-apt-repository -y universe &&
     sudo apt-get update &&
     sudo apt-get install -y locales-all &&
-    sudo locale-gen en_US.UTF-8
+    sudo locale-gen en_US.UTF-8 &&
+    sudo update-locale LANG=en_US.UTF-8 &&
     "
   end
   not_if "locale | grep en_US.UTF-8"
 end
 
+case node[:platform]
+when 'ubuntu', 'debian'
+  execute "sudo apt-key adv --keyserver hkp://keyserver.#{node[:platform]}.com:80 --recv-keys 15CF4D18AF4F7421"
+  execute "sudo apt-get update"
+end
 package 'libffi-dev'
 package 'zlib1g-dev'
 package 'curl'
