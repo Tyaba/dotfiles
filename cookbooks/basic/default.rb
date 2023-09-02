@@ -19,7 +19,7 @@ execute 'locale-gen-setup' do
     sudo apt-get update &&
     sudo apt-get install -y locales-all &&
     sudo locale-gen en_US.UTF-8 &&
-    sudo update-locale LANG=en_US.UTF-8 &&
+    sudo update-locale LANG=en_US.UTF-8
     "
   end
   not_if "locale | grep en_US.UTF-8"
