@@ -7,19 +7,20 @@ package 'software-properties-common'
 # universeを入れるために、launchpad-getkeysをinstallしたい。
 # launchpad-getkeysはデフォルトでinstallできないので、ppaを追加する。
 package 'locales'
+# TODO: fix ログは出ないし終わらない
 execute 'locale-gen-setup' do
   case node[:platform]
   when 'ubuntu', 'debian'
     command "
-    sudo add-apt-repository ppa:nilarimogard/webupd8 &&
+    sudo add-apt-repository -y ppa:nilarimogard/webupd8 &&
     sudo apt-get update &&
-    sudo apt-get install launchpad-getkeys &&
+    sudo apt-get install -y launchpad-getkeys &&
     sudo apt-get update &&
     sudo add-apt-repository -y universe &&
     sudo apt-get update &&
     sudo apt-get install -y locales-all &&
     sudo locale-gen en_US.UTF-8 &&
-    sudo update-locale LANG=en_US.UTF-8
+    sudo update-locale --no-checks LANG=en_US.UTF-8
     "
   end
   not_if "locale | grep en_US.UTF-8"
