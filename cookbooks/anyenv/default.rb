@@ -69,6 +69,11 @@ python_version = "3.10"
 execute "pyenv install #{python_version} && pyenv global #{python_version} && pip install -U pip && pip install cython" do
   not_if "pyenv versions | grep #{python_version}"
 end
+# pythonをPATHに追加
+unless ENV['PATH'].include?("#{ENV['PYENV_ROOT']}/shims")
+  MItamae.logger.info('Prepending ~/.poetry/bin to PATH during this execution')
+  ENV['PATH'] = "#{ENV['PYENV_ROOT']}/shims:#{ENV['PATH']}"
+end
 
 # terraform
 execute "anyenv install -f tfenv" do
