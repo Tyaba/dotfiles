@@ -11,7 +11,7 @@ else
     rustc_path = "#{ENV['HOME']}/.cargo/bin/rustc"
 
     block do
-      system("curl https://sh.rustup.rs -sSf | sh")
+      system("curl https://sh.rustup.rs -sSf | sh -s -- -y")
 
       until File.exist?(rustc_path)
         sleep 1
