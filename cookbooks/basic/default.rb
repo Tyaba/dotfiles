@@ -26,12 +26,20 @@ execute 'locale-gen-setup' do
   not_if "locale | grep en_US.UTF-8"
 end
 
-case node[:platform]
-when 'ubuntu', 'debian'
-  execute "sudo apt-key adv --keyserver hkp://keyserver.#{node[:platform]}.com:80 --recv-keys 15CF4D18AF4F7421"
-  execute "sudo apt-get update"
+# libffi-devを入れたい。
+# TODO: failするので修正
+execute 'install libffi-dev' do
+  case node[:platform]
+  when 'ubuntu', 'debian'
+    command "
+    sudo apt-key adv --keyserver hkp://keyserver.#{node[:platform]}.com:80 --recv-keys 15CF4D18AF4F7421 &&
+    sudo apt-get update &&
+    sudo apt-get install -y libffi-dev
+    "
+  end
+  not_if "dpkg -l | grep '^ii' | grep libffi-dev"
 end
-package 'libffi-dev'
+
 package 'zlib1g-dev'
 package 'curl'
 package 'openssh-client'
