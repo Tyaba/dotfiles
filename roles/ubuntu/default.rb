@@ -1,4 +1,10 @@
 include_role 'base'
+# systemdのユーザインスタンス置き場ディレクトリ
+directory "#{ENV['HOME']}/.config/systemd/user/default.target.wants" do
+    owner node[:user]
+    group node[:user]
+    mode '755'
+end
 # 依存元
 include_cookbook 'fzf'
 include_cookbook 'zsh'
