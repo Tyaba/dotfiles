@@ -14,6 +14,11 @@ zplug "zsh-users/zsh-autosuggestions", defer:2
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-completions", defer:2
 
+# Therefore, when it returns false, run zplug install
+if ! zplug check; then
+    zplug install
+fi
+
 zplug load
 
 plugins=(git history history-substring-search mysql ruby rails gem brew rake zsh-completions kubectl)
