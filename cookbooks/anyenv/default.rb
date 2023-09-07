@@ -49,21 +49,23 @@ end
 
 # pyenvに必要なパッケージのインストール
 # ref. https://github.com/pyenv/pyenv/wiki#suggested-build-environment
-package 'build-essential'
-package 'libssl-dev'
-package 'zlib1g-dev'
-package 'libbz2-dev'
-package 'libreadline-dev'
-package 'libsqlite3-dev'
-package 'curl'
-package 'libncursesw5-dev'
-package 'xz-utils'
-package 'tk-dev'
-package 'libxml2-dev'
-package 'libxmlsec1-dev'
-package 'libffi-dev'
-package 'liblzma-dev'
-package 'python3-distutils'
+case node[:platform]
+when 'ubuntu', 'debian'
+  package 'build-essential'
+  package 'libssl-dev'
+  package 'zlib1g-dev'
+  package 'libbz2-dev'
+  package 'libreadline-dev'
+  package 'libsqlite3-dev'
+  package 'libncursesw5-dev'
+  package 'xz-utils'
+  package 'tk-dev'
+  package 'libxml2-dev'
+  package 'libxmlsec1-dev'
+  package 'libffi-dev'
+  package 'liblzma-dev'
+  package 'python3-distutils'
+end
 
 python_version = "3.10"
 execute "pyenv install #{python_version} && pyenv global #{python_version} && pip install -U pip && pip install cython" do
@@ -93,9 +95,7 @@ end
 # tflint
 case node[:platform]
 when 'darwin'
-  execute 'brew install tflint' do
-    package 'tflint'
-  end
+  package 'tflint'
 else
   execute 'curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash' do
     not_if 'which tflint'
