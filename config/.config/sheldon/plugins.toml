@@ -18,8 +18,13 @@ shell = "zsh"
 # cd -> ls automation
 github = 'b4b4r07/enhancd'
 [plugins.emoji-cli]
-# based on jq
 github = 'b4b4r07/emoji-cli'
+[plugins.autojump]
+# https://github.com/wting/autojump
+github = "wting/autojump"
+dir = "bin"
+apply = ["PATH", "source"]
+
 
 # 補完系
 [plugins.zsh-completions]
@@ -36,4 +41,5 @@ github = 'zsh-users/zsh-autosuggestions'
 github = 'zsh-users/zsh-history-substring-search'
 
 [plugins.oh-my-zsh]
+# oh my zsh テーマ用
 github = 'ohmyzsh/ohmyzsh'
