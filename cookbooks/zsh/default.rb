@@ -13,10 +13,10 @@ else
     user 'root'
   end
 end
-
-# zplug
-execute "curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh && sudo chown -R #{node[:user]}:#{node[:user]} ~/.zplug" do
-  not_if 'test -d ~/.zplug'
+# sheldon (zsh plugin manager)
+execute "cargo install sheldon" do
+  not_if "which sheldon"
 end
+dotfile '.config/sheldon'
 dotfile '.zsh'
 dotfile '.zshrc'
