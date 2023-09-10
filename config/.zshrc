@@ -1,3 +1,4 @@
+#!/bin/zsh
 source ~/.zsh/lib/plugins.zsh
 source ~/.zsh/lib/basic.zsh
 source ~/.zsh/lib/aliases.zsh
@@ -14,3 +15,7 @@ fpath+=~/.zfunc
 autoload -Uz compinit && compinit
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+if [ "$OSTYPE" == "msys" ]; then
+    source ~/.zshrc.windows
+fi
