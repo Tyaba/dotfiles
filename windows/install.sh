@@ -28,7 +28,7 @@ cargo_packages=(
     "bottom"
     "ripgrep"
     "fd-find"
-
+    "hub"
 )
 # pacman package install
 for package in "${pacman_packages[@]}" ; do

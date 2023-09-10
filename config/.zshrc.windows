@@ -1,7 +1,9 @@
 # path
-export PATH=$PATH:/c/msys64/usr/local/bin:/c/msys64/usr/bin:/c/msys64/bin
+export PATH=/c/msys64/usr/local/bin:/c/msys64/usr/bin:/c/msys64/bin:$PATH
 # cargo path
-export PATH=$PATH:$HOME/.cargo/bin
+export PATH=$HOME/.cargo/bin:$PATH
+# cargo HOME
+export CARGO_HOME=$HOME/.cargo
 # zsh
 plugins=(git fzf fd autojump zsh-completions zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search)
 # oh my zsh
