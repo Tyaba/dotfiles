@@ -5,10 +5,24 @@ export PATH=$HOME/.cargo/bin:$PATH
 # cargo HOME
 export CARGO_HOME=$HOME/.cargo
 # zsh
-plugins=(git fzf fd autojump zsh-completions zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search)
+plugins=(
+    autojump
+    enhancd
+    fzf
+    fd
+    git
+    zsh-autosuggestions
+    zsh-completions
+    zsh-history-substring-search
+    zsh-syntax-highlighting
+)
 # oh my zsh
 export ZSH="$HOME/.oh-my-zsh"
-# ZSH_THEME="jonathan"
-ZSH_THEME="robbyrussell"
+export FZF_BASE="$HOME/.fzf"
+ZSH_THEME="jonathan"
+# ZSH_THEME="robbyrussell"
+
+# oh my zsh plugin path
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 source $ZSH/oh-my-zsh.sh

@@ -1,3 +1,2 @@
-if [ -t 1 ]; then
-    exec zsh
-fi
+#!/bin/bash
+bash -c zsh

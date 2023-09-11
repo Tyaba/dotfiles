@@ -1,5 +1,3 @@
-#!/bin/zsh
-# oh my zsh path
 if [ "$OSTYPE" == "msys" ]; then
     echo "windows msys detected"
 else

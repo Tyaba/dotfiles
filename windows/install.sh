@@ -7,8 +7,8 @@ fi
 
 # 設定をcp
 mv ~/.zshrc ~/.bkup.zshrc
-cp ~/.dotfiles/config/.zshrc ~/.zshrc
-cp ~/.dotfiles/config/.zshrc.windows ~/.zshrc.windows
+ln -s ~/.dotfiles/config/.zshrc ~/
+ln -s ~/.dotfiles/config/.zshrc.windows ~/
 
 # pacmanでinstall
 # FIXME: $MSYS_PATH/usr/bin/pacman
@@ -17,18 +17,27 @@ pacman_install="/c/msys64/usr/bin/pacman -S --noconfirm --needed"
 cargo_install="cargo install --force --verbose"
 pacman_packages=(
     "curl"
-    "zip"
-    "git"
     "emacs"
+    "git"
+    "man"
+    "unzip"
+    "zip"
     "zsh"
 )
 cargo_packages=(
+    "autojump"
     "bat"
-    "du-dust"
     "bottom"
-    "ripgrep"
+    "du-dust"
     "fd-find"
     "hub"
+    "ripgrep"
+)
+zsh_plugins=(
+    "zsh-autosuggestions"
+    "zsh-completions"
+    "zsh-history-substring-search"
+    "zsh-syntax-highlighting"
 )
 # pacman package install
 for package in "${pacman_packages[@]}" ; do
@@ -47,14 +56,38 @@ for package in "${cargo_packages[@]}" ; do
     $cargo_install ${package}
 done
 
-# TODO: fzf, exa, direnv
-
-# zsh plugin install
-if [ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]; then
-    echo "zsh-autosuggestions is already installed"
+# fzf
+if [ -d $HOME/.fzf ]; then
+    echo "fzf is already installed"
 else
-    git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf && $HOME/.fzf/install --all
+fi
+# direnv
+if [ -d /usr/local/bin ]; then
+    echo "direnv is already installed"
+else
+    curl -sfL https://direnv.net/install.sh | bin_path=/usr/local/bin bash
 fi
 
+# zsh plugin install
+for plugin in "${zsh_plugins[@]}" ; do
+    if [ -d ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/${plugin} ]; then
+        echo "${plugin} is already installed"
+        continue
+    fi
+    git clone https://github.com/zsh-users/${plugin} ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/${plugin}
+done
+# enhancd
+if [ -d ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/enhancd ]; then
+        echo "enhancd is already installed"
+else
+    git clone https://github.com/b4b4r07/enhancd ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/enhancd
+fi
+# pyenv
+if [ -d ~/.pyenv ]; then
+    echo "pyenv is already installed"
+else
+    git clone https://github.com/pyenv-win/pyenv-win.git ~/.pyenv
+fi
 # zshを使う設定
 ln -s ~/.dotfiles/windows/config/.bashrc ~/.bashrc
