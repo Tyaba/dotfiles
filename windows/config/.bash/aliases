@@ -1,0 +1,15 @@
+alias emacs='emacs -nw'
+# replace系
+alias git="hub"
+# bat replaces cat
+alias cat="bat"
+# dust replaces du
+alias du="dust"
+# rip grep replaces grep
+alias grep="rg"
+# exa replaces ls
+alias ls="exa"
+# fd replaces find
+alias find="fd"
+# bottom replaces top
+alias top="btm"
