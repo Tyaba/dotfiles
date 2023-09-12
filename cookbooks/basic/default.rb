@@ -49,6 +49,7 @@ when 'ubuntu', 'debian'
 end
 package 'curl'
 package 'zip'
+package 'tmux'
 
 # クリップボードコピー
 case node[:platform]
