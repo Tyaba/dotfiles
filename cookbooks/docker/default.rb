@@ -31,21 +31,22 @@ when 'darwin'
   end
 when 'ubuntu', 'debian'
   package 'lsb-release'
-  execute "
-    curl -fsSL https://download.docker.com/linux/#{node[:platform]}/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg &&
-    sudo chmod a+r /etc/apt/keyrings/docker.gpg &&
-    echo \
-    'deb [arch='$(dpkg --print-architecture)' signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-    '$(. /etc/os-release && echo #{node[:codename]})' stable' | \
-    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null &&
-    sudo apt-get update &&
-    sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-    " do
-      not_if 'which docker'
-    # ユーザをdockerグループに追加
-    execute "sudo gpasswd -a #{node[:user]} docker" do
-      not_if "cat /etc/group | grep docker | grep #{node[:user]}"
-    end
+  execute "install docker" do
+    command "
+      curl -fsSL https://download.docker.com/linux/#{node[:platform]}/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg &&
+      sudo chmod a+r /etc/apt/keyrings/docker.gpg &&
+      echo \
+      'deb [arch='$(dpkg --print-architecture)' signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+      '$(. /etc/os-release && echo #{node[:codename]})' stable' | \
+      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null &&
+      sudo apt-get update &&
+      sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+      "
+    not_if 'which docker'
+  end
+  # ユーザをdockerグループに追加
+  execute "sudo gpasswd -a #{node[:user]} docker" do
+    not_if "cat /etc/group | grep docker | grep #{node[:user]}"
   end
   # Docker Compose
   execute "mkdir -p ~/.docker/cli-plugins && curl -L https://github.com/docker/compose/releases/download/v#{docker_compose_version}/docker-compose-#{`uname`.downcase.strip}-#{`uname -m`.strip} -o #{docker_compose_path} && sudo chmod +x #{docker_compose_path}" do
