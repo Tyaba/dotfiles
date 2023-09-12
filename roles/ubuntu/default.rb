@@ -1,5 +1,6 @@
 include_role 'base'
 dotfile ".tmux.conf"
+dotfile '.zsh'
 # systemdのユーザインスタンス置き場ディレクトリ
 directory "#{ENV['HOME']}/.config/systemd/user/default.target.wants" do
     owner node[:user]
