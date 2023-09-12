@@ -2,7 +2,7 @@ case node[:platform]
 when 'darwin'
   package 'google-cloud-sdk'
 else
-  execute 'curl https://sdk.cloud.google.com > tmp/gcloud_install.sh && bash tmp/gcloud_install.sh --disable-prompts --install-dir $HOME/.bin' do
+  execute 'curl https://sdk.cloud.google.com > /tmp/gcloud_install.sh && bash /tmp/gcloud_install.sh --disable-prompts --install-dir $HOME/.bin' do
     not_if 'ls $HOME/.bin/google-cloud-sdk'
   end
 end
