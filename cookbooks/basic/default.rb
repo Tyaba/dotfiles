@@ -8,10 +8,9 @@ when 'ubuntu', 'debian'
   # locales-allはno installation candidateになるのでuniverseをapt repoに入れる
   # universeを入れるために、launchpad-getkeysをinstallしたい。
   # launchpad-getkeysはデフォルトでinstallできないので、ppaを追加する。
-  # TODO: fix ログは出ないし終わらない
   execute 'locale-gen-setup' do
     case node[:platform]
-    when 'ubuntu', 'debian'
+    when 'ubuntu'
       command "
       sudo add-apt-repository -y ppa:nilarimogard/webupd8 &&
       sudo apt-get update &&
@@ -30,7 +29,7 @@ end
 
 # libffi-devを入れる。
 case node[:platform]
-when 'ubuntu', 'debian'
+when 'ubuntu'
   execute "install libffi-dev" do
   command "
     sudo apt-key adv --keyserver hkp://keyserver.#{node[:platform]}.com:80 --recv-keys 15CF4D18AF4F7421 &&

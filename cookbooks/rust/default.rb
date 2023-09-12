@@ -68,11 +68,11 @@ cargo 'hyperfine'
 cargo 'wasm-pack'
 cargo 'git-delta'
 
-execute '''cat <<EOF >> ~/.zsh/lib/aliases.zsh
+execute '''cat <<EOF >> ~/.zsh/lib/aliases
 # cargo-script
 alias rust="cargo-script"
 EOF
 ''' do
-  not_if 'grep cargo-script ~/.zsh/lib/aliases.zsh'
+  not_if 'grep cargo-script ~/.zsh/lib/aliases'
 end
 

@@ -58,17 +58,17 @@ when 'ubuntu', 'debian'
   end
 end
 # zsh用の設定
-execute '''cat <<EOF >> ~/.zsh/lib/apps.zsh
+execute '''cat <<EOF >> ~/.zsh/lib/apps
 
 # Docker
 export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
 EOF
 ''' do
-  not_if 'grep DOCKER_BUILDKIT ~/.zsh/lib/apps.zsh'
+  not_if 'grep DOCKER_BUILDKIT ~/.zsh/lib/apps'
 end
 
-execute '''cat <<EOF >> ~/.zsh/lib/aliases.zsh
+execute '''cat <<EOF >> ~/.zsh/lib/aliases
 
 # Kubernetes
 source <(kubectl completion zsh)
@@ -76,13 +76,13 @@ alias k=kubectl
 complete -o default -F __start_kubectl k
 EOF
 ''' do
-  not_if 'grep kubectl ~/.zsh/lib/aliases.zsh'
+  not_if 'grep kubectl ~/.zsh/lib/aliases'
 end
 
-execute '''cat <<EOF >> ~/.zsh/lib/aliases.zsh
+execute '''cat <<EOF >> ~/.zsh/lib/aliases
 # Docker
 alias d=docker
 EOF
 ''' do
-  not_if 'grep "# Docker" ~/.zsh/lib/aliases.zsh'
+  not_if 'grep "# Docker" ~/.zsh/lib/aliases'
 end

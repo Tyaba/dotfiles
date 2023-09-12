@@ -1,11 +1,10 @@
-#!/bin/zsh
-source ~/.zsh/lib/plugins.zsh
-source ~/.zsh/lib/basic.zsh
-source ~/.zsh/lib/aliases.zsh
-source ~/.zsh/lib/completion.zsh
-source ~/.zsh/lib/functions.zsh
-source ~/.zsh/lib/languages.zsh
-source ~/.zsh/lib/apps.zsh
+source ~/.zsh/lib/plugins
+source ~/.zsh/lib/basic
+source ~/.zsh/lib/aliases
+source ~/.zsh/lib/completion
+source ~/.zsh/lib/functions
+source ~/.zsh/lib/languages
+source ~/.zsh/lib/apps
 
 # Environment-local configurations
 if [ -f ~/.zshrc.`uname` ]; then source ~/.zshrc.`uname`; fi
@@ -15,7 +14,3 @@ fpath+=~/.zfunc
 autoload -Uz compinit && compinit
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-if [ "$OSTYPE" == "msys" ]; then
-    source ~/.zshrc.windows
-fi
