@@ -7,10 +7,12 @@ directory "#{ENV['HOME']}/.config/systemd/user/default.target.wants" do
     mode '755'
 end
 # 依存元
+include_cookbook 'rust'
+include_cookbook 'zsh'
+include_cookbook 'direnv'
 include_cookbook 'fzf'
 include_cookbook 'git'
 include_cookbook 'anyenv'
-include_cookbook 'direnv'
 # 開発系
 include_cookbook 'emacs'
 include_cookbook 'docker'
@@ -27,9 +29,6 @@ include_cookbook 'gibo'
 include_cookbook 'watch'
 include_cookbook 'tree'
 include_cookbook 'nkf'
-# rust依存
-include_cookbook 'rust'
-include_cookbook 'zsh'
 include_cookbook 'procs'
 include_cookbook 'fd'
 # 便利系
