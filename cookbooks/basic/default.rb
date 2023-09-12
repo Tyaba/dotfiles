@@ -37,8 +37,8 @@ when 'ubuntu', 'debian'
     sudo apt-get update &&
     sudo apt-get install -y libffi-dev
     "
-  end
   not_if "dpkg -l | grep '^ii' | grep libffi-dev"
+  end
 end
 
 case node[:platform]
