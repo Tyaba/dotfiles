@@ -1,4 +1,28 @@
 dotfile '.cargo/config.toml'
+package 'cmake'
+case node[:platform]
+when 'darwin'
+  execute 'brew install openssl' do
+    not_if 'test -d /opt/homebrew/opt/openssl@3/'
+  end
+  cargo 'cargo-edit'
+  execute 'ln -s $HOME/.cargo/bin/ /opt/homebrew/opt/rust' do
+    not_if 'test -d /opt/homebrew/opt/rust/'
+  end
+when 'ubuntu', 'debian'
+  package 'libssl-dev'
+  package 'libwayland-cursor0'
+  package 'libwayland-dev'
+  package 'libxcb-render0-dev'
+  package 'libxcb-shape0-dev'
+  package 'libxcb-xfixes0-dev'
+  cargo 'cargo-edit'
+  cargo 'bat'
+  cargo 'exa'
+  cargo 'du-dust'
+  cargo 'bottom'
+end
+
 case node[:platform]
 when 'arch'
   package 'rust'
@@ -29,33 +53,10 @@ unless ENV['PATH'].include?("#{ENV['HOME']}/.cargo/bin:")
   ENV['PATH'] = "#{ENV['HOME']}/.cargo/bin:#{ENV['PATH']}"
 end
 
-package 'cmake'
 execute 'rustup toolchain install nightly' do
   not_if "rustup toolchain list | grep nightly"
 end
 cargo 'rustfmt'
-case node[:platform]
-when 'darwin'
-  execute 'brew install openssl' do
-    not_if 'test -d /opt/homebrew/opt/openssl@3/'
-  end
-  cargo 'cargo-edit'
-  execute 'ln -s $HOME/.cargo/bin/ /opt/homebrew/opt/rust' do
-    not_if 'test -d /opt/homebrew/opt/rust/'
-  end
-when 'ubuntu', 'debian'
-  package 'libwayland-cursor0'
-  package 'libwayland-dev'
-  package 'libxcb-render0-dev'
-  package 'libxcb-shape0-dev'
-  package 'libxcb-xfixes0-dev'
-  cargo 'cargo-edit'
-  cargo 'bat'
-  cargo 'exa'
-  cargo 'du-dust'
-  cargo 'bottom'
-end
-
 cargo 'rust-script'
 cargo 'cargo-update'
 cargo 'cargo-deps'
