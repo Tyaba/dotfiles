@@ -2,30 +2,39 @@ case node[:platform]
 when 'ubuntu', 'debian'
   package 'software-properties-common'
   package 'locales'
+end
   # localeをen_US.UTF-8したい。
   # デフォルトでは無い場合があるのでlocale-gen en_US.UTF-8したい。
   # en_USがないため、locales-allをinstallしたい。
   # locales-allはno installation candidateになるのでuniverseをapt repoに入れる
   # universeを入れるために、launchpad-getkeysをinstallしたい。
   # launchpad-getkeysはデフォルトでinstallできないので、ppaを追加する。
-  execute 'locale-gen-setup' do
-    case node[:platform]
-    when 'ubuntu'
-      command "
-      sudo add-apt-repository -y ppa:nilarimogard/webupd8 &&
-      sudo apt-get update &&
-      sudo apt-get install -y launchpad-getkeys &&
-      sudo apt-get update &&
-      sudo add-apt-repository -y universe &&
-      sudo apt-get update &&
-      sudo apt-get install -y locales-all &&
-      sudo locale-gen en_US.UTF-8 &&
-      sudo update-locale --no-checks LANG=en_US.UTF-8
-      "
-    end
+case node[:platform]
+when 'ubuntu'
+  execute 'locale-gen' do
+    command "
+    sudo add-apt-repository -y ppa:nilarimogard/webupd8 &&
+    sudo apt-get update &&
+    sudo apt-get install -y launchpad-getkeys &&
+    sudo apt-get update &&
+    sudo add-apt-repository -y universe &&
+    sudo apt-get update &&
+    sudo apt-get install -y locales-all &&
+    sudo locale-gen en_US.UTF-8 &&
+    sudo update-locale --no-checks LANG=en_US.UTF-8
+    "
+  not_if "locale | grep en_US.UTF-8"
+  end
+when 'debian'
+  execute 'locale gen' do
+    command '
+    locale-gen --purge "en_US.UTF-8"
+    dpkg-reconfigure --frontend noninteractive locales
+    '
     not_if "locale | grep en_US.UTF-8"
   end
 end
+
 
 # libffi-devを入れる。
 case node[:platform]
