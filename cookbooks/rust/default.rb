@@ -21,11 +21,6 @@ when 'ubuntu', 'debian'
   package 'libxcb-render0-dev'
   package 'libxcb-shape0-dev'
   package 'libxcb-xfixes0-dev'
-  cargo 'cargo-edit'
-  cargo 'bat'
-  cargo 'exa'
-  cargo 'du-dust'
-  cargo 'bottom'
 end
 
 case node[:platform]
@@ -56,6 +51,11 @@ end
 execute 'rustup toolchain install nightly' do
   not_if "rustup toolchain list | grep nightly"
 end
+cargo 'cargo-edit'
+cargo 'bat'
+cargo 'exa'
+cargo 'du-dust'
+cargo 'bottom'
 cargo 'rustfmt'
 cargo 'rust-script'
 cargo 'cargo-update'
