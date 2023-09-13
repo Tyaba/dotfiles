@@ -14,5 +14,6 @@ if run_command('test -d /etc/systemd', error: false).exit_status == 0
   end
 end
 
-include_cookbook 'functions'
+root_dir = File.expand_path('../../..', __FILE__)
+include_recipe File.join(root_dir, 'lib', 'helper')
 include_cookbook 'basic'

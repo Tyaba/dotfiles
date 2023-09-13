@@ -2,6 +2,8 @@ node.reverse_merge!(
   os: run_command('uname').stdout.strip.downcase,
 )
 
+root_dir = File.expand_path('../..', __FILE__)
+
 define :dotfile do
   if params[:name].is_a?(String)
     links = { params[:name] => params[:name] }
@@ -15,7 +17,7 @@ define :dotfile do
     end
 
     link link_from do
-      to File.expand_path("../../../config/#{link_to}", __FILE__)
+      to File.join(root_dir, "config/#{link_to}")
       user node[:user]
       force true
     end
