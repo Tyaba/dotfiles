@@ -1,3 +1,8 @@
+unless ENV['PATH'].include?("#{ENV['HOME']}/.cargo/bin:")
+  MItamae.logger.info('Prepending ~/.cargo/bin to PATH during this execution')
+  ENV['PATH'] = "#{ENV['HOME']}/.cargo/bin:#{ENV['PATH']}"
+end
+
 dotfile '.cargo/config.toml'
 package 'cmake'
 case node[:platform]
@@ -46,11 +51,6 @@ else
   execute 'rustup component add rust-src' do
     not_if 'rustup component list --installed | grep rust-analyzer'
   end
-end
-
-unless ENV['PATH'].include?("#{ENV['HOME']}/.cargo/bin:")
-  MItamae.logger.info('Prepending ~/.cargo/bin to PATH during this execution')
-  ENV['PATH'] = "#{ENV['HOME']}/.cargo/bin:#{ENV['PATH']}"
 end
 
 execute 'rustup toolchain install nightly' do
