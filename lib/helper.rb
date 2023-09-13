@@ -1,7 +1,3 @@
-node.reverse_merge!(
-  os: run_command('uname').stdout.strip.downcase,
-)
-
 root_dir = File.expand_path('../..', __FILE__)
 
 define :dotfile do

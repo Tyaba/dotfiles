@@ -1,7 +1,3 @@
-directory "#{ENV['HOME']}/bin" do
-  owner node[:user]
-end
-
 if run_command('test -d /etc/systemd', error: false).exit_status == 0
   [
     "#{ENV['HOME']}/.config",

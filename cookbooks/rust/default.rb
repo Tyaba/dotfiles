@@ -8,13 +8,7 @@ package 'cmake'
 package 'pkg-config'
 case node[:platform]
 when 'darwin'
-  execute 'brew install openssl' do
-    not_if 'test -d /opt/homebrew/opt/openssl@3/'
-  end
-  cargo 'cargo-edit'
-  execute 'ln -s $HOME/.cargo/bin/ /opt/homebrew/opt/rust' do
-    not_if 'test -d /opt/homebrew/opt/rust/'
-  end
+  package 'openssl'
 when 'ubuntu', 'debian'
   package 'libssl-dev'
   package 'libwayland-cursor0'
@@ -46,6 +40,17 @@ else
   end
   execute 'rustup component add rust-src' do
     not_if 'rustup component list --installed | grep rust-analyzer'
+  end
+end
+
+case node[:platform]
+when 'darwin'
+  cargo 'cargo-edit'
+  case node[:architecture]
+  when 'arm64'
+    execute 'ln -s $HOME/.cargo/bin/ /opt/homebrew/opt/rust' do
+      not_if 'test -d /opt/homebrew/opt/rust/'
+    end
   end
 end
 
