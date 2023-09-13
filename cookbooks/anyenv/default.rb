@@ -43,8 +43,13 @@ end
 
 # ~/.anyenv/envs/pyenv/binをPATHに追加
 unless ENV['PATH'].include?("#{ENV['HOME']}/.anyenv/envs/pyenv/bin:")
-  MItamae.logger.info('Prepending ~/.pyenv/bin to PATH during this execution')
+  MItamae.logger.info('Prepending ~/.anyenv/envs/pyenv/bin to PATH during this execution')
   ENV['PATH'] = "#{ENV['HOME']}/.anyenv/envs/pyenv/bin:#{ENV['PATH']}"
+end
+# pythonをPATHに追加
+unless ENV['PATH'].include?("#{ENV['PYENV_ROOT']}/shims")
+  MItamae.logger.info("Prepending #{ENV['PYENV_ROOT']}/shims to PATH during this execution")
+  ENV['PATH'] = "#{ENV['PYENV_ROOT']}/shims:#{ENV['PATH']}"
 end
 
 # pyenvに必要なパッケージのインストール
@@ -70,11 +75,6 @@ end
 python_version = "3.10"
 execute "pyenv install #{python_version} && pyenv global #{python_version} && pip install -U pip && pip install cython" do
   not_if "pyenv versions | grep #{python_version}"
-end
-# pythonをPATHに追加
-unless ENV['PATH'].include?("#{ENV['PYENV_ROOT']}/shims")
-  MItamae.logger.info('Prepending ~/.poetry/bin to PATH during this execution')
-  ENV['PATH'] = "#{ENV['PYENV_ROOT']}/shims:#{ENV['PATH']}"
 end
 
 # terraform
