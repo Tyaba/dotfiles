@@ -5,6 +5,7 @@ end
 
 dotfile '.cargo/config.toml'
 package 'cmake'
+package 'pkg-config'
 case node[:platform]
 when 'darwin'
   execute 'brew install openssl' do
