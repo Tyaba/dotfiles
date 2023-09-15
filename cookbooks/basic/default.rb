@@ -28,7 +28,8 @@ when 'ubuntu'
 when 'debian'
   execute 'locale gen' do
     command '
-    locale-gen --purge "en_US.UTF-8"
+    sudo apt-get install -y locales-all &&
+    locale-gen --purge "en_US.UTF-8" &&
     dpkg-reconfigure --frontend noninteractive locales
     '
     not_if "locale | grep en_US.UTF-8"
