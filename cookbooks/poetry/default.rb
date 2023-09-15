@@ -6,10 +6,12 @@ unless ENV['PATH'].include?("#{ENV['HOME']}/.local/bin")
   ENV['PATH'] = "#{ENV['HOME']}/.local/bin:#{ENV['PATH']}"
 end
 
+# FIX ME: pyenv環境など権限がないとコケる
 # poetryをinstall
 execute "curl -sSL https://install.python-poetry.org | python -" do
   not_if 'which poetry'
 end
+
 case node[:platform]
 # 補完を有効にする
 when 'darwin'
