@@ -3,6 +3,7 @@ dotfile ".tmux.conf"
 dotfile '.zsh'
 
 # 依存元
+include_cookbook 'basic'
 include_cookbook 'rust'
 include_cookbook 'zsh'
 include_cookbook 'direnv'
