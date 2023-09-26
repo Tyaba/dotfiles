@@ -1,3 +1,4 @@
+dotfile '.config/boto'
 case node[:platform]
 when 'darwin'
   package 'google-cloud-sdk'
