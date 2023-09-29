@@ -36,11 +36,13 @@ when 'darwin'
 when 'ubuntu', 'debian'
   package 'lsb-release'
   execute "install docker" do
+    # ref: https://docs.docker.com/engine/install/ubuntu/
     command "
+      sudo install -m 0755 -d /etc/apt/keyrings &&
       curl -fsSL https://download.docker.com/linux/#{node[:platform]}/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg &&
       sudo chmod a+r /etc/apt/keyrings/docker.gpg &&
       echo \
-      'deb [arch='$(dpkg --print-architecture)' signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+      'deb [arch='$(dpkg --print-architecture)' signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/#{node[:platform]} \
       '$(. /etc/os-release && echo #{node[:codename]})' stable' | \
       sudo tee /etc/apt/sources.list.d/docker.list > /dev/null &&
       sudo apt-get update &&

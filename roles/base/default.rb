@@ -12,4 +12,3 @@ end
 
 root_dir = File.expand_path('../../..', __FILE__)
 include_recipe File.join(root_dir, 'lib', 'helper')
-include_cookbook 'basic'

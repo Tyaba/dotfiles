@@ -7,7 +7,10 @@ directory "#{ENV['HOME']}/.config/systemd/user/default.target.wants" do
     group node[:user]
     mode '755'
 end
+# update
+execute 'apt-get update'
 # 依存元
+include_cookbook 'basic'
 include_cookbook 'rust'
 include_cookbook 'zsh'
 include_cookbook 'direnv'

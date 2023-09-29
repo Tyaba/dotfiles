@@ -40,14 +40,7 @@ end
 # libffi-devを入れる。
 case node[:platform]
 when 'ubuntu'
-  execute "install libffi-dev" do
-  command "
-    sudo apt-key adv --keyserver hkp://keyserver.#{node[:platform]}.com:80 --recv-keys 15CF4D18AF4F7421 &&
-    sudo apt-get update &&
-    sudo apt-get install -y libffi-dev
-  "
-  not_if "dpkg -l | grep '^ii' | grep libffi-dev"
-  end
+  package 'libffi-dev'
 end
 
 case node[:platform]
