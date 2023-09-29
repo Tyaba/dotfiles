@@ -19,6 +19,9 @@ export PRE_COMMIT_COLOR=always
 # ssh agent
 if [ -z $SSH_AUTH_SOCK ]; then
     eval `ssh-agent -s`
+fi
+# 鍵を持ってなければssh agentに鍵を渡す
+if [ ssh-add -l | grep -q "The agent has no identities." ]; then
     if [ -f ~/.ssh/id_ed25519 ]; then
         ssh-add ~/.ssh/id_ed25519
     fi
