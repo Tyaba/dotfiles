@@ -19,6 +19,8 @@ alias ps="procs"
 alias find="fd"
 # bottom replaces top
 alias top="btm"
+# dust replaces du
+alias du="dust"
 # クリップボードコピー/ペースト
 alias pbcopy="xclip -selection clipboard"
 alias pbpaste="xclip -selection c -o"
@@ -35,7 +37,5 @@ alias tf="terraform"
 alias gcurl='curl --header "Authorization: Bearer $(gcloud auth print-identity-token)"'
 # Docker
 alias d=docker
-# dust replaces du
-alias du="dust"
 # cargo-script
 alias rust="cargo-script"

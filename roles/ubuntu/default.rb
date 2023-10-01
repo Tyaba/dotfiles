@@ -1,17 +1,22 @@
 include_role 'base'
 dotfile ".tmux.conf"
+dotfile '.zsh'
 # systemdのユーザインスタンス置き場ディレクトリ
 directory "#{ENV['HOME']}/.config/systemd/user/default.target.wants" do
     owner node[:user]
     group node[:user]
     mode '755'
 end
+# update
+execute 'apt-get update'
 # 依存元
-include_cookbook 'fzf'
+include_cookbook 'basic'
+include_cookbook 'rust'
 include_cookbook 'zsh'
+include_cookbook 'direnv'
+include_cookbook 'fzf'
 include_cookbook 'git'
 include_cookbook 'anyenv'
-include_cookbook 'direnv'
 # 開発系
 include_cookbook 'emacs'
 include_cookbook 'docker'
@@ -28,9 +33,6 @@ include_cookbook 'gibo'
 include_cookbook 'watch'
 include_cookbook 'tree'
 include_cookbook 'nkf'
-# rust依存
-# 代替系
-include_cookbook 'rust'
 include_cookbook 'procs'
 include_cookbook 'fd'
 # 便利系

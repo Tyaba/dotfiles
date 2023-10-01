@@ -18,14 +18,6 @@ git "install anyenv-git" do
   destination dest
 end
 
-# ~/.anyenvをユーザーの所有にする
-case node[:platform]
-when 'ubuntu', 'debian'
-  execute "sudo chown -R #{node[:user]} ~/.anyenv" do
-    not_if "ls -l ~/.anyenv | awk '{print $3}' | grep $(whoami)"
-  end
-end
-
 # ~/.anyenvをPATHに追加
 unless ENV['PATH'].include?("#{ENV['HOME']}/.anyenv/bin:")
   MItamae.logger.info('Prepending ~/.anyenv/bin to PATH during this execution')
@@ -43,8 +35,13 @@ end
 
 # ~/.anyenv/envs/pyenv/binをPATHに追加
 unless ENV['PATH'].include?("#{ENV['HOME']}/.anyenv/envs/pyenv/bin:")
-  MItamae.logger.info('Prepending ~/.pyenv/bin to PATH during this execution')
+  MItamae.logger.info('Prepending ~/.anyenv/envs/pyenv/bin to PATH during this execution')
   ENV['PATH'] = "#{ENV['HOME']}/.anyenv/envs/pyenv/bin:#{ENV['PATH']}"
+end
+# pythonをPATHに追加
+unless ENV['PATH'].include?("#{ENV['PYENV_ROOT']}/shims")
+  MItamae.logger.info("Prepending #{ENV['PYENV_ROOT']}/shims to PATH during this execution")
+  ENV['PATH'] = "#{ENV['PYENV_ROOT']}/shims:#{ENV['PATH']}"
 end
 
 # pyenvに必要なパッケージのインストール
@@ -68,14 +65,12 @@ when 'ubuntu', 'debian'
 end
 
 python_version = "3.10"
-execute "pyenv install #{python_version} && pyenv global #{python_version} && pip install -U pip && pip install cython" do
+execute "pyenv install #{python_version} && pyenv global #{python_version}" do
   not_if "pyenv versions | grep #{python_version}"
 end
-# pythonをPATHに追加
-unless ENV['PATH'].include?("#{ENV['PYENV_ROOT']}/shims")
-  MItamae.logger.info('Prepending ~/.poetry/bin to PATH during this execution')
-  ENV['PATH'] = "#{ENV['PYENV_ROOT']}/shims:#{ENV['PATH']}"
-end
+
+# FIX ME:
+# zshrcをsourceできないので、pyenv initを手動実行する必要あり
 
 # terraform
 execute "anyenv install -f tfenv" do
@@ -102,10 +97,10 @@ else
   end
 end
 
-# 最後に再び~/.anyenvをユーザーの所有にする
+# ~/.anyenvをユーザーの所有にする
 case node[:platform]
 when 'ubuntu', 'debian'
-  execute "sudo chown -R #{node[:user]} ~/.anyenv" do
+  execute "sudo chown -R #{node[:user]}:#{node[:user]} ~/.anyenv" do
     not_if "ls -l ~/.anyenv | awk '{print $3}' | grep $(whoami)"
   end
 end

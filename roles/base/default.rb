@@ -1,7 +1,3 @@
-directory "#{ENV['HOME']}/bin" do
-  owner node[:user]
-end
-
 if run_command('test -d /etc/systemd', error: false).exit_status == 0
   [
     "#{ENV['HOME']}/.config",
@@ -14,5 +10,5 @@ if run_command('test -d /etc/systemd', error: false).exit_status == 0
   end
 end
 
-include_cookbook 'functions'
-include_cookbook 'basic'
+root_dir = File.expand_path('../../..', __FILE__)
+include_recipe File.join(root_dir, 'lib', 'helper')

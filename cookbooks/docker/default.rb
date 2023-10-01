@@ -3,8 +3,12 @@ docker_compose_path = '~/.docker/cli-plugins/docker-compose'
 package 'ca-certificates'
 package 'curl'
 package 'gnupg'
-execute 'sudo mkdir -p /etc/apt/keyrings'
-
+case node[:platform]
+when 'darwin'
+  execute 'mkdir -p /etc/apt/keyrings'
+else
+  execute 'sudo mkdir -p /etc/apt/keyrings'
+end
 case node[:platform]
 when 'darwin'
   execute 'brew install docker-slim' do
@@ -31,21 +35,24 @@ when 'darwin'
   end
 when 'ubuntu', 'debian'
   package 'lsb-release'
-  execute "
-    curl -fsSL https://download.docker.com/linux/#{node[:platform]}/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg &&
-    sudo chmod a+r /etc/apt/keyrings/docker.gpg &&
-    echo \
-    'deb [arch='$(dpkg --print-architecture)' signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-    '$(. /etc/os-release && echo #{node[:codename]})' stable' | \
-    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null &&
-    sudo apt-get update &&
-    sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-    " do
-      not_if 'which docker'
-    # ユーザをdockerグループに追加
-    execute "sudo gpasswd -a #{node[:user]} docker" do
-      not_if "cat /etc/group | grep docker | grep #{node[:user]}"
-    end
+  execute "install docker" do
+    # ref: https://docs.docker.com/engine/install/ubuntu/
+    command "
+      sudo install -m 0755 -d /etc/apt/keyrings &&
+      curl -fsSL https://download.docker.com/linux/#{node[:platform]}/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg &&
+      sudo chmod a+r /etc/apt/keyrings/docker.gpg &&
+      echo \
+      'deb [arch='$(dpkg --print-architecture)' signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/#{node[:platform]} \
+      '$(. /etc/os-release && echo #{node[:codename]})' stable' | \
+      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null &&
+      sudo apt-get update &&
+      sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+      "
+    not_if 'which docker'
+  end
+  # ユーザをdockerグループに追加
+  execute "sudo gpasswd -a #{node[:user]} docker" do
+    not_if "cat /etc/group | grep docker | grep #{node[:user]}"
   end
   # Docker Compose
   execute "mkdir -p ~/.docker/cli-plugins && curl -L https://github.com/docker/compose/releases/download/v#{docker_compose_version}/docker-compose-#{`uname`.downcase.strip}-#{`uname -m`.strip} -o #{docker_compose_path} && sudo chmod +x #{docker_compose_path}" do
@@ -57,17 +64,17 @@ when 'ubuntu', 'debian'
   end
 end
 # zsh用の設定
-execute '''cat <<EOF >> ~/.zsh/lib/apps.zsh
+execute '''cat <<EOF >> ~/.zsh/lib/apps
 
 # Docker
 export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
 EOF
 ''' do
-  not_if 'grep DOCKER_BUILDKIT ~/.zsh/lib/apps.zsh'
+  not_if 'grep DOCKER_BUILDKIT ~/.zsh/lib/apps'
 end
 
-execute '''cat <<EOF >> ~/.zsh/lib/aliases.zsh
+execute '''cat <<EOF >> ~/.zsh/lib/aliases
 
 # Kubernetes
 source <(kubectl completion zsh)
@@ -75,13 +82,13 @@ alias k=kubectl
 complete -o default -F __start_kubectl k
 EOF
 ''' do
-  not_if 'grep kubectl ~/.zsh/lib/aliases.zsh'
+  not_if 'grep kubectl ~/.zsh/lib/aliases'
 end
 
-execute '''cat <<EOF >> ~/.zsh/lib/aliases.zsh
+execute '''cat <<EOF >> ~/.zsh/lib/aliases
 # Docker
 alias d=docker
 EOF
 ''' do
-  not_if 'grep "# Docker" ~/.zsh/lib/aliases.zsh'
+  not_if 'grep "# Docker" ~/.zsh/lib/aliases'
 end

@@ -1,4 +1,23 @@
+unless ENV['PATH'].include?("#{ENV['HOME']}/.cargo/bin:")
+  MItamae.logger.info('Prepending ~/.cargo/bin to PATH during this execution')
+  ENV['PATH'] = "#{ENV['HOME']}/.cargo/bin:#{ENV['PATH']}"
+end
+
 dotfile '.cargo/config.toml'
+package 'cmake'
+package 'pkg-config'
+case node[:platform]
+when 'darwin'
+  package 'openssl'
+when 'ubuntu', 'debian'
+  package 'libssl-dev'
+  package 'libwayland-cursor0'
+  package 'libwayland-dev'
+  package 'libxcb-render0-dev'
+  package 'libxcb-shape0-dev'
+  package 'libxcb-xfixes0-dev'
+end
+
 case node[:platform]
 when 'arch'
   package 'rust'
@@ -24,38 +43,26 @@ else
   end
 end
 
-unless ENV['PATH'].include?("#{ENV['HOME']}/.cargo/bin:")
-  MItamae.logger.info('Prepending ~/.cargo/bin to PATH during this execution')
-  ENV['PATH'] = "#{ENV['HOME']}/.cargo/bin:#{ENV['PATH']}"
+case node[:platform]
+when 'darwin'
+  cargo 'cargo-edit'
+  case node[:architecture]
+  when 'arm64'
+    execute 'ln -s $HOME/.cargo/bin/ /opt/homebrew/opt/rust' do
+      not_if 'test -d /opt/homebrew/opt/rust/'
+    end
+  end
 end
 
-package 'cmake'
 execute 'rustup toolchain install nightly' do
   not_if "rustup toolchain list | grep nightly"
 end
+cargo 'cargo-edit'
+cargo 'bat'
+cargo 'exa'
+cargo 'du-dust'
+cargo 'bottom'
 cargo 'rustfmt'
-case node[:platform]
-when 'darwin'
-  execute 'brew install openssl' do
-    not_if 'test -d /opt/homebrew/opt/openssl@3/'
-  end
-  cargo 'cargo-edit'
-  execute 'ln -s $HOME/.cargo/bin/ /opt/homebrew/opt/rust' do
-    not_if 'test -d /opt/homebrew/opt/rust/'
-  end
-when 'ubuntu', 'debian'
-  package 'libwayland-cursor0'
-  package 'libwayland-dev'
-  package 'libxcb-render0-dev'
-  package 'libxcb-shape0-dev'
-  package 'libxcb-xfixes0-dev'
-  cargo 'cargo-edit'
-  cargo 'bat'
-  cargo 'exa'
-  cargo 'du-dust'
-  cargo 'bottom'
-end
-
 cargo 'rust-script'
 cargo 'cargo-update'
 cargo 'cargo-deps'
@@ -68,11 +75,11 @@ cargo 'hyperfine'
 cargo 'wasm-pack'
 cargo 'git-delta'
 
-execute '''cat <<EOF >> ~/.zsh/lib/aliases.zsh
+execute '''cat <<EOF >> ~/.zsh/lib/aliases
 # cargo-script
 alias rust="cargo-script"
 EOF
 ''' do
-  not_if 'grep cargo-script ~/.zsh/lib/aliases.zsh'
+  not_if 'grep cargo-script ~/.zsh/lib/aliases'
 end
 

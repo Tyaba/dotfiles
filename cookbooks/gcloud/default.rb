@@ -1,8 +1,14 @@
+dotfile '.config/boto'
+# gsutilの暗号化関係のパッケージを入れる
+execute "pip install --no-cache-dir -U crcmod" do
+  not_if "pip list | grep crcmod"
+end
+
 case node[:platform]
 when 'darwin'
   package 'google-cloud-sdk'
 else
-  execute 'curl https://sdk.cloud.google.com > tmp/gcloud_install.sh && bash tmp/gcloud_install.sh --disable-prompts --install-dir $HOME/.bin' do
+  execute 'curl https://sdk.cloud.google.com > /tmp/gcloud_install.sh && bash /tmp/gcloud_install.sh --disable-prompts --install-dir $HOME/.bin' do
     not_if 'ls $HOME/.bin/google-cloud-sdk'
   end
 end

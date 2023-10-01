@@ -15,6 +15,9 @@ export PATH=$GOPATH/bin:$PATH
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init --path)"
 fi
+## pyenv
+export PATH="$HOME/.anyenv/envs/pyenv/bin:$PATH"
+## poetry
 export PATH="$HOME/.poetry/bin:$PATH"
 
 # Deno
