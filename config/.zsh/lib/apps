@@ -6,18 +6,23 @@ if [ -f "$HOME/.bin/google-cloud-sdk/completion.inc" ]; then . "$HOME/.bin/googl
 export CLOUDSDK_PYTHON=python3
 # GCS setting file path (default ~/.boto -> .config/boto)
 export BOTO_CONFIG=$HOME/.config/boto
+
 # Kubectl
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 # Docker
 export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
+
 # Travis CI
 [ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
+
 # direnv
 export EDITOR=emacs
 eval "$(direnv hook zsh)"
+
 # pre-commit
 export PRE_COMMIT_COLOR=always
+
 # ssh agent
 if [ -z $SSH_AUTH_SOCK ]; then
     eval `ssh-agent -s`
@@ -28,3 +33,6 @@ if ssh-add -l | grep -q "The agent has no identities." ; then
         ssh-add ~/.ssh/id_ed25519
     fi
 fi
+
+# fzf
+export PATH=$PATH:$HOME/.fzf/bin
