@@ -1,3 +1,4 @@
+# coding: utf-8
 include_role 'base'
 dotfile ".tmux.conf"
 dotfile '.zsh'
@@ -37,4 +38,4 @@ include_cookbook 'procs'
 include_cookbook 'fd'
 # 便利系
 include_cookbook 'tokei'
-include_coolbook 'htop'
+include_cookbook 'htop'
