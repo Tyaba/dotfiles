@@ -10,6 +10,8 @@ directory "#{ENV['HOME']}/.config/systemd/user/default.target.wants" do
 end
 # update
 execute 'apt-get update'
+# 状況把握
+include_cookbook 'htop'
 # 依存元
 include_cookbook 'basic'
 include_cookbook 'rust'
@@ -38,4 +40,4 @@ include_cookbook 'procs'
 include_cookbook 'fd'
 # 便利系
 include_cookbook 'tokei'
-include_cookbook 'htop'
+include_cookbook 'ncdu'
