@@ -27,6 +27,7 @@ export PRE_COMMIT_COLOR=always
 if [ "$VSCODE_PID" = "" ] && [ "$TERM_PROGRAM" != "vscode" ]; then
     # vscode以外の場合
     if [ -z $SSH_AUTH_SOCK ]; then
+        # 起動しているssh-agentのソケットがなければ、起動する
         eval `ssh-agent -s`
     fi
     # 鍵を持ってなければssh agentに鍵を渡す
@@ -37,13 +38,21 @@ if [ "$VSCODE_PID" = "" ] && [ "$TERM_PROGRAM" != "vscode" ]; then
     fi
 else
     # vscodeの場合
-    # echo "This is a vscode-terminal. SSH_AUTH_SOCK=$SSH_AUTH_SOCK"
-    ssh-add -l 1>/dev/null 2>/dev/null
-    if [[ "$?" != "0" ]]; then
-        export SSH_AUTH_SOCK=$(\ls -lt /tmp/ssh-**/* | awk '{print $9}' | head -n1 | \grep -Po '.*\d+');
-        # echo "Replaced SSH_AUTH_SOCK to $SSH_AUTH_SOCK"
+    echo "VSCode terminalを検知 SSH_AUTH_SOCK=$SSH_AUTH_SOCK"
+    # 鍵を持ってなければ、持たせる
+    if ssh-add -l | grep -q "The agent has no identities." ; then
+        echo "ssh agentが鍵を持っていません。"
+        # awkでファイル名を取り出し
+        if [[ -n $(\ls -l /tmp/ssh-**/* | \grep '^rwxr-xr-x' | awk '{print $9}') ]] ; then
+            echo "参照すべき別のSSH_AUTH_SOCKがみつかりました。変更します"
+            export SSH_AUTH_SOCK=$(\ls -l /tmp/ssh-**/* | \grep '^rwxr-xr-x' | awk '{print $9}')
+            echo "変更しました: SSH_AUTH_SOCK=$SSH_AUTH_SOCK"
+        fi
+    else
+        echo "ssh agentが鍵を持っています。"
     fi
 fi
+
 
 # fzf
 export PATH=$PATH:$HOME/.fzf/bin
