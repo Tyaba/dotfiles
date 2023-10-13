@@ -24,13 +24,24 @@ eval "$(direnv hook zsh)"
 export PRE_COMMIT_COLOR=always
 
 # ssh agent
-if [ -z $SSH_AUTH_SOCK ]; then
-    eval `ssh-agent -s`
-fi
-# 鍵を持ってなければssh agentに鍵を渡す
-if ssh-add -l | grep -q "The agent has no identities." ; then
-    if [ -f ~/.ssh/id_ed25519 ]; then
-        ssh-add ~/.ssh/id_ed25519
+if [ "$VSCODE_PID" = "" ] && [ "$TERM_PROGRAM" != "vscode" ]; then
+    # vscode以外の場合
+    if [ -z $SSH_AUTH_SOCK ]; then
+        eval `ssh-agent -s`
+    fi
+    # 鍵を持ってなければssh agentに鍵を渡す
+    if ssh-add -l | grep -q "The agent has no identities." ; then
+        if [ -f ~/.ssh/id_ed25519 ]; then
+            ssh-add ~/.ssh/id_ed25519
+        fi
+    fi
+else
+    # vscodeの場合
+    # echo "This is a vscode-terminal. SSH_AUTH_SOCK=$SSH_AUTH_SOCK"
+    ssh-add -l 1>/dev/null 2>/dev/null
+    if [[ "$?" != "0" ]]; then
+        export SSH_AUTH_SOCK=$(\ls -lt /tmp/ssh-**/* | awk '{print $9}' | head -n1 | \grep -Po '.*\d+');
+        # echo "Replaced SSH_AUTH_SOCK to $SSH_AUTH_SOCK"
     fi
 fi
 
