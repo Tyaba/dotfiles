@@ -25,7 +25,7 @@ include_cookbook 'emacs'
 include_cookbook 'docker'
 include_cookbook 'gcloud'
 include_cookbook 'poetry'
-include_cookbook 'gpg-agent'
+# include_cookbook 'gpg-agent'
 include_cookbook 'ssh-agent'
 # 代替系
 include_cookbook 'ripgrep'
