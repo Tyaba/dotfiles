@@ -5,7 +5,7 @@
 remote_file "#{ENV['HOME']}/.config/systemd/user/ssh-agent.service" do
     source 'files/ssh-agent.service'
     owner node[:user]
-    group node[:user]
+    # group node[:user]
 end
 # systemdのユーザインスタンスの環境変数は.bashrcなどの設定を継承しない。.pam-environmentに設定する
 remote_file "#{ENV['HOME']}/.pam-environment" do

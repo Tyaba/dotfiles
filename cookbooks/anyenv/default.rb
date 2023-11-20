@@ -100,7 +100,7 @@ end
 # ~/.anyenvをユーザーの所有にする
 case node[:platform]
 when 'ubuntu', 'debian'
-  execute "sudo chown -R #{node[:user]}:#{node[:user]} ~/.anyenv" do
+  execute "sudo chown -R #{node[:user]} ~/.anyenv" do
     not_if "ls -l ~/.anyenv | awk '{print $3}' | grep $(whoami)"
   end
 end

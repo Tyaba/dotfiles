@@ -4,7 +4,7 @@ dotfile '.zsh'
 # systemdのユーザインスタンス置き場ディレクトリ
 directory "#{ENV['HOME']}/.config/systemd/user/default.target.wants" do
     owner node[:user]
-    group node[:user]
+    # group node[:user]
     mode '755'
 end
 # update
