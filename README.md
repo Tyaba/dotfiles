@@ -6,6 +6,12 @@
 ```shell
 git clone --recursive https://github.com/Tyaba/dotfiles.git
 ```
+
+## Prerequisites
+```shell
+sudo apt update
+sudo apt install -y curl lsb-release
+```
 ### wslの場合
 windowsのPATHが入っているとinstall済と誤判定するので直す
 sudo emacs /etc/wsl.conf
