@@ -6,25 +6,54 @@ if [ -f "$HOME/.bin/google-cloud-sdk/completion.inc" ]; then . "$HOME/.bin/googl
 export CLOUDSDK_PYTHON=python3
 # GCS setting file path (default ~/.boto -> .config/boto)
 export BOTO_CONFIG=$HOME/.config/boto
+
 # Kubectl
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 # Docker
 export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
+
 # Travis CI
 [ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
+
 # direnv
 export EDITOR=emacs
 eval "$(direnv hook zsh)"
+
 # pre-commit
 export PRE_COMMIT_COLOR=always
+
 # ssh agent
-if [ -z $SSH_AUTH_SOCK ]; then
-    eval `ssh-agent -s`
-fi
-# 鍵を持ってなければssh agentに鍵を渡す
-if ssh-add -l | grep -q "The agent has no identities." ; then
-    if [ -f ~/.ssh/id_ed25519 ]; then
-        ssh-add ~/.ssh/id_ed25519
+if [ "$VSCODE_PID" = "" ] && [ "$TERM_PROGRAM" != "vscode" ]; then
+    # vscode以外の場合
+    if [ -z $SSH_AUTH_SOCK ]; then
+        # 起動しているssh-agentのソケットがなければ、起動する
+        eval `ssh-agent -s`
+    fi
+    # 鍵を持ってなければssh agentに鍵を渡す
+    if ssh-add -l | grep -q "The agent has no identities." ; then
+        if [ -f ~/.ssh/id_ed25519 ]; then
+            ssh-add ~/.ssh/id_ed25519
+        fi
+    fi
+else
+    # vscodeの場合
+    echo "VSCode terminalを検知 SSH_AUTH_SOCK=$SSH_AUTH_SOCK"
+    # 鍵を持ってなければ、持たせる
+    if ssh-add -l | grep -q "The agent has no identities." ; then
+        echo "ssh agentが鍵を持っていません。"
+        # awkでファイル名を取り出し
+        new_ssh_auth_sock=$(\ls -l /tmp/ssh-**/* | \grep 'rwxr-xr-x' | awk '{print $9}')
+        if [[ -n new_ssh_auth_sock ]] ; then
+            echo "参照すべき別のSSH_AUTH_SOCKがみつかりました。変更します"
+            export SSH_AUTH_SOCK=$new_ssh_auth_sock
+            echo "変更しました: SSH_AUTH_SOCK=$SSH_AUTH_SOCK"
+        fi
+    else
+        echo "ssh agentが鍵を持っています。"
     fi
 fi
+
+
+# fzf
+export PATH=$PATH:$HOME/.fzf/bin

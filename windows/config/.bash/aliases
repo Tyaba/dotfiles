@@ -1,6 +1,5 @@
 alias emacs='emacs -nw'
 # replace系
-alias git="hub"
 # bat replaces cat
 alias cat="bat"
 # dust replaces du

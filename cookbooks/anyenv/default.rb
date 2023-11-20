@@ -64,13 +64,16 @@ when 'ubuntu', 'debian'
   package 'python3-distutils'
 end
 
+# FIX ME:
+# zshrcをsourceできないので、pyenv initを手動実行する必要あり
+execute "pyenv init --path" do
+  not_if "which pyenv"
+end
+
 python_version = "3.10"
 execute "pyenv install #{python_version} && pyenv global #{python_version}" do
   not_if "pyenv versions | grep #{python_version}"
 end
-
-# FIX ME:
-# zshrcをsourceできないので、pyenv initを手動実行する必要あり
 
 # terraform
 execute "anyenv install -f tfenv" do
@@ -100,7 +103,5 @@ end
 # ~/.anyenvをユーザーの所有にする
 case node[:platform]
 when 'ubuntu', 'debian'
-  execute "sudo chown -R #{node[:user]} ~/.anyenv" do
-    not_if "ls -l ~/.anyenv | awk '{print $3}' | grep $(whoami)"
-  end
+  execute "sudo chown -R #{node[:user]} ~/.anyenv"
 end

@@ -29,3 +29,4 @@ include_cookbook 'procs'
 include_cookbook 'fd'
 # 便利系
 include_cookbook 'tokei'
+include_coolbook 'htop'

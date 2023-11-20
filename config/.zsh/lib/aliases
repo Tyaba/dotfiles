@@ -6,7 +6,6 @@ alias g="git"
 alias s="git status -sb"
 
 # replace
-alias git="hub"
 # bat replaces cat
 alias cat="bat"
 # rip grep replaces grep
