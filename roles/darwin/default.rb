@@ -2,6 +2,8 @@ include_role 'base'
 dotfile ".tmux.conf"
 dotfile '.zsh'
 
+## 状況把握
+include_cookbook 'htop'
 # 依存元
 include_cookbook 'basic'
 include_cookbook 'rust'
@@ -15,7 +17,6 @@ include_cookbook 'emacs'
 include_cookbook 'docker'
 include_cookbook 'gcloud'
 include_cookbook 'poetry'
-
 # 代替系
 include_cookbook 'ripgrep'
 include_cookbook 'hub'
@@ -29,4 +30,7 @@ include_cookbook 'procs'
 include_cookbook 'fd'
 # 便利系
 include_cookbook 'tokei'
-include_coolbook 'htop'
+include_cookbook 'ncdu'
+# mac固有
+include_cookbook 'gnu-sed'
+include_cookbook 'karabiner-elements'
