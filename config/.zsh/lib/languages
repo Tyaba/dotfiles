@@ -19,6 +19,7 @@ fi
 export PATH="$HOME/.anyenv/envs/pyenv/bin:$PATH"
 ## poetry
 export PATH="$HOME/.poetry/bin:$PATH"
+export PYTHON_KEYRING_BACKEND="keyring.backends.null.Keyring"
 
 # Deno
 export PATH=$HOME/.deno/bin:$PATH
