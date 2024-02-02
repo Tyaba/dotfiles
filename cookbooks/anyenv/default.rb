@@ -64,13 +64,12 @@ when 'ubuntu', 'debian'
   package 'python3-distutils'
 end
 
-# FIX ME:
-# zshrcをsourceできないので、pyenv initを手動実行する必要あり
 execute "pyenv init --path" do
   not_if "which pyenv"
 end
 
 python_version = "3.10"
+# FIX: pyenv versions | grep 3.10が、未installでも成功してるっぽい。そのため、pyenv install 3.10が実行されてない。
 execute "pyenv install #{python_version} && pyenv global #{python_version}" do
   not_if "pyenv versions | grep #{python_version}"
 end
