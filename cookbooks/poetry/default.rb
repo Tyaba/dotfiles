@@ -7,7 +7,8 @@ unless ENV['PATH'].include?("#{ENV['HOME']}/.local/bin")
 end
 
 # poetryをinstall
-execute "curl -sSL https://install.python-poetry.org | python -" do
+execute "install poetry" do
+  command "pipx install poetry"
   not_if 'which poetry'
 end
 

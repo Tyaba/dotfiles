@@ -25,6 +25,8 @@ github = "wting/autojump"
 dir = "bin"
 apply = ["PATH", "source"]
 
+[plugins.asdf]
+github = "asdf-vm/asdf"
 
 # 補完系
 [plugins.zsh-completions]
