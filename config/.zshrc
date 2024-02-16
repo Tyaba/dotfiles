@@ -1,4 +1,4 @@
-source ~/.zsh/lib/vscode_settings
+# source ~/.zsh/lib/vscode_settings
 fpath+=~/.zfunc
 autoload -Uz compinit && compinit
 
