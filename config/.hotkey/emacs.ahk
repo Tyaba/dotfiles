@@ -23,6 +23,8 @@ is_target()
     Return 1
   IfWinActive,ahk_exe Code.exe ; vscode
     Return 1
+  IfWinActive,ahk_exe Code - Insiders.exe; vscode insiders
+    Return 1
   IfWinActive,ahk_exe WindowsTerminal.exe ; windows terminal
     Return 1
   IfWinActive,ahk_exe blender.exe ; blender
