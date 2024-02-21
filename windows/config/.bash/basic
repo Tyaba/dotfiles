@@ -10,5 +10,5 @@ function share_history {
         history -c &&
         history -r
 }
-PROMPT_COMMAND='share_history'
+export PROMPT_COMMAND=${PROMPT_COMMAND};share_history
 shopt -u histappend
