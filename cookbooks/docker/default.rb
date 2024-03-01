@@ -3,12 +3,7 @@ docker_compose_path = '~/.docker/cli-plugins/docker-compose'
 package 'ca-certificates'
 package 'curl'
 package 'gnupg'
-case node[:platform]
-when 'darwin'
-  execute 'mkdir -p /etc/apt/keyrings'
-else
-  execute 'sudo mkdir -p /etc/apt/keyrings'
-end
+
 case node[:platform]
 when 'darwin'
   execute 'brew install docker-slim' do
@@ -34,6 +29,9 @@ when 'darwin'
     end
   end
 when 'ubuntu', 'debian'
+  execute 'sudo mkdir -p /etc/apt/keyrings' do
+    not_if 'test -d /etc/apt/keyrings'
+  end
   package 'lsb-release'
   execute "install docker" do
     # ref: https://docs.docker.com/engine/install/ubuntu/
