@@ -6,6 +6,8 @@ include_cookbook 'brew'
 ## 状況把握
 include_cookbook 'htop'
 include_cookbook 'visual-studio-code'
+include_cookbook 'karabiner-elements'
+include_cookbook 'iterm'
 # 依存元
 include_cookbook 'basic'
 include_cookbook 'rust'
@@ -36,12 +38,10 @@ include_cookbook 'tokei'
 include_cookbook 'ncdu'
 # mac CLI tools
 include_cookbook 'gnu-sed'
-include_cookbook 'karabiner-elements'
 # mac GUI tools
 include_cookbook 'mas'
 include_cookbook 'bitwarden'
 include_cookbook 'discord'
-include_cookbook 'iterm'
 include_cookbook 'line'
 include_cookbook 'slack'
 include_cookbook 'scroll-reverser'

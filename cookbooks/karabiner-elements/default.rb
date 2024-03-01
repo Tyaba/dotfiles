@@ -1,7 +1,9 @@
 case node[:platform]
 when 'darwin'
   package 'karabiner-elements'
-  execute 'ln -sf $HOME/.dotfiles/config/.hotkey/karabiner_elements/* $HOME/.config/karabiner/assets/complex_modifications'
+  # karabiner-elementsの設定ファイルをリンクする
+  execute 'mkdir -p $HOME/.config'
+  execute 'ln -sf $HOME/.dotfiles/config/.config/karabiner/ $HOME/.config/'
 else
   raise NotImplementedError
 end
