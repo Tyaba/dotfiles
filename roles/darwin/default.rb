@@ -2,6 +2,7 @@ include_role 'base'
 dotfile ".tmux.conf"
 dotfile '.zsh'
 
+include_cookbook 'brew'
 ## 状況把握
 include_cookbook 'htop'
 # 依存元
@@ -32,6 +33,17 @@ include_cookbook 'fd'
 # 便利系
 include_cookbook 'tokei'
 include_cookbook 'ncdu'
-# mac固有
+# mac CLI tools
 include_cookbook 'gnu-sed'
 include_cookbook 'karabiner-elements'
+# mac GUI tools
+include_cookbook 'mas'
+include_cookbook 'bitwarden'
+include_cookbook 'discord'
+include_cookbook 'line'
+include_cookbook 'visual-studio-code'
+include_cookbook 'vlc'
+include_cookbook 'slack'
+include_cookbook 'scroll-reverser'
+include_cookbook 'vivaldi'
+include_cookbook 'zoom'
