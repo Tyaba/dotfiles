@@ -6,6 +6,7 @@ when 'darwin'
   end
   execute 'brew update' do
     command 'brew update'
+  end
 else
   raise NotImplementedError
 end
