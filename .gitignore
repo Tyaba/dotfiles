@@ -1,3 +1,4 @@
+.DS_Store
 bin/mitamae*
 tmp/*
 config/.hotkey/*.exe
