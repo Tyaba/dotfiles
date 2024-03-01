@@ -21,7 +21,7 @@ define :dotfile do
 end
 
 define :github_binary, raw_url: nil, version: nil, repository: nil, archive: nil, binary_path: nil do
-  sudo_prefix = 'sudo ' if ['ubuntu', 'debian'].include?(node[:platform]) else ''
+  sudo_prefix = 'sudo ' if ['ubuntu', 'debian', 'darwin'].include?(node[:platform]) else ''
   cmd = params[:name]
   bin_path = "/usr/local/bin/#{cmd}"
   archive = params[:archive]
