@@ -1,7 +1,7 @@
 include_role 'base'
 dotfile ".tmux.conf"
 dotfile '.zsh'
-
+include_cookbook 'darwin_base'
 include_cookbook 'brew'
 ## 状況把握
 include_cookbook 'htop'
