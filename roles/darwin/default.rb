@@ -31,12 +31,13 @@ include_cookbook 'pipx'
 include_cookbook 'asdf'
 # 開発系
 include_cookbook 'emacs'
+include_cookbook 'ghq'
+include_cookbook 'gh'
 include_cookbook 'docker'
 include_cookbook 'gcloud'
 include_cookbook 'poetry'
 # 代替系
 include_cookbook 'ripgrep'
-include_cookbook 'hub'
 include_cookbook 'tldr'
 # 便利系
 include_cookbook 'gibo'
