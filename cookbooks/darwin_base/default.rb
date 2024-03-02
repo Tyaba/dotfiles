@@ -1,10 +1,11 @@
+# ref: https://furusax0621.hatenablog.com/entry/2019/03/06/093921
 case node[:platform]
 when 'darwin'
   execute 'disable screen saver' do
     command 'defaults -currentHost write com.apple.screensaver idleTime -int 0'
     not_if 'defaults -currentHost read com.apple.screensaver idleTime | test -w 0'
   end
-  execute 'disable hidden files' do
+  execute 'disable hidden files in finder' do
     command 'defaults write com.apple.finder AppleShowAllFiles -boolean true'
     not_if 'defaults read com.apple.finder AppleShowAllFiles | test -w 1'
   end
@@ -12,7 +13,7 @@ when 'darwin'
     command 'defaults write com.apple.inputmethod.Kotoeri JIMPrefLiveConversionKey 0'
     not_if 'defaults read com.apple.inputmethod.Kotoeri JIMPrefLiveConversionKey | test -w 0'
   end
-  execute 'display suffix' do
+  execute 'display suffix in finder' do
     command 'defaults write NSGlobalDomain AppleShowAllExtension -bool true'
     not_if 'defaults read NSGlobalDomain AppleShowAllExtension | test -w 1'
   end
@@ -36,6 +37,10 @@ when 'darwin'
   execute 'set dark mode' do
     command "osascript -e 'tell application \"System Events\" to tell appearance preferences to set dark mode to true'"
     not_if "osascript -e 'tell application \"System Events\" to tell appearance preferences to get dark mode' | test -w true"
+  end
+  execute 'disable DS_Store' do
+    command 'defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true && defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true'
+    not_if 'defaults read com.apple.desktopservices DSDontWriteNetworkStores | test -w 1'
   end
 else
   raise NotImplementedError
