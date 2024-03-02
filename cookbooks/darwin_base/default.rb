@@ -42,6 +42,12 @@ when 'darwin'
     command 'defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true && defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true'
     not_if 'defaults read com.apple.desktopservices DSDontWriteNetworkStores | test -w 1'
   end
+  # font
+  # you can search font with `brew search '/font-.*-nerd-font/'`
+  execute 'download hack nerd font' do
+    command"brew tap homebrew/cask-fonts && brew install --cask font-meslo-lg-nerd-font"
+    not_if 'brew list --cask | grep font-meslo-lg-nerd-font'
+  end
 else
   raise NotImplementedError
 end
