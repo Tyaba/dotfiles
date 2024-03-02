@@ -10,6 +10,7 @@ def cmd(
     src_modifiers: list[str] | None = ["control"],
     src_modifiers_opt: list[str] | None = ["caps_lock"],
     dst_modifiers: list[str] | None = ["left_command"],
+    conditions: list[dict[str, Any]] | None = [cond_disable],
 ) -> dict[str, Any]:
     """cmd+src -> dstのマッピングを生成する"""
     data = {
@@ -22,7 +23,7 @@ def cmd(
             },
         },
         "to": [{}],
-        "conditions": [cond_disable],
+        "conditions": conditions if conditions is not None else [],
     }
     if dst is not None:
         data["to"] = [
@@ -69,6 +70,7 @@ def normal_cmd(
     src_modifiers: list[str] | None = ["control"],
     src_modifiers_opt: list[str] | None = ["caps_lock"],
     dst_modifiers: list[str] | None = ["left_command"],
+    conditions: list[dict[str, Any]] | None = [cond_disable],
 ):
     """通常のコマンド"""
     data = cmd(
@@ -77,6 +79,7 @@ def normal_cmd(
         src_modifiers=src_modifiers,
         src_modifiers_opt=src_modifiers_opt,
         dst_modifiers=dst_modifiers,
+        conditions=conditions,
     )
     data["conditions"].append({"type": "variable_unless", "name": "C-x", "value": 1})
     if clear_space:
