@@ -54,6 +54,16 @@ def get_manipulators() -> list:
         list: manipulators
     """
     manipulators = []
+    # alt + tab -> command + atmark
+    # 同一アプリケーションの次のウィンドウに移動
+    manipulators.append(
+        normal_cmd(
+            "tab",
+            "2",
+            src_modifiers=["option"],
+            dst_modifiers=["left_command", "left_shift"]
+        )
+    )
     # C-x C-f, C-f
     manipulators.append(ctrl_x_cmd("f", "o"))
     manipulators.extend(move_cmds("f", "right_arrow", dst_modifiers=None))

@@ -10,6 +10,56 @@
                 {
                     "type": "basic",
                     "from": {
+                        "key_code": "tab",
+                        "modifiers": {
+                            "mandatory": [
+                                "option"
+                            ],
+                            "optional": [
+                                "caps_lock"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "2",
+                            "modifiers": [
+                                "left_command",
+                                "left_shift"
+                            ]
+                        },
+                        {
+                            "set_variable": {
+                                "name": "C-SPC",
+                                "value": 0
+                            }
+                        }
+                    ],
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "bundle_identifiers": [
+                                "^org\\.gnu\\.Emacs$",
+                                "^com\\.apple\\.Terminal$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
+                                "^org\\.x\\.X11$",
+                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.microsoft\\.VSCode$"
+                            ]
+                        },
+                        {
+                            "type": "variable_unless",
+                            "name": "C-x",
+                            "value": 1
+                        }
+                    ]
+                },
+                {
+                    "type": "basic",
+                    "from": {
                         "key_code": "f",
                         "modifiers": {
                             "mandatory": [
