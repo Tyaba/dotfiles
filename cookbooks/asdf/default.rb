@@ -78,3 +78,14 @@ else
     not_if 'which tflint'
   end
 end
+
+# kubectl
+execute "install kubectl plugin into asdf" do
+    command "asdf plugin-add kubectl https://github.com/asdf-community/asdf-kubectl.git"
+    not_if "asdf plugin list | grep kubectl"
+end
+
+execute "install kubectl" do
+    command "asdf install kubectl latest && asdf global kubectl $(asdf list kubectl | tail -n 1)"
+    not_if "which kubectl"
+end
