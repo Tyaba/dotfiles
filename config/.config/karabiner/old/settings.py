@@ -15,9 +15,7 @@ cond_disable = {
 
 cond_disable_desktop = {
     "type": "frontmost_application_unless",
-    "bundle_identifiers": [
-
-    ],
+    "bundle_identifiers": [],
 }
 
 set_spc = {"set_variable": {"name": "C-SPC", "value": 1}}

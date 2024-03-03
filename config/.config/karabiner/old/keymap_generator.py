@@ -62,7 +62,7 @@ def get_manipulators() -> list:
             "2",
             src_modifiers=["option"],
             dst_modifiers=["left_command", "left_shift"],
-            conditions=None
+            conditions=None,
         )
     )
     # C-x C-f, C-f
