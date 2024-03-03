@@ -1,5 +1,5 @@
 {
-    "title": "Emacs key bindings (tyaba) 2024-03-03_22:51:16",
+    "title": "Emacs key bindings (tyaba) 2024-03-03_23:49:17",
     "maintainers": [
         "tyaba"
     ],
@@ -45,15 +45,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -84,15 +84,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -141,15 +141,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -180,15 +180,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -237,15 +237,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -276,15 +276,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -333,15 +333,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -372,15 +372,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -431,15 +431,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -472,15 +472,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -531,15 +531,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -572,15 +572,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -629,15 +629,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -668,15 +668,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -720,15 +720,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -772,15 +772,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -834,15 +834,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -878,15 +878,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -932,15 +932,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -986,15 +986,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -1040,15 +1040,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -1093,15 +1093,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -1138,15 +1138,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -1192,15 +1192,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -1246,15 +1246,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -1300,15 +1300,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -1358,15 +1358,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -1410,15 +1410,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -1459,15 +1459,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -1519,15 +1519,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -1576,15 +1576,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -1615,15 +1615,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -1669,15 +1669,15 @@
                             "name": null,
                             "value": null,
                             "bundle_identifiers": [
-                                "^org\\.x\\.X11$",
-                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.vim\\.",
                                 "^org\\.macosforge\\.xquartz\\.X11$",
-                                "^org\\.macports\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
                                 "^com\\.apple\\.x11$",
-                                "^com\\.apple\\.Terminal$",
-                                "^org\\.gnu\\.Emacs$",
                                 "^com\\.microsoft\\.VSCode$",
-                                "^org\\.vim\\."
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
                             ]
                         }
                     ],
@@ -1718,7 +1718,6 @@
                         }
                     ],
                     "type": "basic",
-                    
                     "to_delayed_action": null
                 }
             ]
@@ -1747,7 +1746,6 @@
                         }
                     ],
                     "type": "basic",
-                    
                     "to_delayed_action": null
                 }
             ]

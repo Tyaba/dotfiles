@@ -1,4 +1,4 @@
-"""python ~/.dotfiles/config/.config/karabiner/src/keymap_generator.py
+"""python ~/.dotfiles/config/.config/karabiner/old/keymap_generator.py
 inspired from https://github.com/takeshi-yashiro/karabiner-elements-emacs
 """
 import json

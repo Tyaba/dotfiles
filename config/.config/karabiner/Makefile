@@ -1,6 +1,6 @@
-.PHONY: download-stubs
-download-stubs:
-	poetry run mypy --install-types --non-interactive
+.PHONY: generate
+generate:
+	poetry run python -m keymap_generator.app.generate_keymap
 
 .PHONY: lint
 lint:
@@ -16,3 +16,7 @@ format:
 vet:
 	make format
 	make lint
+
+.PHONY: download-stubs
+download-stubs:
+	poetry run mypy --install-types --non-interactive
