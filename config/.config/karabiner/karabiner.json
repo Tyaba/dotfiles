@@ -21,6 +21,32 @@
                         "description": "Emacs key bindings (tyaba)",
                         "manipulators": [
                             {
+                                "from": {
+                                    "key_code": "tab",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_alt"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "2",
+                                        "modifiers": [
+                                            "left_command",
+                                            "left_shift"
+                                        ]
+                                    },
+                                    {
+                                        "set_variable": {
+                                            "name": "C-SPC",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
