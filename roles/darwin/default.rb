@@ -37,6 +37,7 @@ include_cookbook 'gh'
 include_cookbook 'docker'
 include_cookbook 'gcloud'
 include_cookbook 'poetry'
+include_cookbook 'helm'
 # 代替系
 include_cookbook 'ripgrep'
 include_cookbook 'tldr'
