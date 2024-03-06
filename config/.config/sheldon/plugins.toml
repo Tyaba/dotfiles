@@ -17,13 +17,12 @@ shell = "zsh"
 [plugins.enhanced]
 # cd -> ls automation
 github = 'b4b4r07/enhancd'
+
 [plugins.emoji-cli]
 github = 'b4b4r07/emoji-cli'
-[plugins.autojump]
-# https://github.com/wting/autojump
-github = "wting/autojump"
-dir = "bin"
-apply = ["PATH", "source"]
+
+[plugins.zsh-z]
+github = "agkozak/zsh-z"
 
 [plugins.asdf]
 github = "asdf-vm/asdf"
