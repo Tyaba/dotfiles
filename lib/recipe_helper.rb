@@ -13,16 +13,4 @@ MItamae::RecipeContext.class_eval do
     result = run_command("dpkg-query -f '${Status}' -W #{name.shellescape} | grep -E '^(install|hold) ok installed$'", error: false)
     result.exit_status == 0
   end
-
-  def codespaces?
-    ENV['CODESPACES'] == 'true'
-  end
-
-  def remote_containers?
-    ENV['REMOTE_CONTAINERS'] == 'true'
-  end
-
-  def devcontainer?
-    codespaces? || remote_containers?
-  end
 end
