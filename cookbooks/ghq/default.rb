@@ -5,6 +5,6 @@ execute 'install ghq' do
         asdf global ghq latest
     EOF
     not_if 'asdf plugin list | grep ghq'
-    # $REMOTE_CONTAINERがtrueの場合は実行しない
-    not_if 'echo $REMOTE_CONTAINER'
+    # $REMOTE_CONTAINERSがtrueの場合は実行しない
+    not_if 'echo $REMOTE_CONTAINERS'
 end
