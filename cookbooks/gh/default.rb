@@ -14,7 +14,12 @@ case node[:platform]
         raise NotImplementedError
 end
 
-# use gh-q
-execute 'gh extension install kawarimidoll/gh-q' do
-    not_if 'gh extension list | grep gh-q'
+if ENV['REMOTE_CONTAINERS'] then
+    MItamae.logger.info('devcontainerを検知 gh-qのインストールをスキップします')
+else
+    MItamae.logger.info("devcontainerではないです。gh-qをインストールします")
+    # use gh-q
+    execute 'gh extension install kawarimidoll/gh-q' do
+        not_if 'gh extension list | grep gh-q'
+    end
 end
