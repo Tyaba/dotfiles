@@ -35,17 +35,20 @@ when 'ubuntu', 'debian'
   package 'lsb-release'
   execute "install docker" do
     # ref: https://docs.docker.com/engine/install/ubuntu/
-    command "
-      sudo install -m 0755 -d /etc/apt/keyrings &&
-      curl -fsSL https://download.docker.com/linux/#{node[:platform]}/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg &&
-      sudo chmod a+r /etc/apt/keyrings/docker.gpg &&
+    command <<-EOF
+      for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done
+      sudo apt-get update
+      sudo apt-get install ca-certificates curl
+      sudo install -m 0755 -d /etc/apt/keyrings
+      sudo curl -fsSL https://download.docker.com/linux/#{node[:platform]}/gpg -o /etc/apt/keyrings/docker.asc
+      sudo chmod a+r /etc/apt/keyrings/docker.asc
       echo \
-      'deb [arch='$(dpkg --print-architecture)' signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/#{node[:platform]} \
+      'deb [arch='$(dpkg --print-architecture)' signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/#{node[:platform]} \
       '$(. /etc/os-release && echo #{node[:codename]})' stable' | \
-      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null &&
-      sudo apt-get update &&
+      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+      sudo apt-get update
       sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-      "
+      EOF
     not_if 'which docker'
   end
   # ユーザをdockerグループに追加
@@ -55,10 +58,6 @@ when 'ubuntu', 'debian'
   # Docker Compose
   execute "mkdir -p ~/.docker/cli-plugins && curl -L https://github.com/docker/compose/releases/download/v#{docker_compose_version}/docker-compose-#{`uname`.downcase.strip}-#{`uname -m`.strip} -o #{docker_compose_path} && sudo chmod +x #{docker_compose_path}" do
     not_if "docker compose version | grep v#{docker_compose_version}"
-  end
-  # Kubernetes
-  execute 'wget "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" -P /tmp && sudo install -o root -g root -m 0755 /tmp/kubectl /usr/local/bin/kubectl' do
-    not_if 'which kubectl'
   end
 end
 # zsh用の設定
