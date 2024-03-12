@@ -1,1 +1,1 @@
-package 'ripgrep'
+cargo 'ripgrep'

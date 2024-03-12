@@ -1,0 +1,1754 @@
+{
+    "title": "Emacs key bindings (tyaba) 2024-03-03_23:49:17",
+    "maintainers": [
+        "tyaba"
+    ],
+    "rules": [
+        {
+            "description": "カーソル右移動",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "f",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "right_arrow",
+                            "modifiers": null,
+                            "set_variable": null
+                        },
+                        {
+                            "key_code": null,
+                            "modifiers": [
+                                "left_shift"
+                            ],
+                            "set_variable": null
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "variable_if",
+                            "name": "C-SPC",
+                            "value": 1,
+                            "bundle_identifiers": null
+                        },
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                },
+                {
+                    "from": {
+                        "key_code": "f",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "right_arrow",
+                            "modifiers": null,
+                            "set_variable": null
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                }
+            ]
+        },
+        {
+            "description": "カーソル左移動",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "b",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "left_arrow",
+                            "modifiers": null,
+                            "set_variable": null
+                        },
+                        {
+                            "key_code": null,
+                            "modifiers": [
+                                "left_shift"
+                            ],
+                            "set_variable": null
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "variable_if",
+                            "name": "C-SPC",
+                            "value": 1,
+                            "bundle_identifiers": null
+                        },
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                },
+                {
+                    "from": {
+                        "key_code": "b",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "left_arrow",
+                            "modifiers": null,
+                            "set_variable": null
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                }
+            ]
+        },
+        {
+            "description": "カーソル上移動",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "p",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "up_arrow",
+                            "modifiers": null,
+                            "set_variable": null
+                        },
+                        {
+                            "key_code": null,
+                            "modifiers": [
+                                "left_shift"
+                            ],
+                            "set_variable": null
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "variable_if",
+                            "name": "C-SPC",
+                            "value": 1,
+                            "bundle_identifiers": null
+                        },
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                },
+                {
+                    "from": {
+                        "key_code": "p",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "up_arrow",
+                            "modifiers": null,
+                            "set_variable": null
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                }
+            ]
+        },
+        {
+            "description": "カーソル下移動",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "n",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "down_arrow",
+                            "modifiers": null,
+                            "set_variable": null
+                        },
+                        {
+                            "key_code": null,
+                            "modifiers": [
+                                "left_shift"
+                            ],
+                            "set_variable": null
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "variable_if",
+                            "name": "C-SPC",
+                            "value": 1,
+                            "bundle_identifiers": null
+                        },
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                },
+                {
+                    "from": {
+                        "key_code": "n",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "down_arrow",
+                            "modifiers": null,
+                            "set_variable": null
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                }
+            ]
+        },
+        {
+            "description": "行頭へ移動",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "a",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "left_arrow",
+                            "modifiers": [
+                                "left_command"
+                            ],
+                            "set_variable": null
+                        },
+                        {
+                            "key_code": null,
+                            "modifiers": [
+                                "left_shift"
+                            ],
+                            "set_variable": null
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "variable_if",
+                            "name": "C-SPC",
+                            "value": 1,
+                            "bundle_identifiers": null
+                        },
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                },
+                {
+                    "from": {
+                        "key_code": "a",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "left_arrow",
+                            "modifiers": [
+                                "left_command"
+                            ],
+                            "set_variable": null
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                }
+            ]
+        },
+        {
+            "description": "行末へ移動",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "e",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "right_arrow",
+                            "modifiers": [
+                                "left_command"
+                            ],
+                            "set_variable": null
+                        },
+                        {
+                            "key_code": null,
+                            "modifiers": [
+                                "left_shift"
+                            ],
+                            "set_variable": null
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "variable_if",
+                            "name": "C-SPC",
+                            "value": 1,
+                            "bundle_identifiers": null
+                        },
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                },
+                {
+                    "from": {
+                        "key_code": "e",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "right_arrow",
+                            "modifiers": [
+                                "left_command"
+                            ],
+                            "set_variable": null
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                }
+            ]
+        },
+        {
+            "description": "ページダウン",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "v",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "page_down",
+                            "modifiers": null,
+                            "set_variable": null
+                        },
+                        {
+                            "key_code": null,
+                            "modifiers": [
+                                "left_shift"
+                            ],
+                            "set_variable": null
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "variable_if",
+                            "name": "C-SPC",
+                            "value": 1,
+                            "bundle_identifiers": null
+                        },
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                },
+                {
+                    "from": {
+                        "key_code": "v",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "page_down",
+                            "modifiers": null,
+                            "set_variable": null
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                }
+            ]
+        },
+        {
+            "description": "一文字先を削除",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "d",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "delete_forward",
+                            "modifiers": null,
+                            "set_variable": null
+                        },
+                        {
+                            "key_code": null,
+                            "modifiers": null,
+                            "set_variable": {
+                                "name": "C-SPC",
+                                "value": 0
+                            }
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                }
+            ]
+        },
+        {
+            "description": "一文字前を削除",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "h",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "delete_or_backspace",
+                            "modifiers": null,
+                            "set_variable": null
+                        },
+                        {
+                            "key_code": null,
+                            "modifiers": null,
+                            "set_variable": {
+                                "name": "C-SPC",
+                                "value": 0
+                            }
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                }
+            ]
+        },
+        {
+            "description": "その行のカーソルより後ろを削除",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "k",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "right_arrow",
+                            "modifiers": [
+                                "left_shift",
+                                "left_command"
+                            ],
+                            "set_variable": null
+                        },
+                        {
+                            "key_code": "x",
+                            "modifiers": [
+                                "left_command"
+                            ],
+                            "set_variable": null
+                        },
+                        {
+                            "key_code": null,
+                            "modifiers": null,
+                            "set_variable": {
+                                "name": "C-SPC",
+                                "value": 0
+                            }
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                }
+            ]
+        },
+        {
+            "description": "キャンセル",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "g",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "escape",
+                            "modifiers": null,
+                            "set_variable": null
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                }
+            ]
+        },
+        {
+            "description": "検索",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "s",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "f",
+                            "modifiers": [
+                                "left_command"
+                            ],
+                            "set_variable": null
+                        },
+                        {
+                            "key_code": null,
+                            "modifiers": null,
+                            "set_variable": {
+                                "name": "C-SPC",
+                                "value": 0
+                            }
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                }
+            ]
+        },
+        {
+            "description": "切り取り",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "w",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "x",
+                            "modifiers": [
+                                "left_command"
+                            ],
+                            "set_variable": null
+                        },
+                        {
+                            "key_code": null,
+                            "modifiers": null,
+                            "set_variable": {
+                                "name": "C-SPC",
+                                "value": 0
+                            }
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                }
+            ]
+        },
+        {
+            "description": "貼り付け",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "y",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "v",
+                            "modifiers": [
+                                "left_command"
+                            ],
+                            "set_variable": null
+                        },
+                        {
+                            "key_code": null,
+                            "modifiers": null,
+                            "set_variable": {
+                                "name": "C-SPC",
+                                "value": 0
+                            }
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                }
+            ]
+        },
+        {
+            "description": "範囲選択を開始",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "spacebar",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": null,
+                            "modifiers": null,
+                            "set_variable": {
+                                "name": "C-SPC",
+                                "value": 1
+                            }
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "variable_unless",
+                            "name": "C-SPC",
+                            "value": 1,
+                            "bundle_identifiers": null
+                        },
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                },
+                {
+                    "from": {
+                        "key_code": "spacebar",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "escape",
+                            "modifiers": null,
+                            "set_variable": null
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "variable_if",
+                            "name": "C-SPC",
+                            "value": 1,
+                            "bundle_identifiers": null
+                        },
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                }
+            ]
+        },
+        {
+            "description": "undo",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "u",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "z",
+                            "modifiers": [
+                                "left_command"
+                            ],
+                            "set_variable": null
+                        },
+                        {
+                            "key_code": null,
+                            "modifiers": null,
+                            "set_variable": {
+                                "name": "C-SPC",
+                                "value": 0
+                            }
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                }
+            ]
+        },
+        {
+            "description": "保存",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "s",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "s",
+                            "modifiers": [
+                                "left_command"
+                            ],
+                            "set_variable": null
+                        },
+                        {
+                            "key_code": null,
+                            "modifiers": null,
+                            "set_variable": {
+                                "name": "C-SPC",
+                                "value": 0
+                            }
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                }
+            ]
+        },
+        {
+            "description": "ウィンドウを閉じる",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "c",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "w",
+                            "modifiers": [
+                                "left_command"
+                            ],
+                            "set_variable": null
+                        },
+                        {
+                            "key_code": null,
+                            "modifiers": null,
+                            "set_variable": {
+                                "name": "C-SPC",
+                                "value": 0
+                            }
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                },
+                {
+                    "from": {
+                        "key_code": "c",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "w",
+                            "modifiers": [
+                                "left_command",
+                                "left_shift"
+                            ],
+                            "set_variable": null
+                        },
+                        {
+                            "key_code": null,
+                            "modifiers": null,
+                            "set_variable": {
+                                "name": "C-SPC",
+                                "value": 0
+                            }
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_if",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^com\\.google\\.Chrome$"
+                            ]
+                        },
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                }
+            ]
+        },
+        {
+            "description": "ファイルを開く",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "f",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "o",
+                            "modifiers": null,
+                            "set_variable": null
+                        },
+                        {
+                            "key_code": null,
+                            "modifiers": null,
+                            "set_variable": {
+                                "name": "C-SPC",
+                                "value": 0
+                            }
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                }
+            ]
+        },
+        {
+            "description": "ctrl xした時にフラグを一瞬有効にする",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "x",
+                        "modifiers": {
+                            "mandatory": [
+                                "control"
+                            ],
+                            "optional": [
+                                "caps_lock"
+                            ]
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": null,
+                            "modifiers": null,
+                            "set_variable": {
+                                "name": "C-x",
+                                "value": 1
+                            }
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": {
+                        "to_if_invoked": [
+                            {
+                                "key_code": null,
+                                "modifiers": null,
+                                "set_variable": {
+                                    "name": "C-x",
+                                    "value": 0
+                                }
+                            }
+                        ],
+                        "to_if_canceled": [
+                            {
+                                "key_code": null,
+                                "modifiers": null,
+                                "set_variable": {
+                                    "name": "C-x",
+                                    "value": 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "from": {
+                        "key_code": null,
+                        "modifiers": {
+                            "mandatory": null,
+                            "optional": [
+                                "any"
+                            ]
+                        },
+                        "any": "key_code"
+                    },
+                    "to": null,
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "variable_if",
+                            "name": "C-x",
+                            "value": 1,
+                            "bundle_identifiers": null
+                        },
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                }
+            ]
+        },
+        {
+            "description": "ページアップ",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "v",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_option"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "page_up",
+                            "modifiers": null,
+                            "set_variable": null
+                        },
+                        {
+                            "key_code": null,
+                            "modifiers": [
+                                "left_shift"
+                            ],
+                            "set_variable": null
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "variable_if",
+                            "name": "C-SPC",
+                            "value": 1,
+                            "bundle_identifiers": null
+                        },
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                },
+                {
+                    "from": {
+                        "key_code": "v",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_option"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "page_up",
+                            "modifiers": null,
+                            "set_variable": null
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                }
+            ]
+        },
+        {
+            "description": "コピー",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "w",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_option"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "c",
+                            "modifiers": [
+                                "left_command"
+                            ],
+                            "set_variable": null
+                        },
+                        {
+                            "key_code": null,
+                            "modifiers": null,
+                            "set_variable": {
+                                "name": "C-SPC",
+                                "value": 0
+                            }
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "name": null,
+                            "value": null,
+                            "bundle_identifiers": [
+                                "^org\\.vim\\.",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^com\\.googlecode\\.iterm2$",
+                                "^com\\.apple\\.x11$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.x\\.X11$",
+                                "^org\\.macports\\.X11$",
+                                "^com\\.apple\\.Terminal$"
+                            ]
+                        }
+                    ],
+                    "to_delayed_action": null
+                }
+            ]
+        },
+        {
+            "description": "同一アプリケーションの次のウィンドウに移動",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "tab",
+                        "modifiers": {
+                            "mandatory": [
+                                "option"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "2",
+                            "modifiers": [
+                                "left_command",
+                                "left_shift"
+                            ],
+                            "set_variable": null
+                        },
+                        {
+                            "key_code": null,
+                            "modifiers": null,
+                            "set_variable": {
+                                "name": "C-SPC",
+                                "value": 0
+                            }
+                        }
+                    ],
+                    "type": "basic",
+                    "to_delayed_action": null
+                }
+            ]
+        },
+        {
+            "description": "言語切り替え",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "backslash",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_control"
+                            ],
+                            "optional": null
+                        },
+                        "any": null
+                    },
+                    "to": [
+                        {
+                            "key_code": "spacebar",
+                            "modifiers": [
+                                "left_control"
+                            ],
+                            "set_variable": null
+                        }
+                    ],
+                    "type": "basic",
+                    "to_delayed_action": null
+                }
+            ]
+        }
+    ]
+}

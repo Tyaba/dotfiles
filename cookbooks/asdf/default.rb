@@ -57,6 +57,29 @@ execute "asdf install terraform" do
     not_if "asdf current terraform"
 end
 
+# tflint
+case node[:platform]
+when 'darwin'
+    package 'tflint'
+else
+    execute 'install tflint' do
+        command 'curl -s https://raw.githubusercontent.com/terraform-linters/' +\
+        'tflint/master/install_linux.sh | bash'
+        not_if 'which tflint'
+    end
+end
+
+# kubectl
+execute "install kubectl plugin into asdf" do
+    command "asdf plugin-add kubectl https://github.com/asdf-community/asdf-kubectl.git"
+    not_if "asdf plugin list | grep kubectl"
+end
+
+execute "install kubectl" do
+    command "asdf install kubectl latest && asdf global kubectl $(asdf list kubectl | tail -n 1)"
+    not_if "which kubectl"
+end
+
 # node
 execute "asdf install nodejs plugin" do
     command "asdf plugin add nodejs"
@@ -69,12 +92,13 @@ execute "asdf install nodejs" do
     not_if "asdf current nodejs"
 end
 
-# tflint
-case node[:platform]
-when 'darwin'
-  package 'tflint'
-else
-  execute 'curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash' do
-    not_if 'which tflint'
-  end
+# pnpm
+execute "install pnpm plugin into asdf" do
+    command "asdf plugin-add pnpm"
+    not_if "asdf plugin list | grep pnpm"
+end
+
+execute "install pnpm" do
+    command "asdf install pnpm latest && asdf global pnpm $(asdf list pnpm | tail -n 1)"
+    not_if "which pnpm"
 end

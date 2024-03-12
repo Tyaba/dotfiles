@@ -28,9 +28,9 @@
 [pull]
   	rebase = true
 [ghq]
-  	root = ~/Works
+  	root = ~/ghq
 [url "git@github.com:"]
- 	 pushInsteadOf = https://github.com/
+	pushInsteadOf = https://github.com/
   	pushInsteadOf = git://github.com/
 [url "git@gist.github.com:"]
   	pushInsteadOf = https://gist.github.com/

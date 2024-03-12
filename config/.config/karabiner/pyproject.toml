@@ -1,0 +1,47 @@
+[tool.poetry]
+name = "keymap_generator"
+version = "1.0.0"
+description = ""
+authors = ["TeppeiYoshino <yoshino_teppei@cyberagent.co.jp>"]
+packages = [{ include = "keymap_generator", from = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pydantic = "^2.6.3"
+pydantic-settings = "^2.2.1"
+
+[tool.poetry.group.dev.dependencies]
+black = { extras = ["jupyter"], version = "^22.12.0" }
+mypy = "^1.1.1"
+isort = "^5.12.0"
+flake8-pyproject = "^1.2.3"
+datamodel-code-generator = "^0.25.4"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = "E203,W503,W504"
+
+[tool.black]
+line-length = 88
+
+[tool.isort]
+combine_as_imports = "True"
+include_trailing_comma = "True"
+use_parentheses = "True"
+force_grid_wrap = 0
+multi_line_output = 3
+line_length = 88
+skip = [".git", ".tox", ".venv", ".eggs", "build", "dist", "docs"]
+
+[tool.mypy]
+strict_optional = "True"
+warn_redundant_casts = "True"
+disallow_any_generics = "True"
+check_untyped_defs = "True"
+disallow_untyped_defs = "True"
+ignore_missing_imports = "True"
+warn_unused_ignores = "False"
