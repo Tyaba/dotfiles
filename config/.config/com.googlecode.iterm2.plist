@@ -303,6 +303,28 @@
 					<key>Text</key>
 					<string>0x7f</string>
 				</dict>
+				<key>0x62-0x80000-0xb</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Label</key>
+					<string></string>
+					<key>Text</key>
+					<string>b</string>
+					<key>Version</key>
+					<integer>1</integer>
+				</dict>
+				<key>0x66-0x80000-0x3</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Label</key>
+					<string></string>
+					<key>Text</key>
+					<string>f</string>
+					<key>Version</key>
+					<integer>1</integer>
+				</dict>
 				<key>0xf700-0x220000</key>
 				<dict>
 					<key>Action</key>
