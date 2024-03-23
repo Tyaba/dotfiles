@@ -29,14 +29,14 @@
                                     },
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -66,14 +66,14 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -108,14 +108,14 @@
                                     },
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -145,14 +145,14 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -187,14 +187,14 @@
                                     },
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -224,14 +224,14 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -266,14 +266,14 @@
                                     },
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -303,14 +303,14 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -345,14 +345,14 @@
                                     },
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -385,14 +385,14 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -430,14 +430,14 @@
                                     },
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -470,14 +470,14 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -515,14 +515,14 @@
                                     },
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -552,14 +552,14 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -589,14 +589,14 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -632,14 +632,14 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -675,14 +675,14 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -728,14 +728,14 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -765,14 +765,14 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -811,14 +811,14 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -857,14 +857,14 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -908,21 +908,21 @@
                                     },
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "open_bracket",
+                                    "key_code": "spacebar",
                                     "modifiers": {
                                         "mandatory": [
                                             "left_control"
@@ -948,21 +948,21 @@
                                     },
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "open_bracket",
+                                    "key_code": "spacebar",
                                     "modifiers": {
                                         "mandatory": [
                                             "left_control"
@@ -979,44 +979,20 @@
                         ]
                     },
                     {
-                        "description": "C-SPC -> C-@",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "spacebar",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "left_control"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "open_bracket",
-                                        "modifiers": [
-                                            "left_control"
-                                        ]
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "undo",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -1055,14 +1031,14 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -1101,14 +1077,14 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -1148,14 +1124,14 @@
                                     },
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -1195,14 +1171,14 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -1238,14 +1214,14 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -1299,14 +1275,14 @@
                                     },
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -1336,14 +1312,14 @@
                                     },
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -1373,14 +1349,14 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -1410,14 +1386,14 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -1461,14 +1437,14 @@
                                     },
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -1501,14 +1477,14 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -1546,14 +1522,14 @@
                                     },
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -1586,14 +1562,14 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macports\\.X11$",
                                             "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
                                             "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"

@@ -384,7 +384,7 @@ def set_mark_rule() -> Rule:
         manipulators=[
             Manipulator(
                 from_=From(
-                    key_code="spacebar",
+                    key_code="open_bracket",
                     modifiers=FromModifiers(
                         mandatory=["left_control"],
                     ),
@@ -405,7 +405,7 @@ def set_mark_rule() -> Rule:
             # 一度有効にしたら、次回はキャンセルにする
             Manipulator(
                 from_=From(
-                    key_code="spacebar",
+                    key_code="open_bracket",
                     modifiers=FromModifiers(
                         mandatory=["left_control"],
                     ),
@@ -423,6 +423,30 @@ def set_mark_rule() -> Rule:
                     )
                 ],
             ),
+        ],
+    )
+    return rule
+
+
+def ctrl_space2ctrl_at_rule() -> Rule:
+    """C-SPC -> C-@"""
+    rule = Rule(
+        description="C-SPC -> C-@",
+        manipulators=[
+            Manipulator(
+                from_=From(
+                    key_code="spacebar",
+                    modifiers=FromModifiers(
+                        mandatory=["left_control"],
+                    ),
+                ),
+                to=[
+                    ToItem(
+                        key_code="open_bracket",
+                        modifiers=["left_control"],
+                    )
+                ],
+            )
         ],
     )
     return rule
@@ -450,5 +474,6 @@ def generate_ctrl_rules() -> list[Rule]:
         cut_rule(),
         yank_rule(),
         set_mark_rule(),
+        ctrl_space2ctrl_at_rule()
     ]
     return rules
