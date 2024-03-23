@@ -63,6 +63,58 @@ def copy_rule() -> Rule:
     return rule
 
 
+@emacs_exclude
+@add_shift_if_marked
+def forward_word() -> Rule:
+    """一単語先へ"""
+    rule = Rule(
+        description="一単語先へ",
+        manipulators=[
+            Manipulator(
+                from_=From(
+                    key_code="f",
+                    modifiers=FromModifiers(
+                        mandatory=["left_option"],
+                    ),
+                ),
+                to=[
+                    ToItem(
+                        key_code="right_arrow",
+                        modifiers=["left_option"],
+                    )
+                ],
+            )
+        ],
+    )
+    return rule
+
+
+@emacs_exclude
+@add_shift_if_marked
+def backward_word() -> Rule:
+    """一単語前へ"""
+    rule = Rule(
+        description="一単語前へ",
+        manipulators=[
+            Manipulator(
+                from_=From(
+                    key_code="b",
+                    modifiers=FromModifiers(
+                        mandatory=["left_option"],
+                    ),
+                ),
+                to=[
+                    ToItem(
+                        key_code="left_arrow",
+                        modifiers=["left_option"],
+                    )
+                ],
+            )
+        ],
+    )
+    return rule
+
+
 def generate_alt_rules() -> list[Rule]:
     """alt系のルールを生成する
 
@@ -72,5 +124,7 @@ def generate_alt_rules() -> list[Rule]:
     rules: list[Rule] = [
         pageup_rule(),
         copy_rule(),
+        forward_word(),
+        backward_word(),
     ]
     return rules

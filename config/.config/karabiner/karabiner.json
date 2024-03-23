@@ -18,119 +18,72 @@
                 },
                 "rules": [
                     {
-                        "description": "Emacs key bindings (tyaba)",
+                        "description": "カーソル右移動",
                         "manipulators": [
                             {
-                                "from": {
-                                    "key_code": "tab",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "left_alt"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "2",
-                                        "modifiers": [
-                                            "left_command",
-                                            "left_shift"
-                                        ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "C-SPC",
-                                            "value": 0
-                                        }
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
                                 "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_if",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "f",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "o",
-                                        "modifiers": [
-                                            "left_command"
-                                        ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "C-SPC",
-                                            "value": 0
-                                        }
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    },
                                     {
                                         "name": "C-SPC",
-                                        "type": "variable_unless",
+                                        "type": "variable_if",
                                         "value": 1
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
+                                            "^org\\.x\\.X11$"
+                                        ],
+                                        "type": "frontmost_application_unless"
                                     }
                                 ],
                                 "from": {
                                     "key_code": "f",
                                     "modifiers": {
                                         "mandatory": [
-                                            "control"
+                                            "left_control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_arrow"
+                                    },
+                                    {
+                                        "modifiers": [
+                                            "left_shift"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
+                                            "^org\\.x\\.X11$"
                                         ],
-                                        "optional": [
-                                            "caps_lock",
-                                            "shift"
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "f",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
                                         ]
                                     }
                                 },
@@ -140,49 +93,47 @@
                                     }
                                 ],
                                 "type": "basic"
-                            },
+                            }
+                        ]
+                    },
+                    {
+                        "description": "カーソル左移動",
+                        "manipulators": [
                             {
                                 "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    },
                                     {
                                         "name": "C-SPC",
                                         "type": "variable_if",
                                         "value": 1
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
+                                            "^org\\.x\\.X11$"
+                                        ],
+                                        "type": "frontmost_application_unless"
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "f",
+                                    "key_code": "b",
                                     "modifiers": {
                                         "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock",
-                                            "shift"
+                                            "left_control"
                                         ]
                                     }
                                 },
                                 "to": [
                                     {
-                                        "key_code": "right_arrow",
+                                        "key_code": "left_arrow"
+                                    },
+                                    {
                                         "modifiers": [
                                             "left_shift"
                                         ]
@@ -194,40 +145,77 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^com\\.google\\.Chrome$"
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
+                                            "^org\\.x\\.X11$"
                                         ],
-                                        "type": "frontmost_application_if"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_if",
-                                        "value": 1
+                                        "type": "frontmost_application_unless"
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "c",
+                                    "key_code": "b",
                                     "modifiers": {
                                         "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
+                                            "left_control"
                                         ]
                                     }
                                 },
                                 "to": [
                                     {
-                                        "key_code": "w",
-                                        "modifiers": [
-                                            "left_shift",
-                                            "left_command"
-                                        ]
+                                        "key_code": "left_arrow"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "カーソル上移動",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "C-SPC",
+                                        "type": "variable_if",
+                                        "value": 1
                                     },
                                     {
-                                        "set_variable": {
-                                            "name": "C-SPC",
-                                            "value": 0
-                                        }
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
+                                            "^org\\.x\\.X11$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "p",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "up_arrow"
+                                    },
+                                    {
+                                        "modifiers": [
+                                            "left_shift"
+                                        ]
                                     }
                                 ],
                                 "type": "basic"
@@ -236,47 +224,77 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
                                             "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
                                             "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
+                                            "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_if",
-                                        "value": 1
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "c",
+                                    "key_code": "p",
                                     "modifiers": {
                                         "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
+                                            "left_control"
                                         ]
                                     }
                                 },
                                 "to": [
                                     {
-                                        "key_code": "w",
-                                        "modifiers": [
-                                            "left_command"
-                                        ]
+                                        "key_code": "up_arrow"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "カーソル下移動",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "C-SPC",
+                                        "type": "variable_if",
+                                        "value": 1
                                     },
                                     {
-                                        "set_variable": {
-                                            "name": "C-SPC",
-                                            "value": 0
-                                        }
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
+                                            "^org\\.x\\.X11$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "n",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "down_arrow"
+                                    },
+                                    {
+                                        "modifiers": [
+                                            "left_shift"
+                                        ]
                                     }
                                 ],
                                 "type": "basic"
@@ -285,32 +303,310 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
                                             "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
                                             "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
+                                            "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "n",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "down_arrow"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "行頭へ移動",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "C-SPC",
+                                        "type": "variable_if",
+                                        "value": 1
                                     },
                                     {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
+                                            "^org\\.x\\.X11$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "a",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_arrow",
+                                        "modifiers": [
+                                            "left_command"
+                                        ]
+                                    },
+                                    {
+                                        "modifiers": [
+                                            "left_shift"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
+                                            "^org\\.x\\.X11$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "a",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_arrow",
+                                        "modifiers": [
+                                            "left_command"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "行末へ移動",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "C-SPC",
+                                        "type": "variable_if",
                                         "value": 1
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
+                                            "^org\\.x\\.X11$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "e",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_arrow",
+                                        "modifiers": [
+                                            "left_command"
+                                        ]
+                                    },
+                                    {
+                                        "modifiers": [
+                                            "left_shift"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
+                                            "^org\\.x\\.X11$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "e",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_arrow",
+                                        "modifiers": [
+                                            "left_command"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "ページダウン",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "C-SPC",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
+                                            "^org\\.x\\.X11$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "v",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "page_down"
+                                    },
+                                    {
+                                        "modifiers": [
+                                            "left_shift"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
+                                            "^org\\.x\\.X11$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "v",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "page_down"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "一文字先を削除",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
+                                            "^org\\.x\\.X11$"
+                                        ],
+                                        "type": "frontmost_application_unless"
                                     }
                                 ],
                                 "from": {
                                     "key_code": "d",
                                     "modifiers": {
                                         "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
+                                            "left_control"
                                         ]
                                     }
                                 },
@@ -326,37 +622,34 @@
                                     }
                                 ],
                                 "type": "basic"
-                            },
+                            }
+                        ]
+                    },
+                    {
+                        "description": "一文字前を削除",
+                        "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
                                             "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
                                             "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
+                                            "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
                                     }
                                 ],
                                 "from": {
                                     "key_code": "h",
                                     "modifiers": {
                                         "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
+                                            "left_control"
                                         ]
                                     }
                                 },
@@ -372,37 +665,34 @@
                                     }
                                 ],
                                 "type": "basic"
-                            },
+                            }
+                        ]
+                    },
+                    {
+                        "description": "その行のカーソルより後ろを削除",
+                        "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
                                             "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
                                             "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
+                                            "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
                                     }
                                 ],
                                 "from": {
                                     "key_code": "k",
                                     "modifiers": {
                                         "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
+                                            "left_control"
                                         ]
                                     }
                                 },
@@ -415,54 +705,7 @@
                                         ]
                                     },
                                     {
-                                        "set_variable": {
-                                            "name": "C-SPC",
-                                            "value": 0
-                                        }
-                                    },
-                                    {
                                         "key_code": "x",
-                                        "modifiers": "left_command"
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "o",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "right_arrow",
                                         "modifiers": [
                                             "left_command"
                                         ]
@@ -472,282 +715,74 @@
                                             "name": "C-SPC",
                                             "value": 0
                                         }
-                                    },
-                                    {
-                                        "key_code": "return_or_enter"
-                                    },
-                                    {
-                                        "key_code": "up_arrow"
                                     }
                                 ],
                                 "type": "basic"
-                            },
+                            }
+                        ]
+                    },
+                    {
+                        "description": "キャンセル",
+                        "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
                                             "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
                                             "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
+                                            "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
                                     }
                                 ],
                                 "from": {
                                     "key_code": "g",
                                     "modifiers": {
                                         "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
+                                            "left_control"
                                         ]
                                     }
                                 },
                                 "to": [
                                     {
                                         "key_code": "escape"
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "C-SPC",
-                                            "value": 0
-                                        }
                                     }
                                 ],
                                 "type": "basic"
-                            },
+                            }
+                        ]
+                    },
+                    {
+                        "description": "検索",
+                        "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
                                             "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
                                             "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
+                                            "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "j",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "return_or_enter"
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "C-SPC",
-                                            "value": 0
-                                        }
-                                    },
-                                    {
-                                        "key_code": "tab"
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "m",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "return_or_enter"
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "C-SPC",
-                                            "value": 0
-                                        }
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "m",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "tab"
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "C-SPC",
-                                            "value": 0
-                                        }
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_if",
-                                        "value": 1
                                     }
                                 ],
                                 "from": {
                                     "key_code": "s",
                                     "modifiers": {
                                         "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "s",
-                                        "modifiers": [
-                                            "left_command"
-                                        ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "C-SPC",
-                                            "value": 0
-                                        }
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "s",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
+                                            "left_control"
                                         ]
                                     }
                                 },
@@ -766,86 +801,34 @@
                                     }
                                 ],
                                 "type": "basic"
-                            },
+                            }
+                        ]
+                    },
+                    {
+                        "description": "切り取り",
+                        "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
                                             "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
                                             "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
+                                            "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "r",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "f",
-                                        "modifiers": [
-                                            "left_command"
-                                        ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "C-SPC",
-                                            "value": 0
-                                        }
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
                                     }
                                 ],
                                 "from": {
                                     "key_code": "w",
                                     "modifiers": {
                                         "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
+                                            "left_control"
                                         ]
                                     }
                                 },
@@ -864,86 +847,34 @@
                                     }
                                 ],
                                 "type": "basic"
-                            },
+                            }
+                        ]
+                    },
+                    {
+                        "description": "貼り付け",
+                        "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
                                             "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
                                             "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
+                                            "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "w",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "option"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "c",
-                                        "modifiers": [
-                                            "left_command"
-                                        ]
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "C-SPC",
-                                            "value": 0
-                                        }
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
                                     }
                                 ],
                                 "from": {
                                     "key_code": "y",
                                     "modifiers": {
                                         "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
+                                            "left_control"
                                         ]
                                     }
                                 },
@@ -962,37 +893,116 @@
                                     }
                                 ],
                                 "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "範囲選択を開始",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "C-SPC",
+                                        "type": "variable_unless",
+                                        "value": 1
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
+                                            "^org\\.x\\.X11$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "spacebar",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "C-SPC",
+                                            "value": 1
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
                             },
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
+                                        "name": "C-SPC",
+                                        "type": "variable_if",
+                                        "value": 1
                                     },
                                     {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
+                                            "^org\\.x\\.X11$"
+                                        ],
+                                        "type": "frontmost_application_unless"
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "slash",
+                                    "key_code": "spacebar",
                                     "modifiers": {
                                         "mandatory": [
-                                            "control"
+                                            "left_control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "escape"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "undo",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
+                                            "^org\\.x\\.X11$"
                                         ],
-                                        "optional": [
-                                            "caps_lock"
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "u",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
                                         ]
                                     }
                                 },
@@ -1011,713 +1021,40 @@
                                     }
                                 ],
                                 "type": "basic"
-                            },
+                            }
+                        ]
+                    },
+                    {
+                        "description": "保存",
+                        "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
                                             "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
                                             "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
+                                            "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    },
-                                    {
-                                        "name": "C-SPC",
-                                        "type": "variable_unless",
-                                        "value": 1
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "a",
+                                    "key_code": "s",
                                     "modifiers": {
                                         "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock",
-                                            "shift"
+                                            "left_control"
                                         ]
                                     }
                                 },
                                 "to": [
                                     {
-                                        "key_code": "left_arrow",
-                                        "modifiers": [
-                                            "left_command"
-                                        ]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    },
-                                    {
-                                        "name": "C-SPC",
-                                        "type": "variable_if",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "a",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock",
-                                            "shift"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "left_arrow",
-                                        "modifiers": [
-                                            "left_command",
-                                            "left_shift"
-                                        ]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    },
-                                    {
-                                        "name": "C-SPC",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "e",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock",
-                                            "shift"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "right_arrow",
-                                        "modifiers": [
-                                            "left_command"
-                                        ]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    },
-                                    {
-                                        "name": "C-SPC",
-                                        "type": "variable_if",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "e",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock",
-                                            "shift"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "right_arrow",
-                                        "modifiers": [
-                                            "left_command",
-                                            "left_shift"
-                                        ]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    },
-                                    {
-                                        "name": "C-SPC",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "p",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock",
-                                            "shift"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "up_arrow"
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    },
-                                    {
-                                        "name": "C-SPC",
-                                        "type": "variable_if",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "p",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock",
-                                            "shift"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "up_arrow",
-                                        "modifiers": [
-                                            "left_shift"
-                                        ]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    },
-                                    {
-                                        "name": "C-SPC",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "n",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock",
-                                            "shift"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "down_arrow"
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    },
-                                    {
-                                        "name": "C-SPC",
-                                        "type": "variable_if",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "n",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock",
-                                            "shift"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "down_arrow",
-                                        "modifiers": [
-                                            "left_shift"
-                                        ]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    },
-                                    {
-                                        "name": "C-SPC",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "b",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock",
-                                            "shift"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "left_arrow"
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    },
-                                    {
-                                        "name": "C-SPC",
-                                        "type": "variable_if",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "b",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock",
-                                            "shift"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "left_arrow",
-                                        "modifiers": [
-                                            "left_shift"
-                                        ]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    },
-                                    {
-                                        "name": "C-SPC",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "v",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock",
-                                            "shift"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "page_down"
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    },
-                                    {
-                                        "name": "C-SPC",
-                                        "type": "variable_if",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "v",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock",
-                                            "shift"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "page_down",
-                                        "modifiers": [
-                                            "left_shift"
-                                        ]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    },
-                                    {
-                                        "name": "C-SPC",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "v",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "option"
-                                        ],
-                                        "optional": [
-                                            "caps_lock",
-                                            "shift"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "page_up"
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    },
-                                    {
-                                        "name": "C-SPC",
-                                        "type": "variable_if",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "v",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "option"
-                                        ],
-                                        "optional": [
-                                            "caps_lock",
-                                            "shift"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "page_up",
-                                        "modifiers": [
-                                            "left_shift"
-                                        ]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_if",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "h",
-                                    "modifiers": {
-                                        "optional": [
-                                            "caps_lock"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "a",
+                                        "key_code": "s",
                                         "modifiers": [
                                             "left_command"
                                         ]
@@ -1730,34 +1067,34 @@
                                     }
                                 ],
                                 "type": "basic"
-                            },
+                            }
+                        ]
+                    },
+                    {
+                        "description": "ウィンドウを閉じる",
+                        "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
                                             "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
                                             "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
+                                            "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_if",
-                                        "value": 1
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "k",
+                                    "key_code": "c",
                                     "modifiers": {
-                                        "optional": [
-                                            "caps_lock"
+                                        "mandatory": [
+                                            "left_control"
                                         ]
                                     }
                                 },
@@ -1781,219 +1118,111 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.google\\.Chrome$"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
                                             "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
                                             "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
+                                            "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    },
-                                    {
-                                        "name": "C-SPC",
-                                        "type": "variable_unless",
-                                        "value": 1
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "spacebar",
+                                    "key_code": "c",
                                     "modifiers": {
                                         "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
+                                            "left_control"
                                         ]
                                     }
                                 },
                                 "to": [
                                     {
+                                        "key_code": "w",
+                                        "modifiers": [
+                                            "left_command",
+                                            "left_shift"
+                                        ]
+                                    },
+                                    {
                                         "set_variable": {
                                             "name": "C-SPC",
-                                            "value": 1
+                                            "value": 0
                                         }
                                     }
                                 ],
                                 "type": "basic"
-                            },
+                            }
+                        ]
+                    },
+                    {
+                        "description": "ファイルを開く",
+                        "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
                                             "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
                                             "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
+                                            "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    },
-                                    {
-                                        "name": "C-SPC",
-                                        "type": "variable_if",
-                                        "value": 1
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "spacebar",
+                                    "key_code": "f",
                                     "modifiers": {
                                         "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
+                                            "left_control"
                                         ]
                                     }
                                 },
                                 "to": [
                                     {
-                                        "key_code": "escape"
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
+                                        "key_code": "o"
                                     },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    },
-                                    {
-                                        "name": "C-SPC",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "open_bracket",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
-                                        ]
-                                    }
-                                },
-                                "to": [
                                     {
                                         "set_variable": {
                                             "name": "C-SPC",
-                                            "value": 1
+                                            "value": 0
                                         }
                                     }
                                 ],
                                 "type": "basic"
-                            },
+                            }
+                        ]
+                    },
+                    {
+                        "description": "ctrl xした時にフラグを一瞬有効にする",
+                        "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
                                             "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
-                                    },
-                                    {
-                                        "name": "C-SPC",
-                                        "type": "variable_if",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "open_bracket",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "escape"
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_if",
-                                        "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "any": "key_code",
-                                    "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
-                                    }
-                                },
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.vim\\.",
                                             "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
+                                            "^com\\.microsoft\\.VSCode$",
                                             "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.gnu\\.Emacs$",
                                             "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
+                                            "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -2040,178 +1269,78 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": [],
-                                        "type": "frontmost_application_unless"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "backslash",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "left_control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "spacebar",
-                                        "modifiers": [
-                                            "left_control"
-                                        ]
-                                    },
-                                    {
-                                        "key_code": "vk_none"
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [],
-                                        "type": "frontmost_application_unless"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "spacebar",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "open_bracket",
-                                        "modifiers": [
-                                            "left_control"
-                                        ]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "from": {
-                                    "key_code": "equal_sign",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "spacebar",
-                                        "modifiers": [
-                                            "left_command"
-                                        ]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
-                                            "^org\\.macosforge\\.xquartz\\.X11$",
-                                            "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
-                                        ],
-                                        "type": "frontmost_application_unless"
-                                    },
-                                    {
                                         "name": "C-x",
-                                        "type": "variable_unless",
+                                        "type": "variable_if",
                                         "value": 1
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "t",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "t",
-                                        "modifiers": [
-                                            "left_command"
-                                        ]
                                     },
                                     {
-                                        "set_variable": {
-                                            "name": "C-SPC",
-                                            "value": 0
-                                        }
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
                                         "bundle_identifiers": [
-                                            "^org\\.gnu\\.Emacs$",
-                                            "^com\\.apple\\.Terminal$",
                                             "^com\\.googlecode\\.iterm2$",
-                                            "^org\\.vim\\.",
-                                            "^org\\.x\\.X11$",
-                                            "^com\\.apple\\.x11$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
                                             "^org\\.macports\\.X11$",
-                                            "^com\\.microsoft\\.VSCode$"
+                                            "^org\\.x\\.X11$"
                                         ],
                                         "type": "frontmost_application_unless"
-                                    },
-                                    {
-                                        "name": "C-x",
-                                        "type": "variable_unless",
-                                        "value": 1
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "z",
+                                    "any": "key_code",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "ページアップ",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "C-SPC",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
+                                            "^org\\.x\\.X11$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "v",
                                     "modifiers": {
                                         "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
+                                            "left_option"
                                         ]
                                     }
                                 },
                                 "to": [
                                     {
-                                        "key_code": "z",
-                                        "modifiers": [
-                                            "left_command"
-                                        ]
+                                        "key_code": "page_up"
                                     },
                                     {
-                                        "set_variable": {
-                                            "name": "C-SPC",
-                                            "value": 0
-                                        }
+                                        "modifiers": [
+                                            "left_shift"
+                                        ]
                                     }
                                 ],
                                 "type": "basic"
@@ -2220,27 +1349,69 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^com\\.microsoft\\.VSCode$"
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
+                                            "^org\\.x\\.X11$"
                                         ],
-                                        "type": "frontmost_application_if"
+                                        "type": "frontmost_application_unless"
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "z",
+                                    "key_code": "v",
                                     "modifiers": {
                                         "mandatory": [
-                                            "control"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
+                                            "left_option"
                                         ]
                                     }
                                 },
                                 "to": [
                                     {
-                                        "key_code": "slash",
+                                        "key_code": "page_up"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "コピー",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
+                                            "^org\\.x\\.X11$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "w",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "c",
                                         "modifiers": [
-                                            "left_control"
+                                            "left_command"
                                         ]
                                     },
                                     {
@@ -2255,11 +1426,212 @@
                         ]
                     },
                     {
-                        "description": "ctrl + num を fn + numに変換する。例えばf7はctrl + 7になる",
+                        "description": "一単語先へ",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "C-SPC",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
+                                            "^org\\.x\\.X11$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "f",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_arrow",
+                                        "modifiers": [
+                                            "left_option"
+                                        ]
+                                    },
+                                    {
+                                        "modifiers": [
+                                            "left_shift"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
+                                            "^org\\.x\\.X11$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "f",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_arrow",
+                                        "modifiers": [
+                                            "left_option"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "一単語前へ",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "C-SPC",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
+                                            "^org\\.x\\.X11$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "b",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_arrow",
+                                        "modifiers": [
+                                            "left_option"
+                                        ]
+                                    },
+                                    {
+                                        "modifiers": [
+                                            "left_shift"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^org\\.macosforge\\.xquartz\\.X11$",
+                                            "^org\\.vim\\.",
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.apple\\.x11$",
+                                            "^org\\.gnu\\.Emacs$",
+                                            "^org\\.macports\\.X11$",
+                                            "^org\\.x\\.X11$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "b",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_arrow",
+                                        "modifiers": [
+                                            "left_option"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "同一アプリケーションの次のウィンドウに移動",
                         "manipulators": [
                             {
                                 "from": {
-                                    "key_code": "7",
+                                    "key_code": "tab",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "option"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "2",
+                                        "modifiers": [
+                                            "left_command",
+                                            "left_shift"
+                                        ]
+                                    },
+                                    {
+                                        "set_variable": {
+                                            "name": "C-SPC",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "言語切り替え",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "backslash",
                                     "modifiers": {
                                         "mandatory": [
                                             "left_control"
@@ -2268,8 +1640,10 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "f7",
-                                        "modifiers": []
+                                        "key_code": "spacebar",
+                                        "modifiers": [
+                                            "left_control"
+                                        ]
                                     }
                                 ],
                                 "type": "basic"

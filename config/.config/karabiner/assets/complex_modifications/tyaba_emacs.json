@@ -1,5 +1,5 @@
 {
-    "title": "Emacs key bindings (tyaba) 2024-03-03_23:49:17",
+    "title": "Emacs key bindings (tyaba) 2024-03-23_14:53:41",
     "maintainers": [
         "tyaba"
     ],
@@ -13,23 +13,17 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
-                            "key_code": "right_arrow",
-                            "modifiers": null,
-                            "set_variable": null
+                            "key_code": "right_arrow"
                         },
                         {
-                            "key_code": null,
                             "modifiers": [
                                 "left_shift"
-                            ],
-                            "set_variable": null
+                            ]
                         }
                     ],
                     "type": "basic",
@@ -37,27 +31,23 @@
                         {
                             "type": "variable_if",
                             "name": "C-SPC",
-                            "value": 1,
-                            "bundle_identifiers": null
+                            "value": 1
                         },
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 },
                 {
                     "from": {
@@ -65,38 +55,31 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
-                            "key_code": "right_arrow",
-                            "modifiers": null,
-                            "set_variable": null
+                            "key_code": "right_arrow"
                         }
                     ],
                     "type": "basic",
                     "conditions": [
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 }
             ]
         },
@@ -109,23 +92,17 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
-                            "key_code": "left_arrow",
-                            "modifiers": null,
-                            "set_variable": null
+                            "key_code": "left_arrow"
                         },
                         {
-                            "key_code": null,
                             "modifiers": [
                                 "left_shift"
-                            ],
-                            "set_variable": null
+                            ]
                         }
                     ],
                     "type": "basic",
@@ -133,27 +110,23 @@
                         {
                             "type": "variable_if",
                             "name": "C-SPC",
-                            "value": 1,
-                            "bundle_identifiers": null
+                            "value": 1
                         },
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 },
                 {
                     "from": {
@@ -161,38 +134,31 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
-                            "key_code": "left_arrow",
-                            "modifiers": null,
-                            "set_variable": null
+                            "key_code": "left_arrow"
                         }
                     ],
                     "type": "basic",
                     "conditions": [
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 }
             ]
         },
@@ -205,23 +171,17 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
-                            "key_code": "up_arrow",
-                            "modifiers": null,
-                            "set_variable": null
+                            "key_code": "up_arrow"
                         },
                         {
-                            "key_code": null,
                             "modifiers": [
                                 "left_shift"
-                            ],
-                            "set_variable": null
+                            ]
                         }
                     ],
                     "type": "basic",
@@ -229,27 +189,23 @@
                         {
                             "type": "variable_if",
                             "name": "C-SPC",
-                            "value": 1,
-                            "bundle_identifiers": null
+                            "value": 1
                         },
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 },
                 {
                     "from": {
@@ -257,38 +213,31 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
-                            "key_code": "up_arrow",
-                            "modifiers": null,
-                            "set_variable": null
+                            "key_code": "up_arrow"
                         }
                     ],
                     "type": "basic",
                     "conditions": [
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 }
             ]
         },
@@ -301,23 +250,17 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
-                            "key_code": "down_arrow",
-                            "modifiers": null,
-                            "set_variable": null
+                            "key_code": "down_arrow"
                         },
                         {
-                            "key_code": null,
                             "modifiers": [
                                 "left_shift"
-                            ],
-                            "set_variable": null
+                            ]
                         }
                     ],
                     "type": "basic",
@@ -325,27 +268,23 @@
                         {
                             "type": "variable_if",
                             "name": "C-SPC",
-                            "value": 1,
-                            "bundle_identifiers": null
+                            "value": 1
                         },
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 },
                 {
                     "from": {
@@ -353,38 +292,31 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
-                            "key_code": "down_arrow",
-                            "modifiers": null,
-                            "set_variable": null
+                            "key_code": "down_arrow"
                         }
                     ],
                     "type": "basic",
                     "conditions": [
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 }
             ]
         },
@@ -397,25 +329,20 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
                             "key_code": "left_arrow",
                             "modifiers": [
                                 "left_command"
-                            ],
-                            "set_variable": null
+                            ]
                         },
                         {
-                            "key_code": null,
                             "modifiers": [
                                 "left_shift"
-                            ],
-                            "set_variable": null
+                            ]
                         }
                     ],
                     "type": "basic",
@@ -423,27 +350,23 @@
                         {
                             "type": "variable_if",
                             "name": "C-SPC",
-                            "value": 1,
-                            "bundle_identifiers": null
+                            "value": 1
                         },
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 },
                 {
                     "from": {
@@ -451,40 +374,34 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
                             "key_code": "left_arrow",
                             "modifiers": [
                                 "left_command"
-                            ],
-                            "set_variable": null
+                            ]
                         }
                     ],
                     "type": "basic",
                     "conditions": [
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 }
             ]
         },
@@ -497,25 +414,20 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
                             "key_code": "right_arrow",
                             "modifiers": [
                                 "left_command"
-                            ],
-                            "set_variable": null
+                            ]
                         },
                         {
-                            "key_code": null,
                             "modifiers": [
                                 "left_shift"
-                            ],
-                            "set_variable": null
+                            ]
                         }
                     ],
                     "type": "basic",
@@ -523,27 +435,23 @@
                         {
                             "type": "variable_if",
                             "name": "C-SPC",
-                            "value": 1,
-                            "bundle_identifiers": null
+                            "value": 1
                         },
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 },
                 {
                     "from": {
@@ -551,40 +459,34 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
                             "key_code": "right_arrow",
                             "modifiers": [
                                 "left_command"
-                            ],
-                            "set_variable": null
+                            ]
                         }
                     ],
                     "type": "basic",
                     "conditions": [
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 }
             ]
         },
@@ -597,23 +499,17 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
-                            "key_code": "page_down",
-                            "modifiers": null,
-                            "set_variable": null
+                            "key_code": "page_down"
                         },
                         {
-                            "key_code": null,
                             "modifiers": [
                                 "left_shift"
-                            ],
-                            "set_variable": null
+                            ]
                         }
                     ],
                     "type": "basic",
@@ -621,27 +517,23 @@
                         {
                             "type": "variable_if",
                             "name": "C-SPC",
-                            "value": 1,
-                            "bundle_identifiers": null
+                            "value": 1
                         },
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 },
                 {
                     "from": {
@@ -649,38 +541,31 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
-                            "key_code": "page_down",
-                            "modifiers": null,
-                            "set_variable": null
+                            "key_code": "page_down"
                         }
                     ],
                     "type": "basic",
                     "conditions": [
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 }
             ]
         },
@@ -693,20 +578,14 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
-                            "key_code": "delete_forward",
-                            "modifiers": null,
-                            "set_variable": null
+                            "key_code": "delete_forward"
                         },
                         {
-                            "key_code": null,
-                            "modifiers": null,
                             "set_variable": {
                                 "name": "C-SPC",
                                 "value": 0
@@ -717,22 +596,19 @@
                     "conditions": [
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 }
             ]
         },
@@ -745,20 +621,14 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
-                            "key_code": "delete_or_backspace",
-                            "modifiers": null,
-                            "set_variable": null
+                            "key_code": "delete_or_backspace"
                         },
                         {
-                            "key_code": null,
-                            "modifiers": null,
                             "set_variable": {
                                 "name": "C-SPC",
                                 "value": 0
@@ -769,22 +639,19 @@
                     "conditions": [
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 }
             ]
         },
@@ -797,10 +664,8 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
@@ -808,19 +673,15 @@
                             "modifiers": [
                                 "left_shift",
                                 "left_command"
-                            ],
-                            "set_variable": null
+                            ]
                         },
                         {
                             "key_code": "x",
                             "modifiers": [
                                 "left_command"
-                            ],
-                            "set_variable": null
+                            ]
                         },
                         {
-                            "key_code": null,
-                            "modifiers": null,
                             "set_variable": {
                                 "name": "C-SPC",
                                 "value": 0
@@ -831,22 +692,19 @@
                     "conditions": [
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 }
             ]
         },
@@ -859,38 +717,31 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
-                            "key_code": "escape",
-                            "modifiers": null,
-                            "set_variable": null
+                            "key_code": "escape"
                         }
                     ],
                     "type": "basic",
                     "conditions": [
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 }
             ]
         },
@@ -903,22 +754,17 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
                             "key_code": "f",
                             "modifiers": [
                                 "left_command"
-                            ],
-                            "set_variable": null
+                            ]
                         },
                         {
-                            "key_code": null,
-                            "modifiers": null,
                             "set_variable": {
                                 "name": "C-SPC",
                                 "value": 0
@@ -929,22 +775,19 @@
                     "conditions": [
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 }
             ]
         },
@@ -957,22 +800,17 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
                             "key_code": "x",
                             "modifiers": [
                                 "left_command"
-                            ],
-                            "set_variable": null
+                            ]
                         },
                         {
-                            "key_code": null,
-                            "modifiers": null,
                             "set_variable": {
                                 "name": "C-SPC",
                                 "value": 0
@@ -983,22 +821,19 @@
                     "conditions": [
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 }
             ]
         },
@@ -1011,22 +846,17 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
                             "key_code": "v",
                             "modifiers": [
                                 "left_command"
-                            ],
-                            "set_variable": null
+                            ]
                         },
                         {
-                            "key_code": null,
-                            "modifiers": null,
                             "set_variable": {
                                 "name": "C-SPC",
                                 "value": 0
@@ -1037,22 +867,19 @@
                     "conditions": [
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 }
             ]
         },
@@ -1065,15 +892,11 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
-                            "key_code": null,
-                            "modifiers": null,
                             "set_variable": {
                                 "name": "C-SPC",
                                 "value": 1
@@ -1085,27 +908,23 @@
                         {
                             "type": "variable_unless",
                             "name": "C-SPC",
-                            "value": 1,
-                            "bundle_identifiers": null
+                            "value": 1
                         },
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 },
                 {
                     "from": {
@@ -1113,16 +932,12 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
-                            "key_code": "escape",
-                            "modifiers": null,
-                            "set_variable": null
+                            "key_code": "escape"
                         }
                     ],
                     "type": "basic",
@@ -1130,27 +945,23 @@
                         {
                             "type": "variable_if",
                             "name": "C-SPC",
-                            "value": 1,
-                            "bundle_identifiers": null
+                            "value": 1
                         },
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 }
             ]
         },
@@ -1163,22 +974,17 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
                             "key_code": "z",
                             "modifiers": [
                                 "left_command"
-                            ],
-                            "set_variable": null
+                            ]
                         },
                         {
-                            "key_code": null,
-                            "modifiers": null,
                             "set_variable": {
                                 "name": "C-SPC",
                                 "value": 0
@@ -1189,22 +995,19 @@
                     "conditions": [
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 }
             ]
         },
@@ -1217,22 +1020,17 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
                             "key_code": "s",
                             "modifiers": [
                                 "left_command"
-                            ],
-                            "set_variable": null
+                            ]
                         },
                         {
-                            "key_code": null,
-                            "modifiers": null,
                             "set_variable": {
                                 "name": "C-SPC",
                                 "value": 0
@@ -1243,22 +1041,19 @@
                     "conditions": [
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 }
             ]
         },
@@ -1271,22 +1066,17 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
                             "key_code": "w",
                             "modifiers": [
                                 "left_command"
-                            ],
-                            "set_variable": null
+                            ]
                         },
                         {
-                            "key_code": null,
-                            "modifiers": null,
                             "set_variable": {
                                 "name": "C-SPC",
                                 "value": 0
@@ -1297,22 +1087,19 @@
                     "conditions": [
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 },
                 {
                     "from": {
@@ -1320,10 +1107,8 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
@@ -1331,12 +1116,9 @@
                             "modifiers": [
                                 "left_command",
                                 "left_shift"
-                            ],
-                            "set_variable": null
+                            ]
                         },
                         {
-                            "key_code": null,
-                            "modifiers": null,
                             "set_variable": {
                                 "name": "C-SPC",
                                 "value": 0
@@ -1347,30 +1129,25 @@
                     "conditions": [
                         {
                             "type": "frontmost_application_if",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
                                 "^com\\.google\\.Chrome$"
                             ]
                         },
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 }
             ]
         },
@@ -1383,20 +1160,14 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
-                            "key_code": "o",
-                            "modifiers": null,
-                            "set_variable": null
+                            "key_code": "o"
                         },
                         {
-                            "key_code": null,
-                            "modifiers": null,
                             "set_variable": {
                                 "name": "C-SPC",
                                 "value": 0
@@ -1407,22 +1178,19 @@
                     "conditions": [
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 }
             ]
         },
@@ -1439,13 +1207,10 @@
                             "optional": [
                                 "caps_lock"
                             ]
-                        },
-                        "any": null
+                        }
                     },
                     "to": [
                         {
-                            "key_code": null,
-                            "modifiers": null,
                             "set_variable": {
                                 "name": "C-x",
                                 "value": 1
@@ -1456,26 +1221,22 @@
                     "conditions": [
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
                     ],
                     "to_delayed_action": {
                         "to_if_invoked": [
                             {
-                                "key_code": null,
-                                "modifiers": null,
                                 "set_variable": {
                                     "name": "C-x",
                                     "value": 0
@@ -1484,8 +1245,6 @@
                         ],
                         "to_if_canceled": [
                             {
-                                "key_code": null,
-                                "modifiers": null,
                                 "set_variable": {
                                     "name": "C-x",
                                     "value": 0
@@ -1496,42 +1255,35 @@
                 },
                 {
                     "from": {
-                        "key_code": null,
                         "modifiers": {
-                            "mandatory": null,
                             "optional": [
                                 "any"
                             ]
                         },
                         "any": "key_code"
                     },
-                    "to": null,
                     "type": "basic",
                     "conditions": [
                         {
                             "type": "variable_if",
                             "name": "C-x",
-                            "value": 1,
-                            "bundle_identifiers": null
+                            "value": 1
                         },
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 }
             ]
         },
@@ -1544,23 +1296,17 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_option"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
-                            "key_code": "page_up",
-                            "modifiers": null,
-                            "set_variable": null
+                            "key_code": "page_up"
                         },
                         {
-                            "key_code": null,
                             "modifiers": [
                                 "left_shift"
-                            ],
-                            "set_variable": null
+                            ]
                         }
                     ],
                     "type": "basic",
@@ -1568,27 +1314,23 @@
                         {
                             "type": "variable_if",
                             "name": "C-SPC",
-                            "value": 1,
-                            "bundle_identifiers": null
+                            "value": 1
                         },
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 },
                 {
                     "from": {
@@ -1596,38 +1338,31 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_option"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
-                            "key_code": "page_up",
-                            "modifiers": null,
-                            "set_variable": null
+                            "key_code": "page_up"
                         }
                     ],
                     "type": "basic",
                     "conditions": [
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
                             ]
                         }
-                    ],
-                    "to_delayed_action": null
+                    ]
                 }
             ]
         },
@@ -1640,22 +1375,17 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_option"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
                             "key_code": "c",
                             "modifiers": [
                                 "left_command"
-                            ],
-                            "set_variable": null
+                            ]
                         },
                         {
-                            "key_code": null,
-                            "modifiers": null,
                             "set_variable": {
                                 "name": "C-SPC",
                                 "value": 0
@@ -1666,22 +1396,189 @@
                     "conditions": [
                         {
                             "type": "frontmost_application_unless",
-                            "name": null,
-                            "value": null,
                             "bundle_identifiers": [
-                                "^org\\.vim\\.",
-                                "^org\\.macosforge\\.xquartz\\.X11$",
                                 "^com\\.googlecode\\.iterm2$",
-                                "^com\\.apple\\.x11$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
                                 "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
                                 "^org\\.gnu\\.Emacs$",
-                                "^org\\.x\\.X11$",
                                 "^org\\.macports\\.X11$",
-                                "^com\\.apple\\.Terminal$"
+                                "^org\\.x\\.X11$"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "一単語先へ",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "f",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_option"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "right_arrow",
+                            "modifiers": [
+                                "left_option"
+                            ]
+                        },
+                        {
+                            "modifiers": [
+                                "left_shift"
                             ]
                         }
                     ],
-                    "to_delayed_action": null
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "variable_if",
+                            "name": "C-SPC",
+                            "value": 1
+                        },
+                        {
+                            "type": "frontmost_application_unless",
+                            "bundle_identifiers": [
+                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.macports\\.X11$",
+                                "^org\\.x\\.X11$"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "from": {
+                        "key_code": "f",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_option"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "right_arrow",
+                            "modifiers": [
+                                "left_option"
+                            ]
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "bundle_identifiers": [
+                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.macports\\.X11$",
+                                "^org\\.x\\.X11$"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "一単語前へ",
+            "manipulators": [
+                {
+                    "from": {
+                        "key_code": "b",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_option"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "left_arrow",
+                            "modifiers": [
+                                "left_option"
+                            ]
+                        },
+                        {
+                            "modifiers": [
+                                "left_shift"
+                            ]
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "variable_if",
+                            "name": "C-SPC",
+                            "value": 1
+                        },
+                        {
+                            "type": "frontmost_application_unless",
+                            "bundle_identifiers": [
+                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.macports\\.X11$",
+                                "^org\\.x\\.X11$"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "from": {
+                        "key_code": "b",
+                        "modifiers": {
+                            "mandatory": [
+                                "left_option"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "left_arrow",
+                            "modifiers": [
+                                "left_option"
+                            ]
+                        }
+                    ],
+                    "type": "basic",
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_unless",
+                            "bundle_identifiers": [
+                                "^com\\.googlecode\\.iterm2$",
+                                "^org\\.macosforge\\.xquartz\\.X11$",
+                                "^org\\.vim\\.",
+                                "^com\\.apple\\.Terminal$",
+                                "^com\\.microsoft\\.VSCode$",
+                                "^com\\.apple\\.x11$",
+                                "^org\\.gnu\\.Emacs$",
+                                "^org\\.macports\\.X11$",
+                                "^org\\.x\\.X11$"
+                            ]
+                        }
+                    ]
                 }
             ]
         },
@@ -1694,10 +1591,8 @@
                         "modifiers": {
                             "mandatory": [
                                 "option"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
@@ -1705,20 +1600,16 @@
                             "modifiers": [
                                 "left_command",
                                 "left_shift"
-                            ],
-                            "set_variable": null
+                            ]
                         },
                         {
-                            "key_code": null,
-                            "modifiers": null,
                             "set_variable": {
                                 "name": "C-SPC",
                                 "value": 0
                             }
                         }
                     ],
-                    "type": "basic",
-                    "to_delayed_action": null
+                    "type": "basic"
                 }
             ]
         },
@@ -1731,22 +1622,18 @@
                         "modifiers": {
                             "mandatory": [
                                 "left_control"
-                            ],
-                            "optional": null
-                        },
-                        "any": null
+                            ]
+                        }
                     },
                     "to": [
                         {
                             "key_code": "spacebar",
                             "modifiers": [
                                 "left_control"
-                            ],
-                            "set_variable": null
+                            ]
                         }
                     ],
-                    "type": "basic",
-                    "to_delayed_action": null
+                    "type": "basic"
                 }
             ]
         }

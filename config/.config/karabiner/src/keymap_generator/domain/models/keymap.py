@@ -49,7 +49,6 @@ class Keymap(BaseModel):
         Returns:
             dict[str, Any]: Karabiner-Elementsのkeymapのjson
         """
-        data: str = self.model_dump_json(indent=indent, **kwargs)
+        data: str = self.model_dump_json(exclude_none=True, indent=indent, **kwargs)
         data = data.replace('"from_":', '"from":')
-        data = data.replace('"conditions": null,', "")
         return data
