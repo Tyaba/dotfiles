@@ -49,6 +49,14 @@ when 'darwin'
     command 'defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true && defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true'
     not_if 'defaults read com.apple.desktopservices DSDontWriteNetworkStores | test -w 1'
   end
+  execute 'set sleep time to 1 hour' do
+    command <<-EOF
+      sudo pmset -a sleep 60
+      sudo pmset -a displaysleep 60
+      sudo pmset -a disksleep 60
+    EOF
+    not_if 'pmset -g | grep sleep | grep 60'
+  end
 else
   raise NotImplementedError
 end
