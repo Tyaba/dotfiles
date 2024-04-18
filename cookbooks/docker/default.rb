@@ -1,4 +1,4 @@
-docker_compose_version = '2.20.3'
+docker_compose_version = '2.24.6'
 docker_compose_path = '~/.docker/cli-plugins/docker-compose'
 package 'ca-certificates'
 package 'curl'
