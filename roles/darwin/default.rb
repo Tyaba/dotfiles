@@ -15,6 +15,8 @@ include_cookbook 'spectacle'
 include_cookbook 'vivaldi'
 include_cookbook 'vlc'
 include_cookbook 'zoom'
+include_cookbook 'xquartz'
+include_cookbook 'linear'
 ## 状況把握
 include_cookbook 'htop'
 include_cookbook 'visual-studio-code'
@@ -49,7 +51,6 @@ include_cookbook 'tree'
 include_cookbook 'nkf'
 include_cookbook 'procs'
 include_cookbook 'fd'
-# 便利系
 include_cookbook 'tokei'
 include_cookbook 'ncdu'
 # mac CLI tools
