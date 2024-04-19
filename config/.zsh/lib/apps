@@ -21,6 +21,7 @@ export EDITOR=emacs
 eval "$(direnv hook zsh)"
 
 # mise
+export MISE_ENV_FILE=.env
 eval "$(~/.cargo/bin/mise activate zsh)"
 
 # pre-commit
