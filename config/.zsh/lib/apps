@@ -20,6 +20,9 @@ export COMPOSE_DOCKER_CLI_BUILD=1
 export EDITOR=emacs
 eval "$(direnv hook zsh)"
 
+# mise
+eval "$(~/.cargo/bin/mise activate zsh)"
+
 # pre-commit
 export PRE_COMMIT_COLOR=always
 
