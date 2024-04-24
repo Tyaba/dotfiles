@@ -24,9 +24,6 @@ github = 'b4b4r07/emoji-cli'
 [plugins.zsh-z]
 github = "agkozak/zsh-z"
 
-[plugins.asdf]
-github = "asdf-vm/asdf"
-
 # 補完系
 [plugins.zsh-completions]
 # 様々なコマンドの補完
