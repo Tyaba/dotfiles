@@ -1,3 +1,4 @@
+export EDITOR=emacs
 # Google Cloud SDK
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f "$HOME/.bin/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/.bin/google-cloud-sdk/path.zsh.inc"; fi
@@ -15,10 +16,6 @@ export COMPOSE_DOCKER_CLI_BUILD=1
 
 # Travis CI
 [ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
-
-# direnv
-export EDITOR=emacs
-eval "$(direnv hook zsh)"
 
 # mise
 export MISE_ENV_FILE=.env
