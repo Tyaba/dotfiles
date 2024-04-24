@@ -3,43 +3,61 @@ cargo 'mise'
 # Python
 python_version = "3.11.7"
 execute "install python with mise" do
-    command "mise install python@#{python_version} && mise use --global python@#{python_version}"
+    command <<-EOF
+    mise install python@#{python_version}
+    mise use --global python@#{python_version}
+    EOF
     not_if "mise ls | grep python"
+end
+
+# pythonをPATHに追加
+unless ENV['PATH'].include?("#{ENV['HOME']}/.local/share/mise/installs/python/#{python_version}/bin")
+    MItamae.logger.info("Prepending mise installed python to PATH during this execution")
+    ENV['PATH'] = "#{ENV['HOME']}/.local/share/mise/installs/python/#{python_version}/bin:#{ENV['PATH']}"
 end
 
 # terraform
 terraform_version = "latest"
 execute "install terraform with mise" do
-    command "mise install terraform@#{terraform_version} && mise use --global terraform@#{terraform_version}"
+    command <<-EOF
+        mise install terraform@#{terraform_version}
+        mise use --global terraform@#{terraform_version}
+    EOF
     not_if "mise ls | grep terraform"
 end
 
-# kubectl
-execute "install mise kubectl plugin" do
-    command "mise plugin install kubectl https://github.com/asdf-community/asdf-kubectl.git"
-    not_if "mise plugin | grep kubectl"
-end
 kubectl_version = "latest"
 execute "install kubectl with mise" do
-    command "mise install kubectl@#{kubectl_version} && mise use --global kubectl@#{kubectl_version}"
+    command <<-EOF
+        mise plugin install kubectl https://github.com/asdf-community/asdf-kubectl.git
+        mise install kubectl@#{kubectl_version}
+        mise use --global kubectl@#{kubectl_version}
+    EOF
     not_if "mise ls | grep kubectl"
 end
 
 # node
 node_version = "latest"
 execute "install node with mise" do
-    command "mise install node@#{node_version} && mise use --global node@#{node_version}"
+    command <<-EOF
+        mise install node@#{node_version}
+        mise use --global node@#{node_version}
+    EOF
     not_if "mise ls | grep node"
 end
 
 # pnpm
 execute "install mise pnpm plugin" do
-    command "mise plugin install pnpm https://github.com/jonathanmorley/asdf-pnpm.git"
+    command ""
     not_if "mise plugin | grep pnpm"
 end
 pnpm_version = "latest"
 execute "install pnpm with mise" do
-    command "mise install pnpm@#{pnpm_version} && mise use --global pnpm@#{pnpm_version}"
+    command <<-EOF
+        mise plugin install pnpm https://github.com/jonathanmorley/asdf-pnpm.git
+        mise install pnpm@#{pnpm_version}
+        mise use --global pnpm@#{pnpm_version}
+    EOF
     not_if "mise ls | grep pnpm"
 end
 
