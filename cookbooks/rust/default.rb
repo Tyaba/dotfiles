@@ -74,7 +74,6 @@ cargo 'jless'
 cargo 'hyperfine'
 cargo 'wasm-pack'
 cargo 'git-delta'
-cargo 'mise'
 
 execute '''cat <<EOF >> ~/.zsh/lib/aliases
 # cargo-script
