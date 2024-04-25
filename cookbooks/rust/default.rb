@@ -57,6 +57,12 @@ end
 execute 'rustup toolchain install nightly' do
   not_if "rustup toolchain list | grep nightly"
 end
+
+# update cargo
+execute 'update cargo and other rustup components' do
+  command 'rustup update'
+end
+
 cargo 'cargo-edit'
 cargo 'bat'
 cargo 'exa'
