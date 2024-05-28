@@ -11,7 +11,7 @@ when 'darwin'
   end
 else
   execute 'curl https://sdk.cloud.google.com > /tmp/gcloud_install.sh && bash /tmp/gcloud_install.sh --disable-prompts --install-dir $HOME/.bin' do
-    not_if 'which gcloud'
+    not_if 'ls $HOME/.bin/google-cloud-sdk/'
   end
 end
 
