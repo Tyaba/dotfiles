@@ -1,6 +1,7 @@
 cargo 'mise'
 
 # Python
+python_minor_version = "3.11"
 python_version = "3.11.7"
 execute "install python with mise" do
     command <<-EOF
@@ -11,9 +12,9 @@ execute "install python with mise" do
 end
 
 # pythonをPATHに追加
-unless ENV['PATH'].include?("#{ENV['HOME']}/.local/share/mise/installs/python/#{python_version}/bin")
-    MItamae.logger.info("Prepending mise installed python to PATH during this execution")
-    ENV['PATH'] = "#{ENV['HOME']}/.local/share/mise/installs/python/#{python_version}/bin:#{ENV['PATH']}"
+unless ENV['PATH'].include?("#{ENV['HOME']}/.local/share/mise/installs/python/#{python_minor_version}/bin")
+    MItamae.logger.info("Prepending #{ENV['HOME']}/.local/share/mise/installs/python/#{python_minor_version}/bin to PATH during this execution")
+    ENV['PATH'] = "#{ENV['HOME']}/.local/share/mise/installs/python/#{python_minor_version}/bin:#{ENV['PATH']}"
 end
 
 # terraform
