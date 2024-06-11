@@ -28,6 +28,7 @@ include_cookbook 'gcloud'
 include_cookbook 'poetry'
 include_cookbook 'ghq'
 include_cookbook 'gh'
+include_cookbook 'k6'
 # include_cookbook 'gpg-agent'
 # include_cookbook 'ssh-agent'
 # 便利系
