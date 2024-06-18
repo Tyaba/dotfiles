@@ -4,11 +4,10 @@ when 'darwin'
 when node[:platform] == 'ubuntu', 'debian'
     execute "install k6" do
         command <<-EOF
-            sudo gpg -k
-            sudo gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
-            echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
-            sudo apt-get update
-            sudo apt-get install k6
+            mkdir -p /tmp/k6
+            wget -O /tmp/k6/k6.tar.gz https://github.com/grafana/xk6-dashboard/releases/download/v0.7.4/xk6-dashboard_v0.7.4_linux_amd64.tar.gz
+            tar -xzf /tmp/k6/k6.tar.gz -C /tmp/k6
+            mv /tmp/k6/k6 /usr/bin/k6
         EOF
         not_if "which k6"
     end
