@@ -23,7 +23,7 @@ when 'ubuntu'
     sudo locale-gen en_US.UTF-8 &&
     sudo update-locale --no-checks LANG=en_US.UTF-8
     "
-  not_if "locale | grep en_US.UTF-8"
+  not_if "locale | grep 'Cannot set'"
   end
 when 'debian'
   execute 'locale gen' do
@@ -32,7 +32,7 @@ when 'debian'
     locale-gen --purge "en_US.UTF-8" &&
     dpkg-reconfigure --frontend noninteractive locales
     '
-    not_if "locale | grep en_US.UTF-8"
+    not_if "locale | grep 'Cannot set'"
   end
 end
 
