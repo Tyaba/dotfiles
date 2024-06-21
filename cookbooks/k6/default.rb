@@ -1,7 +1,7 @@
 case node[:platform]
 when 'darwin'
     package "k6"
-when node[:platform] == 'ubuntu', 'debian'
+when 'ubuntu', 'debian'
     execute "install k6" do
         command <<-EOF
             mkdir -p /tmp/k6
