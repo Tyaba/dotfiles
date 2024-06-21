@@ -12,5 +12,5 @@ when node[:platform] == 'ubuntu', 'debian'
         not_if "which k6"
     end
 else
-    raise NotImplementedError
+    raise "Not supported platform: #{node[:platform]}"
 end
