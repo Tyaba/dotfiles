@@ -1,3 +1,5 @@
-source ~/.bash/aliases
-alias emacs='emacs -nw'
-alias grep='rg'
+echo 'loaded ~/.bash_profile'
+if [ -f ~/.bashrc ]
+then
+    source ~/.bashrc
+fi

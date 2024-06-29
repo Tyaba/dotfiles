@@ -1,3 +1,4 @@
+echo 'loaded ~/.bashrc'
 if [ -f ~/.bash/apps ]; then
     source ~/.bash/apps
 fi

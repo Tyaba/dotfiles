@@ -232,7 +232,8 @@ scroll_down()
 convert_language()
 {
   ; "!"はAlt、"``"は`のエスケープ
-  Send !``
+  ; なぜか機能しなくなったのでPowerToysのKeyboard Managerで代用
+  Send {Blind}{vkF3sc029}
   Return
 }
 hiragana_transform()

@@ -6,29 +6,29 @@
 export MSYS=winsymlinks:nativestrict
 # .bashrcを用意
 if [ ! -f ~/.bashrc ]; then
-    ln -s ~/.dotfiles/windows/config/.bashrc ~/.bashrc
+    sudo ln -s ~/.dotfiles/windows/config/.bashrc ~/.bashrc
 fi
 # .bash_profileを用意
 if [ ! -f ~/.bashrc ]; then
-    ln -s ~/.dotfiles/windows/config/.bash_profile ~/.bash_profile
+    sudo ln -s ~/.dotfiles/windows/config/.bash_profile ~/.bash_profile
 fi
 # .bashを用意
 if [ ! -d ~/.bash ]; then
     ln -s ~/.dotfiles/windows/config/.bash ~/.bash
 fi
 # package manager
-winget_install="winget install --force --verbose"
+winget_install="winget install --force"
 cargo_install="cargo install --force --verbose"
 # winget install
 winget_packages=(
-    BurntSushi.ripgrep.MSVC
-    GNU.Emacs
-    JernejSimoncic.Wget
+    "BurntSushi.ripgrep.MSVC"
+    "GNU.Emacs"
+    "JernejSimoncic.Wget"
 )
 for package in ${winget_packages[@]}; do
-    if ! winget show $package &> /dev/null; then
-        $winget_install --force $package
-    fi
+    # if ! winget show $package &> /dev/null; then
+    $winget_install ${package}
+    # fi
 done
 
 # exa

@@ -2,6 +2,5 @@
 export MSYS=winsymlinks:nativestrict
 export EDITOR="emacs -nw"
 if [[ ! "$PATH" == *${HOME}/.fzf/bin* ]]; then
-    echo "PATHに~/.fzf/binを追加します"
     PATH="${PATH:+${PATH}:}${HOME}/.fzf/bin"
 fi
