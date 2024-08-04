@@ -24,6 +24,7 @@ winget_packages=(
     "BurntSushi.ripgrep.MSVC"
     "GNU.Emacs"
     "JernejSimoncic.Wget"
+    "VideoLAN.VLC"
 )
 for package in ${winget_packages[@]}; do
     # if ! winget show $package &> /dev/null; then
