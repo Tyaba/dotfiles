@@ -79,7 +79,7 @@ cargo 'hexyl'
 cargo 'jless'
 cargo 'hyperfine'
 cargo 'wasm-pack'
-cargo 'git-delta'
+# cargo 'git-delta'
 
 execute '''cat <<EOF >> ~/.zsh/lib/aliases
 # cargo-script
