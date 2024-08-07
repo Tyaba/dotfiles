@@ -5,7 +5,7 @@ unless ENV['PATH'].include?("#{ENV['HOME']}/.rye/shims")
   end
 
 execute "install rye" do
-    command 'curl -sSf https://rye.astral.sh/get | RYE_INSTALL_OPTION="--yes" zsh'
+    command 'curl -sSf https://rye.astral.sh/get | RYE_INSTALL_OPTION="--yes" bash'
     not_if 'which rye'
 end
 
