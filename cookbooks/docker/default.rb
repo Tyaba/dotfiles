@@ -1,5 +1,5 @@
-docker_compose_version = '2.24.6'
-docker_compose_path = '~/.docker/cli-plugins/docker-compose'
+docker_compose_version = '2.29.2'
+docker_compose_path = "#{ENV['HOME']}/.docker/cli-plugins/docker-compose"
 package 'ca-certificates'
 package 'curl'
 package 'gnupg'
@@ -24,7 +24,7 @@ when 'darwin'
     execute 'brew install docker' do
       not_if 'which docker'
     end
-    execute "mkdir -p ~/.docker/cli-plugins && curl -L https://github.com/docker/compose/releases/download/v#{docker_compose_version}/docker-compose-darwin-aarch64 -o #{docker_compose_path} && sudo chmod +x #{docker_compose_path}" do
+    execute "mkdir -p #{ENV['HOME']}/.docker/cli-plugins && rm -f #{docker_compose_path} && curl -L https://github.com/docker/compose/releases/download/v#{docker_compose_version}/docker-compose-darwin-aarch64 -o #{docker_compose_path} && sudo chmod +x #{docker_compose_path}" do
       not_if "docker compose version | grep v#{docker_compose_version}"
     end
   end
@@ -56,7 +56,7 @@ when 'ubuntu', 'debian'
     not_if "cat /etc/group | grep docker | grep #{node[:user]}"
   end
   # Docker Compose
-  execute "mkdir -p ~/.docker/cli-plugins && curl -L https://github.com/docker/compose/releases/download/v#{docker_compose_version}/docker-compose-#{`uname`.downcase.strip}-#{`uname -m`.strip} -o #{docker_compose_path} && sudo chmod +x #{docker_compose_path}" do
+  execute "mkdir -p #{ENV['HOME']}/.docker/cli-plugins && rm -f #{docker_compose_path} && curl -L https://github.com/docker/compose/releases/download/v#{docker_compose_version}/docker-compose-#{`uname`.downcase.strip}-#{`uname -m`.strip} -o #{docker_compose_path} && sudo chmod +x #{docker_compose_path}" do
     not_if "docker compose version | grep v#{docker_compose_version}"
   end
 end
