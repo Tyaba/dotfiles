@@ -20,7 +20,7 @@ include_cookbook 'xquartz'
 include_cookbook 'linear'
 ## 状況把握
 include_cookbook 'htop'
-include_cookbook 'visual-studio-code'
+include_cookbook 'cursor'
 include_cookbook 'karabiner-elements'
 include_cookbook 'iterm'
 include_cookbook 'spectacle'
