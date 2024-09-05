@@ -88,6 +88,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -125,6 +126,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -167,6 +169,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -204,6 +207,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -246,6 +250,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -283,6 +288,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -325,6 +331,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -362,6 +369,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -404,6 +412,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -444,6 +453,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -489,6 +499,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -529,6 +540,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -574,6 +586,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -611,6 +624,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -648,6 +662,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -691,6 +706,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -734,6 +750,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -787,6 +804,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -824,6 +842,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -870,6 +889,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -916,6 +936,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -967,6 +988,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1007,6 +1029,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1068,6 +1091,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1114,6 +1138,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1160,6 +1185,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1207,6 +1233,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1254,6 +1281,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1297,6 +1325,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1358,6 +1387,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1395,6 +1425,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1432,6 +1463,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1469,6 +1501,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1520,6 +1553,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1560,6 +1594,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1605,6 +1640,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1645,6 +1681,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
