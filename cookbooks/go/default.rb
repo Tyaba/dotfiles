@@ -1,7 +1,7 @@
 case node['platform']
 when 'debian', 'ubuntu'
     package "golang"
-when 'mac_os_x'
+when 'darwin'
     package "go"
 else
     raise NotImplementedError
