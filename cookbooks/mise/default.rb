@@ -92,3 +92,9 @@ else
         not_if 'which tflint'
     end
 end
+
+# flutter
+execute "install flutter with mise" do
+    command "mise install flutter@latest"
+    not_if "mise ls | grep flutter"
+end
