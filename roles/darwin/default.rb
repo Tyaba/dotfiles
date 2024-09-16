@@ -44,6 +44,7 @@ include_cookbook 'poetry'
 include_cookbook 'helm'
 include_cookbook 'jq'
 include_cookbook 'k6'
+include_cookbook 'android_studio'
 # 代替系
 include_cookbook 'ripgrep'
 include_cookbook 'tldr'
