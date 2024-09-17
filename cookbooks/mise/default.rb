@@ -93,8 +93,11 @@ else
     end
 end
 
-# flutter
-execute "install flutter with mise" do
-    command "mise install flutter@latest"
-    not_if "mise ls | grep flutter"
+# flutter if darwin
+case node[:platform]
+when 'darwin'
+    execute "install flutter with mise" do
+        command "mise install flutter@latest"
+        not_if "mise ls | grep flutter"
+    end
 end
