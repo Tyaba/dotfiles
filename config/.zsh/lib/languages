@@ -10,8 +10,9 @@ export PATH=$GOPATH/bin:$PATH
 ## poetry
 export PATH="$HOME/.poetry/bin:$PATH"
 export PYTHON_KEYRING_BACKEND="keyring.backends.null.Keyring"
-## pyenv (for mlops研修)
-export PYENV_ROOT="$HOME/.pyenv"
+# rye
+export PATH="$HOME/.rye/env:$PATH"
+export PATH="$HOME/.rye/shims:$PATH"
 
 # Deno
 export PATH=$HOME/.deno/bin:$PATH
