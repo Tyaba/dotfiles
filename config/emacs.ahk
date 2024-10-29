@@ -23,6 +23,8 @@ is_target()
     Return 1
   IfWinActive,ahk_exe Code.exe ; vscode
     Return 1
+  IfWinActive,ahk_exe Cursor.exe ; cursor
+    Return 1
   If WinActive("ahk_exe Code - Insiders.exe")
     Return 1
   IfWinActive,ahk_exe WindowsTerminal.exe ; windows terminal
