@@ -1,7 +1,21 @@
 {
+    "global": {
+        "ask_for_confirmation_before_quitting": true,
+        "check_for_updates_on_startup": true,
+        "show_in_menu_bar": true,
+        "show_profile_name_in_menu_bar": false,
+        "unsafe_ui": false
+    },
     "profiles": [
         {
             "complex_modifications": {
+                "parameters": {
+                    "basic.simultaneous_threshold_milliseconds": 50,
+                    "basic.to_delayed_action_delay_milliseconds": 500,
+                    "basic.to_if_alone_timeout_milliseconds": 1000,
+                    "basic.to_if_held_down_threshold_milliseconds": 500,
+                    "mouse_motion_to_scroll.speed": 100
+                },
                 "rules": [
                     {
                         "description": "ctrl + num を fn + numに変換する。例えばf7はctrl + 7になる",
@@ -9,7 +23,11 @@
                             {
                                 "from": {
                                     "key_code": "5",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
@@ -22,7 +40,11 @@
                             {
                                 "from": {
                                     "key_code": "6",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
@@ -35,7 +57,11 @@
                             {
                                 "from": {
                                     "key_code": "7",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
@@ -62,7 +88,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -75,11 +101,21 @@
                                 ],
                                 "from": {
                                     "key_code": "f",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
-                                    { "key_code": "right_arrow" },
-                                    { "modifiers": ["left_shift"] }
+                                    {
+                                        "key_code": "right_arrow"
+                                    },
+                                    {
+                                        "modifiers": [
+                                            "left_shift"
+                                        ]
+                                    }
                                 ],
                                 "type": "basic"
                             },
@@ -90,7 +126,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -103,9 +139,17 @@
                                 ],
                                 "from": {
                                     "key_code": "f",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
-                                "to": [{ "key_code": "right_arrow" }],
+                                "to": [
+                                    {
+                                        "key_code": "right_arrow"
+                                    }
+                                ],
                                 "type": "basic"
                             }
                         ]
@@ -125,7 +169,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -138,11 +182,21 @@
                                 ],
                                 "from": {
                                     "key_code": "b",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
-                                    { "key_code": "left_arrow" },
-                                    { "modifiers": ["left_shift"] }
+                                    {
+                                        "key_code": "left_arrow"
+                                    },
+                                    {
+                                        "modifiers": [
+                                            "left_shift"
+                                        ]
+                                    }
                                 ],
                                 "type": "basic"
                             },
@@ -153,7 +207,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -166,9 +220,17 @@
                                 ],
                                 "from": {
                                     "key_code": "b",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
-                                "to": [{ "key_code": "left_arrow" }],
+                                "to": [
+                                    {
+                                        "key_code": "left_arrow"
+                                    }
+                                ],
                                 "type": "basic"
                             }
                         ]
@@ -188,7 +250,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -201,11 +263,21 @@
                                 ],
                                 "from": {
                                     "key_code": "p",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
-                                    { "key_code": "up_arrow" },
-                                    { "modifiers": ["left_shift"] }
+                                    {
+                                        "key_code": "up_arrow"
+                                    },
+                                    {
+                                        "modifiers": [
+                                            "left_shift"
+                                        ]
+                                    }
                                 ],
                                 "type": "basic"
                             },
@@ -216,7 +288,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -229,9 +301,17 @@
                                 ],
                                 "from": {
                                     "key_code": "p",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
-                                "to": [{ "key_code": "up_arrow" }],
+                                "to": [
+                                    {
+                                        "key_code": "up_arrow"
+                                    }
+                                ],
                                 "type": "basic"
                             }
                         ]
@@ -251,7 +331,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -264,11 +344,21 @@
                                 ],
                                 "from": {
                                     "key_code": "n",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
-                                    { "key_code": "down_arrow" },
-                                    { "modifiers": ["left_shift"] }
+                                    {
+                                        "key_code": "down_arrow"
+                                    },
+                                    {
+                                        "modifiers": [
+                                            "left_shift"
+                                        ]
+                                    }
                                 ],
                                 "type": "basic"
                             },
@@ -279,7 +369,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -292,9 +382,17 @@
                                 ],
                                 "from": {
                                     "key_code": "n",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
-                                "to": [{ "key_code": "down_arrow" }],
+                                "to": [
+                                    {
+                                        "key_code": "down_arrow"
+                                    }
+                                ],
                                 "type": "basic"
                             }
                         ]
@@ -314,7 +412,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -327,14 +425,24 @@
                                 ],
                                 "from": {
                                     "key_code": "a",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "left_arrow",
-                                        "modifiers": ["left_command"]
+                                        "modifiers": [
+                                            "left_command"
+                                        ]
                                     },
-                                    { "modifiers": ["left_shift"] }
+                                    {
+                                        "modifiers": [
+                                            "left_shift"
+                                        ]
+                                    }
                                 ],
                                 "type": "basic"
                             },
@@ -345,7 +453,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -358,12 +466,18 @@
                                 ],
                                 "from": {
                                     "key_code": "a",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "left_arrow",
-                                        "modifiers": ["left_command"]
+                                        "modifiers": [
+                                            "left_command"
+                                        ]
                                     }
                                 ],
                                 "type": "basic"
@@ -385,7 +499,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -398,14 +512,24 @@
                                 ],
                                 "from": {
                                     "key_code": "e",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "right_arrow",
-                                        "modifiers": ["left_command"]
+                                        "modifiers": [
+                                            "left_command"
+                                        ]
                                     },
-                                    { "modifiers": ["left_shift"] }
+                                    {
+                                        "modifiers": [
+                                            "left_shift"
+                                        ]
+                                    }
                                 ],
                                 "type": "basic"
                             },
@@ -416,7 +540,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -429,12 +553,18 @@
                                 ],
                                 "from": {
                                     "key_code": "e",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "right_arrow",
-                                        "modifiers": ["left_command"]
+                                        "modifiers": [
+                                            "left_command"
+                                        ]
                                     }
                                 ],
                                 "type": "basic"
@@ -456,7 +586,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -469,11 +599,21 @@
                                 ],
                                 "from": {
                                     "key_code": "v",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
-                                    { "key_code": "page_down" },
-                                    { "modifiers": ["left_shift"] }
+                                    {
+                                        "key_code": "page_down"
+                                    },
+                                    {
+                                        "modifiers": [
+                                            "left_shift"
+                                        ]
+                                    }
                                 ],
                                 "type": "basic"
                             },
@@ -484,7 +624,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -497,9 +637,17 @@
                                 ],
                                 "from": {
                                     "key_code": "v",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
-                                "to": [{ "key_code": "page_down" }],
+                                "to": [
+                                    {
+                                        "key_code": "page_down"
+                                    }
+                                ],
                                 "type": "basic"
                             }
                         ]
@@ -514,7 +662,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -527,10 +675,16 @@
                                 ],
                                 "from": {
                                     "key_code": "d",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
-                                    { "key_code": "delete_forward" },
+                                    {
+                                        "key_code": "delete_forward"
+                                    },
                                     {
                                         "set_variable": {
                                             "name": "C-SPC",
@@ -552,7 +706,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -565,10 +719,16 @@
                                 ],
                                 "from": {
                                     "key_code": "h",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
-                                    { "key_code": "delete_or_backspace" },
+                                    {
+                                        "key_code": "delete_or_backspace"
+                                    },
                                     {
                                         "set_variable": {
                                             "name": "C-SPC",
@@ -590,7 +750,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -603,16 +763,25 @@
                                 ],
                                 "from": {
                                     "key_code": "k",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "right_arrow",
-                                        "modifiers": ["left_shift", "left_command"]
+                                        "modifiers": [
+                                            "left_shift",
+                                            "left_command"
+                                        ]
                                     },
                                     {
                                         "key_code": "x",
-                                        "modifiers": ["left_command"]
+                                        "modifiers": [
+                                            "left_command"
+                                        ]
                                     },
                                     {
                                         "set_variable": {
@@ -635,7 +804,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -648,9 +817,17 @@
                                 ],
                                 "from": {
                                     "key_code": "g",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
-                                "to": [{ "key_code": "escape" }],
+                                "to": [
+                                    {
+                                        "key_code": "escape"
+                                    }
+                                ],
                                 "type": "basic"
                             }
                         ]
@@ -665,7 +842,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -678,12 +855,18 @@
                                 ],
                                 "from": {
                                     "key_code": "s",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "f",
-                                        "modifiers": ["left_command"]
+                                        "modifiers": [
+                                            "left_command"
+                                        ]
                                     },
                                     {
                                         "set_variable": {
@@ -706,7 +889,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -719,12 +902,18 @@
                                 ],
                                 "from": {
                                     "key_code": "w",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "x",
-                                        "modifiers": ["left_command"]
+                                        "modifiers": [
+                                            "left_command"
+                                        ]
                                     },
                                     {
                                         "set_variable": {
@@ -747,7 +936,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -760,12 +949,18 @@
                                 ],
                                 "from": {
                                     "key_code": "y",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "v",
-                                        "modifiers": ["left_command"]
+                                        "modifiers": [
+                                            "left_command"
+                                        ]
                                     },
                                     {
                                         "set_variable": {
@@ -793,7 +988,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -806,7 +1001,11 @@
                                 ],
                                 "from": {
                                     "key_code": "open_bracket",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
@@ -830,7 +1029,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -843,9 +1042,17 @@
                                 ],
                                 "from": {
                                     "key_code": "open_bracket",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
-                                "to": [{ "key_code": "escape" }],
+                                "to": [
+                                    {
+                                        "key_code": "escape"
+                                    }
+                                ],
                                 "type": "basic"
                             }
                         ]
@@ -856,12 +1063,18 @@
                             {
                                 "from": {
                                     "key_code": "spacebar",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "open_bracket",
-                                        "modifiers": ["left_control"]
+                                        "modifiers": [
+                                            "left_control"
+                                        ]
                                     }
                                 ],
                                 "type": "basic"
@@ -878,7 +1091,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -891,12 +1104,18 @@
                                 ],
                                 "from": {
                                     "key_code": "u",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "z",
-                                        "modifiers": ["left_command"]
+                                        "modifiers": [
+                                            "left_command"
+                                        ]
                                     },
                                     {
                                         "set_variable": {
@@ -919,7 +1138,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -932,12 +1151,18 @@
                                 ],
                                 "from": {
                                     "key_code": "s",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "s",
-                                        "modifiers": ["left_command"]
+                                        "modifiers": [
+                                            "left_command"
+                                        ]
                                     },
                                     {
                                         "set_variable": {
@@ -960,7 +1185,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -973,12 +1198,18 @@
                                 ],
                                 "from": {
                                     "key_code": "c",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "w",
-                                        "modifiers": ["left_command"]
+                                        "modifiers": [
+                                            "left_command"
+                                        ]
                                     },
                                     {
                                         "set_variable": {
@@ -1002,7 +1233,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1015,12 +1246,19 @@
                                 ],
                                 "from": {
                                     "key_code": "c",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "w",
-                                        "modifiers": ["left_command", "left_shift"]
+                                        "modifiers": [
+                                            "left_command",
+                                            "left_shift"
+                                        ]
                                     },
                                     {
                                         "set_variable": {
@@ -1043,7 +1281,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1056,10 +1294,16 @@
                                 ],
                                 "from": {
                                     "key_code": "f",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
-                                    { "key_code": "o" },
+                                    {
+                                        "key_code": "o"
+                                    },
                                     {
                                         "set_variable": {
                                             "name": "C-SPC",
@@ -1081,7 +1325,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1095,8 +1339,12 @@
                                 "from": {
                                     "key_code": "x",
                                     "modifiers": {
-                                        "mandatory": ["control"],
-                                        "optional": ["caps_lock"]
+                                        "mandatory": [
+                                            "control"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
+                                        ]
                                     }
                                 },
                                 "to": [
@@ -1139,7 +1387,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1152,7 +1400,11 @@
                                 ],
                                 "from": {
                                     "any": "key_code",
-                                    "modifiers": { "optional": ["any"] }
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
                                 },
                                 "type": "basic"
                             }
@@ -1173,7 +1425,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1186,11 +1438,21 @@
                                 ],
                                 "from": {
                                     "key_code": "v",
-                                    "modifiers": { "mandatory": ["left_option"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
                                 },
                                 "to": [
-                                    { "key_code": "page_up" },
-                                    { "modifiers": ["left_shift"] }
+                                    {
+                                        "key_code": "page_up"
+                                    },
+                                    {
+                                        "modifiers": [
+                                            "left_shift"
+                                        ]
+                                    }
                                 ],
                                 "type": "basic"
                             },
@@ -1201,7 +1463,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1214,9 +1476,17 @@
                                 ],
                                 "from": {
                                     "key_code": "v",
-                                    "modifiers": { "mandatory": ["left_option"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
                                 },
-                                "to": [{ "key_code": "page_up" }],
+                                "to": [
+                                    {
+                                        "key_code": "page_up"
+                                    }
+                                ],
                                 "type": "basic"
                             }
                         ]
@@ -1231,7 +1501,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1244,12 +1514,18 @@
                                 ],
                                 "from": {
                                     "key_code": "w",
-                                    "modifiers": { "mandatory": ["left_option"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "c",
-                                        "modifiers": ["left_command"]
+                                        "modifiers": [
+                                            "left_command"
+                                        ]
                                     },
                                     {
                                         "set_variable": {
@@ -1277,7 +1553,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1290,14 +1566,24 @@
                                 ],
                                 "from": {
                                     "key_code": "f",
-                                    "modifiers": { "mandatory": ["left_option"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "right_arrow",
-                                        "modifiers": ["left_option"]
+                                        "modifiers": [
+                                            "left_option"
+                                        ]
                                     },
-                                    { "modifiers": ["left_shift"] }
+                                    {
+                                        "modifiers": [
+                                            "left_shift"
+                                        ]
+                                    }
                                 ],
                                 "type": "basic"
                             },
@@ -1308,7 +1594,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1321,12 +1607,18 @@
                                 ],
                                 "from": {
                                     "key_code": "f",
-                                    "modifiers": { "mandatory": ["left_option"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "right_arrow",
-                                        "modifiers": ["left_option"]
+                                        "modifiers": [
+                                            "left_option"
+                                        ]
                                     }
                                 ],
                                 "type": "basic"
@@ -1348,7 +1640,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1361,14 +1653,24 @@
                                 ],
                                 "from": {
                                     "key_code": "b",
-                                    "modifiers": { "mandatory": ["left_option"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "left_arrow",
-                                        "modifiers": ["left_option"]
+                                        "modifiers": [
+                                            "left_option"
+                                        ]
                                     },
-                                    { "modifiers": ["left_shift"] }
+                                    {
+                                        "modifiers": [
+                                            "left_shift"
+                                        ]
+                                    }
                                 ],
                                 "type": "basic"
                             },
@@ -1379,7 +1681,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^com\\.todesktop\\.230313mzl4w4u92",
+                                            "^com\\.todesktop\\.230313mzl4w4u92", // cursor
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^com\\.apple\\.x11$",
@@ -1392,12 +1694,18 @@
                                 ],
                                 "from": {
                                     "key_code": "b",
-                                    "modifiers": { "mandatory": ["left_option"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "left_arrow",
-                                        "modifiers": ["left_option"]
+                                        "modifiers": [
+                                            "left_option"
+                                        ]
                                     }
                                 ],
                                 "type": "basic"
@@ -1410,12 +1718,19 @@
                             {
                                 "from": {
                                     "key_code": "tab",
-                                    "modifiers": { "mandatory": ["option"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "option"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "2",
-                                        "modifiers": ["left_command", "left_shift"]
+                                        "modifiers": [
+                                            "left_command",
+                                            "left_shift"
+                                        ]
                                     },
                                     {
                                         "set_variable": {
@@ -1434,12 +1749,18 @@
                             {
                                 "from": {
                                     "key_code": "backslash",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
                                 },
                                 "to": [
                                     {
                                         "key_code": "spacebar",
-                                        "modifiers": ["left_control"]
+                                        "modifiers": [
+                                            "left_control"
+                                        ]
                                     }
                                 ],
                                 "type": "basic"
@@ -1450,26 +1771,303 @@
             },
             "devices": [
                 {
-                    "identifiers": { "is_keyboard": true },
+                    "disable_built_in_keyboard_if_exists": false,
+                    "fn_function_keys": [],
+                    "game_pad_swap_sticks": false,
+                    "identifiers": {
+                        "is_game_pad": false,
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "product_id": 832,
+                        "vendor_id": 1452
+                    },
+                    "ignore": false,
+                    "manipulate_caps_lock_led": true,
+                    "mouse_flip_horizontal_wheel": false,
+                    "mouse_flip_vertical_wheel": false,
+                    "mouse_flip_x": false,
+                    "mouse_flip_y": false,
+                    "mouse_swap_wheels": false,
+                    "mouse_swap_xy": false,
+                    "simple_modifications": [],
+                    "treat_as_built_in_keyboard": false
+                },
+                {
+                    "disable_built_in_keyboard_if_exists": false,
+                    "fn_function_keys": [],
+                    "game_pad_swap_sticks": false,
+                    "identifiers": {
+                        "is_game_pad": false,
+                        "is_keyboard": false,
+                        "is_pointing_device": true,
+                        "product_id": 832,
+                        "vendor_id": 1452
+                    },
+                    "ignore": true,
+                    "manipulate_caps_lock_led": false,
+                    "mouse_flip_horizontal_wheel": false,
+                    "mouse_flip_vertical_wheel": false,
+                    "mouse_flip_x": false,
+                    "mouse_flip_y": false,
+                    "mouse_swap_wheels": false,
+                    "mouse_swap_xy": false,
+                    "simple_modifications": [],
+                    "treat_as_built_in_keyboard": false
+                },
+                {
+                    "disable_built_in_keyboard_if_exists": false,
+                    "fn_function_keys": [],
+                    "game_pad_swap_sticks": false,
+                    "identifiers": {
+                        "is_game_pad": false,
+                        "is_keyboard": false,
+                        "is_pointing_device": true,
+                        "product_id": 45095,
+                        "vendor_id": 1133
+                    },
+                    "ignore": true,
+                    "manipulate_caps_lock_led": false,
+                    "mouse_flip_horizontal_wheel": false,
+                    "mouse_flip_vertical_wheel": false,
+                    "mouse_flip_x": false,
+                    "mouse_flip_y": false,
+                    "mouse_swap_wheels": false,
+                    "mouse_swap_xy": false,
+                    "simple_modifications": [],
+                    "treat_as_built_in_keyboard": false
+                },
+                {
+                    "disable_built_in_keyboard_if_exists": false,
+                    "fn_function_keys": [],
+                    "game_pad_swap_sticks": false,
+                    "identifiers": {
+                        "is_game_pad": false,
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "product_id": 33,
+                        "vendor_id": 1278
+                    },
+                    "ignore": false,
+                    "manipulate_caps_lock_led": true,
+                    "mouse_flip_horizontal_wheel": false,
+                    "mouse_flip_vertical_wheel": false,
+                    "mouse_flip_x": false,
+                    "mouse_flip_y": false,
+                    "mouse_swap_wheels": false,
+                    "mouse_swap_xy": false,
+                    "simple_modifications": [],
+                    "treat_as_built_in_keyboard": false
+                },
+                {
+                    "disable_built_in_keyboard_if_exists": false,
+                    "fn_function_keys": [],
+                    "game_pad_swap_sticks": false,
+                    "identifiers": {
+                        "is_game_pad": false,
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "product_id": 34304,
+                        "vendor_id": 1452
+                    },
+                    "ignore": false,
+                    "manipulate_caps_lock_led": true,
+                    "mouse_flip_horizontal_wheel": false,
+                    "mouse_flip_vertical_wheel": false,
+                    "mouse_flip_x": false,
+                    "mouse_flip_y": false,
+                    "mouse_swap_wheels": false,
+                    "mouse_swap_xy": false,
+                    "simple_modifications": [],
+                    "treat_as_built_in_keyboard": false
+                },
+                {
+                    "disable_built_in_keyboard_if_exists": false,
+                    "fn_function_keys": [],
+                    "game_pad_swap_sticks": false,
+                    "identifiers": {
+                        "is_game_pad": false,
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "product_id": 0,
+                        "vendor_id": 0
+                    },
+                    "ignore": false,
+                    "manipulate_caps_lock_led": true,
+                    "mouse_flip_horizontal_wheel": false,
+                    "mouse_flip_vertical_wheel": false,
+                    "mouse_flip_x": false,
+                    "mouse_flip_y": false,
+                    "mouse_swap_wheels": false,
+                    "mouse_swap_xy": false,
                     "simple_modifications": [
                         {
-                            "from": { "key_code": "caps_lock" },
-                            "to": [{ "key_code": "left_control" }]
+                            "from": {
+                                "key_code": "caps_lock"
+                            },
+                            "to": [
+                                {
+                                    "key_code": "left_control"
+                                }
+                            ]
                         }
-                    ]
+                    ],
+                    "treat_as_built_in_keyboard": false
+                },
+                {
+                    "disable_built_in_keyboard_if_exists": false,
+                    "fn_function_keys": [],
+                    "game_pad_swap_sticks": false,
+                    "identifiers": {
+                        "is_game_pad": false,
+                        "is_keyboard": false,
+                        "is_pointing_device": true,
+                        "product_id": 0,
+                        "vendor_id": 0
+                    },
+                    "ignore": true,
+                    "manipulate_caps_lock_led": false,
+                    "mouse_flip_horizontal_wheel": false,
+                    "mouse_flip_vertical_wheel": false,
+                    "mouse_flip_x": false,
+                    "mouse_flip_y": false,
+                    "mouse_swap_wheels": false,
+                    "mouse_swap_xy": false,
+                    "simple_modifications": [],
+                    "treat_as_built_in_keyboard": false
                 }
             ],
             "fn_function_keys": [
                 {
-                    "from": { "key_code": "f7" },
-                    "to": [{ "key_code": "f7" }]
+                    "from": {
+                        "key_code": "f1"
+                    },
+                    "to": [
+                        {
+                            "consumer_key_code": "display_brightness_decrement"
+                        }
+                    ]
+                },
+                {
+                    "from": {
+                        "key_code": "f2"
+                    },
+                    "to": [
+                        {
+                            "consumer_key_code": "display_brightness_increment"
+                        }
+                    ]
+                },
+                {
+                    "from": {
+                        "key_code": "f3"
+                    },
+                    "to": [
+                        {
+                            "apple_vendor_keyboard_key_code": "mission_control"
+                        }
+                    ]
+                },
+                {
+                    "from": {
+                        "key_code": "f4"
+                    },
+                    "to": [
+                        {
+                            "apple_vendor_keyboard_key_code": "spotlight"
+                        }
+                    ]
+                },
+                {
+                    "from": {
+                        "key_code": "f5"
+                    },
+                    "to": [
+                        {
+                            "consumer_key_code": "dictation"
+                        }
+                    ]
+                },
+                {
+                    "from": {
+                        "key_code": "f6"
+                    },
+                    "to": [
+                        {
+                            "key_code": "f6"
+                        }
+                    ]
+                },
+                {
+                    "from": {
+                        "key_code": "f7"
+                    },
+                    "to": [
+                        {
+                            "key_code": "f7"
+                        }
+                    ]
+                },
+                {
+                    "from": {
+                        "key_code": "f8"
+                    },
+                    "to": [
+                        {
+                            "consumer_key_code": "play_or_pause"
+                        }
+                    ]
+                },
+                {
+                    "from": {
+                        "key_code": "f9"
+                    },
+                    "to": [
+                        {
+                            "consumer_key_code": "fast_forward"
+                        }
+                    ]
+                },
+                {
+                    "from": {
+                        "key_code": "f10"
+                    },
+                    "to": [
+                        {
+                            "consumer_key_code": "mute"
+                        }
+                    ]
+                },
+                {
+                    "from": {
+                        "key_code": "f11"
+                    },
+                    "to": [
+                        {
+                            "consumer_key_code": "volume_decrement"
+                        }
+                    ]
+                },
+                {
+                    "from": {
+                        "key_code": "f12"
+                    },
+                    "to": [
+                        {
+                            "consumer_key_code": "volume_increment"
+                        }
+                    ]
                 }
             ],
             "name": "Default profile",
+            "parameters": {
+                "delay_milliseconds_before_open_device": 1000
+            },
             "selected": true,
+            "simple_modifications": [],
             "virtual_hid_keyboard": {
                 "country_code": 0,
-                "keyboard_type_v2": "ansi"
+                "indicate_sticky_modifier_keys_state": true,
+                "mouse_key_xy_scale": 100
             }
         }
     ]
