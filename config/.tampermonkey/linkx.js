@@ -9,12 +9,25 @@
 
 'use strict';
 (function () {
-    // ページ読み込み完了後に実行
-    window.addEventListener('load', function () {
-        // 更新ボタンを全て取得
-        const updateButtons = document.querySelectorAll('.ga-refresh-account-button');
+    // カスタムボタンを作成
+    const customButton = document.createElement('button');
+    customButton.textContent = 'Tyaba一括更新';
+    customButton.style.position = 'fixed';
+    customButton.style.top = '10px';
+    customButton.style.right = '10px';
+    customButton.style.transform = 'none';
+    customButton.style.zIndex = '9999';
+    customButton.style.padding = '20px 40px';
+    customButton.style.backgroundColor = '#800080';
+    customButton.style.color = 'white';
+    customButton.style.border = 'none';
+    customButton.style.borderRadius = '8px';
+    customButton.style.cursor = 'pointer';
+    customButton.style.fontSize = '18px';
 
-        // 各ボタンを順番にクリック
+    // ボタンクリック時の処理
+    customButton.addEventListener('click', function () {
+        const updateButtons = document.querySelectorAll('.ga-refresh-account-button');
         let index = 0;
         const clickInterval = setInterval(() => {
             if (index >= updateButtons.length) {
@@ -25,8 +38,9 @@
             const button = updateButtons[index];
             button.click();
             index++;
-
-            // 次のクリックまで1秒待機
         }, 1000);
     });
+
+    // ページにボタンを追加
+    document.body.appendChild(customButton);
 })();
