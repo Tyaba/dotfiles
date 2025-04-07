@@ -1,4 +1,4 @@
-# poetryをinstall
+# uvをinstall
 execute "install uv" do
     command "pipx install uv"
     not_if 'which uv'
