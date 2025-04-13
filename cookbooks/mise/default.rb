@@ -62,6 +62,15 @@ execute "install pnpm with mise" do
     not_if "mise ls | grep pnpm"
 end
 
+# go
+execute "install go with mise" do
+    command <<-EOF
+        mise install go@latest
+        mise use --global go@latest
+    EOF
+    not_if "mise ls | grep go"
+end
+
 # for python
 case node[:platform]
 when 'ubuntu', 'debian'
