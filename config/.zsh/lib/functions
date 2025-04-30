@@ -1,7 +1,3 @@
-function ip() {
-	echo $(ipconfig getifaddr en0)
-}
-
 function clean_downloads() {
 	# :param duration: Filter downloads based on the file modification time in fd command such as "7 days".
 	duration=$1
