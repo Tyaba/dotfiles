@@ -27,9 +27,6 @@ alias pbpaste="xclip -selection c -o"
 # in short
 # lazydocker
 alias lzd="lazydocker"
-# kubernetes
-source <(kubectl completion zsh)
-alias k=kubectl
 # terraform
 alias tf="terraform"
 # gcloud

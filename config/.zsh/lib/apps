@@ -9,6 +9,7 @@ export CLOUDSDK_PYTHON=python3
 export BOTO_CONFIG=$HOME/.config/boto
 
 # Kubectl
+source <(kubectl completion zsh)
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 # Docker
 export DOCKER_BUILDKIT=1
