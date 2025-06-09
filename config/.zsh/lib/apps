@@ -9,7 +9,6 @@ export CLOUDSDK_PYTHON=python3
 export BOTO_CONFIG=$HOME/.config/boto
 
 # Kubectl
-source <(kubectl completion zsh)
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 # Docker
 export DOCKER_BUILDKIT=1
@@ -21,6 +20,11 @@ export COMPOSE_DOCKER_CLI_BUILD=1
 # mise
 export MISE_ENV_FILE=.env
 eval "$(~/.cargo/bin/mise activate zsh)"
+
+# Kubectl completion (miseのactivate後に実行)
+if command -v kubectl >/dev/null 2>&1; then
+    source <(kubectl completion zsh)
+fi
 
 # pre-commit
 export PRE_COMMIT_COLOR=always
