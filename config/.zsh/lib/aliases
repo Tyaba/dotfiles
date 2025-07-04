@@ -35,3 +35,5 @@ alias gcurl='curl --header "Authorization: Bearer $(gcloud auth print-identity-t
 alias d=docker
 # cargo-script
 alias rust="cargo-script"
+# python3 == python
+alias python3="python"

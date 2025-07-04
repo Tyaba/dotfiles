@@ -4,7 +4,7 @@ export EDITOR=emacs
 if [ -f "$HOME/.bin/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/.bin/google-cloud-sdk/path.zsh.inc"; fi
 # The next line enables shell command completion for gcloud.
 if [ -f "$HOME/.bin/google-cloud-sdk/completion.inc" ]; then . "$HOME/.bin/google-cloud-sdk/completion.inc"; fi
-export CLOUDSDK_PYTHON=python3
+export CLOUDSDK_PYTHON=$(which python)
 # GCS setting file path (default ~/.boto -> .config/boto)
 export BOTO_CONFIG=$HOME/.config/boto
 
