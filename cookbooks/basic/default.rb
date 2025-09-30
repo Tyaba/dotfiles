@@ -1,6 +1,14 @@
 case node[:platform]
-when 'ubuntu', 'debian'
+when 'ubuntu'
   package 'software-properties-common'
+  package 'locales'
+when 'debian'
+  # Debian 13 (trixie)ではsoftware-properties-commonが利用できない場合がある
+  # 代わりに、必要な依存関係を個別にインストール
+  package 'apt-transport-https'
+  package 'ca-certificates'
+  package 'gnupg'
+  package 'lsb-release'
   package 'locales'
 end
   # localeをen_US.UTF-8したい。
@@ -28,9 +36,10 @@ when 'ubuntu'
 when 'debian'
   execute 'locale gen' do
     command '
+    sudo apt-get update &&
     sudo apt-get install -y locales-all &&
-    locale-gen --purge "en_US.UTF-8" &&
-    dpkg-reconfigure --frontend noninteractive locales
+    sudo locale-gen --purge "en_US.UTF-8" &&
+    sudo dpkg-reconfigure --frontend noninteractive locales
     '
     not_if "locale | grep 'Cannot set'"
   end
