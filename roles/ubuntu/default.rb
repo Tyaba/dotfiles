@@ -34,7 +34,6 @@ include_cookbook 'k6'
 # include_cookbook 'gpg-agent'
 # include_cookbook 'ssh-agent'
 # 便利系
-include_cookbook 'tldr'
 include_cookbook 'gibo'
 include_cookbook 'watch'
 include_cookbook 'tree'

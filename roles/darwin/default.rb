@@ -47,7 +47,6 @@ include_cookbook 'k6'
 include_cookbook 'android_studio'
 # 代替系
 include_cookbook 'ripgrep'
-include_cookbook 'tldr'
 # 便利系
 include_cookbook 'gibo'
 include_cookbook 'watch'
