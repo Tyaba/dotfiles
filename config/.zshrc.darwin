@@ -30,3 +30,5 @@ export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 # hdf5
 #export HDF5_DIR=$(/opt/homebrew/bin/brew --prefix hdf5)
 
+# Google Cloud SDK Python setting
+export CLOUDSDK_PYTHON=$HOME/.local/share/mise/installs/python/3.12/bin/python
