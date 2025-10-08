@@ -87,7 +87,7 @@ when 'ubuntu', 'debian'
     package 'libxmlsec1-dev'
     package 'libffi-dev'
     package 'liblzma-dev'
-    package 'python3-distutils'
+    package 'python3-setuptools'
 end
 
 # tflint
