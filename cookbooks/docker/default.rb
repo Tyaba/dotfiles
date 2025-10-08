@@ -72,17 +72,6 @@ EOF
 end
 
 execute '''cat <<EOF >> ~/.zsh/lib/aliases
-
-# Kubernetes
-source <(kubectl completion zsh)
-alias k=kubectl
-complete -o default -F __start_kubectl k
-EOF
-''' do
-  not_if 'grep kubectl ~/.zsh/lib/aliases'
-end
-
-execute '''cat <<EOF >> ~/.zsh/lib/aliases
 # Docker
 alias d=docker
 EOF
