@@ -51,7 +51,7 @@ else
     if ssh-add -l | grep -q "The agent has no identities." ; then
         echo "ssh agentが鍵を持っていません。"
         # awkでファイル名を取り出し
-        new_ssh_auth_sock=$(\ls -l /tmp/ssh-**/* | \grep 'rwxr-xr-x' | awk '{print $9}')
+        new_ssh_auth_sock=$(\ls -l /tmp/ssh-**/* | \grep 'rwx' | awk '{print $9}')
         if [[ -n new_ssh_auth_sock ]] ; then
             echo "参照すべき別のSSH_AUTH_SOCKがみつかりました。変更します"
             export SSH_AUTH_SOCK=$new_ssh_auth_sock
