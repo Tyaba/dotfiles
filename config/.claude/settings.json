@@ -8,6 +8,8 @@
             "Bash(git diff:*)",
             "Bash(mkdir :*)",
             "Bash(ls :*)",
+            "Bash(mv :*)",
+            "Bash(cp :*)",
             "Read(*)",
             "Edit(*)",
             "Write(*)"
