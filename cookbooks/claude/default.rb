@@ -1,0 +1,1 @@
+dotfile '.claude/settings.json'

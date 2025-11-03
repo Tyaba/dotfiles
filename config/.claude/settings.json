@@ -4,12 +4,20 @@
         "allow": [
             "Bash(uv sync)",
             "Bash(mise run vet)",
+            "Bash(mise run *)",
+            "Bash(git status)",
+            "Bash(git diff*)",
+            "Bash(mkdir *)",
+            "Bash(ls *)",
             "Read(*)"
         ],
         "deny": [
             "Read(*/.env)",
             "Read(*credentials.json)",
-            "Read(./secrets/**)"
+            "Read(./secrets/**)",
+            "Read(**/id_rsa*)",
+            "Read(**/id_ed25519*)",
+            "Write(*/.ssh/*)"
         ]
     },
     "env": {
