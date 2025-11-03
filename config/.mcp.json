@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "terraform": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "hashicorp/terraform-mcp-server"
+      ]
+    },
+    "svelte5": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@studentofjs/svelte5-mcp"
+      ]
+    }
+  }
+}

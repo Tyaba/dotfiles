@@ -8,7 +8,9 @@
             "Bash(git diff:*)",
             "Bash(mkdir :*)",
             "Bash(ls :*)",
-            "Read(*)"
+            "Read(*)",
+            "Edit(*)",
+            "Write(*)"
         ],
         "deny": [
             "Read(*/.env)",
@@ -21,6 +23,13 @@
     },
     "includeCoAuthoredBy": false,
     "model": "claude-sonnet-4-5-20250929",
+    "enabledMcpjsonServers": [
+        "terraform",
+        "svelte5"
+    ],
+    "env": {
+        "BASH_DEFAULT_TIMEOUT_MS": "5000"
+    },
     "hooks": {
         "SessionStart": [
             {
@@ -28,7 +37,7 @@
                 "hooks": [
                     {
                         "type": "command",
-                        "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; else paplay /usr/share/sounds/freedesktop/stereo/complete.oga; fi"
+                        "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; else paplay /usr/share/sounds/freedesktop/stereo/message.oga; fi"
                     },
                     {
                         "type": "command",
@@ -43,7 +52,7 @@
                 "hooks": [
                     {
                         "type": "command",
-                        "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; else paplay /usr/share/sounds/freedesktop/stereo/complete.oga; fi"
+                        "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; else paplay /usr/share/sounds/freedesktop/stereo/message.oga; fi"
                     },
                     {
                         "type": "command",
@@ -58,7 +67,7 @@
                 "hooks": [
                     {
                         "type": "command",
-                        "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; else paplay /usr/share/sounds/freedesktop/stereo/complete.oga; fi"
+                        "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; else paplay /usr/share/sounds/freedesktop/stereo/message.oga; fi"
                     },
                     {
                         "type": "command",
