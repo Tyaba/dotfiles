@@ -1,16 +1,14 @@
-// ref: https://docs.claude.com/ja/docs/claude-code/settings
 {
     "permissions": {
         "allow": [
             "Bash(uv sync)",
             "Bash(mise run vet)",
-            "Bash(mise run *)",
+            "Bash(mise run :*)",
             "Bash(git status)",
-            "Bash(git diff*)",
-            "Bash(mkdir *)",
-            "Bash(ls *)",
-            "Read(*)",
-            "WebSearch(*)"
+            "Bash(git diff:*)",
+            "Bash(mkdir :*)",
+            "Bash(ls :*)",
+            "Read(*)"
         ],
         "deny": [
             "Read(*/.env)",
@@ -21,29 +19,50 @@
             "Write(*/.ssh/*)"
         ]
     },
-    "env": {
-        "CLAUDE_CODE_ENABLE_TELEMETRY": "1",
-        "OTEL_METRICS_EXPORTER": "otlp"
-    },
     "includeCoAuthoredBy": false,
     "model": "claude-sonnet-4-5-20250929",
     "hooks": {
-        "Stop": [
+        "SessionStart": [
             {
+                "matcher": "",
                 "hooks": [
                     {
                         "type": "command",
                         "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; else paplay /usr/share/sounds/freedesktop/stereo/complete.oga; fi"
+                    },
+                    {
+                        "type": "command",
+                        "command": "echo \"test\""
+                    }
+                ]
+            }
+        ],
+        "Stop": [
+            {
+                "matcher": "",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; else paplay /usr/share/sounds/freedesktop/stereo/complete.oga; fi"
+                    },
+                    {
+                        "type": "command",
+                        "command": "echo \"test\""
                     }
                 ]
             }
         ],
         "Notification": [
             {
+                "matcher": "",
                 "hooks": [
                     {
                         "type": "command",
                         "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; else paplay /usr/share/sounds/freedesktop/stereo/complete.oga; fi"
+                    },
+                    {
+                        "type": "command",
+                        "command": "echo \"test\""
                     }
                 ]
             }

@@ -10,4 +10,4 @@ else
 end
 
 # Configure Claude settings
-dotfile '.claude/settings.json'
+dotfile '.config/claude/settings.json' => '.claude/settings.json'
