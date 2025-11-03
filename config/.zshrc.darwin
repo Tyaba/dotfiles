@@ -32,3 +32,12 @@ export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 # Google Cloud SDK Python setting
 export CLOUDSDK_PYTHON=$HOME/.local/share/mise/installs/python/3.12/bin/python
+
+# pulse audio daemon
+if command -v pulseaudio > /dev/null 2>&1 && ! pgrep -x "pulseaudio" > /dev/null 2>&1
+then
+  # 認証を無効化するオプション付きで起動（クッキー同期が面倒な場合）
+  # pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --daemon --auth-ip-acl=127.0.0.1
+  # クッキー認証を使いたい場合は下の行を使う
+  pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --daemon > /dev/null 2>&1
+fi

@@ -76,4 +76,3 @@ esac
 
 # go
 export PATH=$PATH:$GOBIN
-

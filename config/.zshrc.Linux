@@ -1,1 +1,5 @@
 alias gist='gist-paste'
+
+if [ -n "$SSH_CONNECTION" ]; then
+  export PULSE_SERVER="tcp:localhost:24713"
+fi
