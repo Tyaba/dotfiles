@@ -1,3 +1,4 @@
+// ref: https://docs.claude.com/ja/docs/claude-code/settings
 {
     "permissions": {
         "allow": [
@@ -5,11 +6,29 @@
             "Bash(mise run vet)",
             "Read(*)"
         ],
-        "deny": []
+        "deny": [
+            "Read(*/.env)",
+            "Read(*credentials.json)",
+            "Read(./secrets/**)"
+        ]
     },
     "env": {
         "CLAUDE_CODE_ENABLE_TELEMETRY": "1",
         "OTEL_METRICS_EXPORTER": "otlp"
     },
-    "includeCoAuthoredBy": false
+    "includeCoAuthoredBy": false,
+    "model": "claude-sonnet-4-5-20250929",
+    "hooks": {
+        "Stop": [
+            {
+                "matcher": "",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; else paplay /usr/share/sounds/freedesktop/stereo/complete.oga; fi"
+                    }
+                ]
+            }
+        ]
+    }
 }
