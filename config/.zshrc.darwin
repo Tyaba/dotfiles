@@ -33,11 +33,57 @@ export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 # Google Cloud SDK Python setting
 export CLOUDSDK_PYTHON=$HOME/.local/share/mise/installs/python/3.12/bin/python
 
-# pulse audio daemon
-if command -v pulseaudio > /dev/null 2>&1 && ! pgrep -x "pulseaudio" > /dev/null 2>&1
-then
-  # 認証を無効化するオプション付きで起動（クッキー同期が面倒な場合）
-  # pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --daemon --auth-ip-acl=127.0.0.1
-  # クッキー認証を使いたい場合は下の行を使う
-  pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --daemon > /dev/null 2>&1
-fi
+# PulseAudioを起動し、認証クッキーを自動同期してSSH接続する関数
+function ssh-sound() {
+  # 接続先ホスト名が指定されていない場合はエラー
+  if [ -z "$1" ]; then
+    echo "Usage: ssh-sound <hostname>"
+    return 1
+  fi
+
+  local host="$1" # 最初の引数をホスト名として保存
+
+  # 1. PulseAudioサーバーの起動チェック
+  if ! pgrep -x "pulseaudio" > /dev/null; then
+    echo "🚀 Starting PulseAudio with authentication enabled..."
+    pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --daemon
+  else
+    echo "🎧 PulseAudio is already running."
+  fi
+
+  # 2. 認証クッキーの自動同期
+  echo "🔑 Checking authentication cookie for $host..."
+
+  # Mac上のクッキーファイルのパス
+  local local_cookie_file="$HOME/.config/pulse/cookie"
+  # リモート(Linux)上のクッキーファイルのパス
+  local remote_cookie_file="~/.config/pulse/cookie"
+
+  # Macにクッキーファイルが存在するか確認
+  if [ ! -f "$local_cookie_file" ]; then
+      echo "⚠️ Local PulseAudio cookie not found. Please run a sound application once."
+      return 1
+  fi
+
+  # Macのクッキーのハッシュ値と、Linuxのクッキーのハッシュ値を取得
+  local local_hash=$(shasum "$local_cookie_file" | awk '{print $1}')
+  local remote_hash=$(ssh "$host" "shasum $remote_cookie_file 2>/dev/null | awk '{print \$1}'")
+
+  # ハッシュ値を比較し、異なっていればscpでコピー
+  if [ "$local_hash" != "$remote_hash" ]; then
+    echo "🔄 Cookie is outdated. Syncing..."
+    scp -q "$local_cookie_file" "${host}:${remote_cookie_file}"
+    if [ $? -eq 0 ]; then
+      echo "✅ Cookie successfully synced."
+    else
+      echo "❌ Failed to sync cookie."
+      return 1
+    fi
+  else
+    echo "👍 Cookie is already up-to-date."
+  fi
+
+  # 3. SSH接続の実行
+  echo "📡 Connecting to $host with audio forwarding..."
+  ssh "$@"
+}

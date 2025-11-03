@@ -1,0 +1,15 @@
+{
+    "permissions": {
+        "allow": [
+            "Bash(uv sync)",
+            "Bash(mise run vet)",
+            "Read(*)"
+        ],
+        "deny": []
+    },
+    "env": {
+        "CLAUDE_CODE_ENABLE_TELEMETRY": "1",
+        "OTEL_METRICS_EXPORTER": "otlp"
+    },
+    "includeCoAuthoredBy": false
+}

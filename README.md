@@ -37,4 +37,3 @@ mkdir cookbooks/:app_name
 $EDITOR cookbooks/:app_name/default.rb
 $EDITOR roles/$(uname)/default.rb
 ```
-
