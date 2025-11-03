@@ -9,11 +9,11 @@
         "hashicorp/terraform-mcp-server"
       ]
     },
-    "svelte5": {
+    "svelte": {
       "command": "npx",
       "args": [
         "-y",
-        "@studentofjs/svelte5-mcp"
+        "@sveltejs/mcp"
       ]
     }
   }

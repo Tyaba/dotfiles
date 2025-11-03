@@ -1,6 +1,11 @@
 {
     "permissions": {
         "allow": [
+            "List(*)",
+            "Fetch(https://*)",
+            "Edit(*)",
+            "Write(*)",
+            "Read(*)",
             "Bash(uv sync)",
             "Bash(mise run vet)",
             "Bash(mise run :*)",
@@ -9,10 +14,8 @@
             "Bash(mkdir :*)",
             "Bash(ls :*)",
             "Bash(mv :*)",
-            "Bash(cp :*)",
-            "Read(*)",
-            "Edit(*)",
-            "Write(*)"
+            "Bash(cat :*)",
+            "Bash(cp :*)"
         ],
         "deny": [
             "Read(*/.env)",
