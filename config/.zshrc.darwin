@@ -46,9 +46,14 @@ function ssh-sound() {
   # 1. PulseAudioサーバーの起動チェック
   if ! pgrep -x "pulseaudio" > /dev/null; then
     echo "🚀 Starting PulseAudio with authentication enabled..."
-    pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --daemon
+    pulseaudio --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-cookie=$HOME/.config/pulse/cookie" --exit-idle-time=-1 --daemon
   else
     echo "🎧 PulseAudio is already running."
+    # 既に起動している場合、TCPモジュールが正しく設定されているか確認
+    if ! pactl list modules short | grep -q "module-native-protocol-tcp"; then
+      echo "🔧 Loading TCP module with authentication..."
+      pactl load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-cookie=$HOME/.config/pulse/cookie
+    fi
   fi
 
   # 2. 認証クッキーの自動同期
