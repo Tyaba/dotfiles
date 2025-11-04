@@ -47,12 +47,27 @@ function ssh-sound() {
   if ! pgrep -x "pulseaudio" > /dev/null; then
     echo "🚀 Starting PulseAudio with authentication enabled..."
     pulseaudio --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-cookie=$HOME/.config/pulse/cookie" --exit-idle-time=-1 --daemon
+    sleep 1 # デバイス検出を待つ
   else
     echo "🎧 PulseAudio is already running."
     # 既に起動している場合、TCPモジュールが正しく設定されているか確認
     if ! pactl list modules short | grep -q "module-native-protocol-tcp"; then
       echo "🔧 Loading TCP module with authentication..."
       pactl load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-cookie=$HOME/.config/pulse/cookie
+    fi
+  fi
+
+  # macOSのデフォルト出力デバイスに合わせてPulseAudioのデフォルトシンクを設定
+  # system_profilerでデフォルト出力デバイス名を取得
+  local macos_default=$(system_profiler SPAudioDataType 2>/dev/null | awk '/Default Output Device: Yes/{found=1} found && /Manufacturer:/{print prev; exit} {prev=$0}' | sed 's/^[[:space:]]*//' | sed 's/:$//')
+
+  if [ -n "$macos_default" ]; then
+    # PulseAudioのシンク一覧から対応するシンクを検索
+    local pa_sink=$(pactl list sinks | grep -B 1 "$macos_default" | grep "Name:" | awk '{print $2}' | head -1)
+
+    if [ -n "$pa_sink" ]; then
+      echo "🔊 Setting default sink to: $macos_default"
+      pactl set-default-sink "$pa_sink" 2>/dev/null || echo "⚠️ Failed to set default sink"
     fi
   fi
 
