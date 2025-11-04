@@ -6,6 +6,7 @@
 - **Framework**: SvelteKit + Svelte
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
+- **UI Components**: shadcn-svelte
 - **Build Tool**: Vite
 - **Package Manager**: pnpm
 
