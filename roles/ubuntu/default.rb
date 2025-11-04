@@ -45,5 +45,6 @@ include_cookbook 'fd'
 include_cookbook 'tokei'
 include_cookbook 'ncdu'
 include_cookbook 'sound-theme-freedesktop'
+include_cookbook 'pulseaudio'
 # 必須でない開発系
 include_cookbook 'redis'
