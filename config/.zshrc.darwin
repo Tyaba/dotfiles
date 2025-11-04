@@ -92,6 +92,8 @@ function ssh-sound() {
   # ハッシュ値を比較し、異なっていればscpでコピー
   if [ "$local_hash" != "$remote_hash" ]; then
     echo "🔄 Cookie is outdated. Syncing..."
+    # リモート側にディレクトリが存在しない場合は作成
+    ssh "$host" "mkdir -p ~/.config/pulse"
     scp -q "$local_cookie_file" "${host}:${remote_cookie_file}"
     if [ $? -eq 0 ]; then
       echo "✅ Cookie successfully synced."
