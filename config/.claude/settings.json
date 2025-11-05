@@ -29,6 +29,7 @@
             "Bash(gcloud :* delete :*)",
             "Bash(gsutil rm :*)",
             "Bash(terraform destroy :*)",
+            "Bash(terraform apply :*)",
             "Bash(kubectl delete :*)"
         ]
     },
