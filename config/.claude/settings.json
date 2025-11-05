@@ -23,7 +23,13 @@
             "Read(./secrets/**)",
             "Read(**/id_rsa*)",
             "Read(**/id_ed25519*)",
-            "Write(*/.ssh/*)"
+            "Write(*/.ssh/*)",
+            "Bash(bq rm :*)",
+            "Bash(bq delete :*)",
+            "Bash(gcloud :* delete :*)",
+            "Bash(gsutil rm :*)",
+            "Bash(terraform destroy :*)",
+            "Bash(kubectl delete :*)"
         ]
     },
     "includeCoAuthoredBy": false,
