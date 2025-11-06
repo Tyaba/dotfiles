@@ -41,6 +41,36 @@ When implementing features:
 4. Use consistent terminology throughout the codebase
 5. **Implement services as classes, not as standalone functions** - Services should be defined as classes with methods, enabling better encapsulation, dependency injection, and testability
 
+### Documentation and Diagrams
+
+**ALWAYS maintain ER diagrams and sequence diagrams** in `docs/diagrams/` using Mermaid format:
+
+1. **When creating new features:**
+   - Create corresponding ER diagrams for data models in `docs/diagrams/er/`
+   - Create sequence diagrams for complex workflows in `docs/diagrams/sequence/`
+
+2. **When modifying existing implementations:**
+   - **Update the corresponding diagrams** to reflect the changes
+   - Ensure diagrams stay in sync with the actual implementation
+
+3. **Diagram requirements:**
+   - Use Mermaid syntax for all diagrams
+   - Include clear titles and descriptions
+   - Keep diagrams focused and readable
+   - Organize by feature or domain area
+
+Example file structure:
+```
+docs/
+  diagrams/
+    er/
+      user-domain.mmd
+      order-domain.mmd
+    sequence/
+      user-registration.mmd
+      order-processing.mmd
+```
+
 ### Cloud Resource Management
 
 **NEVER delete cloud resources directly.** When cloud resources (BigQuery datasets/tables, Cloud Storage buckets, etc.) need to be recreated or modified:
