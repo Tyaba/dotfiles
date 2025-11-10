@@ -10,6 +10,24 @@
 - **Build Tool**: Vite
 - **Package Manager**: pnpm
 
+#### SvelteKit Development Guidelines
+
+**Server-Side Rendering (SSR) First:**
+- Maximize SSR wherever possible - leverage SvelteKit's SSR capabilities
+- Push implementation to the server side and minimize client-side processing
+- Use `+page.server.ts` for data loading and server-side logic
+- Prefer `load` functions in `+page.server.ts` over `+page.ts` when data can be fetched server-side
+- Use form actions for mutations instead of client-side API calls
+
+**SEO Optimization:**
+- Always set appropriate meta tags (title, description, og tags) in `+page.svelte` or `+layout.svelte`
+- Use semantic HTML elements
+- Ensure proper heading hierarchy (h1, h2, h3, etc.)
+- Implement structured data (JSON-LD) where applicable
+- Generate sitemaps for public pages
+- Use `prerender = true` for static pages when possible
+- Optimize images with proper alt text and lazy loading
+
 ### Backend
 - **Language**: Python >= 3.14
 - **Framework**: FastAPI
