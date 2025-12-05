@@ -16,15 +16,6 @@
         "@sveltejs/mcp"
       ]
     },
-    "serena": {
-      "command": "uvx",
-      "args": [
-        "--from",
-        "git+https://github.com/oraios/serena",
-        "serena",
-        "start-mcp-server"
-      ]
-    },
     "context7": {
       "command": "npx",
       "args": [
@@ -38,6 +29,13 @@
         "-y",
         "@playwright/mcp@latest"
       ]
-    }
+    }<% if ENV['OBSIDIAN_API_KEY'] %>,
+    "obsidian-mcp": {
+      "command": "/Users/s17536/ghq/github.com/Tyaba/vault/.obsidian/plugins/mcp-tools/bin/mcp-server",
+      "env": {
+        "OBSIDIAN_API_KEY": "<%= ENV['OBSIDIAN_API_KEY'] %>"
+      }
+    }<% end %>
   }
 }
+
