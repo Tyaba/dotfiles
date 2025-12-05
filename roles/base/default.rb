@@ -17,6 +17,7 @@ include_recipe File.join(root_dir, 'lib', 'helper')
 # Claude settings
 dotfile '.config/claude/settings.json' => '.claude/settings.json'
 
+
 # MCP settings (template with environment variable support)
 # Remove existing symlink if it exists
 execute "rm -f #{ENV['HOME']}/.mcp.json" do
@@ -41,6 +42,9 @@ template "#{ENV['HOME']}/.cursor/mcp.json" do
   user node[:user]
   mode '0644'
 end
+
+# Cursor rules
+dotfile '.cursor/rules'
 
 # Rust settings
 dotfile '.cargo/config.toml'

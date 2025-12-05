@@ -1,0 +1,15 @@
+---
+description: coding
+alwaysApply: false
+---
+
+# MCP利用について
+積極的にMCPを活用してください。
+- context7: ライブラリの構文確認
+- kiri: コードベースの探索・検索
+- sequential-thinking: 複雑な問題の段階的解決
+
+# ドキュメント更新について
+実装の変更を行った後は、ドキュメントにもその変更内容を反映してください。ドキュメントは例えば下記のものです
+- ワークスペース配下のREADME.md
+- .docs配下のもの
