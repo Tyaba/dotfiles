@@ -44,7 +44,7 @@ This project follows **Domain-Driven Design (DDD)** principles with strict layer
 - **domain**: No dependencies on other layers
 - **usecase**: Depends only on `domain`
 - **app**: Depends only on `usecase` and `domain`
-- **infra**: Depends only on `domain` and `usecase`
+- **infra**: Depends only on `domain`
 
 ### Terminology
 
