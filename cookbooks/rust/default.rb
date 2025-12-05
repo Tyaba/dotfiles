@@ -3,7 +3,6 @@ unless ENV['PATH'].include?("#{ENV['HOME']}/.cargo/bin:")
   ENV['PATH'] = "#{ENV['HOME']}/.cargo/bin:#{ENV['PATH']}"
 end
 
-dotfile '.cargo/config.toml'
 package 'cmake'
 package 'pkg-config'
 case node[:platform]

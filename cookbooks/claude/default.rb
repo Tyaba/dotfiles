@@ -8,7 +8,3 @@ when 'darwin', 'ubuntu', 'debian'
 else
   raise NotImplementedError
 end
-
-# Configure Claude settings
-dotfile '.config/claude/settings.json' => '.claude/settings.json'
-dotfile '.mcp.json' => '.mcp.json'
