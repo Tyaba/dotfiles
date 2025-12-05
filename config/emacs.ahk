@@ -29,6 +29,8 @@ is_target()
     Return 1
   IfWinActive,ahk_exe WindowsTerminal.exe ; windows terminal
     Return 1
+  IfWinActive,ahk_exe Bitwarden.exe ; bitwarden
+    Return 1
   IfWinActive,ahk_exe blender.exe ; blender
     Return 1
   Return 0
