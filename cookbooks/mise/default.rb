@@ -11,10 +11,10 @@ execute "install python with mise" do
     not_if "mise ls | grep python"
 end
 
-# pythonをPATHに追加
-unless ENV['PATH'].include?("#{ENV['HOME']}/.local/share/mise/installs/python/#{python_minor_version}/bin")
-    MItamae.logger.info("Prepending #{ENV['HOME']}/.local/share/mise/installs/python/#{python_minor_version}/bin to PATH during this execution")
-    ENV['PATH'] = "#{ENV['HOME']}/.local/share/mise/installs/python/#{python_minor_version}/bin:#{ENV['PATH']}"
+# miseで入れたものをPATHに追加
+unless ENV['PATH'].include?("#{ENV['HOME']}/.local/share/mise/shims")
+    MItamae.logger.info("Prepending ~/.local/share/mise/shims to PATH during this execution")
+    ENV['PATH'] = "#{ENV['HOME']}/.local/share/mise/shims:#{ENV['PATH']}"
 end
 
 # terraform
