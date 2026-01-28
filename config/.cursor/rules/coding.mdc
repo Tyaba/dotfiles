@@ -1,7 +1,14 @@
 ---
 description: coding
-alwaysApply: false
+alwaysApply: true
 ---
+
+# サブエージェント利用
+以下のケースでは積極的にサブエージェント（Taskツール）を活用せよ
+- **大規模なコード探索**: 複数のディレクトリにまたがる調査が必要な場合（exploreサブエージェント）
+- **複雑なデバッグ**: ログやエラーメッセージから根本原因を特定する場合（debuggerサブエージェント）
+- **実装後の検証**: 変更が正しく動作し、既存機能に影響がないか確認する場合（verifierサブエージェント）
+- **並列作業**: 複数の独立したタスク（例：コード修正とドキュメント更新）を同時に進める場合
 
 # MCP利用
 積極的にMCPを活用せよ
@@ -29,3 +36,6 @@ python, sveltekitなどでは下記に従って開発せよ
 
 # terraform
 DBスキーマ変更を伴うterraform applyは直接するな。マイグレーション処理をせよ
+
+# 独自ルール
+- pythonのtestを書くとき、unittestでなくpytestを使え。unittest.mockではなくpytest mockを使え

@@ -46,6 +46,9 @@ end
 # Cursor rules
 dotfile '.cursor/rules'
 
+# Cursor agents
+dotfile '.cursor/agents'
+
 # Rust settings
 dotfile '.cargo/config.toml'
 
