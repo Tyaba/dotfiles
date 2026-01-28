@@ -59,14 +59,14 @@ function ssh-sound() {
 
   # macOSのデフォルト出力デバイスに合わせてPulseAudioのデフォルトシンクを設定
   # system_profilerでデフォルト出力デバイス名を取得
-  local macos_default=$(system_profiler SPAudioDataType 2>/dev/null | awk '/Default Output Device: Yes/{found=1} found && /Manufacturer:/{print prev; exit} {prev=$0}' | sed 's/^[[:space:]]*//' | sed 's/:$//')
+  local macos_default=$(system_profiler SPAudioDataType 2>/dev/null | awk '/:$/ {device=$0} /Default Output Device: Yes/ {print device; exit}' | sed 's/^[[:space:]]*//;s/:$//')
 
   if [ -n "$macos_default" ]; then
     # PulseAudioのシンク一覧から対応するシンクを検索
-    local pa_sink=$(pactl list sinks | grep -B 1 "$macos_default" | grep "Name:" | awk '{print $2}' | head -1)
+    local pa_sink=$(pactl list sinks | grep -B 4 "Description: $macos_default" | grep "Name:" | awk '{print $2}' | head -1)
 
     if [ -n "$pa_sink" ]; then
-      echo "🔊 Setting default sink to: $macos_default"
+      echo "🔊 Setting default sink to: $macos_default ($pa_sink)"
       pactl set-default-sink "$pa_sink" 2>/dev/null || echo "⚠️ Failed to set default sink"
     fi
   fi
