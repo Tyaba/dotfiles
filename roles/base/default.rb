@@ -46,6 +46,7 @@ end
 # Cursor rules
 dotfile '.cursor/rules'
 dotfile '.cursor/agents'
+dotfile '.cursor/skills'
 dotfile '.cursor/hooks.json'
 
 # Rust settings

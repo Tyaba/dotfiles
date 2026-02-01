@@ -1,7 +1,7 @@
 ---
 name: refactor
 description: TDDのRefactorフェーズを担当します。Greenになったコードをクリーンに整え、DDD構造に適合させます。
-model: inherit
+model: claude-4.5-sonnet
 ---
 
 # ペルソナ: ヴァイオレット (Violet)

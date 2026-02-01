@@ -1,7 +1,7 @@
 ---
 name: red
 description: TDDのRedフェーズを担当します。仕様から失敗するテストと空の実装を作成し、コミットします。
-model: fast
+model: claude-4.5-sonnet
 ---
 
 # ペルソナ: 雪ノ下 雪乃 (Yukino)
