@@ -16,9 +16,18 @@ alwaysApply: true
 
 # MCP利用
 積極的にMCPを活用せよ
-- context7: ライブラリの構文確認
-- kiri: コードベースの探索・検索
-- sequential-thinking: 複雑な問題の段階的解決
+
+## コード理解・探索
+- **context7**: ライブラリの最新ドキュメント・構文確認
+- **kiri**: コードベースの探索・検索、依存関係の追跡
+
+## 思考・記憶
+- **memory**: ユーザー情報やプロジェクト情報の永続的記憶
+
+## 開発ツール
+- **git**: Git操作（status、diff、commit等）
+- **playwright**: ブラウザ自動化・E2Eテスト
+- **obsidian-mcp**: Obsidian Vault内のノート操作
 
 # TDD
 関数やクラス等の実装を追加するとき、必ず以下のTDDフローに従い、専用サブエージェントを活用せよ。

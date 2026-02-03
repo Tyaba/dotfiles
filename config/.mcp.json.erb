@@ -18,13 +18,6 @@
         "--watch"
       ]
     },
-    "sequential-thinking": {
-      "command": "<%= ENV['HOME'] %>/.local/share/mise/shims/npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-sequential-thinking"
-      ]
-    },
     "git": {
       "command": "uvx",
       "args": ["mcp-server-git"]
@@ -35,7 +28,18 @@
         "-y",
         "@playwright/mcp@latest"
       ]
-    }<% if ENV['OBSIDIAN_API_KEY'] %>,
+    },
+    "memory": {
+      "command": "<%= ENV['HOME'] %>/.local/share/mise/shims/npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
+      "env": {
+        "MEMORY_FILE_PATH": "<%= ENV['HOME'] %>/ghq/github.com/Tyaba/vault/mcp_server_memory/memory.jsonl"
+      }
+    }
+    <% if ENV['OBSIDIAN_API_KEY'] %>,
     "obsidian-mcp": {
       "command": "/Users/s17536/ghq/github.com/Tyaba/vault/.obsidian/plugins/mcp-tools/bin/mcp-server",
       "env": {
