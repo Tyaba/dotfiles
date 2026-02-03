@@ -1,21 +1,28 @@
 {
     "version": 1,
     "hooks": {
-        "afterMCPExecution": [
+        "sessionStart": [
             {
-                "command": "if [ \"$MCP_SERVER\" = \"user-memory\" ]; then cd ~/ghq/github.com/Tyaba/vault && git add mcp_server_memory/memory.jsonl && git diff --cached --quiet || (git commit -m 'Auto-sync: memory update via MCP' && git push origin main); fi",
-                "description": "Sync memory.jsonl after memory MCP execution"
+                "command": "~/.cursor/hooks/pull-vault.sh",
+                "description": "Pull latest vault changes at session start"
             }
         ],
-        "sessionEnd": [
+        "beforeMCPExecution": [
             {
-                "command": "cd ~/ghq/github.com/Tyaba/vault && git pull --rebase origin main",
-                "description": "Pull latest vault changes at session end"
+                "command": "~/.cursor/hooks/pull-vault.sh",
+                "description": "Pull latest vault changes before MCP execution"
+            }
+        ],
+        "afterMCPExecution": [
+            {
+                "command": "~/.cursor/hooks/sync-memory.sh",
+                "description": "Sync memory.jsonl after memory MCP execution"
             }
         ],
         "stop": [
             {
-                "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; else paplay /usr/share/sounds/freedesktop/stereo/message.oga; fi"
+                "command": "~/.cursor/hooks/play-sound.sh",
+                "description": "Play notification sound on stop"
             }
         ]
     }

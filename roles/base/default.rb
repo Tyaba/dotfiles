@@ -48,6 +48,7 @@ dotfile '.cursor/rules'
 dotfile '.cursor/agents'
 dotfile '.cursor/skills'
 dotfile '.cursor/hooks.json'
+dotfile '.cursor/hooks'
 
 # Rust settings
 dotfile '.cargo/config.toml'
