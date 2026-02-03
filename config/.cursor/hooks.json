@@ -1,11 +1,6 @@
 {
     "version": 1,
     "hooks": {
-        "sessionStart": [
-            {
-                "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; else paplay /usr/share/sounds/freedesktop/stereo/message.oga; fi"
-            }
-        ],
         "stop": [
             {
                 "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; else paplay /usr/share/sounds/freedesktop/stereo/message.oga; fi"
