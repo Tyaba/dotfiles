@@ -38,10 +38,9 @@
       "env": {
         "MEMORY_FILE_PATH": "<%= ENV['HOME'] %>/ghq/github.com/Tyaba/vault/mcp_server_memory/memory.jsonl"
       }
-    }
-    <% if ENV['OBSIDIAN_API_KEY'] %>,
+    }<% if ENV['OBSIDIAN_API_KEY'] %>,
     "obsidian-mcp": {
-      "command": "/Users/s17536/ghq/github.com/Tyaba/vault/.obsidian/plugins/mcp-tools/bin/mcp-server",
+      "command": "<%= ENV['HOME'] %>/ghq/github.com/Tyaba/vault/.obsidian/plugins/mcp-tools/bin/mcp-server",
       "env": {
         "OBSIDIAN_API_KEY": "<%= ENV['OBSIDIAN_API_KEY'] %>"
       }
