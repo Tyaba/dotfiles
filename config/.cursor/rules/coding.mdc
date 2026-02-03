@@ -24,6 +24,9 @@ alwaysApply: true
 ## 思考・記憶
 - **memory**: ユーザー情報やプロジェクト情報の永続的記憶
 
+## ドメイン知識
+- **notion**: 組織内のドメイン知識（広告ルール、medialakeやvertexlake等の社内リソース）の参照
+
 ## 開発ツール
 - **git**: Git操作（status、diff、commit等）
 - **playwright**: ブラウザ自動化・E2Eテスト
