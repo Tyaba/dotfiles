@@ -59,5 +59,8 @@ PythonやSvelteKit等の開発では、`ddd-scaffold` Skill の定義に従っ�
 # Terraform
 DBスキーマ変更を伴う作業では、`terraform-migration` Skill を参照し、直接的な apply を避けるマイグレーション手順を遵守せよ。
 
+# E2Eテスト
+「E2Eテスト」「結合テスト」「動作確認」を依頼された場合、`e2e-testing` Skill が存在すればそれを参照せよ。
+
 # Python
 - pythonのtestを書くとき、unittestでなくpytestを使え。unittest.mockではなくpytest mockを使え
