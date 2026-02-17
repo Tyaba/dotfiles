@@ -1,0 +1,1 @@
+../../.cursor/skills/terraform-migration/SKILL.md

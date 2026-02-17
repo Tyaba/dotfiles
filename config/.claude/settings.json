@@ -63,6 +63,32 @@
                     {
                         "type": "command",
                         "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; else paplay /usr/share/sounds/freedesktop/stereo/message.oga; fi"
+                    },
+                    {
+                        "type": "command",
+                        "command": "~/.claude/hooks/pull-vault.sh"
+                    }
+                ]
+            }
+        ],
+        "PreToolUse": [
+            {
+                "matcher": "mcp__memory__.*",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "~/.claude/hooks/pull-vault.sh"
+                    }
+                ]
+            }
+        ],
+        "PostToolUse": [
+            {
+                "matcher": "mcp__memory__.*",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "~/.claude/hooks/sync-memory.sh"
                     }
                 ]
             }

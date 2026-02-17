@@ -1,0 +1,1 @@
+../../.cursor/hooks/pull-vault.sh

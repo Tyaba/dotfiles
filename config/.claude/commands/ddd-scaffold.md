@@ -1,0 +1,1 @@
+../../.cursor/skills/ddd-scaffold/SKILL.md

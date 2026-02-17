@@ -1,0 +1,1 @@
+../../.cursor/hooks/sync-memory.sh
