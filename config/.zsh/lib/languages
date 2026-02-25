@@ -9,6 +9,11 @@ export PATH=$GOPATH/bin:$PATH
 # Deno
 export PATH=$HOME/.deno/bin:$PATH
 
+# Bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+[ -s "$BUN_INSTALL/_bun" ] && source "$BUN_INSTALL/_bun"
+
 # JavaScript
 export PATH="$HOME/.local/share/pnpm:$PATH"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.local/bin:$PATH"

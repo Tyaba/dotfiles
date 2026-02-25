@@ -7,7 +7,6 @@ alwaysApply: true
 
 ## MCP
 積極的にMCPを活用せよ：
-- **context7**: ライブラリの最新ドキュメント・構文確認
 - **kiri**: コードベースの探索・検索、依存関係の追跡
 - **memory**: ユーザー情報やプロジェクト情報の永続的記憶
 - **notion**: 組織内のドメイン知識（広告ルール、medialakeやvertexlake等の社内リソース）の参照
