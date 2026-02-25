@@ -3,67 +3,41 @@ description: coding
 alwaysApply: true
 ---
 
-# サブエージェント利用
-以下のケースでは積極的にサブエージェント（Taskツール）を活用せよ
-- **大規模なコード探索**: 複数のディレクトリにまたがる調査が必要な場合（exploreサブエージェント）
-- **複雑なデバッグ**: ログやエラーメッセージから根本原因を特定する場合（debuggerサブエージェント）
-- **実装後の検証**: 変更が正しく動作し、既存機能に影響がないか確認する場合（verifierサブエージェント）
-- **並列作業**: 複数の独立したタスク（例：コード修正とドキュメント更新）を同時に進める場合
-- **TDDサイクル**:
-  - `red`: 失敗するテストと空の実装の作成
-  - `green`: テストをパスさせる最短実装
-  - `refactor`: コードの美化と構造整理
+# ツール活用
 
-# MCP利用
-積極的にMCPを活用せよ
-
-## コード理解・探索
+## MCP
+積極的にMCPを活用せよ：
 - **context7**: ライブラリの最新ドキュメント・構文確認
 - **kiri**: コードベースの探索・検索、依存関係の追跡
-
-## 思考・記憶
 - **memory**: ユーザー情報やプロジェクト情報の永続的記憶
-
-## ドメイン知識
 - **notion**: 組織内のドメイン知識（広告ルール、medialakeやvertexlake等の社内リソース）の参照
-
-## コミュニケーション
 - **slack**: Slackのメッセージ検索、チャンネル閲覧、メッセージ送信、Canvas操作
-
-## 開発ツール
 - **git**: Git操作（status、diff、commit等）
 - **playwright**: ブラウザ自動化・E2Eテスト
 - **obsidian-mcp**: Obsidian Vault内のノート操作
 
-# TDD
-関数やクラス等の実装を追加するとき、必ず以下のTDDフローに従い、専用サブエージェントを活用せよ。
+# 開発プロセス
 
-1. **Red**: `red` サブエージェントを呼び出し、テストと、実装がほぼ空の関数やクラスを書いて、テストが失敗することを確認する。
-2. **Green**: `green` サブエージェントを呼び出し、テストを成功させる最低限の実装を書く。
-3. **Refactor**: `refactor` サブエージェントを呼び出し、実装をリファクタリングする。
-
-# ドキュメント更新
-## 反映タイミング
-実装の変更を行った後は、ドキュメントにもその変更内容を反映せよ
-
-## 反映箇所
-- ワークスペース配下のREADME.md
-- .docs配下のもの
-
-## ドキュメント方法
-処理フローをmd内のmermaidで表現せよ
-
-# DDD
-PythonやSvelteKit等の開発では、`ddd-scaffold` Skill の定義に従ってレイヤー間の依存関係を厳格に管理せよ。
-
-# Terraform
-DBスキーマ変更を伴う作業では、`terraform-migration` Skill を参照し、直接的な apply を避けるマイグレーション手順を遵守せよ。
-
-# PR作成
-PR作成時は `pr-template` Skill を参照し、PR descriptionに監査情報を含めよ。
-
-# E2Eテスト
+## E2Eテスト
 「E2Eテスト」「結合テスト」「動作確認」を依頼された場合、`e2e-testing` Skill が存在すればそれを参照せよ。
 
-# Python
-- pythonのtestを書くとき、unittestでなくpytestを使え。unittest.mockではなくpytest mockを使え
+## PR作成
+PR作成時は `pr-template` Skill を参照し、PR descriptionに監査情報を含めよ。
+
+## ドキュメント更新
+- 実装の変更を行った後は、ドキュメント（ワークスペース配下の README.md、.docs 配下）にも変更内容を反映せよ
+- 処理フローは md 内の mermaid で表現せよ
+
+# 言語・フレームワーク固有ルール
+
+## Python
+- テストは unittest でなく pytest を使え。unittest.mock ではなく pytest mock を使え
+
+## React / Next.js
+React/Next.jsのコード作成・レビュー・リファクタリング時は、`vercel-react-best-practices` Skill を参照し、パフォーマンス最適化パターンを適用せよ。
+
+## DDD
+コーディングにおいては、`ddd-scaffold` Skill の定義に従ってレイヤー間の依存関係を厳格に管理せよ。
+
+## Terraform
+DBスキーマ変更を伴う作業では、`terraform-migration` Skill を参照し、直接的な apply を避けるマイグレーション手順を遵守せよ。
