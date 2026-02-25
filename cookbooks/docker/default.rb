@@ -9,24 +9,8 @@ when 'darwin'
   execute 'brew install docker-slim' do
     not_if 'which slim'
   end
-  case `uname -m`.chomp
-  when 'x86_64'  # Intel Mac
-    execute 'brew install --cask docker' do
-      not_if 'which docker'
-    end
-  when 'arm64'  # M1 Mac
-    execute 'brew install lima' do
-      not_if 'which lima'
-    end
-    package 'qemu' do
-      not_if 'which qemu-system-aarch64'
-    end
-    execute 'brew install docker' do
-      not_if 'which docker'
-    end
-    execute "mkdir -p #{ENV['HOME']}/.docker/cli-plugins && rm -f #{docker_compose_path} && curl -L https://github.com/docker/compose/releases/download/v#{docker_compose_version}/docker-compose-darwin-aarch64 -o #{docker_compose_path} && sudo chmod +x #{docker_compose_path}" do
-      not_if "docker compose version | grep v#{docker_compose_version}"
-    end
+  execute 'brew install --cask docker' do
+    not_if 'test -d /Applications/Docker.app'
   end
 when 'ubuntu', 'debian'
   execute 'sudo mkdir -p /etc/apt/keyrings' do
