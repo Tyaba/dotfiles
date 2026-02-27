@@ -1,0 +1,8 @@
+#!/bin/bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PLIST_PATH="$SCRIPT_DIR/../config/.config/com.raycast.macos.plist"
+
+defaults export com.raycast.macos "$PLIST_PATH"
+echo "Exported Raycast settings to $PLIST_PATH"
