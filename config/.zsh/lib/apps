@@ -20,8 +20,10 @@ export COMPOSE_DOCKER_CLI_BUILD=1
 export MISE_ENV_FILE=.env
 eval "$(~/.cargo/bin/mise activate zsh)"
 
-# Google Cloud SDK Python setting (miseの設定後に実行)
-export CLOUDSDK_PYTHON=$(which python)
+# Google Cloud SDK Python setting (mise-managed python 3.12)
+if [ -x "$HOME/.local/share/mise/installs/python/3.12/bin/python3.12" ]; then
+  export CLOUDSDK_PYTHON="$HOME/.local/share/mise/installs/python/3.12/bin/python3.12"
+fi
 
 # Kubectl completion (miseのactivate後に実行)
 if command -v kubectl >/dev/null 2>&1; then
