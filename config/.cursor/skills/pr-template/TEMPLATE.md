@@ -43,6 +43,20 @@ AIが明示的な指示なしに仮定した事項。コンテクストの欠損
 
 - **Given** <前提条件> **When** <操作> **Then** <期待結果>
 
+### Flow Diagram（処理フロー図）
+
+複雑な処理や外部通信を伴うフロー変更・追加がある場合、mermaid で処理フローを図示する。
+
+```mermaid
+sequenceDiagram
+    participant <Actor/System>
+    participant <Actor/System>
+    <Actor/System>->>+<Actor/System>: <リクエスト>
+    <Actor/System>-->>-<Actor/System>: <レスポンス>
+```
+
+> フローの種類に応じて `sequenceDiagram`、`flowchart`、`stateDiagram-v2` 等を使い分ける。
+
 ## 技術的変更点概要
 
 <プルリクエストで実際に変更したものをコンテキストごとに記載。変更で補足が必要なものがある場合も記載。>
