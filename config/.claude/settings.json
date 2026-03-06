@@ -22,7 +22,8 @@
             "Bash(*/find :*)",
             "Bash(head :*)",
             "Bash(tree :*)",
-            "mcp__context7__*"
+            "mcp__context7__*",
+            "mcp__yui__*"
         ],
         "deny": [
             "Read(*/.env)",
@@ -71,28 +72,8 @@
                 ]
             }
         ],
-        "PreToolUse": [
-            {
-                "matcher": "mcp__memory__.*",
-                "hooks": [
-                    {
-                        "type": "command",
-                        "command": "~/.claude/hooks/pull-vault.sh"
-                    }
-                ]
-            }
-        ],
-        "PostToolUse": [
-            {
-                "matcher": "mcp__memory__.*",
-                "hooks": [
-                    {
-                        "type": "command",
-                        "command": "~/.claude/hooks/sync-memory.sh"
-                    }
-                ]
-            }
-        ],
+        "PreToolUse": [],
+        "PostToolUse": [],
         "Stop": [
             {
                 "matcher": "",

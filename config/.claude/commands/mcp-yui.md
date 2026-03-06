@@ -1,0 +1,1 @@
+../../.cursor/skills/mcp-yui/SKILL.md

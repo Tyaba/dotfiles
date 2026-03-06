@@ -29,7 +29,7 @@ always respond in 日本語
 
 - **context7**: ライブラリの最新ドキュメント・構文確認
 - **kiri**: コードベースの探索・検索、依存関係の追跡
-- **memory**: 会話開始時にメモリ参照、会話中は積極的に記録（詳細は `.claude/commands/mcp-memory.md` を参照）
+- **yui**: 会話履歴の圧縮版。会話開始時に必ず参照し、対話中は迷ったら記録（詳細は `.claude/commands/mcp-yui.md` を参照）
 - **notion**: 組織内のドメイン知識（広告ルール、medialakeやvertexlake等の社内リソース）の参照
 - **git**: Git操作（status、diff、commit等）
 - **playwright**: ブラウザ自動化・E2Eテスト

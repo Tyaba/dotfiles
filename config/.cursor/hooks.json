@@ -7,18 +7,8 @@
                 "description": "Pull latest vault changes at session start"
             }
         ],
-        "beforeMCPExecution": [
-            {
-                "command": "~/.cursor/hooks/pull-vault.sh",
-                "description": "Pull latest vault changes before MCP execution"
-            }
-        ],
-        "afterMCPExecution": [
-            {
-                "command": "~/.cursor/hooks/sync-memory.sh",
-                "description": "Sync memory.jsonl after memory MCP execution"
-            }
-        ],
+        "beforeMCPExecution": [],
+        "afterMCPExecution": [],
         "stop": [
             {
                 "command": "~/.cursor/hooks/play-sound.sh",

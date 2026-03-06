@@ -37,15 +37,9 @@
       "type": "http",
       "url": "https://mcp.slack.com/mcp"
     },
-    "memory": {
-      "command": "<%= ENV['HOME'] %>/.local/share/mise/shims/npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-memory"
-      ],
-      "env": {
-        "MEMORY_FILE_PATH": "<%= ENV['HOME'] %>/ghq/github.com/Tyaba/vault/mcp_server_memory/memory.jsonl"
-      }
+    "yui": {
+      "type": "http",
+      "url": "http://localhost:52981/mcp"
     }<% if ENV['OBSIDIAN_API_KEY'] %>,
     "obsidian-mcp": {
       "command": "<%= ENV['HOME'] %>/ghq/github.com/Tyaba/vault/.obsidian/plugins/mcp-tools/bin/mcp-server",
