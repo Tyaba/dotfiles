@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string><%= label %></string>
+    <string><%= @label %></string>
     <key>ProgramArguments</key>
     <array>
-        <string><%= gcloud %></string>
+        <string><%= @gcloud %></string>
         <string>run</string>
         <string>services</string>
         <string>proxy</string>
         <string>yui-backend</string>
         <string>--region=asia-northeast1</string>
         <string>--project=aitech-good-s17536</string>
-        <string>--port=<%= port %></string>
+        <string>--port=<%= @port %></string>
     </array>
     <key>RunAtLoad</key>
     <true/>
