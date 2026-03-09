@@ -1,0 +1,11 @@
+[Unit]
+Description=yui MCP proxy (gcloud run services proxy)
+
+[Service]
+Type=simple
+ExecStart=%h/.bin/google-cloud-sdk/bin/gcloud run services proxy yui-backend --region=asia-northeast1 --project=aitech-good-s17536 --port=52981
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target
