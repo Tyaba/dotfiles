@@ -1,5 +1,5 @@
-# インタラクティブシェルのみでaliasを設定
-if [[ -o interactive ]]; then
+# インタラクティブシェルかつ Cursor エージェント以外でのみ alias を設定
+if [[ -o interactive ]] && [[ -z "$CURSOR_TRACE_ID" ]]; then
     # bat replaces cat
     alias cat="bat"
     # rip grep replaces grep
