@@ -32,6 +32,7 @@ always respond in 日本語
 - **yui**: 会話履歴の圧縮版。会話開始時に必ず参照し、対話中は迷ったら記録（詳細は `.claude/commands/mcp-yui.md` を参照）
 - **notion**: 組織内のドメイン知識（広告ルール、medialakeやvertexlake等の社内リソース）の参照
 - **git**: Git操作（status、diff、commit等）
+- **todoist**: Todoistのタスク管理（作成・更新・完了・検索等）
 - **playwright**: ブラウザ自動化・E2Eテスト
 
 # TDD

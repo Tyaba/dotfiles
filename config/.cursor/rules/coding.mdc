@@ -14,6 +14,7 @@ alwaysApply: true
 - **slack**: Slackのメッセージ検索、チャンネル閲覧、メッセージ送信、Canvas操作
 - **git**: Git操作（status、diff、commit等）
 - **playwright**: ブラウザ自動化・E2Eテスト
+- **todoist**: Todoistのタスク管理（作成・更新・完了・検索等）
 - **obsidian-mcp**: Obsidian Vault内のノート操作
 
 
