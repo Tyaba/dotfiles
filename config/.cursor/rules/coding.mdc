@@ -24,7 +24,10 @@ alwaysApply: true
 「E2Eテスト」「結合テスト」「動作確認」を依頼された場合、`e2e-testing` Skill が存在すればそれを参照せよ。
 
 ## PR作成
-PR作成時は `pr-template` Skill を参照し、PR descriptionに監査情報を含めよ。
+以下のいずれかに該当する場合、`pr-template` Skill を読み込み、TEMPLATE.mdに従ってPR descriptionを生成せよ：
+- 「PR作成」「PR出して」「プルリク」「pull request」を依頼された
+- `gh pr create` を実行しようとしている
+- ブランチの作業が完了し、PRを作る流れになった
 
 ## ドキュメント更新
 - 実装の変更を行った後は、ドキュメント（ワークスペース配下の README.md、.docs 配下）にも変更内容を反映せよ
