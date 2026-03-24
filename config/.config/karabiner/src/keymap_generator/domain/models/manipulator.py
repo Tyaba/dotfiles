@@ -12,7 +12,9 @@ class FromModifiers(BaseModel):
         default=None, title="必須の修飾キー", examples=["left_shift", "right_shift"]
     )
     optional: Optional[list[str]] = Field(
-        default=None, title="任意の修飾キー", examples=["left_shift", "right_shift"]
+        default=["caps_lock"],
+        title="任意の修飾キー",
+        examples=["left_shift", "right_shift"],
     )
 
 
