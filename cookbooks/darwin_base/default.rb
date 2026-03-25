@@ -49,6 +49,14 @@ when 'darwin'
     command 'defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true && defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true'
     not_if 'defaults read com.apple.desktopservices DSDontWriteNetworkStores | test -w 1'
   end
+  execute 'disable spotlight shortcut' do
+    command '/usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:64:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist && /usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:65:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist'
+    not_if '/usr/libexec/PlistBuddy -c "Print :AppleSymbolicHotKeys:64:enabled" ~/Library/Preferences/com.apple.symbolichotkeys.plist 2>/dev/null | grep -q false'
+  end
+  execute 'disable siri shortcut for raycast' do
+    command '/usr/libexec/PlistBuddy -c "Set :KeyboardShortcutPreSAE:enabled false" ~/Library/Preferences/com.apple.Siri.plist && /usr/libexec/PlistBuddy -c "Set :KeyboardShortcutSAE:enabled false" ~/Library/Preferences/com.apple.Siri.plist'
+    not_if '/usr/libexec/PlistBuddy -c "Print :KeyboardShortcutPreSAE:enabled" ~/Library/Preferences/com.apple.Siri.plist 2>/dev/null | grep -q false'
+  end
   execute 'set sleep time to 1 hour' do
     command <<-EOF
       sudo pmset -a sleep 60
