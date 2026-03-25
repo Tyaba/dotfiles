@@ -32,6 +32,7 @@ class Settings(BaseSettings):
         "^org\\.macosforge\\.xquartz\\.X11$",
         "^org\\.macports\\.X11$",
         "^com\\.microsoft\\.VSCode$",
+        "^com\\.todesktop\\.230313mzl4w4u92$",
     }
     exclude_emacs_conditions: list[Condition] = [
         Condition(
