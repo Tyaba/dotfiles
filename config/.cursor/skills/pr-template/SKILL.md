@@ -12,7 +12,7 @@ PR作成（`gh pr create`）時に、PR description を生成する。
 1. `git log` と `git diff` で変更内容を把握する
 2. リポジトリに PR テンプレート（`.github/pull_request_template.md` 等）が存在するか確認する
 3. テンプレートの選択:
-   - **リポジトリ側テンプレートがある場合**: そのテンプレートに従って各セクションを埋める。加えて、AI監査セクション（Assumptions / Intent Mapping / Confidence / Behavior / Flow Diagram）を `<details><summary>AI監査</summary>...</details>` の折りたたみ形式で「変更内容」の直後に差し込む
+   - **リポジトリ側テンプレートがある場合**: そのテンプレートに従って各セクションを埋める。加えて、AI監査セクション（Assumptions / Intent Mapping / Confidence / Behavior / Flow Diagram / Code Changes）を `<details><summary>AI監査</summary>...</details>` の折りたたみ形式で「変更内容」の直後に差し込む
    - **リポジトリ側テンプレートがない場合**: [TEMPLATE.md](TEMPLATE.md) に従って各セクションを埋める（AI監査は通常の見出しで出力）
 4. `gh pr create --title "..." --body "$(cat <<'EOF' ... EOF)"` で PR を作成する
 
@@ -39,6 +39,49 @@ PR作成（`gh pr create`）時に、PR description を生成する。
 - 状態遷移が複雑なロジック（ステートマシン等）が変更・追加された
 
 該当しない単純な変更では省略する。図の種類は処理の性質に応じて `sequenceDiagram`、`flowchart`、`stateDiagram-v2` 等を使い分ける。
+
+### Code Changes（コード構造変更）の出力ルール
+
+Diff を見なくてもコードの変更内容を構造的に把握できるようにするためのセクション。AI監査内の最後（Flow Diagram の後）に配置する。
+
+#### 基本方針
+
+- **ファイル単位**でサブセクション（`#### path/to/file.py`）を作り、そのファイル内の変更をまとめる
+- 各ファイルについて「1-2文の変更概要」+「mermaid 図」+「入出力例」を出力する
+- mermaid 図を積極的に使い、既存実装との関係を可視化する
+
+#### 変更種別ごとの出力内容
+
+| 変更の種類 | mermaid 種別 | 図の内容 |
+|---|---|---|
+| クラス追加 | `classDiagram` | 既存クラスとの関係（依存・継承・コンポジション）を図示 |
+| クラス変更 | `classDiagram` × 2 | Before / After で構造変化を図示 |
+| 関数追加 | `flowchart` | 呼び出し元・呼び出し先との関係を図示 |
+| 関数変更 | `flowchart` × 2 | Before / After で処理フローの変化を図示 |
+| API エンドポイント追加/変更 | `sequenceDiagram` | リクエスト → 処理 → レスポンスのフローを図示 |
+| 状態遷移の変更 | `stateDiagram-v2` × 2 | Before / After で状態遷移の変化を図示 |
+| 設定ファイル・定数のみ | なし | テキスト説明のみ（図は不要） |
+
+#### 入出力例のルール
+
+- public インターフェース（public メソッド、エクスポート関数、API エンドポイント）には必ず簡潔な入出力例を1つ付ける
+- `Input:` / `Output:` 形式で、現実的な値を使う
+
+#### Before / After 図のルール
+
+- 見出しに **Before:** / **After:** を付けた2つの mermaid ブロックを並べる
+- 変更点がわかるようにテキストで差分サマリを添える
+
+#### 出力判断
+
+- ドキュメントのみの変更では Code Changes セクション自体を省略する
+- 設定ファイル・定数のみの変更ではテキスト説明のみで図は不要
+
+#### Flow Diagram との使い分け
+
+- **Code Changes**: ファイル内のコード構造変更を可視化（クラス図、関数フロー）
+- **Flow Diagram**: システム間・コンポーネント間の通信フローを可視化
+- 両方が必要な場合は両方出力する。内容が重複する場合は Flow Diagram 側を省略可
 
 ## 注意事項
 

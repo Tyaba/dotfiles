@@ -57,6 +57,53 @@ sequenceDiagram
 
 > フローの種類に応じて `sequenceDiagram`、`flowchart`、`stateDiagram-v2` 等を使い分ける。
 
+### Code Changes（コード構造変更）
+
+Diff を読まなくても変更の全体像を把握できるよう、ファイル単位でコード構造の変更を可視化する。
+
+#### `path/to/new_file.py`
+
+<1-2文でこのファイルの変更概要>
+
+```mermaid
+classDiagram
+    ExistingClass --> NewClass : uses
+    class NewClass {
+        +method(param: Type): ReturnType
+    }
+```
+
+**入出力例:**
+- Input: `method(param=ExampleValue)`
+- Output: `ReturnType(field=Result)`
+
+#### `path/to/modified_file.py`
+
+<1-2文でこのファイルの変更概要>
+
+**Before:**
+
+```mermaid
+flowchart LR
+    A[Input] --> B[OldProcess]
+    B --> C[Output]
+```
+
+**After:**
+
+```mermaid
+flowchart LR
+    A[Input] --> B[NewProcess]
+    B --> D[Validation]
+    D --> C[Output]
+```
+
+**変更点:** <何がどう変わったかを簡潔に>
+
+**入出力例:**
+- Input: `func(x=10)`
+- Output: `Result(validated=True, value=10)`
+
 ## 技術的変更点概要
 
 <プルリクエストで実際に変更したものをコンテキストごとに記載。変更で補足が必要なものがある場合も記載。>
