@@ -1,25 +1,7 @@
 {
   "mcpServers": {
-    "context7": {
-      "command": "<%= ENV['HOME'] %>/.local/share/mise/shims/npx",
-      "args": [
-        "-y",
-        "@upstash/context7-mcp@latest"
-      ]
-    },
-    "kiri": {
-      "command": "<%= ENV['HOME'] %>/.local/share/mise/shims/npx",
-      "args": [
-        "kiri-mcp-server@latest",
-        "--repo",
-        ".",
-        "--db",
-        ".kiri/index.duckdb",
-        "--watch"
-      ]
-    },
     "git": {
-      "command": "uvx",
+      "command": "<%= ENV['HOME'] %>/.local/bin/uvx",
       "args": ["mcp-server-git"]
     },
     "playwright": {
