@@ -13,42 +13,47 @@ end
 root_dir = File.expand_path('../../..', __FILE__)
 include_recipe File.join(root_dir, 'lib', 'helper')
 
-# Configure dotfiles
-# Claude settings
-dotfile '.config/claude/settings.json' => '.claude/settings.json'
+# Coding agents (Cursor / Claude Code shared config)
+# Skills (shared)
+dotfile '.cursor/skills' => 'coding_agents/skills'
+dotfile '.claude/skills' => 'coding_agents/skills'
 
+# Hooks (shared)
+dotfile '.cursor/hooks' => 'coding_agents/hooks'
+dotfile '.claude/hooks' => 'coding_agents/hooks'
 
-# MCP settings (template with environment variable support)
-# Remove existing symlink if it exists
+# Cursor-specific
+dotfile '.cursor/rules' => 'coding_agents/cursor/rules'
+dotfile '.cursor/hooks.json' => 'coding_agents/cursor/hooks.json'
+
+# Claude Code-specific
+dotfile '.claude/CLAUDE.md' => 'coding_agents/claude/CLAUDE.md'
+dotfile '.claude/settings.json' => 'coding_agents/claude/settings.json'
+
+# MCP settings (template generates both Cursor and Claude Code configs)
+mcp_erb = File.join(root_dir, 'config/coding_agents/mcp.json.erb')
+
+directory "#{ENV['HOME']}/.cursor" do
+  user node[:user]
+end
+
 execute "rm -f #{ENV['HOME']}/.mcp.json" do
   only_if "test -L #{ENV['HOME']}/.mcp.json"
 end
 template "#{ENV['HOME']}/.mcp.json" do
-  source File.join(root_dir, 'config/.mcp.json.erb')
+  source mcp_erb
   user node[:user]
   mode '0644'
 end
 
-# Cursor MCP settings
-directory "#{ENV['HOME']}/.cursor" do
-  user node[:user]
-end
-# Remove existing symlink if it exists
 execute "rm -f #{ENV['HOME']}/.cursor/mcp.json" do
   only_if "test -L #{ENV['HOME']}/.cursor/mcp.json"
 end
 template "#{ENV['HOME']}/.cursor/mcp.json" do
-  source File.join(root_dir, 'config/.mcp.json.erb')
+  source mcp_erb
   user node[:user]
   mode '0644'
 end
-
-# Cursor rules
-dotfile '.cursor/rules'
-dotfile '.cursor/agents'
-dotfile '.cursor/skills'
-dotfile '.cursor/hooks.json'
-dotfile '.cursor/hooks'
 
 # Rust settings
 dotfile '.cargo/config.toml'

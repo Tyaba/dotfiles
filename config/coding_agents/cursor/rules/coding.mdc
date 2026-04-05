@@ -1,0 +1,9 @@
+---
+description: coding
+alwaysApply: true
+---
+
+# Cursor 固有ルール
+
+## React / Next.js
+React/Next.jsのコード作成・レビュー・リファクタリング時は、`vercel-react-best-practices` Skill を参照し、パフォーマンス最適化パターンを適用せよ。

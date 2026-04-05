@@ -26,13 +26,7 @@
     "yui": {
       "type": "http",
       "url": "http://localhost:52981/mcp"
-    }<% if ENV['OBSIDIAN_API_KEY'] %>,
-    "obsidian-mcp": {
-      "command": "<%= ENV['HOME'] %>/ghq/github.com/Tyaba/vault/.obsidian/plugins/mcp-tools/bin/mcp-server",
-      "env": {
-        "OBSIDIAN_API_KEY": "<%= ENV['OBSIDIAN_API_KEY'] %>"
-      }
-    }<% end %>
+    }
   }
 }
 

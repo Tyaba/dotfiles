@@ -23,6 +23,8 @@ include_cookbook 'htop'
 include_cookbook 'cursor'
 include_cookbook 'karabiner-elements'
 include_cookbook 'iterm'
+include_cookbook 'ghostty'
+dotfile '.config/ghostty'
 # 依存元
 include_cookbook 'basic'
 include_cookbook 'rust'
