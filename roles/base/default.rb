@@ -22,8 +22,29 @@ dotfile '.claude/skills' => 'coding_agents/skills'
 dotfile '.cursor/hooks' => 'coding_agents/hooks'
 dotfile '.claude/hooks' => 'coding_agents/hooks'
 
+# User rules (shared across all workspaces)
+dotfile '.claude/user-rules.md' => 'coding_agents/user-rules.md'
+
+user_rules_erb = File.join(root_dir, 'config/coding_agents/cursor/rules/user-rules.mdc.erb')
+user_rules_md = File.read(File.join(root_dir, 'config/coding_agents/user-rules.md'))
+
+execute "rm -f #{ENV['HOME']}/.cursor/rules" do
+  only_if "test -L #{ENV['HOME']}/.cursor/rules"
+end
+
+directory "#{ENV['HOME']}/.cursor/rules" do
+  user node[:user]
+end
+
+template "#{ENV['HOME']}/.cursor/rules/user-rules.mdc" do
+  source user_rules_erb
+  variables(user_rules: user_rules_md)
+  user node[:user]
+  mode '0644'
+end
+
 # Cursor-specific
-dotfile '.cursor/rules' => 'coding_agents/cursor/rules'
+dotfile '.cursor/rules/coding.mdc' => 'coding_agents/cursor/rules/coding.mdc'
 dotfile '.cursor/hooks.json' => 'coding_agents/cursor/hooks.json'
 
 # Claude Code-specific

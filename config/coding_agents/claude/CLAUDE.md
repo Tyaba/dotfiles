@@ -1,15 +1,5 @@
+@~/.claude/user-rules.md
 @AGENTS.md
-
-# スキル（必要時のみ Read せよ）
-
-以下のスキルは常時読み込まない。条件に合致したときのみ `.claude/skills/<name>/SKILL.md` を Read して従え。
-
-| 条件 | スキル |
-|---|---|
-| PR作成・`gh pr create` 実行時 | pr-template |
-| Python/Next.js のレイヤー設計・新規モジュール作成時 | ddd-scaffold |
-| DBスキーマ変更を伴う Terraform 作業時 | terraform-migration |
-| React/Next.js のコード作成・レビュー・リファクタリング時 | vercel-react-best-practices |
 
 # Claude Code 固有設定
 
