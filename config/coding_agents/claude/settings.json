@@ -1,96 +1,118 @@
 {
-    "permissions": {
-        "allow": [
-            "List(*)",
-            "Fetch(https://*)",
-            "Edit(*)",
-            "Write(*)",
-            "Read(*)",
-            "Bash(uv :* sync :*)",
-            "Bash(mise :* run :*)",
-            "Bash(git :* status :*)",
-            "Bash(git :* diff :*)",
-            "Bash(mkdir :*)",
-            "Bash(*/ls :*)",
-            "Bash(bq :* tail :*)",
-            "Bash(bq :* show :*)",
-            "Bash(mv :*)",
-            "Bash(*/cat :*)",
-            "Bash(cp :*)",
-            "Bash(wc :*)",
-            "Bash(*/grep :*)",
-            "Bash(*/find :*)",
-            "Bash(head :*)",
-            "Bash(tree :*)",
-            "mcp__context7__*",
-            "mcp__yui__*"
-        ],
-        "deny": [
-            "Read(*/.env)",
-            "Read(*credentials.json)",
-            "Read(./secrets/**)",
-            "Read(**/id_rsa*)",
-            "Read(**/id_ed25519*)",
-            "Write(*/.ssh/*)",
-            "Bash(bq :* rm :*)",
-            "Bash(bq :* delete :*)",
-            "Bash(gcloud :* delete :*)",
-            "Bash(gsutil :* rm :*)",
-            "Bash(terraform :* destroy :*)",
-            "Bash(terraform :* apply :*)",
-            "Bash(kubectl :* delete :*)"
-        ]
-    },
-    "includeCoAuthoredBy": false,
-    "model": "sonnet[1m]",
-    "enabledMcpjsonServers": [
-        "terraform",
-        "svelte5"
+  "env": {
+    "BASH_DEFAULT_TIMEOUT_MS": "30000",
+    "BASH_MAX_TIMEOUT_MS": "120000",
+    "CLAUDE_CODE_SUBAGENT_MODEL": "opus",
+    "BASH_ENV": "",
+    "ENV": "",
+    "SHELL": "/bin/bash",
+    "TERM": "dumb"
+  },
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "List(*)",
+      "Fetch(https://*)",
+      "Edit(*)",
+      "Write(*)",
+      "Read(*)",
+      "Bash(uv :* sync :*)",
+      "Bash(mise :* run :*)",
+      "Bash(git :* status :*)",
+      "Bash(git :* diff :*)",
+      "Bash(mkdir :*)",
+      "Bash(*/ls :*)",
+      "Bash(bq :* tail :*)",
+      "Bash(bq :* show :*)",
+      "Bash(mv :*)",
+      "Bash(*/cat :*)",
+      "Bash(cp :*)",
+      "Bash(wc :*)",
+      "Bash(*/grep :*)",
+      "Bash(*/find :*)",
+      "Bash(head :*)",
+      "Bash(tree :*)",
+      "mcp__yui__*"
     ],
-    "env": {
-        "BASH_DEFAULT_TIMEOUT_MS": "3000",
-        "BASH_MAX_TIMEOUT_MS": "5000",
-        "ANTHROPIC_MODEL": "claude-sonnet-4-5-20250929",
-        "BASH_ENV": "",
-        "ENV": "",
-        "SHELL": "/bin/bash",
-        "TERM": "dumb"
-    },
-    "hooks": {
-        "SessionStart": [
-            {
-                "matcher": "",
-                "hooks": [
-                    {
-                        "type": "command",
-                        "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; else paplay /usr/share/sounds/freedesktop/stereo/message.oga; fi"
-                    }
-                ]
-            }
-        ],
-        "PreToolUse": [],
-        "PostToolUse": [],
-        "Stop": [
-            {
-                "matcher": "",
-                "hooks": [
-                    {
-                        "type": "command",
-                        "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; else paplay /usr/share/sounds/freedesktop/stereo/message.oga; fi"
-                    }
-                ]
-            }
-        ],
-        "Notification": [
-            {
-                "matcher": "",
-                "hooks": [
-                    {
-                        "type": "command",
-                        "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; else paplay /usr/share/sounds/freedesktop/stereo/message.oga; fi"
-                    }
-                ]
-            }
+    "deny": [
+      "Read(*/.env)",
+      "Read(*credentials.json)",
+      "Read(./secrets/**)",
+      "Read(**/id_rsa*)",
+      "Read(**/id_ed25519*)",
+      "Write(*/.ssh/*)",
+      "Bash(bq :* rm :*)",
+      "Bash(bq :* delete :*)",
+      "Bash(gcloud :* delete :*)",
+      "Bash(gsutil :* rm :*)",
+      "Bash(terraform :* destroy :*)",
+      "Bash(terraform :* apply :*)",
+      "Bash(kubectl :* delete :*)"
+    ],
+    "defaultMode": "auto"
+  },
+  "model": "opus[1m]",
+  "enabledMcpjsonServers": [
+    "terraform",
+    "svelte5"
+  ],
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; else paplay /usr/share/sounds/freedesktop/stereo/message.oga; fi"
+          }
         ]
-    }
+      }
+    ],
+    "PreToolUse": [],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/render-diagram.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; else paplay /usr/share/sounds/freedesktop/stereo/message.oga; fi"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; else paplay /usr/share/sounds/freedesktop/stereo/message.oga; fi"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
+  },
+  "outputStyle": "Structured",
+  "language": "日本語",
+  "voiceEnabled": true,
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
+  "skipAutoPermissionPrompt": true
 }

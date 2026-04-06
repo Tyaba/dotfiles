@@ -29,6 +29,9 @@ dotfile '.cursor/hooks.json' => 'coding_agents/cursor/hooks.json'
 # Claude Code-specific
 dotfile '.claude/CLAUDE.md' => 'coding_agents/claude/CLAUDE.md'
 dotfile '.claude/settings.json' => 'coding_agents/claude/settings.json'
+dotfile '.claude/output-styles' => 'coding_agents/claude/output-styles'
+dotfile '.claude/statusline.sh' => 'coding_agents/claude/statusline.sh'
+dotfile '.claude/render-diagram.sh' => 'coding_agents/claude/render-diagram.sh'
 
 # MCP settings (template generates both Cursor and Claude Code configs)
 mcp_erb = File.join(root_dir, 'config/coding_agents/mcp.json.erb')

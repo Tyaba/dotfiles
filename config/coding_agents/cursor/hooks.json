@@ -1,12 +1,7 @@
 {
     "version": 1,
     "hooks": {
-        "sessionStart": [
-            {
-                "command": "~/.cursor/hooks/pull-vault.sh",
-                "description": "Pull latest vault changes at session start"
-            }
-        ],
+        "sessionStart": [],
         "beforeMCPExecution": [],
         "afterMCPExecution": [],
         "stop": [
