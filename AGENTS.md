@@ -11,19 +11,15 @@
 ## Learned User Preferences
 
 - エージェントが自動コミットしてはならない。コミットはユーザーが明示的に指示したときのみ行う
-- ルールは発火条件中心に書き、詳細な手順はSKILL.mdに分離する。常時コンテキストを増やさない。チェックリスト形式の発火条件はルール側に残す
-- coding.mdc の構成は「ツール活用 / 開発プロセス / 言語・FW固有」の大枠にまとめ、MCP一覧はフラットにする
-- プラグインと自前ルール/スキルの重複は削る（例: Context7プラグイン導入後はcoding.mdcの1行説明を削除）
-- Pythonの実行はuvを使う。テストはpytest。npm前提のスキルはPython環境では`uv run pytest`等で補う
-- 重い指示やPR限定の指示はSkillに分離し、常時ルールに載せない
+- ルールは発火条件中心に書き、詳細な手順はSKILL.mdに分離する。常時コンテキストを増やさない。重い指示やPR限定の指示もSkillに分離する
+- coding.mdcの構成は「ツール活用 / 開発プロセス / 言語・FW固有」の大枠にまとめ、プラグインと自前ルール/スキルの重複は削る
+- Pythonの実行はuvを使う。テストはpytest。pipx/poetryもuvで代替済み
 - pnpmは日常のパッケージ管理用、bunはランタイム/hook用として共存する
-- Raycastのウィンドウ操作ホットキーはplistに出ないため手動設定が必要
-- Spotlight・Siri/Apple IntelligenceのCmd+SpaceはRaycastと競合するため無効化が必要（`darwin_base/default.rb`で自動化済み）
+- Raycastのウィンドウ操作ホットキーはplistに出ないため手動設定が必要。Spotlight・Siri/Apple IntelligenceのCmd+Spaceは競合するため無効化（`darwin_base/default.rb`で自動化済み）
 - `.cursor/hooks/state` はGit管理しない。認証情報・機密情報はコミットしない。リポジトリはpublicである
 - ターミナルのカラーテーマはダーク×ウォーム系が好み（ネイビー系は嫌い）
 - 個人の設定をプロジェクトの`.claude/rules/`に持ち込まない。グローバル設定（`~/.claude/CLAUDE.md`）で管理する
 - Context7はCursor/Claude Code両方ともplugin版を使う（MCP serverとしては管理しない）
-- Obsidian MCPはもう使っていない。関連する残骸（pull-vault.sh等）は削除対象
 - 複数リポジトリの並列作業はtmuxセッション分離で行う（Ghosttyタブ複製ではなく）
 - tmuxのprefixはCtrl+Space（デフォルトのCtrl+Bはカーソル移動と競合するため変更済み）
 
@@ -42,7 +38,8 @@
 - PATH/補完は `.zshrc` 直書きせず `config/.zsh/lib/languages` に集約する
 - PR作成時のAI監査セクションは「変更内容」の直後に配置する
 - Claude Codeのmodel設定は`opus[1m]`、permission modeは`auto`、サブエージェントも`opus`（通常コンテキスト）
-- Claude Codeのstatusline.sh、output-styles/、render-diagram.shは`config/coding_agents/claude/`に配置し、`roles/base/default.rb`で`~/.claude/`にシンボリックリンク
-- Claude Codeのプラグインは`/plugin`コマンドでインタラクティブにインストールし`~/.claude.json`に永続する（dotfilesで宣言的管理は不可）
+- Claude Codeのstatusline.sh、output-styles/、render-diagram.shは`config/coding_agents/claude/`に配置し、`roles/base/default.rb`で`~/.claude/`にシンボリックリンク。プラグインは`/plugin`コマンドでインストールし`~/.claude.json`に永続（dotfilesで宣言的管理は不可）
 - GhosttyでのURL開きはCmd+クリック、tmux内ではCmd+Shift+クリック（tmuxがマウスイベントを食うため）
 - `config/.zsh/lib/functions` の `gcloud()` ラッパーはOS分岐でyui-proxy再起動を切り替え（macOS: launchctl, Linux: systemctl --user）
+- ツール移行済み: exa→eza、ncdu→dust、pipx/poetry→uv、iTerm→Ghostty、scroll-reverser→macOS標準。XQuartzはX11 forwarding用に必要（代替なし）
+- mozc cookbookはrole未参照で残存（ユーザー未決定）
