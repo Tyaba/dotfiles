@@ -70,7 +70,7 @@ yui は会話履歴の圧縮版である。LLM は会話が終われば全てを
 コーディングにおいては、`ddd-scaffold` Skill の定義に従ってレイヤー間の依存関係を厳格に管理せよ。
 
 ### Terraform
-DBスキーマ変更を伴う作業では、`terraform-migration` Skill を参照し、直接的な apply を避けるマイグレーション手順を遵守せよ。
+DBスキーマ変更を伴う作業では、`terraform-migration` Skill を参照し、マイグレーション手順を遵守せよ。
 
 ## Cloud Resource Management
 
