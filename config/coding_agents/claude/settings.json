@@ -31,6 +31,13 @@
       "Bash(*/find :*)",
       "Bash(head :*)",
       "Bash(tree :*)",
+      "Bash(gcloud :* describe :*)",
+      "Bash(gcloud :* list :*)",
+      "Bash(gcloud :* get-iam-policy :*)",
+      "Bash(gcloud :* versions :* add :*)",
+      "Bash(gcloud :* create :*)",
+      "Bash(gcloud :* add-iam-policy-binding :*)",
+      "Bash(gcloud :* config :*)",
       "mcp__yui__*"
     ],
     "deny": [
@@ -45,7 +52,6 @@
       "Bash(gcloud :* delete :*)",
       "Bash(gsutil :* rm :*)",
       "Bash(terraform :* destroy :*)",
-      "Bash(terraform :* apply :*)",
       "Bash(kubectl :* delete :*)"
     ],
     "defaultMode": "auto"
@@ -67,7 +73,20 @@
         ]
       }
     ],
-    "PreToolUse": [],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(terraform :* apply :*)",
+            "command": "~/.claude/hooks/terraform-apply-guard.sh",
+            "timeout": 120,
+            "statusMessage": "terraform plan で安全性を検証中..."
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "matcher": "Write|Edit",

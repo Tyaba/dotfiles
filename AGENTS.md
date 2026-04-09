@@ -34,10 +34,12 @@
 - キーボードはHHKB-Hybrid_2（Bluetooth接続）。CapsLock→left_controlはKarabiner simple_modificationsで変換
 - Karabiner-Elementsのcomplex_modificationsでEmacs風キーバインドを全体適用（除外アプリリスト付き）。`FromModifiers.optional`のデフォルトに`["caps_lock"]`が必要
 - CursorのbundleIDは`com.todesktop.230313mzl4w4u92`、Ghosttyは`com.mitchellh.ghostty`。いずれもKarabiner除外リストに含める
+- Cursorでは`lfs.vscode-emacs-friendly`拡張でEmacsキーバインドを使用。`C-x C-c`はエディタ開→タブ閉じ、全閉じ→ウィンドウ閉じの2段階動作（`keybindings.json`で設定）
 - MCP serverのcommandや環境変数はフルパス指定が必要（例: `uvx`→`<%= ENV['HOME'] %>/.local/bin/uvx`）
 - PATH/補完は `.zshrc` 直書きせず `config/.zsh/lib/languages` に集約する
 - PR作成時のAI監査セクションは「変更内容」の直後に配置する
 - Claude Codeのmodel設定は`opus[1m]`、permission modeは`auto`、サブエージェントも`opus`（通常コンテキスト）
+- `terraform apply`はPreToolUse hookで動的ガード。plan結果にステートフルリソース（BQ/GCS/SQL/VM/Redis/Spanner/Bigtable/Filestore）のreplace/destroyがあればdeny、なければallow。`terraform destroy`は静的deny維持。hookスクリプトは`config/coding_agents/hooks/terraform-apply-guard.sh`
 - Claude Codeのstatusline.sh、output-styles/、render-diagram.shは`config/coding_agents/claude/`に配置し、`roles/base/default.rb`で`~/.claude/`にシンボリックリンク。プラグインは`/plugin`コマンドでインストールし`~/.claude.json`に永続（dotfilesで宣言的管理は不可）
 - GhosttyでのURL開きはCmd+クリック、tmux内ではCmd+Shift+クリック（tmuxがマウスイベントを食うため）
 - `config/.zsh/lib/functions` の `gcloud()` ラッパーはOS分岐でyui-proxy再起動を切り替え（macOS: launchctl, Linux: systemctl --user）
