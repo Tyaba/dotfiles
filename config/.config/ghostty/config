@@ -19,6 +19,7 @@ scrollback-limit = 536870912
 
 # Input
 mouse-hide-while-typing = true
+macos-option-as-alt = true
 
 # Shell integration (auto-detect zsh/bash/fish)
 shell-integration = detect

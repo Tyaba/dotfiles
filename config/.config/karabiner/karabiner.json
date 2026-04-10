@@ -1894,10 +1894,7 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "spacebar",
-                                        "modifiers": [
-                                            "left_control"
-                                        ]
+                                        "key_code": "f18"
                                     }
                                 ],
                                 "type": "basic"

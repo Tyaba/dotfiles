@@ -35,7 +35,11 @@ def next_window_rule() -> Rule:
 
 
 def change_language_rule() -> Rule:
-    """言語切り替えのルールを生成する"""
+    """言語切り替えのルールを生成する
+
+    Ctrl+\\ を F18 に変換し、macOS 側で F18 を入力ソース切り替えに割り当てる。
+    Ctrl+Space は tmux prefix と競合するため使用しない。
+    """
     rule = Rule(
         description="言語切り替え",
         manipulators=[
@@ -48,8 +52,7 @@ def change_language_rule() -> Rule:
                 ),
                 to=[
                     ToItem(
-                        key_code="spacebar",
-                        modifiers=["left_control"],
+                        key_code="f18",
                     ),
                 ],
                 conditions=None,  # いつでも有効
