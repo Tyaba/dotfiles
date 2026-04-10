@@ -68,12 +68,25 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; else paplay /usr/share/sounds/freedesktop/stereo/message.oga; fi"
+            "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; fi"
+          },
+          {
+            "type": "command",
+            "command": "tmux rename-window \"⏳ $(basename \"$PWD\")\" 2>/dev/null || true"
           }
         ]
       }
     ],
     "PreToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "tmux rename-window \"⏳ $(basename \"$PWD\")\" 2>/dev/null || true"
+          }
+        ]
+      },
       {
         "matcher": "Bash",
         "hooks": [
@@ -104,7 +117,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; else paplay /usr/share/sounds/freedesktop/stereo/message.oga; fi"
+            "command": "PROJECT=$(basename \"$PWD\"); if [ \"$(uname)\" = \"Darwin\" ]; then osascript -e \"display notification \\\"$PROJECT: タスク完了\\\" with title \\\"Claude Code\\\" sound name \\\"Submarine\\\"\"; else paplay /usr/share/sounds/freedesktop/stereo/message.oga; fi"
+          },
+          {
+            "type": "command",
+            "command": "tmux rename-window \"✅ $(basename \"$PWD\")\" 2>/dev/null || true"
           }
         ]
       }
@@ -115,7 +132,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; else paplay /usr/share/sounds/freedesktop/stereo/message.oga; fi"
+            "command": "PROJECT=$(basename \"$PWD\"); if [ \"$(uname)\" = \"Darwin\" ]; then osascript -e \"display notification \\\"$PROJECT: 入力待ち\\\" with title \\\"Claude Code\\\" sound name \\\"Submarine\\\"\"; else paplay /usr/share/sounds/freedesktop/stereo/message.oga; fi"
+          },
+          {
+            "type": "command",
+            "command": "tmux rename-window \"❓ $(basename \"$PWD\")\" 2>/dev/null || true"
           }
         ]
       }

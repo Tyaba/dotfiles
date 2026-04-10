@@ -33,15 +33,18 @@
 - Raycast設定の保存は `bin/raycast-export`、適用は `defaults import com.raycast.macos`。Spectacleは削除済み
 - キーボードはHHKB-Hybrid_2（Bluetooth接続）。CapsLock→left_controlはKarabiner simple_modificationsで変換
 - Karabiner-Elementsのcomplex_modificationsでEmacs風キーバインドを全体適用（除外アプリリスト付き）。`FromModifiers.optional`のデフォルトに`["caps_lock"]`が必要
+- IME切り替え: Ctrl+\ → (Karabiner) → F18 → (macOS ID:60) → 入力ソース切り替え。Ctrl+Spaceはtmux prefixと競合するためF18経由。`select_input_source`はCJKVでmacOSバグあり非推奨
 - CursorのbundleIDは`com.todesktop.230313mzl4w4u92`、Ghosttyは`com.mitchellh.ghostty`。いずれもKarabiner除外リストに含める
-- Cursorでは`lfs.vscode-emacs-friendly`拡張でEmacsキーバインドを使用。`C-x C-c`はエディタ開→タブ閉じ、全閉じ→ウィンドウ閉じの2段階動作（`keybindings.json`で設定）
+- Cursorでは`lfs.vscode-emacs-friendly`拡張でEmacsキーバインドを使用。`C-x C-c`はエディタ開→タブ閉じ、全閉じ→ウィンドウ閉じの2段階動作（`keybindings.json`で設定）。closeWindowの条件に`!multipleEditorGroups`を含めるとチャットパネル等で不成立になるため削除済み
 - MCP serverのcommandや環境変数はフルパス指定が必要（例: `uvx`→`<%= ENV['HOME'] %>/.local/bin/uvx`）
 - PATH/補完は `.zshrc` 直書きせず `config/.zsh/lib/languages` に集約する
 - PR作成時のAI監査セクションは「変更内容」の直後に配置する
 - Claude Codeのmodel設定は`opus[1m]`、permission modeは`auto`、サブエージェントも`opus`（通常コンテキスト）
+- Claude Codeは`ANTHROPIC_API_KEY`が設定されているとOAuth/EnterpriseよりAPIキー認証が優先され、`/status`のLogin methodが「Claude API Account」になる。Enterpriseサブスク枠とstatusline入力の`rate_limits`（5時間・7日ウィンドウ）はOAuth（`/login`）で意味があり、APIキー主体では空になりやすい
 - `terraform apply`はPreToolUse hookで動的ガード。plan結果にステートフルリソース（BQ/GCS/SQL/VM/Redis/Spanner/Bigtable/Filestore）のreplace/destroyがあればdeny、なければallow。`terraform destroy`は静的deny維持。hookスクリプトは`config/coding_agents/hooks/terraform-apply-guard.sh`
+- Claude Codeの`gcloud`許可: 読み取り系(describe/list/get-iam-policy/config)と追加系(create/versions add/add-iam-policy-binding)はallow、deleteはdeny
 - Claude Codeのstatusline.sh、output-styles/、render-diagram.shは`config/coding_agents/claude/`に配置し、`roles/base/default.rb`で`~/.claude/`にシンボリックリンク。プラグインは`/plugin`コマンドでインストールし`~/.claude.json`に永続（dotfilesで宣言的管理は不可）
-- GhosttyでのURL開きはCmd+クリック、tmux内ではCmd+Shift+クリック（tmuxがマウスイベントを食うため）
+- GhosttyでのURL開きはCmd+クリック、tmux内ではCmd+Shift+クリック（tmuxがマウスイベントを食うため）。`macos-option-as-alt = true`でAlt+矢印/Alt+B/F等のワード移動を有効化
 - `config/.zsh/lib/functions` の `gcloud()` ラッパーはOS分岐でyui-proxy再起動を切り替え（macOS: launchctl, Linux: systemctl --user）
 - ツール移行済み: exa→eza、ncdu→dust、pipx/poetry→uv、iTerm→Ghostty、scroll-reverser→macOS標準。XQuartzはX11 forwarding用に必要（代替なし）
 - mozc cookbookはrole未参照で残存（ユーザー未決定）
