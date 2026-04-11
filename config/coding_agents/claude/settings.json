@@ -6,57 +6,79 @@
     "BASH_ENV": "",
     "ENV": "",
     "SHELL": "/bin/bash",
-    "TERM": "dumb"
+    "TERM": "dumb",
+    "CLAUDE_CODE_USE_VERTEX": "1",
+    "ANTHROPIC_VERTEX_PROJECT_ID": "aitech-artista-calder",
+    "CLOUD_ML_REGION": "global",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-4-5@20250929",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5@20251001"
   },
   "includeCoAuthoredBy": false,
   "permissions": {
     "allow": [
+      "Bash(*)",
       "List(*)",
       "Fetch(https://*)",
       "Edit(*)",
       "Write(*)",
       "Read(*)",
-      "Bash(uv :* sync :*)",
-      "Bash(mise :* run :*)",
-      "Bash(git :*)",
-      "Bash(mkdir :*)",
-      "Bash(*/ls :*)",
-      "Bash(bq :* tail :*)",
-      "Bash(bq :* show :*)",
-      "Bash(mv :*)",
-      "Bash(*/cat :*)",
-      "Bash(cp :*)",
-      "Bash(wc :*)",
-      "Bash(*/grep :*)",
-      "Bash(*/find :*)",
-      "Bash(head :*)",
-      "Bash(tree :*)",
-      "Bash(gcloud :* describe :*)",
-      "Bash(gcloud :* list :*)",
-      "Bash(gcloud :* get-iam-policy :*)",
-      "Bash(gcloud :* versions :* add :*)",
-      "Bash(gcloud :* create :*)",
-      "Bash(gcloud :* add-iam-policy-binding :*)",
-      "Bash(gcloud :* config :*)",
-      "mcp__yui__*"
+      "mcp__yui__*",
+      "mcp__git__*",
+      "mcp__slack__*",
+      "mcp__playwright__*",
+      "mcp__todoist__*",
+      "mcp__notion__*"
     ],
     "deny": [
       "Read(*/.env)",
+      "Read(*/.env.*)",
       "Read(*credentials.json)",
       "Read(./secrets/**)",
       "Read(**/id_rsa*)",
       "Read(**/id_ed25519*)",
       "Write(*/.ssh/*)",
+      "Write(*/.env)",
+      "Write(*/.env.*)",
+
+      "Bash(git :* push :* --force :*)",
+      "Bash(git :* push :* -f :*)",
+      "Bash(git :* reset :* --hard :*)",
+      "Bash(git :* clean :* -f :*)",
+
       "Bash(bq :* rm :*)",
       "Bash(bq :* delete :*)",
       "Bash(gcloud :* delete :*)",
       "Bash(gsutil :* rm :*)",
       "Bash(terraform :* destroy :*)",
-      "Bash(kubectl :* delete :*)"
+      "Bash(terraform :* apply :* -auto-approve :*)",
+      "Bash(kubectl :* delete :*)",
+      "Bash(gh :* repo :* delete :*)",
+
+      "Bash(docker :* system :* prune :*)",
+      "Bash(docker :* volume :* rm :*)",
+      "Bash(docker :* image :* prune :*)",
+
+      "Bash(dd :*)",
+      "Bash(mkfs :*)",
+      "Bash(shred :*)",
+      "Bash(rm -rf / :*)",
+      "Bash(rm -rf /* :*)",
+      "Bash(chmod :* -R :* 777 :*)",
+      "Bash(shutdown :*)",
+      "Bash(reboot :*)",
+
+      "Bash(npm :* publish :*)",
+      "Bash(twine :* upload :*)",
+      "Bash(cargo :* publish :*)",
+      "Bash(gem :* push :*)",
+
+      "Bash(curl :* | bash :*)",
+      "Bash(curl :* | sh :*)",
+      "Bash(wget :* | bash :*)",
+      "Bash(wget :* | sh :*)"
     ],
     "defaultMode": "auto"
   },
-  "model": "opus[1m]",
   "enabledMcpjsonServers": [
     "terraform",
     "svelte5"
@@ -92,8 +114,8 @@
         "hooks": [
           {
             "type": "command",
-            "if": "Bash(terraform :* apply :*)",
             "command": "~/.claude/hooks/terraform-apply-guard.sh",
+            "if": "Bash(terraform :* apply :*)",
             "timeout": 120,
             "statusMessage": "terraform plan で安全性を検証中..."
           }
@@ -153,5 +175,6 @@
     "enabled": true,
     "mode": "hold"
   },
-  "skipAutoPermissionPrompt": true
+  "skipAutoPermissionPrompt": true,
+  "model": "claude-opus-4-6"
 }
