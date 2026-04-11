@@ -24,8 +24,8 @@
       "url": "https://ai.todoist.net/mcp"
     },
     "yui": {
-      "type": "http",
-      "url": "http://localhost:52981/mcp"
+      "command": "<%= ENV['HOME'] %>/.local/share/mise/shims/npx",
+      "args": ["-y", "supergateway", "--streamableHttp", "http://localhost:52981/mcp"]
     }
   }
 }
