@@ -13,7 +13,7 @@
 - エージェントが自動コミットしてはならない。コミットはユーザーが明示的に指示したときのみ行う
 - ルールは発火条件中心に書き、詳細な手順はSKILL.mdに分離する。常時コンテキストを増やさない。重い指示やPR限定の指示もSkillに分離する
 - coding.mdcの構成は「ツール活用 / 開発プロセス / 言語・FW固有」の大枠にまとめ、プラグインと自前ルール/スキルの重複は削る
-- Pythonの実行はuvを使う。テストはpytest。pipx/poetryもuvで代替済み
+- Pythonの実行はuvを使う。テストはpytest。uvは公式インストーラー（curl）で導入
 - pnpmは日常のパッケージ管理用、bunはランタイム/hook用として共存する
 - Raycastのウィンドウ操作ホットキーはplistに出ないため手動設定が必要。Spotlight・Siri/Apple IntelligenceのCmd+Spaceは競合するため無効化（`darwin_base/default.rb`で自動化済み）
 - `.cursor/hooks/state` はGit管理しない。認証情報・機密情報はコミットしない。リポジトリはpublicである
@@ -46,5 +46,5 @@
 - Claude Codeのstatusline.sh、output-styles/、render-diagram.shは`config/coding_agents/claude/`に配置し、`roles/base/default.rb`で`~/.claude/`にシンボリックリンク。プラグインは`/plugin`コマンドでインストールし`~/.claude.json`に永続（dotfilesで宣言的管理は不可）
 - GhosttyでのURL開きはCmd+クリック、tmux内ではCmd+Shift+クリック（tmuxがマウスイベントを食うため）。`macos-option-as-alt = true`でAlt+矢印/Alt+B/F等のワード移動を有効化
 - `config/.zsh/lib/functions` の `gcloud()` ラッパーはOS分岐でyui-proxy再起動を切り替え（macOS: launchctl, Linux: systemctl --user）
-- ツール移行済み: exa→eza、ncdu→dust、pipx/poetry→uv、iTerm→Ghostty、scroll-reverser→macOS標準。XQuartzはX11 forwarding用に必要（代替なし）
+- ツール移行済み: exa→eza、ncdu→dust、pipx→廃止（uvは公式インストーラーに移行）、poetry→uv、iTerm→Ghostty、scroll-reverser→macOS標準。XQuartzはX11 forwarding用に必要（代替なし）
 - mozc cookbookはrole未参照で残存（ユーザー未決定）
