@@ -18,7 +18,8 @@
     "allow": [
       "Bash(*)",
       "List(*)",
-      "Fetch(https://*)",
+      "WebFetch(*)",
+      "WebSearch(*)",
       "Edit(*)",
       "Write(*)",
       "Read(*)",
@@ -39,12 +40,10 @@
       "Write(*/.ssh/*)",
       "Write(*/.env)",
       "Write(*/.env.*)",
-
       "Bash(git :* push :* --force :*)",
       "Bash(git :* push :* -f :*)",
       "Bash(git :* reset :* --hard :*)",
       "Bash(git :* clean :* -f :*)",
-
       "Bash(bq :* rm :*)",
       "Bash(bq :* delete :*)",
       "Bash(gcloud :* delete :*)",
@@ -53,11 +52,9 @@
       "Bash(terraform :* apply :* -auto-approve :*)",
       "Bash(kubectl :* delete :*)",
       "Bash(gh :* repo :* delete :*)",
-
       "Bash(docker :* system :* prune :*)",
       "Bash(docker :* volume :* rm :*)",
       "Bash(docker :* image :* prune :*)",
-
       "Bash(dd :*)",
       "Bash(mkfs :*)",
       "Bash(shred :*)",
@@ -66,12 +63,10 @@
       "Bash(chmod :* -R :* 777 :*)",
       "Bash(shutdown :*)",
       "Bash(reboot :*)",
-
       "Bash(npm :* publish :*)",
       "Bash(twine :* upload :*)",
       "Bash(cargo :* publish :*)",
       "Bash(gem :* push :*)",
-
       "Bash(curl :* | bash :*)",
       "Bash(curl :* | sh :*)",
       "Bash(wget :* | bash :*)",
@@ -79,6 +74,7 @@
     ],
     "defaultMode": "auto"
   },
+  "model": "claude-opus-4-6",
   "enabledMcpjsonServers": [
     "terraform",
     "svelte5"
@@ -168,6 +164,10 @@
     "type": "command",
     "command": "~/.claude/statusline.sh"
   },
+  "enabledPlugins": {
+    "typescript-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true
+  },
   "outputStyle": "Structured",
   "language": "日本語",
   "voiceEnabled": true,
@@ -175,6 +175,5 @@
     "enabled": true,
     "mode": "hold"
   },
-  "skipAutoPermissionPrompt": true,
-  "model": "claude-opus-4-6"
+  "skipAutoPermissionPrompt": true
 }
