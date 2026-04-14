@@ -3,7 +3,7 @@ case node[:platform]
 when 'darwin', 'ubuntu', 'debian'
   execute 'install claude code' do
     command 'curl -fsSL https://claude.ai/install.sh | bash'
-    not_if 'which claude'
+    not_if 'test -f $HOME/.local/bin/claude'
   end
 else
   raise NotImplementedError
@@ -16,14 +16,14 @@ execute 'install typescript-language-server' do
 end
 
 execute 'install pyright' do
-  command "$HOME/.local/bin/uv tool install pyright"
+  command '$HOME/.local/bin/uv tool install pyright'
   not_if 'which pyright-langserver'
 end
 
 # Claude Code LSP plugins (user scope)
 %w[typescript-lsp pyright-lsp].each do |plugin|
   execute "install claude plugin #{plugin}" do
-    command "claude plugin install #{plugin}@claude-plugins-official --scope user"
-    not_if "claude plugin list 2>/dev/null | grep -q #{plugin}"
+    command "$HOME/.local/bin/claude plugin install #{plugin}@claude-plugins-official --scope user"
+    not_if "$HOME/.local/bin/claude plugin list 2>/dev/null | grep -q #{plugin}"
   end
 end
