@@ -16,7 +16,7 @@ execute 'install typescript-language-server' do
 end
 
 execute 'install pyright' do
-  command 'uv tool install pyright'
+  command "$HOME/.local/bin/uv tool install pyright"
   not_if 'which pyright-langserver'
 end
 
