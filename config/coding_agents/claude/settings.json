@@ -17,12 +17,15 @@
   "permissions": {
     "allow": [
       "Bash(*)",
+      "Read(*)",
+      "Edit(*)",
+      "Write(*)",
+      "Glob(*)",
+      "Grep(*)",
+      "Search(*)",
       "List(*)",
       "WebFetch(*)",
       "WebSearch(*)",
-      "Edit(*)",
-      "Write(*)",
-      "Read(*)",
       "mcp__yui__*",
       "mcp__git__*",
       "mcp__slack__*",
