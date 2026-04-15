@@ -1,7 +1,9 @@
 from keymap_generator.domain.models.keymap import Rule
 from keymap_generator.domain.models.manipulator import (
+    Condition,
     From,
     FromModifiers,
+    InputSource,
     Manipulator,
     ToItem,
 )
@@ -37,27 +39,45 @@ def next_window_rule() -> Rule:
 def change_language_rule() -> Rule:
     """言語切り替えのルールを生成する
 
-    Ctrl+\\ を F18 に変換し、macOS 側で F18 を入力ソース切り替えに割り当てる。
-    Ctrl+Space は tmux prefix と競合するため使用しない。
+    Ctrl+\\ で ABC ↔ Google日本語入力 を直接切り替える。
+    japanese_eisuu / japanese_kana キーコードを使い、
+    macOS のネイティブな入力ソース切り替えパイプラインを通す。
+    一方向キーのため key_up 二重発火が起きず、
+    select_input_source の CJKV バグも回避できる。
     """
+    from_ = From(
+        key_code="backslash",
+        modifiers=FromModifiers(
+            mandatory=["left_control"],
+        ),
+    )
     rule = Rule(
         description="言語切り替え",
         manipulators=[
             Manipulator(
-                from_=From(
-                    key_code="backslash",
-                    modifiers=FromModifiers(
-                        mandatory=["left_control"],
-                    ),
-                ),
+                from_=from_,
                 to=[
-                    ToItem(
-                        key_code="f18",
-                        repeat=False,
+                    ToItem(key_code="japanese_eisuu"),
+                ],
+                conditions=[
+                    Condition(
+                        type="input_source_if",
+                        input_sources=[InputSource(input_source_id="^com\\.google\\.inputmethod\\.Japanese")],
                     ),
                 ],
-                conditions=None,  # いつでも有効
-            )
+            ),
+            Manipulator(
+                from_=from_,
+                to=[
+                    ToItem(key_code="japanese_kana"),
+                ],
+                conditions=[
+                    Condition(
+                        type="input_source_if",
+                        input_sources=[InputSource(input_source_id="^com\\.apple\\.keylayout\\.ABC$")],
+                    ),
+                ],
+            ),
         ],
     )
     return rule

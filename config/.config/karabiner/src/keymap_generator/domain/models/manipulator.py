@@ -42,6 +42,17 @@ class SetVariable(BaseModel):
     value: int = Field(default=..., title="フラグの値", examples=[0, 1])
 
 
+class InputSource(BaseModel):
+    """input_source_if/unless条件で使う入力ソース指定"""
+
+    input_source_id: Optional[str] = Field(
+        default=None, title="入力ソースID（正規表現可）"
+    )
+    language: Optional[str] = Field(
+        default=None, title="言語コード"
+    )
+
+
 class ToItem(BaseModel):
     """変換先のキーストロークのスキーマ"""
 
@@ -88,6 +99,9 @@ class Condition(BaseModel):
     value: Optional[int] = Field(default=None, title="フラグの値", examples=[0, 1])
     bundle_identifiers: Optional[list[str]] = Field(
         default=None, title="条件の引数", examples=[["com.apple.Terminal"]]
+    )
+    input_sources: Optional[list[InputSource]] = Field(
+        default=None, title="入力ソースの条件", examples=None
     )
 
 

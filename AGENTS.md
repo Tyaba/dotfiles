@@ -33,7 +33,7 @@
 - Raycast設定の保存は `bin/raycast-export`、適用は `defaults import com.raycast.macos`。Spectacleは削除済み
 - キーボードはHHKB-Hybrid_2（Bluetooth接続）。CapsLock→left_controlはKarabiner simple_modificationsで変換
 - Karabiner-Elementsのcomplex_modificationsでEmacs風キーバインドを全体適用（除外アプリリスト付き）。`FromModifiers.optional`のデフォルトに`["caps_lock"]`が必要
-- IME切り替え: Ctrl+\ → (Karabiner) → F18 → (macOS ID:60) → 入力ソース切り替え。Ctrl+Spaceはtmux prefixと競合するためF18経由。`select_input_source`はCJKVでmacOSバグあり非推奨
+- IME切り替え: Ctrl+\ → (Karabiner) → `japanese_eisuu`/`japanese_kana` → macOSネイティブ入力ソース切り替え。一方向キーのため二重発火なし、`select_input_source`のCJKVバグも回避。F18経由・`select_input_source`直接方式はいずれも非推奨
 - CursorのbundleIDは`com.todesktop.230313mzl4w4u92`、Ghosttyは`com.mitchellh.ghostty`。いずれもKarabiner除外リストに含める
 - Cursorでは`lfs.vscode-emacs-friendly`拡張でEmacsキーバインドを使用。`C-x C-c`はエディタ開→タブ閉じ、全閉じ→ウィンドウ閉じの2段階動作（`keybindings.json`で設定）。closeWindowの条件に`!multipleEditorGroups`を含めるとチャットパネル等で不成立になるため削除済み
 - MCP serverのcommandや環境変数はフルパス指定が必要（例: `uvx`→`<%= ENV['HOME'] %>/.local/bin/uvx`）
