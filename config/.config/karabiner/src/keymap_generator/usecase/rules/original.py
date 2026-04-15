@@ -53,6 +53,7 @@ def change_language_rule() -> Rule:
                 to=[
                     ToItem(
                         key_code="f18",
+                        repeat=False,
                     ),
                 ],
                 conditions=None,  # いつでも有効

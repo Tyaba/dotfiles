@@ -51,6 +51,10 @@ class ToItem(BaseModel):
     modifiers: Optional[str | list[str]] = Field(
         default=None, title="変換先の修飾キー", examples=["left_shift", "right_shift"]
     )
+    repeat: Optional[bool] = Field(
+        default=None,
+        title="キーリピートの有効/無効",
+    )
     set_variable: Optional[SetVariable] = Field(
         default=None,
         title="フラグをセットする",
