@@ -53,6 +53,15 @@ RATE_SECTION=""
 [ -n "$RATE" ] && RATE_SECTION=" │ ${RATE}"
 echo -e "${DIM}[${MODEL}]${RESET} ${BAR_COLOR}${BAR} ${PCT}%${RESET} │ ${CYAN}${COST_FMT}${RESET} │ ${GREEN}+${LINES_ADD}${RESET}/${RED}-${LINES_DEL}${RESET}${RATE_SECTION}"
 
+# Update tmux window name — preserve the emoji set by hooks (⏳/✅/❓)
+PROJ=$(basename "$DIR")
+CURRENT_W=$(tmux display-message -p '#W' 2>/dev/null) || true
+STATUS_EMOJI="${CURRENT_W%% *}"
+# Only update if we got a valid emoji prefix; append context percentage
+if [ -n "$STATUS_EMOJI" ]; then
+    tmux rename-window "${STATUS_EMOJI} ${PROJ} [${PCT}%]" 2>/dev/null || true
+fi
+
 # Line 2: git status + changed files
 if git rev-parse --git-dir > /dev/null 2>&1; then
     BRANCH=$(git branch --show-current 2>/dev/null)
