@@ -55,7 +55,6 @@ yui は会話履歴の圧縮版である。LLM は会話が終われば全てを
 | 条件 | スキル |
 |---|---|
 | 「E2Eテスト」「結合テスト」「動作確認」を依頼された | e2e-testing |
-| PR作成・`gh pr create` 実行時 | pr-template |
 | Python/Next.js のレイヤー設計・新規モジュール作成時 | ddd-scaffold |
 | DBスキーマ変更を伴う Terraform 作業時 | terraform-migration |
 | React/Next.js のコード作成・レビュー・リファクタリング時 | vercel-react-best-practices |
