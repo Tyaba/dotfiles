@@ -65,16 +65,19 @@ config/
 | `config/coding_agents/mcp.json.erb` | `~/.mcp.json`, `~/.cursor/mcp.json` |
 | `config/coding_agents/codex/AGENTS.md` | `~/.codex/AGENTS.md` |
 
-### Codex Offload (via codex-plugin-cc)
+### Codex Offload (via MCP server)
 
-Claude Code tasks can be offloaded to Codex via the `codex-plugin-cc` plugin. See `config/coding_agents/skills/codex-offload/SKILL.md` for delegation guidelines.
+Claude Code tasks are automatically offloaded to Codex via the `codex mcp-server` MCP integration. Claude calls `mcp__codex__codex` as a regular tool, enabling natural auto-delegation. See `config/coding_agents/skills/codex-offload/SKILL.md` for prompt composition guidelines.
 
 **Setup (after `./install.sh`):**
 ```shell
-codex login          # Authenticate with ChatGPT Enterprise
-/codex:setup         # Verify plugin readiness (inside Claude Code)
+codex login          # Authenticate with ChatGPT Enterprise (one-time)
 ```
+
+**Key features:**
+- `base-instructions` parameter allows dynamic injection of project-specific rules into Codex
+- `codex-reply` enables multi-turn Codex sessions via `threadId`
+- `~/.codex/AGENTS.md` provides static global rules for direct Codex CLI usage
 
 **Constraints:**
 - Requires local OAuth authentication (browser flow) -- not available in CI/headless environments
-- Codex reads `~/.codex/AGENTS.md` but does NOT read Claude's `CLAUDE.md` or `user-rules.md`

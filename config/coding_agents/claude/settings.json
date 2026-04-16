@@ -26,7 +26,8 @@
       "mcp__slack__*",
       "mcp__playwright__*",
       "mcp__todoist__*",
-      "mcp__notion__*"
+      "mcp__notion__*",
+      "mcp__codex__*"
     ],
     "deny": [
       "Read(*/.env)",
@@ -164,8 +165,7 @@
   },
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true,
-    "pyright-lsp@claude-plugins-official": true,
-    "codex@openai-codex": true
+    "pyright-lsp@claude-plugins-official": true
   },
   "outputStyle": "Structured",
   "language": "日本語",

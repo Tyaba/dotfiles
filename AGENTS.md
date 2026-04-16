@@ -49,4 +49,4 @@
 - `config/.zsh/lib/functions` の `gcloud()` ラッパーはOS分岐でyui-proxy再起動を切り替え（macOS: launchctl, Linux: systemctl --user）
 - ツール移行済み: exa→eza、ncdu→dust、pipx→廃止（uvは公式インストーラーに移行）、poetry→uv、iTerm→Ghostty、scroll-reverser→macOS標準。XQuartzはX11 forwarding用に必要（代替なし）
 - mozc cookbookはrole未参照で残存（ユーザー未決定）
-- codex-plugin-ccはClaude Codeプラグイン（MCP非依存）。Codex CLIは`~/.codex/AGENTS.md`（グローバル）とリポジトリの`AGENTS.md`を読むが、Claudeの`CLAUDE.md`/`user-rules.md`は読まない。CI環境では利用不可（OAuth認証にブラウザフロー必須）。`config/codex/AGENTS.md`→`~/.codex/AGENTS.md`でデプロイ
+- Codex CLIは`codex mcp-server`でMCPサーバーとして動作し、`mcp.json.erb`で定義。`base-instructions`パラメータでClaude側のルールを動的注入可能。`~/.codex/AGENTS.md`は直接CLI利用時のグローバルルール。CI環境では利用不可（OAuth認証にブラウザフロー必須）。`config/coding_agents/codex/AGENTS.md`→`~/.codex/AGENTS.md`でデプロイ

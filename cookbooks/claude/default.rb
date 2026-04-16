@@ -28,19 +28,8 @@ end
   end
 end
 
-# Codex CLI for codex-plugin-cc
+# Codex CLI (used as MCP server via `codex mcp-server`)
 execute 'install codex cli' do
   command 'npm install -g @openai/codex'
   not_if 'which codex'
-end
-
-# codex-plugin-cc (Claude Code plugin)
-execute 'add codex plugin marketplace' do
-  command "$HOME/.local/bin/claude plugin marketplace add openai/codex-plugin-cc"
-  not_if "$HOME/.local/bin/claude plugin list 2>/dev/null | grep -q codex"
-end
-
-execute 'install codex plugin' do
-  command "$HOME/.local/bin/claude plugin install codex@openai-codex --scope user"
-  not_if "$HOME/.local/bin/claude plugin list 2>/dev/null | grep -q codex"
 end
