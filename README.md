@@ -67,7 +67,7 @@ config/
 
 ### Codex Offload (via MCP server)
 
-Claude Code tasks are automatically offloaded to Codex via the `codex mcp-server` MCP integration. Claude calls `mcp__codex__codex` as a regular tool, enabling natural auto-delegation. See `config/coding_agents/skills/codex-offload/SKILL.md` for prompt composition guidelines.
+Claude Code tasks are automatically offloaded to Codex via the `codex mcp-server` MCP integration. Claude calls `mcp__codex__codex` as a regular tool, enabling natural auto-delegation. Delegation criteria are defined in `config/coding_agents/user-rules.md`.
 
 **Setup (after `./install.sh`):**
 ```shell
