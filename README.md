@@ -44,15 +44,14 @@ $EDITOR roles/$(uname)/default.rb
 
 ```
 config/
-├── coding_agents/          # Claude Code / Cursor shared config
-│   ├── claude/             # Claude Code-specific (settings.json, CLAUDE.md, etc.)
-│   ├── cursor/             # Cursor-specific (rules/, hooks.json)
-│   ├── hooks/              # Shared hooks
-│   ├── skills/             # Shared skills
-│   ├── mcp.json.erb        # MCP server definitions (ERB template)
-│   └── user-rules.md       # Shared user rules
-└── codex/
-    └── AGENTS.md           # Codex CLI global instructions
+└── coding_agents/
+    ├── claude/             # Claude Code-specific (settings.json, CLAUDE.md, etc.)
+    ├── codex/              # Codex CLI-specific (AGENTS.md)
+    ├── cursor/             # Cursor-specific (rules/, hooks.json)
+    ├── hooks/              # Shared hooks
+    ├── skills/             # Shared skills
+    ├── mcp.json.erb        # MCP server definitions (ERB template)
+    └── user-rules.md       # Shared user rules (Claude Code / Cursor)
 ```
 
 ### Deployment
@@ -64,7 +63,7 @@ config/
 | `config/coding_agents/claude/settings.json` | `~/.claude/settings.json` |
 | `config/coding_agents/skills/` | `~/.claude/skills/`, `~/.cursor/skills/` |
 | `config/coding_agents/mcp.json.erb` | `~/.mcp.json`, `~/.cursor/mcp.json` |
-| `config/codex/AGENTS.md` | `~/.codex/AGENTS.md` |
+| `config/coding_agents/codex/AGENTS.md` | `~/.codex/AGENTS.md` |
 
 ### Codex Offload (via codex-plugin-cc)
 
