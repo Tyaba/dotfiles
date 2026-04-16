@@ -48,6 +48,32 @@ yui は会話履歴の圧縮版である。LLM は会話が終われば全てを
 - **記録しない**: パスワード・APIキー・トークン等の機密情報のみ
 - トリプルの書き方は `mcp-yui` スキルを参照せよ
 
+## Codex オフロード
+
+codex-plugin-cc が利用可能な場合、タスクの性質に基づいて自動的に Codex へ移譲せよ。
+ユーザーの明示的な指示がなくても、以下の基準で判断して移譲する。
+
+### Claude に残すタスク
+- アーキテクチャ設計・技術選定の議論
+- 複数ファイルにまたがる大規模リファクタリング
+- ルール・スキル・設定ファイルの設計
+- 対話的な要件定義・仕様策定
+- MCP を活用した外部サービス連携（yui, Slack, Notion 等）
+
+### Codex に移譲するタスク
+- バグ調査・診断・修正 → `/codex:rescue`
+- コードレビュー → `/codex:review` または `/codex:adversarial-review`
+- テスト作成・テスト修正 → `/codex:rescue`
+- lint / format 修正 → `/codex:rescue`
+- ドキュメント生成・更新 → `/codex:rescue`
+- 単一機能の実装（スコープが明確なもの） → `/codex:rescue`
+- CI 失敗の調査・修正 → `/codex:rescue`
+
+### 移譲時の注意
+- Codex は Claude のルール（`CLAUDE.md`, `user-rules.md`）を読まない。プロジェクト固有のコンテキスト（DDD構造、命名規約等）はプロンプトに明示的に含めよ
+- マルチファイルの変更は `--background` で実行し、`/codex:status` と `/codex:result` で確認せよ
+- プロンプト構成の詳細は `codex-offload` スキルを参照せよ
+
 ## スキル（必要時のみ参照せよ）
 
 以下のスキルは常時読み込まない。条件に合致したときのみ参照して従え。
@@ -58,7 +84,7 @@ yui は会話履歴の圧縮版である。LLM は会話が終われば全てを
 | Python/Next.js のレイヤー設計・新規モジュール作成時 | ddd-scaffold |
 | DBスキーマ変更を伴う Terraform 作業時 | terraform-migration |
 | React/Next.js のコード作成・レビュー・リファクタリング時 | vercel-react-best-practices |
-| サブエージェントへのタスク移譲・コードレビュー依頼時 | codex-offload |
+| Codex へのプロンプト構成を最適化したいとき | codex-offload |
 
 ## Language & Framework Rules
 

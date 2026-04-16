@@ -1,39 +1,12 @@
 ---
 name: codex-offload
-description: Codex へのタスク移譲の判断基準と、codex-plugin-cc を使った効果的なプロンプト構成ガイド
+description: codex-plugin-cc を使った効果的なプロンプト構成ガイド。移譲判断基準は user-rules.md に常時記載
 ---
 
-# Codex Offload
+# Codex Offload — プロンプト構成ガイド
 
-Claude Code から Codex にタスクを移譲する際の判断基準とワークフロー。
-codex-plugin-cc プラグインの `/codex:rescue`, `/codex:review`, `/codex:adversarial-review` を使う。
-
-## 前提条件
-
-- `codex login` で ChatGPT Enterprise への認証が完了していること
-- codex-plugin-cc がインストール済みであること (`/codex:setup` で確認)
-
-## 移譲判断基準
-
-タスクの性質に基づいて移譲先を決定する。**Claude が特に優れる領域以外は、基本的に Codex に移譲する。**
-
-### Claude に残すタスク
-
-- アーキテクチャ設計・技術選定の議論
-- 複数ファイルにまたがる大規模リファクタリング
-- ルール・スキル・設定ファイルの設計
-- 対話的な要件定義・仕様策定
-- MCP を活用した外部サービス連携（yui, Slack, Notion 等）
-
-### Codex に移譲するタスク
-
-- バグ調査・診断・修正
-- コードレビュー（通常・adversarial）
-- テスト作成・テスト修正
-- lint / format 修正
-- ドキュメント生成・更新
-- 単一機能の実装（スコープが明確なもの）
-- CI 失敗の調査・修正
+Codex にタスクを渡す際のプロンプト構成と、コマンドの使い分けを定義する。
+移譲判断基準は `user-rules.md` の「Codex オフロード」セクションを参照。
 
 ## コマンド使い分け
 
