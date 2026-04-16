@@ -58,6 +58,7 @@ yui は会話履歴の圧縮版である。LLM は会話が終われば全てを
 | Python/Next.js のレイヤー設計・新規モジュール作成時 | ddd-scaffold |
 | DBスキーマ変更を伴う Terraform 作業時 | terraform-migration |
 | React/Next.js のコード作成・レビュー・リファクタリング時 | vercel-react-best-practices |
+| サブエージェントへのタスク移譲・コードレビュー依頼時 | codex-offload |
 
 ## Language & Framework Rules
 
