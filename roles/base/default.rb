@@ -56,6 +56,7 @@ dotfile '.claude/render-diagram.sh' => 'coding_agents/claude/render-diagram.sh'
 
 # Codex-specific
 dotfile '.codex/AGENTS.md' => 'coding_agents/codex/AGENTS.md'
+dotfile '.codex/config.toml' => 'coding_agents/codex/config.toml'
 
 # MCP settings (template generates both Cursor and Claude Code configs)
 mcp_erb = File.join(root_dir, 'config/coding_agents/mcp.json.erb')
