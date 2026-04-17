@@ -3,6 +3,19 @@
 
 # Claude Code 固有設定
 
+## Codex オフロード（最優先のチェックポイント）
+
+`user-rules.md` の「Codex オフロード」節に従い、**コード変更を伴うタスクはデフォルトで `mcp__codex__codex` に移譲する**。
+
+Claude Code 固有の注意：
+
+- `Edit` / `Write` / `NotebookEdit` を**初めて呼ぶ前に** 着手前ゲートの自問を行う。ツール呼び出しを開始してから「やっぱり Codex」では遅い。
+- Task サブエージェント（Explore 等）と Codex の使い分け：
+  - **Task サブエージェント**: 読み取り中心のコード探索・調査
+  - **Codex (`mcp__codex__codex`)**: コード変更・テスト作成・lint 修正など書き込み系
+- `/red`, `/green`, `/refactor` の各フェーズ内の実装そのものも Codex に移譲可。サイクルの進行は Claude が担う。
+- CLAUDE.md / user-rules.md / settings.json / skills など**ルール・設定ファイルの編集は Claude 残留**（「Claude に残すタスク」に該当）。
+
 ## サブエージェント利用
 
 以下のケースではTaskツールで積極的にサブエージェントを活用せよ：
@@ -17,11 +30,12 @@
 
 ## TDD
 
-関数やクラス等の実装を追加するとき、`/red` → `/green` → `/refactor` の順にカスタムコマンドを実行せよ。各フェーズの完了時にコミットを行う。
+関数やクラス等の実装を追加するとき、`/red` → `/green` → `/refactor` の順にカスタムコマンドを実行せよ。各フェーズの完了時にコミットを行う。各フェーズの実装自体は Codex オフロード対象である。
 
 ## MCP（Claude Code 固有）
 
 AGENTS.md の MCP 一覧に加えて以下も利用せよ：
+- **codex** (`mcp__codex__codex`): コード変更系タスクのデフォルト移譲先。上記「Codex オフロード」セクション参照
 - **context7**: ライブラリの最新ドキュメント・構文確認
 
 ## Tech Stack
