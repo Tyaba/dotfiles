@@ -23,6 +23,8 @@
 - 複数リポジトリの並列作業はtmuxセッション分離で行う（Ghosttyタブ複製ではなく）
 - tmuxのprefixはCtrl+Space（デフォルトのCtrl+Bはカーソル移動と競合するため変更済み）
 - Codexオフロードの移譲判断はrate limit依存ではなくタスク性質ベース。Claudeが特に優れる領域（設計・大規模リファクタ・MCP連携）以外は基本的にCodexに自動移譲する
+- スキルはMCPのresources/prompts/toolsスキーマでは提供されない情報がある場合にのみ作成する。MCPツールのパラメータが自己記述的なら別途スキル化は不要
+- オフロード機構は将来的にモデル非依存を目指す。orchestrator+workerの組み合わせを柔軟に（Opus+Codex、Opus+Sonnet、Opus+Opusのコンテキスト分離等）
 
 ## Learned Workspace Facts
 

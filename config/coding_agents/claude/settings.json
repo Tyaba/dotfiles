@@ -73,11 +73,8 @@
     ],
     "defaultMode": "auto"
   },
-  "model": "claude-opus-4-6",
-  "enabledMcpjsonServers": [
-    "terraform",
-    "svelte5"
-  ],
+  "model": "opus",
+  "enabledMcpjsonServers": [],
   "hooks": {
     "SessionStart": [
       {
