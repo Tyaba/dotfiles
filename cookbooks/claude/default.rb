@@ -27,3 +27,9 @@ end
     not_if "$HOME/.local/bin/claude plugin list 2>/dev/null | grep -q #{plugin}"
   end
 end
+
+# Codex CLI (used as MCP server via `codex mcp-server`)
+execute 'install codex cli' do
+  command 'npm install -g @openai/codex'
+  not_if 'which codex'
+end

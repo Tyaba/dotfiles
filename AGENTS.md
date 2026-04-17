@@ -22,6 +22,9 @@
 - Context7はCursor/Claude Code両方ともplugin版を使う（MCP serverとしては管理しない）
 - 複数リポジトリの並列作業はtmuxセッション分離で行う（Ghosttyタブ複製ではなく）
 - tmuxのprefixはCtrl+Space（デフォルトのCtrl+Bはカーソル移動と競合するため変更済み）
+- Codexオフロードの移譲判断はrate limit依存ではなくタスク性質ベース。Claudeが特に優れる領域（設計・大規模リファクタ・MCP連携）以外は基本的にCodexに自動移譲する
+- スキルはMCPのresources/prompts/toolsスキーマでは提供されない情報がある場合にのみ作成する。MCPツールのパラメータが自己記述的なら別途スキル化は不要
+- オフロード機構は将来的にモデル非依存を目指す。orchestrator+workerの組み合わせを柔軟に（Opus+Codex、Opus+Sonnet、Opus+Opusのコンテキスト分離等）
 
 ## Learned Workspace Facts
 
@@ -48,3 +51,4 @@
 - `config/.zsh/lib/functions` の `gcloud()` ラッパーはOS分岐でyui-proxy再起動を切り替え（macOS: launchctl, Linux: systemctl --user）
 - ツール移行済み: exa→eza、ncdu→dust、pipx→廃止（uvは公式インストーラーに移行）、poetry→uv、iTerm→Ghostty、scroll-reverser→macOS標準。XQuartzはX11 forwarding用に必要（代替なし）
 - mozc cookbookはrole未参照で残存（ユーザー未決定）
+- Codex CLIは`codex mcp-server`でMCPサーバーとして動作し、`mcp.json.erb`で定義。`base-instructions`パラメータでClaude側のルールを動的注入可能。`~/.codex/AGENTS.md`は直接CLI利用時のグローバルルール。CI環境では利用不可（OAuth認証にブラウザフロー必須）。`config/coding_agents/codex/AGENTS.md`→`~/.codex/AGENTS.md`でデプロイ

@@ -26,7 +26,8 @@
       "mcp__slack__*",
       "mcp__playwright__*",
       "mcp__todoist__*",
-      "mcp__notion__*"
+      "mcp__notion__*",
+      "mcp__codex__*"
     ],
     "deny": [
       "Read(*/.env)",
@@ -72,11 +73,8 @@
     ],
     "defaultMode": "auto"
   },
-  "model": "claude-opus-4-6",
-  "enabledMcpjsonServers": [
-    "terraform",
-    "svelte5"
-  ],
+  "model": "opus",
+  "enabledMcpjsonServers": [],
   "hooks": {
     "SessionStart": [
       {
