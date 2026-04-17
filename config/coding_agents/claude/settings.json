@@ -166,10 +166,11 @@
   },
   "outputStyle": "Structured",
   "language": "日本語",
-  "voiceEnabled": true,
   "voice": {
     "enabled": true,
     "mode": "hold"
   },
-  "skipAutoPermissionPrompt": true
+  "skipAutoPermissionPrompt": true,
+  "voiceEnabled": true,
+  "effortLevel": "high"
 }
