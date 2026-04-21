@@ -19,7 +19,6 @@ always respond in 日本語
 - **yui**: 会話履歴の圧縮版。会話開始時に必ず参照し、対話中は迷ったら記録
 - **notion**: 組織内のドメイン知識（広告ルール、medialakeやvertexlake等の社内リソース）の参照
 - **slack**: Slackのメッセージ検索、チャンネル閲覧、メッセージ送信、Canvas操作
-- **git**: Git操作（status、diff、commit等）
 - **playwright**: ブラウザ自動化・E2Eテスト
 - **todoist**: Todoistのタスク管理（作成・更新・完了・検索等）
 - **codex**: Codex へのタスク移譲（「Codex オフロード」セクション参照）
