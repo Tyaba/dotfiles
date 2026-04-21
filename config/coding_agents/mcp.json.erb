@@ -33,7 +33,11 @@
     },
     "codex": {
       "command": "codex",
-      "args": ["mcp-server"]
+      "args": [
+        "mcp-server",
+        "-c", "approval_policy=\"never\"",
+        "-c", "sandbox_mode=\"workspace-write\""
+      ]
     }
   }
 }

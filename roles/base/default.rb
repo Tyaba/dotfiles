@@ -56,7 +56,21 @@ dotfile '.claude/render-diagram.sh' => 'coding_agents/claude/render-diagram.sh'
 
 # Codex-specific
 dotfile '.codex/AGENTS.md' => 'coding_agents/codex/AGENTS.md'
-dotfile '.codex/config.toml' => 'coding_agents/codex/config.toml'
+
+codex_config_erb = File.join(root_dir, 'config/coding_agents/codex/config.toml.erb')
+
+directory "#{ENV['HOME']}/.codex" do
+  user node[:user]
+end
+
+execute "rm -f #{ENV['HOME']}/.codex/config.toml" do
+  only_if "test -L #{ENV['HOME']}/.codex/config.toml"
+end
+template "#{ENV['HOME']}/.codex/config.toml" do
+  source codex_config_erb
+  user node[:user]
+  mode '0644'
+end
 
 # MCP settings (template generates both Cursor and Claude Code configs)
 mcp_erb = File.join(root_dir, 'config/coding_agents/mcp.json.erb')
