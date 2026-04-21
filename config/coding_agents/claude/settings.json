@@ -22,7 +22,6 @@
       "WebFetch(*)",
       "WebSearch(*)",
       "mcp__yui__*",
-      "mcp__git__*",
       "mcp__slack__*",
       "mcp__playwright__*",
       "mcp__todoist__*",
