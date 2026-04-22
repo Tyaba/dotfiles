@@ -122,6 +122,7 @@ mcp__codex__codex(
 ### Python
 - Pythonの実行はuvを使う
 - テストは unittest でなく pytest を使え。unittest.mock ではなく pytest mock を使え
+- データ構造の定義には `dataclasses.dataclass` より **pydantic の `BaseModel` を優先**せよ。バリデーション・シリアライズ・FastAPI との親和性が得られる。`frozen=True` 相当が欲しい場合は `model_config = ConfigDict(frozen=True)` を使う。dataclass を使う正当な理由（pydantic 非依存のライブラリ内部、超低オーバーヘッドが要求される等）がある場合のみ例外とする
 
 ### DDD
 コーディングにおいては、`ddd-scaffold` Skill の定義に従ってレイヤー間の依存関係を厳格に管理せよ。
