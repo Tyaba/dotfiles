@@ -18,17 +18,3 @@ Claude Code 固有の注意：
 
 ## TDD
 実装追加時は `/red` → `/green` → `/refactor` を順に実行し、各フェーズ完了時にコミット。各フェーズの実装自体は Codex 移譲可、サイクル進行は Claude が担う。
-
-## Tech Stack (defaults)
-
-### Frontend
-Next.js (App Router) + React / TypeScript / Tailwind v4 / shadcn/ui (Radix) / Biome / Vitest + Playwright / pnpm
-
-- Server Components first、`"use client"` は必要最小限
-- SEO: Metadata API / semantic HTML / 構造化データ / sitemaps / image optimization
-
-### Backend
-Python >=3.14 / FastAPI (Uvicorn/Gunicorn) / Ruff / ty / pytest + pytest-cov / Injector / uv
-
-### Infrastructure
-Google Cloud / Terraform / Cloud Build + GitHub Actions / Docker (Debian slim + uv)
