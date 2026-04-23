@@ -54,7 +54,6 @@ always respond in 日本語
 | 「E2Eテスト」「結合テスト」「動作確認」を依頼された | e2e-testing |
 | Python/Next.js のレイヤー設計・新規モジュール作成時 | ddd-scaffold |
 | DBスキーマ変更を伴う Terraform 作業時 | terraform-migration |
-| React/Next.js のコード作成・レビュー・リファクタリング時 | vercel-react-best-practices |
 
 ## コーディングルールの置き場所
 
