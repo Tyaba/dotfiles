@@ -1,5 +1,13 @@
 approval_policy = "never"
 sandbox_mode = "workspace-write"
 
+model = "gpt-5.4"
+model_reasoning_effort = "high"
+model_context_window = 1000000
+
 [sandbox_workspace_write]
 writable_roots = ["<%= ENV['HOME'] %>/ghq"]
+
+[mcp_servers.context7]
+command = "<%= ENV['HOME'] %>/.local/share/mise/shims/npx"
+args = ["-y", "@upstash/context7-mcp"]

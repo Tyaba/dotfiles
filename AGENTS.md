@@ -19,7 +19,7 @@
 - `.cursor/hooks/state` はGit管理しない。認証情報・機密情報はコミットしない。リポジトリはpublicである
 - ターミナルのカラーテーマはダーク×ウォーム系が好み（ネイビー系は嫌い）
 - 個人の設定をプロジェクトの`.claude/rules/`に持ち込まない。グローバル設定（`~/.claude/CLAUDE.md`）で管理する
-- Context7はCursor/Claude Code両方ともplugin版を使う（MCP serverとしては管理しない）
+- Context7はClaude・Codex両方に MCP server として登録（`mcp.json.erb` / `codex/config.toml.erb`）。Claude は HTTP エンドポイント、Codex は stdio (`npx @upstash/context7-mcp`) を使用。Codex は Claude の MCP 接続を継承しないため、offload 時にライブラリドキュメントを参照させるには Codex 側にも登録が必要
 - 複数リポジトリの並列作業はtmuxセッション分離で行う（Ghosttyタブ複製ではなく）
 - tmuxのprefixはCtrl+Space（デフォルトのCtrl+Bはカーソル移動と競合するため変更済み）
 - Codexオフロードの移譲判断はrate limit依存ではなくタスク性質ベース。Claudeが特に優れる領域（設計・大規模リファクタ・MCP連携）以外は基本的にCodexに自動移譲する
