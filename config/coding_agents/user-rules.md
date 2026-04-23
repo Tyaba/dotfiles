@@ -13,26 +13,15 @@ always respond in 日本語
 
 ## MCP
 
-MCP ツールは**使うのではなく必ず使う**。以下の発火条件は「推奨」ではなく**必須**。スキップは禁止。
+発火条件に合致したら**必ず**使う（推測・シミュレートは禁止）。
 
-### yui（`mcp__yui__*`）— 長期記憶、**強制**
-
-- **会話の最初のアシスタント応答の直前に必ず `mcp__yui__search_memory` を 1 回以上呼べ**。クエリは「吉野哲平」＋今回のタスクキーワード。過去会話の文脈なしに応答を始めない
-- 対話中、ユーザの好み・決定・技術選定・新出人物/概念・問題と解決策・嫌がったこと等の事実を得た時は、**そのターンが終わる前に** `mcp__yui__add_triples` で保存
-- 「覚えていません／記憶にありません」と答える前に **必ず** `search_memory` を試す
-- 機密情報（パスワード・API key・トークン）のみ保存禁止
-- 詳細は `mcp-yui` skill
-
-### codex（`mcp__codex__codex`）— コード変更のデフォルト移譲先
-
-- コード変更を伴うタスクは **user-rules.md の「Codex オフロード」節** と `codex-offload` skill に従って移譲（下節参照）
-
-### その他のローカル MCP
-
-- **notion**: 組織内ドメイン知識（広告ルール、medialake / vertexlake 等）を照会する時は **訓練データから推測せず notion を検索**
-- **slack**: Slack メッセージ検索・送信・Canvas 操作時は必ず MCP 経由（curl / Web UI を模倣しない）
-- **playwright**: ブラウザ自動化・E2E が必要な時は必ず MCP 経由
-- **todoist**: タスク管理操作は必ず MCP 経由（API を直叩きしない）
+- **yui** (`mcp__yui__*`) — **必須**:
+  - 会話の最初の応答の直前に `search_memory`（「吉野哲平」＋タスクキーワード）
+  - 事実を得たら同ターン内に `add_triples`（機密情報のみ禁止）
+  - 「覚えていません」と返す前に必ず `search_memory`
+  - 詳細: `mcp-yui` skill
+- **codex** (`mcp__codex__codex`): コード変更は下の「Codex オフロード」
+- **notion** / **slack** / **playwright** / **todoist**: 該当操作は必ず MCP 経由（curl / API 直叩き禁止）
 
 ## Codex オフロード（最優先チェックポイント）
 
