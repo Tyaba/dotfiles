@@ -53,16 +53,7 @@ always respond in 日本語
 | Python/Next.js のレイヤー設計・新規モジュール作成時 | ddd-scaffold |
 | DBスキーマ変更を伴う Terraform 作業時 | terraform-migration |
 | React/Next.js のコード作成・レビュー・リファクタリング時 | vercel-react-best-practices |
-| `gh pr create` 実行前 / PR作成を依頼された時（プロジェクトに `.claude/skills/pr-template/SKILL.md` が存在する場合） | pr-template |
 
-**PR作成時の強制ルール**: `gh pr create` を呼ぶ前に `.github/pull_request_template.md` の存在を確認せよ。存在する場合は **Claude Code 組み込みの `## Summary` / `## Test plan` 雛形を使わず**、テンプレートの全セクションを埋めて `--body` に渡すこと。
+## コーディングルールの置き場所
 
-## Language & Framework
-
-- **Python**: uv で実行。テストは pytest（unittest 禁止）、pytest-mock（unittest.mock 禁止）。データ構造は `dataclass` より **pydantic `BaseModel` を優先**（バリデーション・シリアライズ・FastAPI 親和性のため）。frozen 等価は `model_config = ConfigDict(frozen=True)`
-- **DDD**: `ddd-scaffold` skill に従いレイヤー間依存を厳格に管理
-- **Terraform**: DBスキーマ変更時は `terraform-migration` skill を参照
-
-## Cloud Resource Management
-
-**クラウドリソースを直接削除してはならない。** バックアップ → 検証 → 削除 の手順を必ず守ること。対象: BigQuery / Cloud Storage / Database / VM 等のステートフルリソース。
+言語・FW・テスト・インフラ・PR template 等の**コーディング関連ルール**は、CI の claude bot からも参照できるよう **tyaba-env の `template/CLAUDE.md.jinja` → 生成先 `<project>/CLAUDE.md`** に集約する。詳細は [tyaba-env README の「Claude ルールの配置方針」](https://github.com/Tyaba/tyaba-env#claude-ルールの配置方針) を参照。
