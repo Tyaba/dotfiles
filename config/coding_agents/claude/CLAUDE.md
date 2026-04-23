@@ -4,7 +4,10 @@
 # Claude Code 固有設定
 
 ## Codex オフロード
-`user-rules.md` の「Codex オフロード」節と `codex-offload` skill に従う。Claude Code 固有の注意：
+
+`user-rules.md` の「Codex オフロード」節と `codex-offload` skill に従い、**コード変更を伴うタスクはデフォルトで `mcp__codex__codex` に移譲する**。
+
+Claude Code 固有の注意：
 
 - `Edit` / `Write` / `NotebookEdit` を**初めて呼ぶ前に**着手前ゲートの自問を行う（ツール呼び出し開始後では遅い）
 - Task サブエージェント（Explore 等）は**読み取り中心**、Codex は**書き込み系**で使い分け
