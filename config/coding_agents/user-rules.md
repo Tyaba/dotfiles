@@ -52,8 +52,6 @@ always respond in 日本語
 | yui MCP を使う時（会話開始時・事実を得た時） | mcp-yui |
 | Codex に移譲する時 | codex-offload |
 | 「E2Eテスト」「結合テスト」「動作確認」を依頼された | e2e-testing |
-| Python/Next.js のレイヤー設計・新規モジュール作成時 | ddd-scaffold |
-| DBスキーマ変更を伴う Terraform 作業時 | terraform-migration |
 
 ## コーディングルールの置き場所
 
