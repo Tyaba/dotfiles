@@ -3,6 +3,7 @@
     "BASH_DEFAULT_TIMEOUT_MS": "30000",
     "BASH_MAX_TIMEOUT_MS": "120000",
     "CLAUDE_CODE_SUBAGENT_MODEL": "opus",
+    "CLAUDE_CODE_DISABLE_1M_CONTEXT": "1",
     "BASH_ENV": "",
     "ENV": "",
     "SHELL": "/bin/bash",
@@ -165,11 +166,12 @@
   },
   "outputStyle": "Structured",
   "language": "日本語",
+  "effortLevel": "high",
   "voice": {
     "enabled": true,
     "mode": "hold"
   },
   "skipAutoPermissionPrompt": true,
   "voiceEnabled": true,
-  "effortLevel": "high"
+  "theme": "dark-daltonized"
 }
