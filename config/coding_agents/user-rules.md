@@ -16,9 +16,11 @@
 発火条件に合致したら**必ず**使う（推測・シミュレートは禁止）。
 
 - **yui** (`mcp__yui__*`) — **必須**:
-  - 会話の最初の応答の直前に `search_memory`（「吉野哲平」＋タスクキーワード）
-  - 事実を得たら同ターン内に `add_triples`（機密情報のみ禁止）
-  - 「覚えていません」と返す前に必ず `search_memory`
+  - 会話の最初の応答の直前に `search_knowledge`（「吉野哲平」＋タスクキーワード）
+  - 事実を得たら同ターン内に `add_facts`（`category` と `confidence` 必須、機密情報のみ禁止）
+  - 「覚えていません」と返す前に必ず `search_knowledge`
+  - 矛盾を見つけたら `detect_conflicts` → `resolve_conflicts` で整理
+  - 旧トリプル系（`add_triples` / `search_memory` / `search_triples` / `delete_triples` / `cleanup_duplicates`）は移行期間中の互換用。**新規記録には使わない**
   - 詳細: `mcp-yui` skill
 - **codex** (`mcp__codex__codex`): コード変更は下の「Codex オフロード」
 - **notion** / **slack** / **playwright** / **todoist**: 該当操作は必ず MCP 経由（curl / API 直叩き禁止）
