@@ -7,6 +7,7 @@ model_context_window = 1000000
 
 [sandbox_workspace_write]
 writable_roots = ["<%= ENV['HOME'] %>/ghq"]
+network_access = true
 
 [mcp_servers.context7]
 command = "<%= ENV['HOME'] %>/.local/share/mise/shims/npx"
