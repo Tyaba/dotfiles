@@ -50,7 +50,7 @@ execute "install mise pnpm plugin" do
     not_if "#{ENV['HOME']}/.local/bin/mise plugin | grep -q pnpm"
 end
 
-mise_config_erb = File.expand_path('../../config/mise/config.toml.erb', __dir__)
+mise_config_erb = File.expand_path('../../config/mise/config.toml.erb', File.dirname(__FILE__))
 
 directory "#{ENV['HOME']}/.config/mise" do
     user node[:user]
