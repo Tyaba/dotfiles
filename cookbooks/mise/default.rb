@@ -1,74 +1,12 @@
-cargo 'mise'
-
-# Python
-python_minor_version = "3.11"
-python_version = "3.11.7"
-execute "install python with mise" do
-    command <<-EOF
-    mise install python@#{python_version}
-    mise use --global python@#{python_version}
-    EOF
-    not_if "mise ls | grep python"
+execute "install mise via curl" do
+    command 'curl -fsSL https://mise.run | sh'
+    not_if "test -x #{ENV['HOME']}/.local/bin/mise"
 end
 
 # miseで入れたものをPATHに追加
 unless ENV['PATH'].include?("#{ENV['HOME']}/.local/share/mise/shims")
     MItamae.logger.info("Prepending ~/.local/share/mise/shims to PATH during this execution")
     ENV['PATH'] = "#{ENV['HOME']}/.local/share/mise/shims:#{ENV['PATH']}"
-end
-
-# terraform
-terraform_version = "latest"
-execute "install terraform with mise" do
-    command <<-EOF
-        mise install terraform@#{terraform_version}
-        mise use --global terraform@#{terraform_version}
-    EOF
-    not_if "mise ls | grep terraform"
-end
-
-kubectl_version = "latest"
-execute "install kubectl with mise" do
-    command <<-EOF
-        mise plugin install kubectl https://github.com/asdf-community/asdf-kubectl.git
-        mise install kubectl@#{kubectl_version}
-        mise use --global kubectl@#{kubectl_version}
-    EOF
-    not_if "mise ls | grep kubectl"
-end
-
-# node
-node_version = "latest"
-execute "install node with mise" do
-    command <<-EOF
-        mise install node@#{node_version}
-        mise use --global node@#{node_version}
-    EOF
-    not_if "mise ls | grep node"
-end
-
-# pnpm
-execute "install mise pnpm plugin" do
-    command ""
-    not_if "mise plugin | grep pnpm"
-end
-pnpm_version = "latest"
-execute "install pnpm with mise" do
-    command <<-EOF
-        mise plugin install pnpm https://github.com/jonathanmorley/asdf-pnpm.git
-        mise install pnpm@#{pnpm_version}
-        mise use --global pnpm@#{pnpm_version}
-    EOF
-    not_if "mise ls | grep pnpm"
-end
-
-# go
-execute "install go with mise" do
-    command <<-EOF
-        mise install go@latest
-        mise use --global go@latest
-    EOF
-    not_if "mise ls | grep go"
 end
 
 # for python
@@ -102,11 +40,33 @@ else
     end
 end
 
-# flutter if darwin
-case node[:platform]
-when 'darwin'
-    execute "install flutter with mise" do
-        command "mise install flutter@latest"
-        not_if "mise ls | grep flutter"
-    end
+execute "install mise kubectl plugin" do
+    command "#{ENV['HOME']}/.local/bin/mise plugin install kubectl https://github.com/asdf-community/asdf-kubectl.git"
+    not_if "#{ENV['HOME']}/.local/bin/mise plugin | grep -q kubectl"
+end
+
+execute "install mise pnpm plugin" do
+    command "#{ENV['HOME']}/.local/bin/mise plugin install pnpm https://github.com/jonathanmorley/asdf-pnpm.git"
+    not_if "#{ENV['HOME']}/.local/bin/mise plugin | grep -q pnpm"
+end
+
+mise_config_erb = File.expand_path('../../config/mise/config.toml.erb', File.dirname(__FILE__))
+
+directory "#{ENV['HOME']}/.config/mise" do
+    user node[:user]
+end
+
+execute "rm -f #{ENV['HOME']}/.config/mise/config.toml" do
+    only_if "test -L #{ENV['HOME']}/.config/mise/config.toml"
+end
+
+template "#{ENV['HOME']}/.config/mise/config.toml" do
+    source mise_config_erb
+    user node[:user]
+    mode '0644'
+end
+
+execute "mise install all tools from config" do
+    command "#{ENV['HOME']}/.local/bin/mise install"
+    user node[:user]
 end

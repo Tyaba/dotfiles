@@ -38,6 +38,20 @@ $EDITOR cookbooks/:app_name/default.rb
 $EDITOR roles/$(uname)/default.rb
 ```
 
+### mise managed tools
+
+`cookbooks/mise/default.rb` installs mise via the official curl installer, deploys `config/mise/config.toml.erb` to `~/.config/mise/config.toml`, and runs `mise install` from that config.
+
+```mermaid
+flowchart TD
+    A[install mise via curl] --> B[Add mise shims to PATH]
+    B --> C[Install Python build packages on Ubuntu/Debian]
+    C --> D[Install tflint]
+    D --> E[Install kubectl and pnpm mise plugins]
+    E --> F[Deploy ~/.config/mise/config.toml from template]
+    F --> G[Run mise install for configured tools]
+```
+
 ## Coding Agents
 
 ### Configuration Structure

@@ -18,7 +18,7 @@ export COMPOSE_DOCKER_CLI_BUILD=1
 
 # mise
 export MISE_ENV_FILE=.env
-eval "$(~/.cargo/bin/mise activate zsh)"
+eval "$(~/.local/bin/mise activate zsh)"
 
 # Google Cloud SDK Python setting (mise-managed python 3.12)
 if [ -x "$HOME/.local/share/mise/installs/python/3.12/bin/python3.12" ]; then

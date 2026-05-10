@@ -1,0 +1,21 @@
+[tools]
+ghq = "latest"
+python = ["3.14", "3.12"]
+terraform = "latest"
+kubectl = "latest"
+node = "20"
+pnpm = "latest"
+flutter = "latest"
+ruby = "latest"
+go = "latest"
+
+[settings]
+experimental = true
+legacy_version_file_disable_tools = ["terraform", "packer"]
+
+[settings.python]
+compile = true
+
+[env]
+BASH_DEFAULT_TIMEOUT_MS = 1800000
+BASH_MAX_TIMEOUT_MS = 1800000
