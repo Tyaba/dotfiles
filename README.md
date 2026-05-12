@@ -38,6 +38,23 @@ $EDITOR cookbooks/:app_name/default.rb
 $EDITOR roles/$(uname)/default.rb
 ```
 
+### Dev Container (lightweight role)
+
+`roles/devcontainer/` is a lightweight role intended for Dev Containers (e.g. the `@devcontainers/cli` workflow in [tyaba-env](https://github.com/Tyaba/tyaba-env)). It assumes:
+
+- devcontainer features already installed `git` / `gh` / `gcloud` / `mise` / `claude`
+- project `.mise.toml` installs language runtimes (`python` / `uv` / `node` / `pnpm`)
+
+It deploys only user-level dotfiles (`.claude/`, `.codex/`, `.cursor/`, `.mcp.json`, `.gitconfig`, zsh config) and the Codex CLI (needed by the `codex` MCP server in `~/.mcp.json`). Heavy cookbooks (emacs / docker / ghostty / redis / brew / GUI apps) and macOS-only setup are skipped.
+
+Run without sudo:
+
+```shell
+DOTFILES_ROLE=devcontainer ./install.sh
+```
+
+`install.sh` detects the env var and runs mitamae as the workspace user (no `sudo -E`), since this role only touches `$HOME`. `lib/recipe.rb` then routes to `roles/devcontainer/default.rb` instead of the platform default.
+
 ### mise managed tools
 
 `cookbooks/mise/default.rb` installs mise via the official curl installer, deploys `config/mise/config.toml.erb` to `~/.config/mise/config.toml`, and runs `mise install` from that config.

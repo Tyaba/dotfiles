@@ -17,4 +17,4 @@ when 'darwin'
   )
 end
 
-include_role node[:platform]
+include_role(ENV['DOTFILES_ROLE'] || node[:platform])
