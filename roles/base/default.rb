@@ -88,6 +88,13 @@ template "#{ENV['HOME']}/.mcp.json" do
   mode '0644'
 end
 
+sync_user_mcp = File.join(root_dir, 'config/coding_agents/sync-claude-user-mcp.sh')
+
+execute 'sync ~/.mcp.json into claude user scope' do
+  command "bash #{sync_user_mcp}"
+  user node[:user] if node[:user]
+end
+
 execute "rm -f #{ENV['HOME']}/.cursor/mcp.json" do
   only_if "test -L #{ENV['HOME']}/.cursor/mcp.json"
 end

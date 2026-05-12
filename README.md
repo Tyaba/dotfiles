@@ -82,6 +82,7 @@ config/
     ├── hooks/              # Shared hooks
     ├── skills/             # Shared skills
     ├── mcp.json.erb        # MCP server definitions (ERB template)
+    ├── sync-claude-user-mcp.sh
     └── user-rules.md       # Shared user rules (Claude Code / Cursor)
 ```
 
@@ -95,6 +96,22 @@ config/
 | `config/coding_agents/skills/` | `~/.claude/skills/`, `~/.cursor/skills/` |
 | `config/coding_agents/mcp.json.erb` | `~/.mcp.json`, `~/.cursor/mcp.json` |
 | `config/coding_agents/codex/AGENTS.md` | `~/.codex/AGENTS.md` |
+
+After rendering `~/.mcp.json`, `roles/base/default.rb` runs
+`config/coding_agents/sync-claude-user-mcp.sh`. The script reads the rendered MCP
+definitions and registers them with `claude mcp add --scope user`, so Claude Code
+also sees them in devcontainers where `/workspaces/<name>` is outside `$HOME`.
+
+```mermaid
+flowchart TD
+    A[config/coding_agents/mcp.json.erb] --> B[Render ~/.mcp.json]
+    A --> C[Render ~/.cursor/mcp.json]
+    B --> D[sync-claude-user-mcp.sh]
+    D --> E[claude mcp add --scope user]
+    E --> F[~/.claude.json top-level mcpServers]
+    F --> G[Claude Code reads MCP servers independent of cwd]
+    C --> H[Cursor and cwd-ancestor clients]
+```
 
 ### Codex Offload (via MCP server)
 
