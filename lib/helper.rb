@@ -9,12 +9,12 @@ define :dotfile do
 
   links.each do |link_from, link_to|
     directory File.dirname(link_from = File.join(ENV['HOME'], link_from)) do
-      user node[:user]
+      user node[:user] if node[:user]
     end
 
     link link_from do
       to File.join(root_dir, "config/#{link_to}")
-      user node[:user]
+      user node[:user] if node[:user]
       force true
     end
   end

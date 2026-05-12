@@ -33,13 +33,13 @@ execute "rm -f #{ENV['HOME']}/.cursor/rules" do
 end
 
 directory "#{ENV['HOME']}/.cursor/rules" do
-  user node[:user]
+  user node[:user] if node[:user]
 end
 
 template "#{ENV['HOME']}/.cursor/rules/user-rules.mdc" do
   source user_rules_erb
   variables(user_rules: user_rules_md)
-  user node[:user]
+  user node[:user] if node[:user]
   mode '0644'
 end
 
@@ -60,7 +60,7 @@ dotfile '.codex/AGENTS.md' => 'coding_agents/codex/AGENTS.md'
 codex_config_erb = File.join(root_dir, 'config/coding_agents/codex/config.toml.erb')
 
 directory "#{ENV['HOME']}/.codex" do
-  user node[:user]
+  user node[:user] if node[:user]
 end
 
 execute "rm -f #{ENV['HOME']}/.codex/config.toml" do
@@ -68,7 +68,7 @@ execute "rm -f #{ENV['HOME']}/.codex/config.toml" do
 end
 template "#{ENV['HOME']}/.codex/config.toml" do
   source codex_config_erb
-  user node[:user]
+  user node[:user] if node[:user]
   mode '0644'
 end
 
@@ -76,7 +76,7 @@ end
 mcp_erb = File.join(root_dir, 'config/coding_agents/mcp.json.erb')
 
 directory "#{ENV['HOME']}/.cursor" do
-  user node[:user]
+  user node[:user] if node[:user]
 end
 
 execute "rm -f #{ENV['HOME']}/.mcp.json" do
@@ -84,7 +84,7 @@ execute "rm -f #{ENV['HOME']}/.mcp.json" do
 end
 template "#{ENV['HOME']}/.mcp.json" do
   source mcp_erb
-  user node[:user]
+  user node[:user] if node[:user]
   mode '0644'
 end
 
@@ -93,7 +93,7 @@ execute "rm -f #{ENV['HOME']}/.cursor/mcp.json" do
 end
 template "#{ENV['HOME']}/.cursor/mcp.json" do
   source mcp_erb
-  user node[:user]
+  user node[:user] if node[:user]
   mode '0644'
 end
 
