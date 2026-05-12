@@ -54,6 +54,8 @@ define :github_binary, raw_url: nil, version: nil, repository: nil, archive: nil
 end
 
 define :user_service, action: [] do
+  return unless node[:user]
+
   name = params[:name]
   Array(params[:action]).each do |action|
     case action

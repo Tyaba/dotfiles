@@ -5,7 +5,7 @@ if run_command('test -d /etc/systemd', error: false).exit_status == 0
     "#{ENV['HOME']}/.config/systemd/user",
   ].each do |dir|
     directory dir do
-      owner node[:user]
+      owner node[:user] if node[:user]
     end
   end
 end
