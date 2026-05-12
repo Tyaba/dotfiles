@@ -23,7 +23,12 @@ include_role 'base'
 
 # Codex CLI is referenced by ~/.mcp.json (codex MCP server). Without it,
 # claude logs MCP startup errors on every launch.
-execute 'install codex cli' do
-  command 'npm install -g @openai/codex'
-  not_if 'which codex'
+#
+# Install via mise's npm backend instead of `npm install -g`: the devcontainer
+# role runs without sudo, so the system-wide npm prefix (/usr/lib/node_modules)
+# is not writable. mise installs into ~/.local/share/mise/installs and
+# creates a shim under ~/.local/share/mise/shims (already on PATH).
+execute 'install codex cli (mise npm backend)' do
+  command "mise use -g 'npm:@openai/codex@latest'"
+  not_if 'command -v codex'
 end
