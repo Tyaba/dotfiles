@@ -29,7 +29,8 @@
     },
     "yui": {
       "command": "<%= ENV['HOME'] %>/.local/share/mise/shims/npx",
-      "args": ["-y", "supergateway", "--streamableHttp", "http://localhost:52981/mcp"]
+<%- yui_host = ENV['DOTFILES_ROLE'] == 'devcontainer' ? 'host.docker.internal' : 'localhost' -%>
+      "args": ["-y", "supergateway", "--streamableHttp", "http://<%= yui_host %>:52981/mcp"]
     },
     "context7": {
       "type": "http",
