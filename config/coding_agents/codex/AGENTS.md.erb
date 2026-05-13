@@ -6,7 +6,11 @@ Respond in 日本語.
 
 ## Working Agreements
 
-- Do not commit unless the user explicitly asks.
+<% if ENV['DOTFILES_ROLE'] == 'devcontainer' -%>
+- The agent may commit, push, and open PRs on its own. Human review happens at the PR stage.
+<% else -%>
+- Do not commit, push, or open PRs unless the user explicitly asks.
+<% end -%>
 - Do not delete cloud resources directly (BigQuery, Cloud Storage, Database instances, VM instances, etc.). Always follow: backup -> verify -> delete.
 - Do not add comments that just narrate what the code does. Comments should only explain non-obvious intent, trade-offs, or constraints.
 
@@ -25,4 +29,10 @@ Respond in 日本語.
 
 ### Infrastructure
 - Use `Terraform` for IaC.
-- Never run `terraform destroy` or `terraform apply -auto-approve`.
+- `terraform apply` / `terraform destroy` are gated by a PreToolUse hook
+  (`~/.claude/hooks/terraform-apply-guard.sh`). The hook denies when:
+  cwd / workspace is `prd`, current branch is `main`/`master`/`release/*`,
+  or the plan would destroy/replace a stateful resource
+  (BigQuery / GCS / Cloud SQL / Compute / Redis / Spanner / Bigtable / Filestore).
+  Otherwise the hook auto-approves. Do not try to bypass the hook
+  (e.g. `echo yes | terraform apply` is stripped before evaluation).

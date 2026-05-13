@@ -30,38 +30,25 @@
       "mcp__codex__*"
     ],
     "deny": [
-      "Read(*/.env)",
-      "Read(*/.env.*)",
       "Read(*credentials.json)",
       "Read(./secrets/**)",
+      "Read(*/.env)",
+      "Read(*/.env.*)",
       "Read(**/id_rsa*)",
       "Read(**/id_ed25519*)",
-      "Write(*/.ssh/*)",
       "Write(*/.env)",
       "Write(*/.env.*)",
+      "Write(*/.ssh/*)",
+      "Write(**/id_rsa*)",
+      "Write(**/id_ed25519*)",
       "Bash(git :* push :* --force :*)",
       "Bash(git :* push :* -f :*)",
-      "Bash(git :* reset :* --hard :*)",
-      "Bash(git :* clean :* -f :*)",
       "Bash(bq :* rm :*)",
       "Bash(bq :* delete :*)",
       "Bash(gcloud :* delete :*)",
       "Bash(gsutil :* rm :*)",
-      "Bash(terraform :* destroy :*)",
-      "Bash(terraform :* apply :* -auto-approve :*)",
       "Bash(kubectl :* delete :*)",
       "Bash(gh :* repo :* delete :*)",
-      "Bash(docker :* system :* prune :*)",
-      "Bash(docker :* volume :* rm :*)",
-      "Bash(docker :* image :* prune :*)",
-      "Bash(dd :*)",
-      "Bash(mkfs :*)",
-      "Bash(shred :*)",
-      "Bash(rm -rf / :*)",
-      "Bash(rm -rf /* :*)",
-      "Bash(chmod :* -R :* 777 :*)",
-      "Bash(shutdown :*)",
-      "Bash(reboot :*)",
       "Bash(npm :* publish :*)",
       "Bash(twine :* upload :*)",
       "Bash(cargo :* publish :*)",
@@ -71,7 +58,7 @@
       "Bash(wget :* | bash :*)",
       "Bash(wget :* | sh :*)"
     ],
-    "defaultMode": "auto"
+    "defaultMode": <%= ENV['DOTFILES_ROLE'] == 'devcontainer' ? '"bypassPermissions"' : '"auto"' %>
   },
   "model": "opus",
   "enabledMcpjsonServers": [],
@@ -107,9 +94,8 @@
           {
             "type": "command",
             "command": "~/.claude/hooks/terraform-apply-guard.sh",
-            "if": "Bash(terraform :* apply :*)",
             "timeout": 120,
-            "statusMessage": "terraform plan で安全性を検証中..."
+            "statusMessage": "terraform 操作の安全性を検証中..."
           }
         ]
       }

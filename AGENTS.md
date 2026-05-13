@@ -10,7 +10,10 @@
 
 ## Learned User Preferences
 
-- エージェントが自動コミットしてはならない。コミットはユーザーが明示的に指示したときのみ行う
+- commit / push / PR 作成のポリシーはデプロイされた config に従う（エージェントが自走/対話を判定する必要なし）
+  - host 直 (`DOTFILES_ROLE` 未設定): commit / push / PR はユーザー明示指示があるまで行わない
+  - devcontainer (`DOTFILES_ROLE=devcontainer`): commit / push / PR 作成までエージェントが自走可。レビューは PR 段階で行う
+  - 分岐の実装: `config/coding_agents/claude/settings.json.erb` と `config/coding_agents/codex/AGENTS.md.erb` で ERB レンダリング
 - ルールは発火条件中心に書き、詳細な手順はSKILL.mdに分離する。常時コンテキストを増やさない。重い指示やPR限定の指示もSkillに分離する
 - coding.mdcの構成は「ツール活用 / 開発プロセス / 言語・FW固有」の大枠にまとめ、プラグインと自前ルール/スキルの重複は削る
 - Pythonの実行はuvを使う。テストはpytest。uvは公式インストーラー（curl）で導入
@@ -44,7 +47,7 @@
 - PR作成時のAI監査セクションは「変更内容」の直後に配置する
 - Claude Codeのmodel設定は`opus[1m]`、permission modeは`auto`、サブエージェントも`opus`（通常コンテキスト）
 - Claude Codeは`ANTHROPIC_API_KEY`が設定されているとOAuth/EnterpriseよりAPIキー認証が優先され、`/status`のLogin methodが「Claude API Account」になる。Enterpriseサブスク枠とstatusline入力の`rate_limits`（5時間・7日ウィンドウ）はOAuth（`/login`）で意味があり、APIキー主体では空になりやすい
-- `terraform apply`はPreToolUse hookで動的ガード。plan結果にステートフルリソース（BQ/GCS/SQL/VM/Redis/Spanner/Bigtable/Filestore）のreplace/destroyがあればdeny、なければallow。`terraform destroy`は静的deny維持。hookスクリプトは`config/coding_agents/hooks/terraform-apply-guard.sh`
+- `terraform apply` / `terraform destroy` は PreToolUse hook で多層ガード（cwd の env 判定 `dev`/`stg`/`prd`、`git branch` 判定 main/master/release/*、plan 内容に stateful resource [BQ/GCS/SQL/VM/Redis/Spanner/Bigtable/Filestore] の replace/destroy 検出のいずれかでも該当すれば deny）。`echo yes | terraform apply` 等の wrapper は hook 内で剥がされる。hook スクリプトは `config/coding_agents/hooks/terraform-apply-guard.sh`
 - Claude Codeの`gcloud`許可: 読み取り系(describe/list/get-iam-policy/config)と追加系(create/versions add/add-iam-policy-binding)はallow、deleteはdeny
 - Claude Codeのstatusline.sh、output-styles/、render-diagram.shは`config/coding_agents/claude/`に配置し、`roles/base/default.rb`で`~/.claude/`にシンボリックリンク。プラグインは`/plugin`コマンドでインストールし`~/.claude.json`に永続（dotfilesで宣言的管理は不可）
 - GhosttyでのURL開きはCmd+クリック、tmux内ではCmd+Shift+クリック（tmuxがマウスイベントを食うため）。`macos-option-as-alt = true`でAlt+矢印/Alt+B/F等のワード移動を有効化

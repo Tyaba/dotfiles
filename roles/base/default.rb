@@ -49,18 +49,41 @@ dotfile '.cursor/hooks.json' => 'coding_agents/cursor/hooks.json'
 
 # Claude Code-specific
 dotfile '.claude/CLAUDE.md' => 'coding_agents/claude/CLAUDE.md'
-dotfile '.claude/settings.json' => 'coding_agents/claude/settings.json'
 dotfile '.claude/output-styles' => 'coding_agents/claude/output-styles'
 dotfile '.claude/statusline.sh' => 'coding_agents/claude/statusline.sh'
 dotfile '.claude/render-diagram.sh' => 'coding_agents/claude/render-diagram.sh'
 
-# Codex-specific
-dotfile '.codex/AGENTS.md' => 'coding_agents/codex/AGENTS.md'
+# Claude Code settings.json (ERB-rendered, branches on DOTFILES_ROLE)
+claude_settings_erb = File.join(root_dir, 'config/coding_agents/claude/settings.json.erb')
 
+directory "#{ENV['HOME']}/.claude" do
+  user node[:user] if node[:user]
+end
+
+execute "rm -f #{ENV['HOME']}/.claude/settings.json" do
+  only_if "test -L #{ENV['HOME']}/.claude/settings.json"
+end
+template "#{ENV['HOME']}/.claude/settings.json" do
+  source claude_settings_erb
+  user node[:user] if node[:user]
+  mode '0644'
+end
+
+# Codex-specific
+codex_agents_erb = File.join(root_dir, 'config/coding_agents/codex/AGENTS.md.erb')
 codex_config_erb = File.join(root_dir, 'config/coding_agents/codex/config.toml.erb')
 
 directory "#{ENV['HOME']}/.codex" do
   user node[:user] if node[:user]
+end
+
+execute "rm -f #{ENV['HOME']}/.codex/AGENTS.md" do
+  only_if "test -L #{ENV['HOME']}/.codex/AGENTS.md"
+end
+template "#{ENV['HOME']}/.codex/AGENTS.md" do
+  source codex_agents_erb
+  user node[:user] if node[:user]
+  mode '0644'
 end
 
 execute "rm -f #{ENV['HOME']}/.codex/config.toml" do
