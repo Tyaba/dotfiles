@@ -1,12 +1,22 @@
 approval_policy = "never"
+<% if ENV['DOTFILES_ROLE'] == 'devcontainer' -%>
+# devcontainer: container 隔離で blast radius が container 内に閉じるため
+# danger-full-access に昇格する。/tmp, ~/.cache, ~/.config 等への書き込みも自由
+sandbox_mode = "danger-full-access"
+<% else -%>
 sandbox_mode = "workspace-write"
+<% end -%>
 
 model = "gpt-5.5"
 model_reasoning_effort = "high"
 model_context_window = 1000000
 
 [sandbox_workspace_write]
+<% if ENV['DOTFILES_ROLE'] == 'devcontainer' -%>
+writable_roots = ["/"]
+<% else -%>
 writable_roots = ["<%= ENV['HOME'] %>/ghq"]
+<% end -%>
 network_access = true
 
 [mcp_servers.context7]

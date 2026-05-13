@@ -56,9 +56,9 @@ mcp__codex__codex(
 ### デフォルト値
 
 - `approval-policy="never"`
-- `sandbox="workspace-write"`
-
-workspace 外パスを触る必要があるときのみ `sandbox="danger-full-access"` への昇格を検討し、その旨をユーザに確認する。
+- `sandbox`:
+  - devcontainer 内 (`$DOTFILES_ROLE=devcontainer`): `"danger-full-access"` をデフォルトに昇格。blast radius は container 内で閉じるので、`/tmp` や `~/.cache` への書き込みも含めて確認不要で許可する
+  - host 直 (それ以外): `"workspace-write"`。workspace 外パスを触る必要があるときのみ `"danger-full-access"` への昇格を検討し、その旨をユーザに確認する
 
 ### writable_roots
 

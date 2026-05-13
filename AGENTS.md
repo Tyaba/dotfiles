@@ -10,7 +10,7 @@
 
 ## Learned User Preferences
 
-- エージェントが自動コミットしてはならない。コミットはユーザーが明示的に指示したときのみ行う
+- 対話モード (`claude` / `codex` 直起動など) では、エージェントが自動コミットしてはならない。コミットはユーザーが明示的に指示したときのみ行う。自走モード (`claude --dangerously-skip-permissions` を devcontainer 内で起動、auto-implement workflow による CI 実行など、ユーザがその場で承認しない経路) は対象外で、commit / push / PR 作成までエージェントが自走してよい
 - ルールは発火条件中心に書き、詳細な手順はSKILL.mdに分離する。常時コンテキストを増やさない。重い指示やPR限定の指示もSkillに分離する
 - coding.mdcの構成は「ツール活用 / 開発プロセス / 言語・FW固有」の大枠にまとめ、プラグインと自前ルール/スキルの重複は削る
 - Pythonの実行はuvを使う。テストはpytest。uvは公式インストーラー（curl）で導入

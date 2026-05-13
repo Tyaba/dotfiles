@@ -6,7 +6,7 @@ Respond in 日本語.
 
 ## Working Agreements
 
-- Do not commit unless the user explicitly asks.
+- In interactive mode (direct `codex` invocation by the user), do not commit unless the user explicitly asks. In autonomous mode (devcontainer-launched runs with `--dangerously-skip-permissions`-equivalent, CI auto-implement workflows, or other paths where the user does not approve each step), the agent may commit / push / open PRs on its own.
 - Do not delete cloud resources directly (BigQuery, Cloud Storage, Database instances, VM instances, etc.). Always follow: backup -> verify -> delete.
 - Do not add comments that just narrate what the code does. Comments should only explain non-obvious intent, trade-offs, or constraints.
 
