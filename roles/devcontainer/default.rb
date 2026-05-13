@@ -42,7 +42,8 @@ execute 'persist ~/.claude.json into ~/.claude/ volume' do
     if [ -f "$LINK" ] && [ ! -L "$LINK" ]; then
       if [ -e "$TARGET" ] && [ ! -L "$TARGET" ]; then
         # Volume already has its own .claude.json — prefer it, archive host copy.
-        mv "$LINK" "$LINK.pre-link.bak"
+        # Timestamp the backup so repeated rebuilds don't clobber prior archives.
+        mv "$LINK" "$LINK.pre-link.bak.$(date +%s)"
       else
         mv "$LINK" "$TARGET"
       fi
