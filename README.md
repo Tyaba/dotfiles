@@ -129,3 +129,47 @@ codex login          # Authenticate with ChatGPT Enterprise (one-time)
 
 **Constraints:**
 - Requires local OAuth authentication (browser flow) -- not available in CI/headless environments
+
+### Slack MCP OAuth in devcontainers
+
+The `slack` entry in `config/coding_agents/mcp.json.erb` is an HTTP-transport MCP
+server backed by Slack's hosted endpoint (`https://mcp.slack.com/mcp`) and
+authenticated via OAuth 2.0 (PKCE) with `callbackPort: 3118`. Claude Code
+performs the OAuth flow on first use and persists the resulting tokens
+client-side -- they are **not** part of `~/.mcp.json` or the rendered
+`mcpServers` config.
+
+Because Claude Code state inside a devcontainer lives in a separate named
+volume (`claude-code-config-${devcontainerId}`) from the host, the tokens
+obtained on the host are **not** visible to Claude Code running inside the
+container. As a result, `claude mcp list` inside the container will show:
+
+```
+slack  ✗ Failed to connect
+```
+
+until the OAuth flow is completed once from inside the container.
+
+#### Recommended workflow
+
+1. Start the devcontainer and run `claude` once.
+2. When `slack` is reported as unauthenticated, trigger the OAuth flow from
+   the Claude Code UI (e.g. `/login slack` or by invoking any `mcp__slack__*`
+   tool). Claude Code will open a browser on the host that posts the
+   authorization code back to `http://localhost:3118/...`.
+3. For the callback to reach the container, ensure
+   `forwardPorts: [3118]` is set in the project's `.devcontainer/devcontainer.json`.
+   This is configured at the [tyaba-env](https://github.com/Tyaba/tyaba-env)
+   template level, not here.
+4. Subsequent container starts reuse the saved tokens as long as the
+   `claude-code-config-*` named volume is preserved.
+
+#### Why not bind-mount the host tokens?
+
+Claude Code stores OAuth credentials in user-scoped state (under `~/.claude/`
+and `~/.claude.json`-adjacent locations) that also contains many other
+secrets unrelated to Slack. Bind-mounting these into the container would
+broaden the secret surface for every running container and is therefore not
+done by this dotfiles repo. A per-server token export/import workflow would
+be cleaner but is not currently provided by Claude Code; for now, a one-time
+in-container OAuth flow is the recommended path.
