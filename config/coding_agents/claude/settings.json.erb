@@ -117,7 +117,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "PROJECT=$(basename \"$PWD\"); if [ \"$(uname)\" = \"Darwin\" ]; then osascript -e \"display notification \\\"$PROJECT: タスク完了\\\" with title \\\"Claude Code\\\" sound name \\\"Submarine\\\"\"; else paplay /usr/share/sounds/freedesktop/stereo/message.oga; fi"
+            "command": "PROJECT=$(basename \"$PWD\"); if [ \"$(uname)\" = \"Darwin\" ]; then osascript -e \"display notification \\\"$PROJECT: タスク完了\\\" with title \\\"Claude Code\\\" sound name \\\"Submarine\\\"\"; elif command -v paplay >/dev/null 2>&1; then paplay /usr/share/sounds/freedesktop/stereo/message.oga; fi"
           },
           {
             "type": "command",
@@ -132,7 +132,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "PROJECT=$(basename \"$PWD\"); if [ \"$(uname)\" = \"Darwin\" ]; then osascript -e \"display notification \\\"$PROJECT: 入力待ち\\\" with title \\\"Claude Code\\\" sound name \\\"Submarine\\\"\"; else paplay /usr/share/sounds/freedesktop/stereo/message.oga; fi"
+            "command": "PROJECT=$(basename \"$PWD\"); if [ \"$(uname)\" = \"Darwin\" ]; then osascript -e \"display notification \\\"$PROJECT: 入力待ち\\\" with title \\\"Claude Code\\\" sound name \\\"Submarine\\\"\"; elif command -v paplay >/dev/null 2>&1; then paplay /usr/share/sounds/freedesktop/stereo/message.oga; fi"
           },
           {
             "type": "command",
