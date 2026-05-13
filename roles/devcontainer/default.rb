@@ -19,6 +19,52 @@ unless ENV['PATH'].include?(mise_shims)
   ENV['PATH'] = "#{mise_shims}:#{ENV['PATH']}"
 end
 
+# Persist ~/.claude.json across container rebuilds.
+#
+# devcontainer.json mounts ~/.claude/ as a named volume, but ~/.claude.json
+# is a regular file outside that mount. On rebuild, the file is recreated
+# empty and Claude Code re-prompts for onboarding even though credentials
+# (in ~/.claude/.credentials.json) are preserved.
+#
+# Symlink ~/.claude.json into the persistent volume so onboarding flags,
+# mcpServers config, and oauthAccount survive container recreation.
+claude_link   = "#{ENV['HOME']}/.claude.json"
+claude_target = "#{ENV['HOME']}/.claude/.claude.json"
+
+execute 'persist ~/.claude.json into ~/.claude/ volume' do
+  command <<~SH
+    set -eu
+    LINK="#{claude_link}"
+    TARGET="#{claude_target}"
+
+    # Case 1: $LINK is a regular file (not yet symlinked). Migrate its
+    # contents into the volume, archiving any volume-side file conflict.
+    if [ -f "$LINK" ] && [ ! -L "$LINK" ]; then
+      if [ -e "$TARGET" ] && [ ! -L "$TARGET" ]; then
+        # Volume already has its own .claude.json — prefer it, archive host copy.
+        mv "$LINK" "$LINK.pre-link.bak"
+      else
+        mv "$LINK" "$TARGET"
+      fi
+    fi
+
+    # Case 2: $TARGET still does not exist (fresh volume). Touch an empty file.
+    [ -e "$TARGET" ] || : > "$TARGET"
+
+    # Case 3: Ensure $LINK is a symlink pointing to $TARGET.
+    if [ -L "$LINK" ]; then
+      current="$(readlink "$LINK")"
+      if [ "$current" != "$TARGET" ]; then
+        rm "$LINK"
+        ln -s "$TARGET" "$LINK"
+      fi
+    elif [ ! -e "$LINK" ]; then
+      ln -s "$TARGET" "$LINK"
+    fi
+  SH
+  user node[:user] if node[:user]
+end
+
 include_role 'base'
 
 # Codex CLI is referenced by ~/.mcp.json (codex MCP server). Without it,
