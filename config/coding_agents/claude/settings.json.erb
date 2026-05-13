@@ -52,7 +52,7 @@
       "Bash(cargo :* publish :*)",
       "Bash(gem :* push :*)"
     ],
-    "defaultMode": "auto"
+    "defaultMode": <%= ENV['DOTFILES_ROLE'] == 'devcontainer' ? '"bypassPermissions"' : '"auto"' %>
   },
   "model": "opus",
   "enabledMcpjsonServers": [],
