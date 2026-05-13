@@ -11,13 +11,13 @@ model = "gpt-5.5"
 model_reasoning_effort = "high"
 model_context_window = 1000000
 
-[sandbox_workspace_write]
 <% if ENV['DOTFILES_ROLE'] == 'devcontainer' -%>
-writable_roots = ["/"]
+# danger-full-access では [sandbox_workspace_write] セクションは bypass されるため省略
 <% else -%>
+[sandbox_workspace_write]
 writable_roots = ["<%= ENV['HOME'] %>/ghq"]
-<% end -%>
 network_access = true
+<% end -%>
 
 [mcp_servers.context7]
 command = "<%= ENV['HOME'] %>/.local/share/mise/shims/npx"

@@ -10,7 +10,10 @@
 
 ## Learned User Preferences
 
-- commit / push / PR 作成はユーザー明示指示があるまで行わない。自走運用が必要な経路（devcontainer・CI auto-implement workflow 等）は環境変数 `DOTFILES_ROLE=devcontainer` で発火するよう `~/.claude/settings.json` と `~/.codex/AGENTS.md` をテンプレート化済み。エージェントは自分で「対話/自走モードどちらか」を判定する必要はなく、デプロイされた config が示すルールにそのまま従えばよい
+- commit / push / PR 作成のポリシーはデプロイされた config に従う（エージェントが自走/対話を判定する必要なし）
+  - host 直 (`DOTFILES_ROLE` 未設定): commit / push / PR はユーザー明示指示があるまで行わない
+  - devcontainer (`DOTFILES_ROLE=devcontainer`): commit / push / PR 作成までエージェントが自走可。レビューは PR 段階で行う
+  - 分岐の実装: `config/coding_agents/claude/settings.json.erb` と `config/coding_agents/codex/AGENTS.md.erb` で ERB レンダリング
 - ルールは発火条件中心に書き、詳細な手順はSKILL.mdに分離する。常時コンテキストを増やさない。重い指示やPR限定の指示もSkillに分離する
 - coding.mdcの構成は「ツール活用 / 開発プロセス / 言語・FW固有」の大枠にまとめ、プラグインと自前ルール/スキルの重複は削る
 - Pythonの実行はuvを使う。テストはpytest。uvは公式インストーラー（curl）で導入

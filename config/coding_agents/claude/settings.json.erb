@@ -32,8 +32,12 @@
     "deny": [
       "Read(*credentials.json)",
       "Read(./secrets/**)",
+      "Read(*/.env)",
+      "Read(*/.env.*)",
       "Read(**/id_rsa*)",
       "Read(**/id_ed25519*)",
+      "Write(*/.env)",
+      "Write(*/.env.*)",
       "Write(*/.ssh/*)",
       "Write(**/id_rsa*)",
       "Write(**/id_ed25519*)",
@@ -48,7 +52,11 @@
       "Bash(npm :* publish :*)",
       "Bash(twine :* upload :*)",
       "Bash(cargo :* publish :*)",
-      "Bash(gem :* push :*)"
+      "Bash(gem :* push :*)",
+      "Bash(curl :* | bash :*)",
+      "Bash(curl :* | sh :*)",
+      "Bash(wget :* | bash :*)",
+      "Bash(wget :* | sh :*)"
     ],
     "defaultMode": <%= ENV['DOTFILES_ROLE'] == 'devcontainer' ? '"bypassPermissions"' : '"auto"' %>
   },

@@ -60,6 +60,10 @@ mcp__codex__codex(
   - devcontainer 内 (`$DOTFILES_ROLE=devcontainer`): `"danger-full-access"` をデフォルトに昇格。blast radius は container 内で閉じるので、`/tmp` や `~/.cache` への書き込みも含めて確認不要で許可する
   - host 直 (それ以外): `"workspace-write"`。workspace 外パスを触る必要があるときのみ `"danger-full-access"` への昇格を検討し、その旨をユーザに確認する
 
+### 破壊的操作前の注意（devcontainer）
+
+devcontainer は workspace を bind mount しているため、`rm -rf` / `git reset --hard` / `git clean -f` 等の破壊的操作は **host 側の未コミット作業も巻き込む**。Codex に破壊的操作を含むタスクを移譲する前に、関連ファイルを commit するかブランチを保存しておくこと。
+
 ### writable_roots
 
 `~/.codex/config.toml`（dotfiles: `config/coding_agents/codex/config.toml.erb`）で `$HOME/ghq` を通してあるので、ghq 配下のリポジトリ間で参照・書き込みが必要なコマンドは追加設定なしで通る想定。
