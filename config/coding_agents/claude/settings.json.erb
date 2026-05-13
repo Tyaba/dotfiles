@@ -43,8 +43,6 @@
       "Bash(bq :* delete :*)",
       "Bash(gcloud :* delete :*)",
       "Bash(gsutil :* rm :*)",
-      "Bash(terraform :* destroy :*)",
-      "Bash(terraform :* apply :* -auto-approve :*)",
       "Bash(kubectl :* delete :*)",
       "Bash(gh :* repo :* delete :*)",
       "Bash(npm :* publish :*)",
@@ -88,9 +86,8 @@
           {
             "type": "command",
             "command": "~/.claude/hooks/terraform-apply-guard.sh",
-            "if": "Bash(terraform :* apply :*)",
             "timeout": 120,
-            "statusMessage": "terraform plan で安全性を検証中..."
+            "statusMessage": "terraform 操作の安全性を検証中..."
           }
         ]
       }

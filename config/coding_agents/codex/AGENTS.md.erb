@@ -29,4 +29,10 @@ Respond in 日本語.
 
 ### Infrastructure
 - Use `Terraform` for IaC.
-- Never run `terraform destroy` or `terraform apply -auto-approve`.
+- `terraform apply` / `terraform destroy` are gated by a PreToolUse hook
+  (`~/.claude/hooks/terraform-apply-guard.sh`). The hook denies when:
+  cwd / workspace is `prd`, current branch is `main`/`master`/`release/*`,
+  or the plan would destroy/replace a stateful resource
+  (BigQuery / GCS / Cloud SQL / Compute / Redis / Spanner / Bigtable / Filestore).
+  Otherwise the hook auto-approves. Do not try to bypass the hook
+  (e.g. `echo yes | terraform apply` is stripped before evaluation).
