@@ -79,3 +79,13 @@ execute 'install codex cli (mise npm backend)' do
   command "mise use -g 'npm:@openai/codex@latest'"
   not_if 'command -v codex'
 end
+
+# Install Claude Code CLI via mise instead of relying on the devcontainer feature.
+#
+# The devcontainer feature installs as root into /usr/lib/node_modules, so the
+# vscode user cannot self-update. mise installs under ~/.local/share/mise so
+# `claude` updates land in a vscode-writable path.
+execute 'install claude code cli (mise npm backend)' do
+  command "mise use -g 'npm:@anthropic-ai/claude-code@latest'"
+  not_if 'mise which claude >/dev/null 2>&1'
+end
