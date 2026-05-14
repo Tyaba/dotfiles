@@ -68,6 +68,20 @@ end
 
 include_role 'base'
 
+# mise's npm backend (`mise use -g 'npm:...'`) shells out to `npm view` to
+# resolve the latest version. That call goes through the `npm` mise shim,
+# which needs an active node version to dispatch to. The dotfiles install.sh
+# runs mitamae from ~/dotfiles where no .mise.toml exists, so without a
+# globally-pinned node mise aborts with "No version is set for shim: npm"
+# and the downstream codex / claude installs both fail with a confusing
+# "No such file or directory (os error 2)" error.
+#
+# Pin an LTS node globally so npm-backend resolution works regardless of cwd.
+execute 'pin global node for mise npm backend' do
+  command 'mise use -g node@lts'
+  not_if 'mise current node >/dev/null 2>&1'
+end
+
 # Codex CLI is referenced by ~/.mcp.json (codex MCP server). Without it,
 # claude logs MCP startup errors on every launch.
 #
