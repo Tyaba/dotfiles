@@ -2,6 +2,14 @@
 
 set -ex
 
+# Auto-detect devcontainer: /.dockerenv exists inside Docker containers
+# (VS Code Dev Containers and @devcontainers/cli both use Docker), so callers
+# no longer have to pass DOTFILES_ROLE explicitly. Explicit values still win.
+if [ -z "${DOTFILES_ROLE:-}" ] && [ -f /.dockerenv ]; then
+  DOTFILES_ROLE=devcontainer
+  export DOTFILES_ROLE
+fi
+
 # Resolve relative paths (bin/setup, bin/mitamae, lib/recipe.rb) against this
 # script's directory rather than the caller's cwd. Without this, calling
 # `$DOTFILES_DIR/install.sh` from elsewhere (e.g. a devcontainer
