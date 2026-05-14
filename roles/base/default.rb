@@ -113,6 +113,17 @@ end
 
 sync_user_mcp = File.join(root_dir, 'config/coding_agents/sync-claude-user-mcp.sh')
 
+# Expose the sync script as a re-runnable command. Claude Code's first OAuth
+# login can rewrite ~/.claude.json and drop the mcpServers populated here, so
+# users need a low-friction way to re-sync after login completes.
+directory "#{ENV['HOME']}/.local/bin" do
+  user node[:user] if node[:user]
+end
+
+link "#{ENV['HOME']}/.local/bin/claude-sync-mcp" do
+  to sync_user_mcp
+end
+
 execute 'sync ~/.mcp.json into claude user scope' do
   command "bash #{sync_user_mcp}"
   user node[:user] if node[:user]
