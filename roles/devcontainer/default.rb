@@ -49,8 +49,10 @@ execute 'persist ~/.claude.json into ~/.claude/ volume' do
       fi
     fi
 
-    # Case 2: $TARGET still does not exist (fresh volume). Touch an empty file.
-    [ -e "$TARGET" ] || : > "$TARGET"
+    # Case 2: $TARGET is missing or empty (fresh volume, or a stale empty
+    # file from a previous bug). Initialize with a valid JSON object so
+    # Claude Code does not abort with "Unexpected EOF" on first launch.
+    [ -s "$TARGET" ] || printf '{}\n' > "$TARGET"
 
     # Case 3: Ensure $LINK is a symlink pointing to $TARGET.
     if [ -L "$LINK" ]; then
