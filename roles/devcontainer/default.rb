@@ -76,10 +76,11 @@ include_role 'base'
 # and the downstream codex / claude installs both fail with a confusing
 # "No such file or directory (os error 2)" error.
 #
-# Pin an LTS node globally so npm-backend resolution works regardless of cwd.
+# Pin and install an LTS node globally so the npm shim resolves to a real
+# runtime regardless of cwd.
 execute 'pin global node for mise npm backend' do
-  command 'mise use -g node@lts'
-  not_if 'mise current node >/dev/null 2>&1'
+  command 'mise use -g node@lts && mise install -y'
+  not_if 'mise which npm >/dev/null 2>&1'
 end
 
 # Codex CLI is referenced by ~/.mcp.json (codex MCP server). Without it,
