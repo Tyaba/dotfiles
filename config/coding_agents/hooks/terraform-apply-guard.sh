@@ -162,8 +162,16 @@ pattern_regex=$(IFS="|"; echo "${STATEFUL_PATTERNS[*]}")
 
 plan_file=""
 if [ "${#sub_args[@]}" -gt 0 ]; then
+  prev_flag_takes_value=false
   for arg in "${sub_args[@]}"; do
+    if [ "$prev_flag_takes_value" = true ]; then
+      prev_flag_takes_value=false
+      continue
+    fi
     case "$arg" in
+      -var-file|-state|-state-out|-backup|-target|-var|-replace|-out|-parallelism|-lock-timeout)
+        prev_flag_takes_value=true
+        ;;
       -*) ;;
       *)
         candidate_path="$arg"
