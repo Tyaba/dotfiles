@@ -16,14 +16,14 @@ when 'darwin'
   end
 
   remote_file "#{proxy_dir}/docker-compose.yaml" do
-    source 'docker-compose.yaml'
+    source 'files/docker-compose.yaml'
     owner node[:user] if node[:user]
     group node[:group] if node[:group]
     mode '0644'
   end
 
   remote_file "#{proxy_dir}/traefik.yaml" do
-    source 'traefik.yaml'
+    source 'files/traefik.yaml'
     owner node[:user] if node[:user]
     group node[:group] if node[:group]
     mode '0644'
