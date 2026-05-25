@@ -55,3 +55,4 @@
 - ツール移行済み: exa→eza、ncdu→dust、pipx→廃止（uvは公式インストーラーに移行）、poetry→uv、iTerm→Ghostty、scroll-reverser→macOS標準。XQuartzはX11 forwarding用に必要（代替なし）
 - mozc cookbookはrole未参照で残存（ユーザー未決定）
 - Codex CLIは`codex mcp-server`でMCPサーバーとして動作し、`mcp.json.erb`で定義。`base-instructions`パラメータでClaude側のルールを動的注入可能。`~/.codex/AGENTS.md`は直接CLI利用時のグローバルルール。CI環境では利用不可（OAuth認証にブラウザフロー必須）。`config/coding_agents/codex/AGENTS.md`→`~/.codex/AGENTS.md`でデプロイ
+- ローカル開発プロキシ基盤: `cookbooks/{dnsmasq,mkcert,traefik}` で構成。`*.test` を 127.0.0.1 解決し、`~/.tyaba/proxy/` の Traefik v3 が Docker socket を watch して `traefik.enable=true` ラベル付きコンテナへ HTTPS ルーティング。docker network 名 `tyaba-proxy` (external)、dashboard `http://localhost:8080/dashboard/`、wildcard 証明書 mkcert 生成 `~/.tyaba/proxy/certs/_wildcard.test.pem`。
