@@ -30,7 +30,8 @@ when 'darwin'
   end
 
   execute 'generate mkcert wildcard certificate for .test' do
-    command "cd #{certs_dir} && mkcert -cert-file _wildcard.test.pem -key-file _wildcard.test-key.pem \"*.test\" test"
+    # *.test は単一ラベルしかカバーしないので、api.<slug>.test 等の 2 ラベルを *.*.test で追加
+    command "cd #{certs_dir} && mkcert -cert-file _wildcard.test.pem -key-file _wildcard.test-key.pem \"*.test\" \"*.*.test\" test"
     not_if "test -f #{certs_dir}/_wildcard.test.pem"
   end
 
