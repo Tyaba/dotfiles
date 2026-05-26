@@ -30,8 +30,10 @@ when 'darwin'
   end
 
   execute 'generate mkcert wildcard certificate for .test' do
-    # *.test は単一ラベルしかカバーしないので、api.<slug>.test 等の 2 ラベルを *.*.test で追加
-    command "cd #{certs_dir} && mkcert -cert-file _wildcard.test.pem -key-file _wildcard.test-key.pem \"*.test\" \"*.*.test\" test"
+    # mkcert は単一ラベル wildcard のみサポート (*.*.test は不可)。
+    # tyaba-env 側で fullstack は <slug>-frontend.test / <slug>-backend.test の命名に揃え、
+    # single-service は <slug>.test を使う。すべて *.test 単一 wildcard でカバー。
+    command "cd #{certs_dir} && mkcert -cert-file _wildcard.test.pem -key-file _wildcard.test-key.pem \"*.test\" test"
     not_if "test -f #{certs_dir}/_wildcard.test.pem"
   end
 
