@@ -1,3 +1,37 @@
+<%
+  # claude.ai connectors and other MCP servers we never want to surface.
+  # serverUrl supports `*` wildcards; serverName is restricted to
+  # [A-Za-z0-9_-]+ so we prefer serverUrl for connectors whose display name
+  # contains spaces / dots (e.g. "claude.ai Slack").
+  public_denied_mcp_servers = [
+    { "serverUrl" => "https://mcp.slack.com/*" },
+    { "serverUrl" => "https://mcp.canva.com/*" },
+    { "serverUrl" => "https://mcp.heygen.com/*" },
+    { "serverUrl" => "https://mcp.asana.com/*" },
+    { "serverUrl" => "https://mcp.clickup.com/*" },
+    { "serverUrl" => "https://mcp.monday.com/*" },
+    { "serverUrl" => "https://mcp.atlassian.com/*" },
+    { "serverUrl" => "https://microsoft365.mcp.claude.com/*" },
+    { "serverUrl" => "https://mcp.box.com/*" },
+    { "serverUrl" => "https://cyberagent-lodeo.snowflakecomputing.com/*" },
+    { "serverUrl" => "https://tableau-mcp.cyberagent.group/*" },
+    { "serverUrl" => "https://api.salesforce.com/platform/mcp/v1/analytics/tableau-next*" },
+    { "serverUrl" => "https://listeningmind-service-mcp.ascentlab.io/*" },
+    { "serverUrl" => "https://mcp.hubspot.com/*" },
+    { "serverUrl" => "https://mcp.app.wiz.io/*" },
+    { "serverUrl" => "https://mcp.zapier.com/*" },
+    { "serverUrl" => "https://cyberagent-talentbank.snowflakecomputing.com/*" },
+  ]
+  private_denied_mcp_path = ENV['DOTFILES_PRIVATE_DENIED_MCP_PATH'].to_s
+  private_denied_mcp_servers =
+    if !private_denied_mcp_path.empty? && File.exist?(private_denied_mcp_path)
+      JSON.parse(File.read(private_denied_mcp_path))
+    else
+      []
+    end
+  denied_mcp_servers = public_denied_mcp_servers + private_denied_mcp_servers
+  denied_mcp_lines = denied_mcp_servers.map { |e| "    #{JSON.generate(e)}" }.join(",\n")
+-%>
 {
   "env": {
     "BASH_DEFAULT_TIMEOUT_MS": "30000",
@@ -70,23 +104,7 @@
   "model": "opus",
   "enabledMcpjsonServers": [],
   "deniedMcpServers": [
-    { "serverUrl": "https://mcp.slack.com/*" },
-    { "serverUrl": "https://mcp.canva.com/*" },
-    { "serverUrl": "https://mcp.heygen.com/*" },
-    { "serverUrl": "https://mcp.asana.com/*" },
-    { "serverUrl": "https://mcp.clickup.com/*" },
-    { "serverUrl": "https://mcp.monday.com/*" },
-    { "serverUrl": "https://mcp.atlassian.com/*" },
-    { "serverUrl": "https://microsoft365.mcp.claude.com/*" },
-    { "serverUrl": "https://mcp.box.com/*" },
-    { "serverUrl": "https://cyberagent-lodeo.snowflakecomputing.com/*" },
-    { "serverUrl": "https://tableau-mcp.cyberagent.group/*" },
-    { "serverUrl": "https://api.salesforce.com/platform/mcp/v1/analytics/tableau-next*" },
-    { "serverUrl": "https://listeningmind-service-mcp.ascentlab.io/*" },
-    { "serverUrl": "https://mcp.hubspot.com/*" },
-    { "serverUrl": "https://mcp.app.wiz.io/*" },
-    { "serverUrl": "https://mcp.zapier.com/*" },
-    { "serverUrl": "https://cyberagent-talentbank.snowflakecomputing.com/*" }
+<%= denied_mcp_lines %>
   ],
   "hooks": {
     "SessionStart": [

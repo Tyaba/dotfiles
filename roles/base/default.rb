@@ -54,6 +54,12 @@ dotfile '.claude/statusline.sh' => 'coding_agents/claude/statusline.sh'
 dotfile '.claude/render-diagram.sh' => 'coding_agents/claude/render-diagram.sh'
 
 # Claude Code settings.json (ERB-rendered, branches on DOTFILES_ROLE)
+# Path to private deniedMcpServers entries (gitignored). The ERB reads this
+# file at render time and appends its entries after the public ones, so
+# workplace-specific connectors can be denied without leaking into the repo.
+ENV['DOTFILES_PRIVATE_DENIED_MCP_PATH'] =
+  File.join(root_dir, 'config/coding_agents/private/denied_mcp_servers.json')
+
 claude_settings_erb = File.join(root_dir, 'config/coding_agents/claude/settings.json.erb')
 
 directory "#{ENV['HOME']}/.claude" do
