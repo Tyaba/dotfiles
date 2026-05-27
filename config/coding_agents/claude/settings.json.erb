@@ -23,11 +23,18 @@
       "WebFetch(*)",
       "WebSearch(*)",
       "mcp__yui__*",
-      "mcp__slack__*",
       "mcp__playwright__*",
       "mcp__todoist__*",
-      "mcp__notion__*",
-      "mcp__codex__*"
+      "mcp__codex__*",
+      "mcp__claude_ai__*",
+      "mcp__claude_ai_Excalidraw__*",
+      "mcp__claude_ai_Figma__*",
+      "mcp__claude_ai_Gmail__*",
+      "mcp__claude_ai_Google_Calendar__*",
+      "mcp__claude_ai_Google_Cloud_BigQuery__*",
+      "mcp__claude_ai_Google_Drive__*",
+      "mcp__claude_ai_Notion__*",
+      "mcp__claude_ai_SlackDB__*"
     ],
     "deny": [
       "Read(*credentials.json)",
@@ -62,6 +69,40 @@
   },
   "model": "opus",
   "enabledMcpjsonServers": [],
+<%
+  # claude.ai connector の serverName は `claude mcp list` 表示通り
+  # `claude.ai <name>` のフルラベルでマッチさせる必要がある（完全一致）。
+  public_denied_mcp_servers = [
+    { "serverName" => "claude.ai Slack" },
+    { "serverName" => "claude.ai Canva" },
+    { "serverName" => "claude.ai Heygen" },
+    { "serverName" => "claude.ai Asana" },
+    { "serverName" => "claude.ai ClickUp" },
+    { "serverName" => "claude.ai monday.com" },
+    { "serverName" => "claude.ai Atlassian" },
+    { "serverName" => "claude.ai Atlassian Rovo" },
+    { "serverName" => "claude.ai Microsoft 365" },
+    { "serverName" => "claude.ai Box" },
+    { "serverName" => "claude.ai HubSpot" },
+    { "serverName" => "claude.ai Wiz" },
+    { "serverName" => "claude.ai Zapier" },
+    { "serverName" => "claude.ai Tableau Next MCP Prod V1" },
+    { "serverName" => "claude.ai Tableau MCP" },
+    { "serverName" => "claude.ai ListeningMind" },
+  ]
+  private_denied_mcp_path = ENV['DOTFILES_PRIVATE_DENIED_MCP_PATH'].to_s
+  private_denied_mcp_servers =
+    if !private_denied_mcp_path.empty? && File.exist?(private_denied_mcp_path)
+      JSON.parse(File.read(private_denied_mcp_path))
+    else
+      []
+    end
+  denied_mcp_servers = public_denied_mcp_servers + private_denied_mcp_servers
+  denied_mcp_lines = denied_mcp_servers.map { |e| "    #{JSON.generate(e)}" }.join(",\n")
+-%>
+  "deniedMcpServers": [
+<%= denied_mcp_lines %>
+  ],
   "hooks": {
     "SessionStart": [
       {

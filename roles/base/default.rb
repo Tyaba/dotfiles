@@ -55,6 +55,8 @@ dotfile '.claude/render-diagram.sh' => 'coding_agents/claude/render-diagram.sh'
 
 # Claude Code settings.json (ERB-rendered, branches on DOTFILES_ROLE)
 claude_settings_erb = File.join(root_dir, 'config/coding_agents/claude/settings.json.erb')
+ENV['DOTFILES_PRIVATE_DENIED_MCP_PATH'] =
+  File.join(root_dir, 'config/coding_agents/private/denied_mcp_servers.json')
 
 directory "#{ENV['HOME']}/.claude" do
   user node[:user] if node[:user]
