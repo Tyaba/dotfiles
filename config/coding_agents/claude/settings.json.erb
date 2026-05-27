@@ -23,7 +23,6 @@
       "WebFetch(*)",
       "WebSearch(*)",
       "mcp__yui__*",
-      "mcp__slack__*",
       "mcp__playwright__*",
       "mcp__todoist__*",
       "mcp__notion__*",
@@ -62,6 +61,9 @@
   },
   "model": "opus",
   "enabledMcpjsonServers": [],
+  "deniedMcpServers": [
+    { "serverUrl": "https://mcp.slack.com/*" }
+  ],
   "hooks": {
     "SessionStart": [
       {
