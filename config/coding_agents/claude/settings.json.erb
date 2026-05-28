@@ -70,25 +70,27 @@
   "model": "opus",
   "enabledMcpjsonServers": [],
 <%
-  # claude.ai connector の serverName は `claude mcp list` 表示通り
-  # `claude.ai <name>` のフルラベルでマッチさせる必要がある（完全一致）。
+  # Match deny rules by serverUrl (with wildcards) instead of serverName.
+  # Claude Code's settings schema constrains serverName to [A-Za-z0-9_-]+,
+  # so labels that contain spaces or dots (e.g. "claude.ai Slack") fail
+  # validation. URLs cover the same connectors without that restriction.
+  # Entries whose host itself reveals internal product names are kept in
+  # config/coding_agents/private/denied_mcp_servers.json.
   public_denied_mcp_servers = [
-    { "serverName" => "claude.ai Slack" },
-    { "serverName" => "claude.ai Canva" },
-    { "serverName" => "claude.ai Heygen" },
-    { "serverName" => "claude.ai Asana" },
-    { "serverName" => "claude.ai ClickUp" },
-    { "serverName" => "claude.ai monday.com" },
-    { "serverName" => "claude.ai Atlassian" },
-    { "serverName" => "claude.ai Atlassian Rovo" },
-    { "serverName" => "claude.ai Microsoft 365" },
-    { "serverName" => "claude.ai Box" },
-    { "serverName" => "claude.ai HubSpot" },
-    { "serverName" => "claude.ai Wiz" },
-    { "serverName" => "claude.ai Zapier" },
-    { "serverName" => "claude.ai Tableau Next MCP Prod V1" },
-    { "serverName" => "claude.ai Tableau MCP" },
-    { "serverName" => "claude.ai ListeningMind" },
+    { "serverUrl" => "https://mcp.slack.com/*" },
+    { "serverUrl" => "https://mcp.canva.com/*" },
+    { "serverUrl" => "https://mcp.heygen.com/*" },
+    { "serverUrl" => "https://mcp.asana.com/*" },
+    { "serverUrl" => "https://mcp.clickup.com/*" },
+    { "serverUrl" => "https://mcp.monday.com/*" },
+    { "serverUrl" => "https://mcp.atlassian.com/*" },
+    { "serverUrl" => "https://microsoft365.mcp.claude.com/*" },
+    { "serverUrl" => "https://mcp.box.com/*" },
+    { "serverUrl" => "https://mcp.hubspot.com/*" },
+    { "serverUrl" => "https://mcp.app.wiz.io/*" },
+    { "serverUrl" => "https://mcp.zapier.com/*" },
+    { "serverUrl" => "https://api.salesforce.com/platform/mcp/v1/analytics/tableau-next*" },
+    { "serverUrl" => "https://listeningmind-service-mcp.ascentlab.io/*" },
   ]
   private_denied_mcp_path = ENV['DOTFILES_PRIVATE_DENIED_MCP_PATH'].to_s
   private_denied_mcp_servers =
