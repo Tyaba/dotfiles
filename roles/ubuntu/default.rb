@@ -20,6 +20,7 @@ include_cookbook 'fzf'
 include_cookbook 'git'
 include_cookbook 'mise'
 include_cookbook 'go'
+include_cookbook 'ssh'
 # 開発系
 include_cookbook 'ripgrep'
 include_cookbook 'emacs'
