@@ -34,7 +34,8 @@
       "mcp__claude_ai_Google_Cloud_BigQuery__*",
       "mcp__claude_ai_Google_Drive__*",
       "mcp__claude_ai_Notion__*",
-      "mcp__claude_ai_SlackDB__*"
+      "mcp__claude_ai_SlackDB__*",
+      "mcp__claude_ai_Slack__*"
     ],
     "deny": [
       "Read(*credentials.json)",
@@ -77,7 +78,6 @@
   # Entries whose host itself reveals internal product names are kept in
   # config/coding_agents/private/denied_mcp_servers.json.
   public_denied_mcp_servers = [
-    { "serverUrl" => "https://mcp.slack.com/*" },
     { "serverUrl" => "https://mcp.canva.com/*" },
     { "serverUrl" => "https://mcp.heygen.com/*" },
     { "serverUrl" => "https://mcp.asana.com/*" },
