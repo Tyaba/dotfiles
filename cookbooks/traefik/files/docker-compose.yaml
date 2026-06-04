@@ -1,0 +1,22 @@
+services:
+  traefik:
+    image: traefik:v3.7
+    container_name: tyaba-proxy-traefik
+    restart: unless-stopped
+    command:
+      - --configFile=/etc/traefik/traefik.yaml
+    ports:
+      - "80:80"
+      - "443:443"
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik.yaml:/etc/traefik/traefik.yaml:ro
+      - ./certs:/certs:ro
+    networks:
+      - tyaba-proxy
+
+networks:
+  tyaba-proxy:
+    external: true
+    name: tyaba-proxy
