@@ -53,6 +53,15 @@ mcp__codex__codex(
 - 同サーバーは **MCP tool call の引数を起動時 config より優先**する設計のため、引数で上書きすれば確実に効く
 - `cwd` は tool 側の sandbox workspace の基点。対象リポジトリのルート絶対パスを渡す（相対パスは MCP サーバーの CWD 基準になり混乱を招く）
 
+### worktree-per-session での cwd 規律とブランチガード
+
+tyaba-env の `mise run claude` は 1 container/repo で session ごとに `.worktrees/<slug>`（branch `claude/<slug>`）を作り、その中で Claude を起動する。**同じ container にメインの checkout（`/workspaces/<repo>`, branch=main/epic）が同居する**ため、cwd の取り違えが「気づかないうちに別ブランチへ書き込む」事故に直結する。devcontainer デフォルトの `danger-full-access` では sandbox が cwd を強制しないので、この規律は運用で担保する。
+
+- **offload 時に `cwd` を worktree の絶対パス（Claude 自身の作業ディレクトリ）で必ず明示する。** Codex は Claude の cwd を継承しない独立プロセスなので、暗黙の継承に頼らない
+- worktree では commit 先ブランチは cwd → worktree HEAD から自動解決されるためブランチ名の指定は不要。ただし **cwd がリポジトリルートに滑ると静かに main/epic へ commit される**
+- Codex の git 操作・Claude の commit は **worktree 内で行う**。`git -C <repo-root>` やルートへの `cd` は避ける
+- **commit 直前にブランチをガードする**: `git rev-parse --abbrev-ref HEAD` が `claude/<slug>` であることを確認してから add/commit する。想定外なら commit せず原因を調べる
+
 ### デフォルト値
 
 - `approval-policy="never"`

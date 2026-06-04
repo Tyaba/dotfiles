@@ -23,11 +23,19 @@
       "WebFetch(*)",
       "WebSearch(*)",
       "mcp__yui__*",
-      "mcp__slack__*",
       "mcp__playwright__*",
       "mcp__todoist__*",
-      "mcp__notion__*",
-      "mcp__codex__*"
+      "mcp__codex__*",
+      "mcp__claude_ai__*",
+      "mcp__claude_ai_Excalidraw__*",
+      "mcp__claude_ai_Figma__*",
+      "mcp__claude_ai_Gmail__*",
+      "mcp__claude_ai_Google_Calendar__*",
+      "mcp__claude_ai_Google_Cloud_BigQuery__*",
+      "mcp__claude_ai_Google_Drive__*",
+      "mcp__claude_ai_Notion__*",
+      "mcp__claude_ai_SlackDB__*",
+      "mcp__claude_ai_Slack__*"
     ],
     "deny": [
       "Read(*credentials.json)",
@@ -62,6 +70,41 @@
   },
   "model": "opus",
   "enabledMcpjsonServers": [],
+<%
+  # Match deny rules by serverUrl (with wildcards) instead of serverName.
+  # Claude Code's settings schema constrains serverName to [A-Za-z0-9_-]+,
+  # so labels that contain spaces or dots (e.g. "claude.ai Slack") fail
+  # validation. URLs cover the same connectors without that restriction.
+  # Entries whose host itself reveals internal product names are kept in
+  # config/coding_agents/private/denied_mcp_servers.json.
+  public_denied_mcp_servers = [
+    { "serverUrl" => "https://mcp.canva.com/*" },
+    { "serverUrl" => "https://mcp.heygen.com/*" },
+    { "serverUrl" => "https://mcp.asana.com/*" },
+    { "serverUrl" => "https://mcp.clickup.com/*" },
+    { "serverUrl" => "https://mcp.monday.com/*" },
+    { "serverUrl" => "https://mcp.atlassian.com/*" },
+    { "serverUrl" => "https://microsoft365.mcp.claude.com/*" },
+    { "serverUrl" => "https://mcp.box.com/*" },
+    { "serverUrl" => "https://mcp.hubspot.com/*" },
+    { "serverUrl" => "https://mcp.app.wiz.io/*" },
+    { "serverUrl" => "https://mcp.zapier.com/*" },
+    { "serverUrl" => "https://api.salesforce.com/platform/mcp/v1/analytics/tableau-next*" },
+    { "serverUrl" => "https://listeningmind-service-mcp.ascentlab.io/*" },
+  ]
+  private_denied_mcp_path = ENV['DOTFILES_PRIVATE_DENIED_MCP_PATH'].to_s
+  private_denied_mcp_servers =
+    if !private_denied_mcp_path.empty? && File.exist?(private_denied_mcp_path)
+      JSON.parse(File.read(private_denied_mcp_path))
+    else
+      []
+    end
+  denied_mcp_servers = public_denied_mcp_servers + private_denied_mcp_servers
+  denied_mcp_lines = denied_mcp_servers.map { |e| "    #{JSON.generate(e)}" }.join(",\n")
+-%>
+  "deniedMcpServers": [
+<%= denied_mcp_lines %>
+  ],
   "hooks": {
     "SessionStart": [
       {

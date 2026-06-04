@@ -106,3 +106,22 @@ execute 'install claude code cli (mise npm backend)' do
   command "mise use -g 'npm:@anthropic-ai/claude-code@latest'"
   not_if 'mise which claude >/dev/null 2>&1'
 end
+
+# Re-run the user-scope MCP sync after the claude CLI is installed.
+#
+# The base role attempts this earlier, but at that point this role has not
+# yet installed `claude` (steps below `include_role 'base'`), so
+# sync-claude-user-mcp.sh exits silently via its `command -v claude` guard.
+# Without this re-run, devcontainers boot with an empty user-scope
+# mcpServers list until the user invokes `claude-sync-mcp` manually.
+#
+# Note: Claude Code's first OAuth login still rewrites ~/.claude.json and
+# may drop user-scope mcpServers. `claude-sync-mcp` remains the documented
+# manual recovery path after onboarding completes.
+sync_user_mcp = File.expand_path('../../../config/coding_agents/sync-claude-user-mcp.sh', __FILE__)
+
+execute 'sync ~/.mcp.json into claude user scope (post claude install)' do
+  command "bash #{sync_user_mcp}"
+  user node[:user] if node[:user]
+  only_if 'command -v claude'
+end

@@ -145,22 +145,8 @@ esac
 
 # ── Layer 3: plan content inspection ──
 
-plan_cmd=("$tf_bin")
-[ -n "$chdir_opt" ] && plan_cmd+=("$chdir_opt")
-if [ "$subcommand" = "destroy" ]; then
-  plan_cmd+=(plan -destroy -json -input=false)
-else
-  plan_cmd+=(plan -json -input=false)
-fi
-plan_cmd+=("${sub_args[@]+"${sub_args[@]}"}")
-
 stderr_file=$(mktemp -t tf-guard-stderr.XXXXXX)
 trap 'rm -f "$stderr_file"' EXIT
-
-if ! plan_output=$("${plan_cmd[@]}" 2>"$stderr_file"); then
-  stderr=$(cat "$stderr_file" 2>/dev/null || true)
-  emit_deny "terraform plan failed. Blocking $subcommand for safety.$([ -n "$stderr" ] && echo " stderr: $stderr")"
-fi
 
 STATEFUL_PATTERNS=(
   "google_bigquery_"
@@ -174,18 +160,79 @@ STATEFUL_PATTERNS=(
 )
 pattern_regex=$(IFS="|"; echo "${STATEFUL_PATTERNS[*]}")
 
-violations=$(echo "$plan_output" \
-  | jq -r '
-    select(.type == "planned_change")
-    | .change
-    | select(.resource)
-    | .resource.resource_type as $type
-    | .resource.resource_name as $name
-    | .action as $action
-    | select($action == "delete" or $action == "replace")
-    | "\($type).\($name) (\($action))"
-  ' 2>/dev/null \
-  | grep -E "$pattern_regex" || true)
+plan_file=""
+if [ "${#sub_args[@]}" -gt 0 ]; then
+  prev_flag_takes_value=false
+  for arg in "${sub_args[@]}"; do
+    if [ "$prev_flag_takes_value" = true ]; then
+      prev_flag_takes_value=false
+      continue
+    fi
+    case "$arg" in
+      -var-file|-state|-state-out|-backup|-target|-var|-replace|-out|-parallelism|-lock-timeout)
+        prev_flag_takes_value=true
+        ;;
+      -*) ;;
+      *)
+        candidate_path="$arg"
+        case "$candidate_path" in
+          /*) ;;
+          *) candidate_path="$tf_cwd/$candidate_path" ;;
+        esac
+        if [ -f "$candidate_path" ]; then
+          plan_file="$arg"
+          break
+        fi
+        ;;
+    esac
+  done
+fi
+
+if [ -n "$plan_file" ]; then
+  show_cmd=("$tf_bin")
+  [ -n "$chdir_opt" ] && show_cmd+=("$chdir_opt")
+  show_cmd+=(show -json "$plan_file")
+
+  if ! plan_output=$("${show_cmd[@]}" 2>"$stderr_file"); then
+    stderr=$(cat "$stderr_file" 2>/dev/null || true)
+    emit_deny "terraform show -json failed for plan file. Blocking $subcommand for safety.$([ -n "$stderr" ] && echo " stderr: $stderr")"
+  fi
+
+  violations=$(echo "$plan_output" \
+    | jq -r '
+      .resource_changes[]?
+      | select(.change.actions[] | . == "delete" or . == "replace")
+      | "\(.type).\(.name) (\(.change.actions | join(",")))"
+    ' 2>/dev/null \
+    | grep -E "$pattern_regex" || true)
+else
+  plan_cmd=("$tf_bin")
+  [ -n "$chdir_opt" ] && plan_cmd+=("$chdir_opt")
+  if [ "$subcommand" = "destroy" ]; then
+    plan_cmd+=(plan -destroy -json -input=false)
+  else
+    plan_cmd+=(plan -json -input=false)
+  fi
+  plan_cmd+=("${sub_args[@]+"${sub_args[@]}"}")
+
+  if ! plan_output=$("${plan_cmd[@]}" 2>"$stderr_file"); then
+    stderr=$(cat "$stderr_file" 2>/dev/null || true)
+    emit_deny "terraform plan failed. Blocking $subcommand for safety.$([ -n "$stderr" ] && echo " stderr: $stderr")"
+  fi
+
+  violations=$(echo "$plan_output" \
+    | jq -r '
+      select(.type == "planned_change")
+      | .change
+      | select(.resource)
+      | .resource.resource_type as $type
+      | .resource.resource_name as $name
+      | .action as $action
+      | select($action == "delete" or $action == "replace")
+      | "\($type).\($name) (\($action))"
+    ' 2>/dev/null \
+    | grep -E "$pattern_regex" || true)
+fi
 
 if [ -n "$violations" ]; then
   reason="Blocked: stateful resource destroy/replace detected in terraform $subcommand plan:"
