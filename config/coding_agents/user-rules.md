@@ -41,6 +41,7 @@
 - MCP を活用した外部サービス連携（yui / Slack / Notion / Todoist 等）
 - **手続き型ワークフローのオーケストレーション**: TDD サイクルのフェーズ進行判断とフェーズ間の検証・コミット、`pr-template` 等のテンプレに沿った PR description 組み立て、DDD レイヤー確認、DB マイグレーション手順管理など。個別フェーズ内のコード変更は Codex に移譲してよい
 - **PR description / commit message 等の文章組み立て**（テンプレ準拠が必要なため Claude が書く）
+- **Codex の疎通が取れない場合**: `mcp__codex__codex` ツールが利用不可な環境 (CI 上の Claude Code Action / 一時的な認証切れ / MCP サーバ障害等)。この場合は Claude 自身が `Edit` / `Write` を直接実行する。コスト要因 (Anthropic API 従量) は発生するが品質縮退ではない
 - ユーザーが明示的に「自分で書いて」と指示したとき
 
 それ以外（バグ調査・修正、テスト作成、lint 修正、ドキュメント生成、単一機能実装、CI 失敗調査、stuck 検知）は Codex。
