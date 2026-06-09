@@ -1,32 +1,25 @@
 proxy_dir = "#{ENV['HOME']}/.tyaba/proxy"
 certs_dir = "#{proxy_dir}/certs"
 
+# install.sh は dotfiles リポジトリ直下を cwd にして mitamae を起動するため、
+# Dir.pwd はリポジトリルートに固定される。これを基点に files/ を参照する。
+# `remote_file` を使わない理由: AD 連携 macOS（CyberAgent 管理機等）では
+# mitamae の chown 実装が getgrgid に失敗して 'UNKNOWN' 文字列を渡し、
+# `chown s17536:UNKNOWN` が 'illegal group name' で確実に失敗するため。
+files_dir = "#{Dir.pwd}/cookbooks/traefik/files"
+
 case node[:platform]
 when 'darwin'
-  directory proxy_dir do
-    owner node[:user] if node[:user]
-    group node[:group] if node[:group]
-    mode '0755'
+  execute "mkdir -p #{certs_dir}" do
+    not_if "test -d #{certs_dir}"
   end
 
-  directory certs_dir do
-    owner node[:user] if node[:user]
-    group node[:group] if node[:group]
-    mode '0755'
+  execute "install -m 0644 #{files_dir}/docker-compose.yaml #{proxy_dir}/docker-compose.yaml" do
+    not_if "cmp -s #{files_dir}/docker-compose.yaml #{proxy_dir}/docker-compose.yaml"
   end
 
-  remote_file "#{proxy_dir}/docker-compose.yaml" do
-    source 'files/docker-compose.yaml'
-    owner node[:user] if node[:user]
-    group node[:group] if node[:group]
-    mode '0644'
-  end
-
-  remote_file "#{proxy_dir}/traefik.yaml" do
-    source 'files/traefik.yaml'
-    owner node[:user] if node[:user]
-    group node[:group] if node[:group]
-    mode '0644'
+  execute "install -m 0644 #{files_dir}/traefik.yaml #{proxy_dir}/traefik.yaml" do
+    not_if "cmp -s #{files_dir}/traefik.yaml #{proxy_dir}/traefik.yaml"
   end
 
   execute 'generate mkcert wildcard certificate for .test' do
