@@ -1,12 +1,12 @@
 proxy_dir = "#{ENV['HOME']}/.tyaba/proxy"
 certs_dir = "#{proxy_dir}/certs"
 
-# install.sh は dotfiles リポジトリ直下を cwd にして mitamae を起動するため、
-# Dir.pwd はリポジトリルートに固定される。これを基点に files/ を参照する。
+# レシピファイル基準で files/ を解決する。Dir.pwd だと install.sh 経由以外の
+# 起動方法（別 cwd から mitamae を直接叩く等）で壊れるため __FILE__ を使う。
 # `remote_file` を使わない理由: AD 連携 macOS（CyberAgent 管理機等）では
 # mitamae の chown 実装が getgrgid に失敗して 'UNKNOWN' 文字列を渡し、
 # `chown s17536:UNKNOWN` が 'illegal group name' で確実に失敗するため。
-files_dir = "#{Dir.pwd}/cookbooks/traefik/files"
+files_dir = File.join(File.dirname(__FILE__), 'files')
 
 case node[:platform]
 when 'darwin'
