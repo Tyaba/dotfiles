@@ -5,27 +5,27 @@ case node[:platform]
 when 'darwin'
   directory proxy_dir do
     owner node[:user] if node[:user]
-    group node[:group] if node[:group]
+    # group node[:group]  # AD-integrated macOS resolves group to "UNKNOWN"; rely on owner only
     mode '0755'
   end
 
   directory certs_dir do
     owner node[:user] if node[:user]
-    group node[:group] if node[:group]
+    # group node[:group]  # AD-integrated macOS resolves group to "UNKNOWN"; rely on owner only
     mode '0755'
   end
 
   remote_file "#{proxy_dir}/docker-compose.yaml" do
     source 'files/docker-compose.yaml'
     owner node[:user] if node[:user]
-    group node[:group] if node[:group]
+    # group node[:group]  # AD-integrated macOS resolves group to "UNKNOWN"; rely on owner only
     mode '0644'
   end
 
   remote_file "#{proxy_dir}/traefik.yaml" do
     source 'files/traefik.yaml'
     owner node[:user] if node[:user]
-    group node[:group] if node[:group]
+    # group node[:group]  # AD-integrated macOS resolves group to "UNKNOWN"; rely on owner only
     mode '0644'
   end
 
