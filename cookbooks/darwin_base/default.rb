@@ -16,9 +16,23 @@ when 'darwin'
     command 'defaults write com.apple.finder AppleShowAllFiles -boolean true'
     not_if 'defaults read com.apple.finder AppleShowAllFiles | test -w 1'
   end
-  execute 'disable live henkan' do
-    command 'defaults write com.apple.inputmethod.Kotoeri JIMPrefLiveConversionKey 0'
-    not_if 'defaults read com.apple.inputmethod.Kotoeri JIMPrefLiveConversionKey | test -w 0'
+  execute 'enable live henkan' do
+    command 'defaults write com.apple.inputmethod.Kotoeri JIMPrefLiveConversionKey 1'
+    not_if 'defaults read com.apple.inputmethod.Kotoeri JIMPrefLiveConversionKey | test -w 1'
+  end
+  execute 'enable japanese romaji input source' do
+    command <<-'EOF'
+      PLIST="$HOME/Library/Preferences/com.apple.HIToolbox.plist"
+      IDX=$(/usr/libexec/PlistBuddy -c "Print :AppleEnabledInputSources" "$PLIST" | grep -cE '^    Dict \{')
+      /usr/libexec/PlistBuddy \
+        -c "Add :AppleEnabledInputSources:$IDX dict" \
+        -c "Add :AppleEnabledInputSources:$IDX:Bundle\\ ID string com.apple.inputmethod.Kotoeri" \
+        -c "Add :AppleEnabledInputSources:$IDX:Input\\ Mode string com.apple.inputmethod.Japanese" \
+        -c "Add :AppleEnabledInputSources:$IDX:InputSourceKind string Input Mode" \
+        "$PLIST"
+      killall cfprefsd
+    EOF
+    not_if 'defaults read com.apple.HIToolbox AppleEnabledInputSources 2>/dev/null | grep -q "com.apple.inputmethod.Kotoeri"'
   end
   execute 'display suffix in finder' do
     command 'defaults write NSGlobalDomain AppleShowAllExtension -bool true'
