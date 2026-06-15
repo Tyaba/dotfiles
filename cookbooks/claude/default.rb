@@ -28,8 +28,9 @@ end
   end
 end
 
-# Codex CLI (used as MCP server via `codex mcp-server`)
-execute 'install codex cli' do
-  command 'npm install -g @openai/codex'
-  not_if 'which codex'
-end
+# Codex CLI (MCP server via `codex mcp-server`) is installed by the mise npm
+# backend declared in config/mise/config.toml.erb, not here. A plain
+# `npm install -g` was fragile: npm globals are per-node-version, so a node bump
+# (e.g. 20 -> 24) orphaned codex while the leftover mise shim let
+# `not_if 'which codex'` skip the reinstall, leaving `codex mcp-server` dead.
+# mise pins codex independently of the active node, surviving node upgrades.
