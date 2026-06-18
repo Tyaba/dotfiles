@@ -16,6 +16,7 @@ include_cookbook 'vlc'
 include_cookbook 'zoom'
 include_cookbook 'xquartz'
 include_cookbook 'linear'
+include_cookbook 'aqua-voice'
 ## 状況把握
 include_cookbook 'htop'
 include_cookbook 'cursor'
