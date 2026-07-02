@@ -4,10 +4,10 @@
 # 分離し、providers.file 経由でロードする。
 tls:
   certificates:
-    - certFile: /certs/_wildcard.test.pem
-      keyFile: /certs/_wildcard.test-key.pem
+    - certFile: /certs/_wildcard.tyaba.test.pem
+      keyFile: /certs/_wildcard.tyaba.test-key.pem
   stores:
     default:
       defaultCertificate:
-        certFile: /certs/_wildcard.test.pem
-        keyFile: /certs/_wildcard.test-key.pem
+        certFile: /certs/_wildcard.tyaba.test.pem
+        keyFile: /certs/_wildcard.tyaba.test-key.pem
