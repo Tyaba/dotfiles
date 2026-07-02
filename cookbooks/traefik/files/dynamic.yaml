@@ -1,0 +1,13 @@
+# Traefik v3 dynamic configuration.
+# tls.certificates / tls.stores / tls.options は Traefik v3 では動的設定にしか
+# 置けない (静的設定に書いても silently 無視される)。static traefik.yaml から
+# 分離し、providers.file 経由でロードする。
+tls:
+  certificates:
+    - certFile: /certs/_wildcard.test.pem
+      keyFile: /certs/_wildcard.test-key.pem
+  stores:
+    default:
+      defaultCertificate:
+        certFile: /certs/_wildcard.test.pem
+        keyFile: /certs/_wildcard.test-key.pem
