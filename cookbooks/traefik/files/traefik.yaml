@@ -20,16 +20,16 @@ entryPoints:
     http:
       tls: {}
 
+# providers.file は dynamic.yaml (tls.certificates / tls.stores) をロードする。
+# Traefik v3 は tls.* を静的設定に置いても silently 無視するので dynamic 側で扱う必要がある。
 providers:
+  file:
+    filename: /etc/traefik/dynamic.yaml
+    watch: true
   docker:
     exposedByDefault: false
     network: tyaba-proxy
     watch: true
-
-tls:
-  certificates:
-    - certFile: /certs/_wildcard.test.pem
-      keyFile: /certs/_wildcard.test-key.pem
 
 log:
   level: INFO

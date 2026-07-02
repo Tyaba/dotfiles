@@ -22,6 +22,13 @@ when 'darwin'
     not_if "cmp -s #{files_dir}/traefik.yaml #{proxy_dir}/traefik.yaml"
   end
 
+  # Traefik v3 は tls.certificates / tls.stores を静的設定に置くと silently
+  # 無視するため、動的設定として dynamic.yaml に分離して providers.file 経由で
+  # ロードする。詳細は cookbooks/traefik/files/traefik.yaml のコメント参照。
+  execute "install -m 0644 #{files_dir}/dynamic.yaml #{proxy_dir}/dynamic.yaml" do
+    not_if "cmp -s #{files_dir}/dynamic.yaml #{proxy_dir}/dynamic.yaml"
+  end
+
   execute 'generate mkcert wildcard certificate for .test' do
     # mkcert は単一ラベル wildcard のみサポート (*.*.test は不可)。
     # tyaba-env 側で fullstack は <slug>-frontend.test / <slug>-backend.test の命名に揃え、
@@ -34,9 +41,13 @@ when 'darwin'
     not_if 'docker network inspect tyaba-proxy >/dev/null 2>&1'
   end
 
+  # `docker compose up -d` は idempotent。docker-compose.yaml / traefik.yaml /
+  # dynamic.yaml のいずれかが変更されると Compose が差分を検知して container を
+  # recreate し、新しい mount / 静的設定を反映する。無変更なら no-op なので
+  # 「running なら skip」の not_if は撤廃した (旧設計だと volume mount 追加が
+  # 既存ユーザに反映されず、今回の TLS バグと同じ落とし穴になる)。
   execute 'docker compose up tyaba proxy' do
     command "docker compose -f #{proxy_dir}/docker-compose.yaml up -d"
-    not_if "docker ps --filter 'name=tyaba-proxy-traefik' --filter 'status=running' --format '{{.Names}}' | grep -q traefik"
   end
 else
   raise NotImplementedError
