@@ -29,12 +29,15 @@ when 'darwin'
     not_if "cmp -s #{files_dir}/dynamic.yaml #{proxy_dir}/dynamic.yaml"
   end
 
-  execute 'generate mkcert wildcard certificate for .test' do
-    # mkcert は単一ラベル wildcard のみサポート (*.*.test は不可)。
-    # tyaba-env 側で fullstack は <slug>-frontend.test / <slug>-backend.test の命名に揃え、
-    # single-service は <slug>.test を使う。すべて *.test 単一 wildcard でカバー。
-    command "cd #{certs_dir} && mkcert -cert-file _wildcard.test.pem -key-file _wildcard.test-key.pem \"*.test\" test"
-    not_if "test -f #{certs_dir}/_wildcard.test.pem"
+  execute 'generate mkcert wildcard certificate for .tyaba.test' do
+    # Chrome / Firefox は「TLD 直下 (2 labels only)」の wildcard を
+    # ERR_CERT_COMMON_NAME_INVALID で拒否するため *.test は使えない。
+    # 3 labels 以上の `*.tyaba.test` に変更し、tyaba-env 側で新規プロジェクトは
+    # <slug>-frontend.tyaba.test / <slug>-backend.tyaba.test / <slug>.tyaba.test
+    # の命名で揃える。dnsmasq は `.test` 全体を 127.0.0.1 に返すので
+    # `.tyaba.test` も追加設定なしで到達する。
+    command "cd #{certs_dir} && mkcert -cert-file _wildcard.tyaba.test.pem -key-file _wildcard.tyaba.test-key.pem \"*.tyaba.test\" tyaba.test"
+    not_if "test -f #{certs_dir}/_wildcard.tyaba.test.pem"
   end
 
   execute 'docker network create tyaba-proxy' do
