@@ -37,7 +37,7 @@ include_cookbook 'emacs'
 include_cookbook 'ghq'
 include_cookbook 'gh'
 include_cookbook 'docker'
-# ローカル開発プロキシ基盤 (*.test の host 名で各 devcontainer の web サーバへアクセス)
+# ローカル開発プロキシ基盤 (*.tyaba.test の host 名で各 devcontainer の web サーバへアクセス)
 include_cookbook 'dnsmasq'
 include_cookbook 'mkcert'
 include_cookbook 'traefik'
