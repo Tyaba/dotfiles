@@ -45,7 +45,7 @@
 - MCP serverのcommandや環境変数はフルパス指定が必要（例: `uvx`→`<%= ENV['HOME'] %>/.local/bin/uvx`）
 - PATH/補完は `.zshrc` 直書きせず `config/.zsh/lib/languages` に集約する
 - PR作成時のAI監査セクションは「変更内容」の直後に配置する
-- Claude Codeのmodel設定は`opus[1m]`、permission modeは`auto`、サブエージェントも`opus`（通常コンテキスト）
+- Claude Codeのmodel設定は`claude-opus-5`、permission modeは`auto`、サブエージェントも`opus`（通常コンテキスト）。`opus`エイリアスはorg default（`orgModelDefaultCache`）に引かれて意図より古いバージョンになるため、mainモデルはバージョンを明示ピンする
 - Claude Codeは`ANTHROPIC_API_KEY`が設定されているとOAuth/EnterpriseよりAPIキー認証が優先され、`/status`のLogin methodが「Claude API Account」になる。Enterpriseサブスク枠とstatusline入力の`rate_limits`（5時間・7日ウィンドウ）はOAuth（`/login`）で意味があり、APIキー主体では空になりやすい
 - `terraform apply` / `terraform destroy` は PreToolUse hook で多層ガード（cwd の env 判定 `dev`/`stg`/`prd`、`git branch` 判定 main/master/release/*、plan 内容に stateful resource [BQ/GCS/SQL/VM/Redis/Spanner/Bigtable/Filestore] の replace/destroy 検出のいずれかでも該当すれば deny）。`echo yes | terraform apply` 等の wrapper は hook 内で剥がされる。hook スクリプトは `config/coding_agents/hooks/terraform-apply-guard.sh`
 - Claude Codeの`gcloud`許可: 読み取り系(describe/list/get-iam-policy/config)と追加系(create/versions add/add-iam-policy-binding)はallow、deleteはdeny
