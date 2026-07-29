@@ -36,6 +36,7 @@ include_cookbook 'ssh'
 include_cookbook 'emacs'
 include_cookbook 'ghq'
 include_cookbook 'gh'
+include_cookbook 'colima'
 include_cookbook 'docker'
 # ローカル開発プロキシ基盤 (*.tyaba.test の host 名で各 devcontainer の web サーバへアクセス)
 include_cookbook 'dnsmasq'

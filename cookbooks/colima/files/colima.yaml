@@ -1,0 +1,28 @@
+# Colima VM configuration. Managed by dotfiles/cookbooks/colima.
+#
+# Reference: https://github.com/abiosoft/colima/blob/main/embedded/defaults/colima.yaml
+#
+# Key choices:
+# - vmType: vz - Apple Virtualization.framework (Apple Silicon 前提, Intel は qemu にフォールバックさせる)
+# - mountType: virtiofs - macOS で最速の file share
+# - mounts: $HOME を writable で expose - tyaba-env の devcontainer が
+#   ~/.config/gcloud (access_tokens.db rotation で書き込み) や
+#   ~/.config/gh を bind mount するために必須
+
+cpu: 12
+memory: 16
+swap: 1
+disk: 128
+
+vmType: vz
+mountType: virtiofs
+
+mounts:
+  - location: "~"
+    writable: true
+  - location: "/tmp/colima"
+    writable: true
+
+docker:
+  features:
+    buildkit: true

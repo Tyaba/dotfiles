@@ -10,7 +10,7 @@ services:
       - "443:443"
       - "127.0.0.1:8080:8080"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ${DOCKER_SOCK:-${HOME}/.colima/default/docker.sock}:/var/run/docker.sock:ro
       - ./traefik.yaml:/etc/traefik/traefik.yaml:ro
       - ./dynamic.yaml:/etc/traefik/dynamic.yaml:ro
       - ./certs:/certs:ro
