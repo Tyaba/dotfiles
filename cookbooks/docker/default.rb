@@ -7,10 +7,14 @@ package 'gnupg'
 case node[:platform]
 when 'darwin'
   # Docker CLI stack via brew formula (not cask). The Docker daemon itself is
-  # provided by colima (see cookbooks/colima). Docker Desktop (cask) is NOT
-  # installed by this recipe; users switching from Docker Desktop should
-  # uninstall it manually with `brew uninstall --cask docker` after verifying
-  # colima works.
+  # provided by colima (see cookbooks/colima). Docker Desktop is NOT installed
+  # by this recipe; users switching from Docker Desktop should uninstall it
+  # after verifying colima works. If Docker Desktop is managed by Homebrew, the
+  # cask token is `docker-desktop` (`brew uninstall --cask docker-desktop`).
+  # Otherwise, run `/Applications/Docker.app/Contents/MacOS/uninstall`; it may
+  # stop with a TCC-protected container metadata error after the important
+  # cleanup has completed. Run `rm -rf /Applications/Docker.app` separately
+  # afterwards (no sudo required for a user-owned app), not chained with `&&`.
   execute 'brew install docker' do
     command 'brew install docker'
     not_if 'brew list docker >/dev/null 2>&1'
@@ -113,7 +117,16 @@ PY
   # once colima has been verified working. Not auto-uninstalled to avoid
   # surprising users mid-session.
   execute 'warn about lingering Docker Desktop' do
-    command 'echo "[dotfiles/docker] WARNING: Docker Desktop (/Applications/Docker.app) is still installed. After verifying colima works, run: brew uninstall --cask docker. Re-run this recipe after uninstalling Docker Desktop to remove stale ~/.docker/cli-plugins symlinks automatically." >&2'
+    command <<-EOF
+      if brew list --cask docker-desktop >/dev/null 2>&1; then
+        echo "[dotfiles/docker] WARNING: Docker Desktop (/Applications/Docker.app) is still installed. After verifying colima works, run: brew uninstall --cask docker-desktop. Re-run this recipe after uninstalling Docker Desktop to remove stale ~/.docker/cli-plugins symlinks automatically." >&2
+      else
+        echo "[dotfiles/docker] WARNING: Docker Desktop (/Applications/Docker.app) is still installed outside Homebrew cask management. After verifying colima works, run these commands separately:" >&2
+        echo "  /Applications/Docker.app/Contents/MacOS/uninstall" >&2
+        echo "  rm -rf /Applications/Docker.app" >&2
+        echo "Re-run this recipe after uninstalling Docker Desktop to remove stale ~/.docker/cli-plugins symlinks automatically." >&2
+      fi
+      EOF
     only_if 'test -d /Applications/Docker.app'
   end
 when 'ubuntu', 'debian'
