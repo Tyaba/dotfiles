@@ -14,6 +14,10 @@ memory: 16
 swap: 1
 disk: 128
 
+# ~/.colima/_templates/default.yaml は新規インスタンス作成時に完全な設定として扱われる。
+# 省略した項目が Colima の embedded defaults ではなくゼロ値になる場合があるため明示する。
+runtime: docker
+
 vmType: vz
 mountType: virtiofs
 
