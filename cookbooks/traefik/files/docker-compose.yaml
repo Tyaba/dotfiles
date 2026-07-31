@@ -10,7 +10,9 @@ services:
       - "443:443"
       - "127.0.0.1:8080:8080"
     volumes:
-      - ${DOCKER_SOCK:-${HOME}/.colima/default/docker.sock}:/var/run/docker.sock:ro
+      # Bind-mount sources are resolved by the Docker daemon filesystem, not by the host CLI.
+      # Use the daemon-local socket path; host-side Colima socket forwarders are not valid mount sources.
+      - ${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock:ro
       - ./traefik.yaml:/etc/traefik/traefik.yaml:ro
       - ./dynamic.yaml:/etc/traefik/dynamic.yaml:ro
       - ./certs:/certs:ro
