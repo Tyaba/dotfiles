@@ -16,10 +16,12 @@ export PATH="/opt/homebrew/lib/ruby/gems/3.2.0/bin:$PATH"
 # export OPENBLAS=$(/opt/homebrew/bin/brew --prefix openblas)
 export CFLAGS="-falign-functions=8 ${CFLAGS}"
 
-# LIMA
-#export DOCKER_HOST=unix://${HOME}/.lima/docker/sock/docker.sock
-export DOCKER_HOST=unix:///var/run/docker.sock
-export LIMA_INSTANCE=docker
+# Colima (Docker daemon on macOS via Lima VM)
+# ~/.colima/default/docker.sock is created by `colima start`.
+# `docker context use colima` sets this automatically, but we export it
+# explicitly so tools that don't consult docker contexts (e.g. some CI
+# helpers, devcontainer CLI in edge cases) still find the daemon.
+export DOCKER_HOST=unix://${HOME}/.colima/default/docker.sock
 
 # GNU sed
 alias sed=gsed

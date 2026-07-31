@@ -6,11 +6,29 @@ package 'gnupg'
 
 case node[:platform]
 when 'darwin'
-  execute 'brew install docker-slim' do
-    not_if 'which slim'
+  # Docker CLI stack via brew formula (not cask). The Docker daemon itself is
+  # provided by colima (see cookbooks/colima). Docker Desktop (cask) is NOT
+  # installed by this recipe; users switching from Docker Desktop should
+  # uninstall it manually with `brew uninstall --cask docker` after verifying
+  # colima works.
+  execute 'brew install docker' do
+    command 'brew install docker'
+    not_if 'brew list docker >/dev/null 2>&1'
   end
-  execute 'brew install --cask docker' do
-    not_if 'test -d /Applications/Docker.app'
+  execute 'brew install docker-compose' do
+    command 'brew install docker-compose'
+    not_if 'brew list docker-compose >/dev/null 2>&1'
+  end
+  execute 'brew install docker-buildx' do
+    command 'brew install docker-buildx'
+    not_if 'brew list docker-buildx >/dev/null 2>&1'
+  end
+  # Warn if Docker Desktop is still installed - remind user to uninstall it
+  # once colima has been verified working. Not auto-uninstalled to avoid
+  # surprising users mid-session.
+  execute 'warn about lingering Docker Desktop' do
+    command 'echo "[dotfiles/docker] WARNING: Docker Desktop (/Applications/Docker.app) is still installed. After verifying colima works, run: brew uninstall --cask docker" >&2'
+    only_if 'test -d /Applications/Docker.app'
   end
 when 'ubuntu', 'debian'
   execute 'sudo mkdir -p /etc/apt/keyrings' do
