@@ -21,6 +21,14 @@ if ! command -v claude >/dev/null 2>&1; then
   exit 0
 fi
 
+# Treat a broken claude command the same as a missing one. mise's npm backend
+# can leave Claude Code's native binary as a placeholder, and letting later
+# `claude mcp ...` calls fail under set -e would abort the whole provisioning.
+if ! claude --version >/dev/null 2>&1; then
+  log "warning: claude command found but cannot start; skipping"
+  exit 0
+fi
+
 if ! command -v jq >/dev/null 2>&1; then
   log "warning: jq command not found; skipping"
   exit 0

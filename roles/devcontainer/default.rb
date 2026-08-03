@@ -107,6 +107,40 @@ execute 'install claude code cli (mise npm backend)' do
   not_if 'mise which claude >/dev/null 2>&1'
 end
 
+# mise's npm backend currently does not run npm lifecycle scripts. Claude Code
+# materializes its platform-native binary from an optional dependency during
+# postinstall, so the mise install can be present while `claude` still aborts
+# on the placeholder binary. If mise starts running lifecycle scripts in the
+# future, `claude --version` will succeed and this resource naturally becomes
+# a no-op.
+#
+# Run this as the configured workspace user because the mise npm install is
+# user-scoped; in devcontainers it lives under /home/vscode/.local/share/mise,
+# and install.cjs rewrites files inside that user-writable tree.
+# Use mise exec in the guard as well: mitamae execute runs with a minimal PATH
+# after user switching, so `claude` is not always directly resolvable there.
+# Do not search under node_modules/.mise: entries there are symlinks into the
+# aube virtual-store. Use npm's stable package path instead, which should
+# remain valid even if mise changes its internal store layout.
+execute 'materialize claude code native binary (mise npm backend postinstall)' do
+  command <<~SH
+    set -eu
+
+    install_root="$(mise where npm:@anthropic-ai/claude-code)"
+    package_dir="$install_root/node_modules/@anthropic-ai/claude-code"
+
+    if [ ! -e "$package_dir/install.cjs" ]; then
+      echo "Claude Code postinstall script not found: $package_dir/install.cjs" >&2
+      exit 1
+    fi
+
+    cd "$package_dir"
+    mise exec -- node install.cjs
+  SH
+  user node[:user] if node[:user]
+  not_if 'mise exec -- claude --version >/dev/null 2>&1'
+end
+
 # Re-run the user-scope MCP sync after the claude CLI is installed.
 #
 # The base role attempts this earlier, but at that point this role has not
