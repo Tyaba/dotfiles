@@ -57,7 +57,7 @@ DOTFILES_ROLE=devcontainer ./install.sh
 
 ### mise managed tools
 
-`cookbooks/mise/default.rb` installs mise via the official curl installer, deploys `config/mise/config.toml.erb` to `~/.config/mise/config.toml`, and runs `mise install` from that config.
+`cookbooks/mise/default.rb` installs mise via the official curl installer, deploys `config/mise/config.toml.erb` to `~/.config/mise/config.toml`, and runs `mise install` from that config. The mise config trusts the normal project roots (`~/ghq`, `/workspaces`) so MCP servers launched through mise shims keep working from git worktrees.
 
 ```mermaid
 flowchart TD
@@ -99,18 +99,35 @@ config/
 
 After rendering `~/.mcp.json`, `roles/base/default.rb` runs
 `config/coding_agents/sync-claude-user-mcp.sh`. The script reads the rendered MCP
-definitions and registers them with `claude mcp add --scope user`, so Claude Code
-also sees them in devcontainers where `/workspaces/<name>` is outside `$HOME`.
+definitions and registers them with `claude mcp add --scope user`, then prunes
+user-scoped servers removed from the template. Claude Code also sees the synced
+servers in devcontainers where `/workspaces/<name>` is outside `$HOME`. The Git
+MCP server is intentionally omitted because regular shell `git` covers the use case.
 
 ```mermaid
 flowchart TD
     A[config/coding_agents/mcp.json.erb] --> B[Render ~/.mcp.json]
     A --> C[Render ~/.cursor/mcp.json]
     B --> D[sync-claude-user-mcp.sh]
-    D --> E[claude mcp add --scope user]
+    D --> E[claude mcp add/remove --scope user]
     E --> F[~/.claude.json top-level mcpServers]
     F --> G[Claude Code reads MCP servers independent of cwd]
     C --> H[Cursor and cwd-ancestor clients]
+```
+
+### Yui MCP proxy
+
+On macOS, `cookbooks/yui/default.rb` deploys a LaunchAgent for the Cloud Run proxy.
+The plist sets `CLOUDSDK_PYTHON` explicitly because launchd does not inherit zsh
+exports from `config/.zsh/lib/apps`; plist updates trigger an immediate unload/load
+so the running job uses the latest definition.
+
+```mermaid
+flowchart TD
+    A[cookbooks/yui/default.rb] --> B[Render LaunchAgent plist]
+    B --> C[Set CLOUDSDK_PYTHON for gcloud]
+    B --> D[Notify launchctl reload when plist changes]
+    D --> E[yui backend proxy serves MCP bridge]
 ```
 
 ### Codex Offload (via MCP server)

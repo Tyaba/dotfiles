@@ -14,6 +14,11 @@ go = "latest"
 [settings]
 experimental = true
 legacy_version_file_disable_tools = ["terraform", "packer"]
+# MCP servers launched through mise shims (playwright/yui) may start from git worktrees.
+# mise trust is path-scoped, so each new worktree exposes a new .mise.toml path and
+# is rejected before the server can start. Trust the normal clone roots instead.
+# Trade-off: mise configs in third-party repositories cloned under these paths are also trusted.
+trusted_config_paths = ["~/ghq", "/workspaces"]
 
 [settings.python]
 compile = true
