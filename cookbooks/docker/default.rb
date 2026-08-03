@@ -23,11 +23,97 @@ when 'darwin'
     command 'brew install docker-buildx'
     not_if 'brew list docker-buildx >/dev/null 2>&1'
   end
+  execute 'brew install docker-credential-helper' do
+    command 'brew install docker-credential-helper'
+    not_if 'brew list docker-credential-helper >/dev/null 2>&1'
+  end
+  # Homebrew installs Docker CLI plugins outside the default Docker CLI plugin
+  # search paths. Register the brew plugin directory while preserving existing
+  # Docker Desktop and docker login settings in config.json.
+  execute 'configure docker cli plugins and credentials' do
+    command <<-EOF
+set -eu
+mkdir -p "$HOME/.docker"
+plugin_dir="$(brew --prefix)/lib/docker/cli-plugins"
+config_path="$HOME/.docker/config.json"
+export DOCKER_CLI_PLUGIN_DIR="$plugin_dir"
+export DOCKER_CONFIG_PATH="$config_path"
+python3 <<'PY'
+import json
+import os
+from pathlib import Path
+
+path = Path(os.environ["DOCKER_CONFIG_PATH"])
+plugin_dir = os.environ["DOCKER_CLI_PLUGIN_DIR"]
+
+if path.exists():
+    with path.open() as f:
+        data = json.load(f)
+else:
+    data = {}
+
+if not isinstance(data, dict):
+    raise SystemExit(f"{path} must contain a JSON object")
+
+dirs = data.get("cliPluginsExtraDirs")
+if not isinstance(dirs, list):
+    dirs = []
+
+if plugin_dir not in dirs:
+    dirs.append(plugin_dir)
+
+data["cliPluginsExtraDirs"] = dirs
+data["credsStore"] = "osxkeychain"
+
+tmp_path = path.with_name(path.name + ".tmp")
+with tmp_path.open("w") as f:
+    json.dump(data, f, indent=2)
+    f.write("\\n")
+
+tmp_path.replace(path)
+PY
+    EOF
+    not_if <<-EOF
+plugin_dir="$(brew --prefix)/lib/docker/cli-plugins"
+config_path="$HOME/.docker/config.json"
+test -f "$config_path" && DOCKER_CLI_PLUGIN_DIR="$plugin_dir" DOCKER_CONFIG_PATH="$config_path" python3 <<'PY'
+import json
+import os
+import sys
+from pathlib import Path
+
+path = Path(os.environ["DOCKER_CONFIG_PATH"])
+plugin_dir = os.environ["DOCKER_CLI_PLUGIN_DIR"]
+
+try:
+    with path.open() as f:
+        data = json.load(f)
+except (OSError, json.JSONDecodeError):
+    sys.exit(1)
+
+dirs = data.get("cliPluginsExtraDirs")
+if (
+    isinstance(data, dict)
+    and isinstance(dirs, list)
+    and plugin_dir in dirs
+    and data.get("credsStore") == "osxkeychain"
+):
+    sys.exit(0)
+
+sys.exit(1)
+PY
+    EOF
+  end
+  execute 'remove dangling docker cli plugin symlinks' do
+    command 'find "$HOME/.docker/cli-plugins" -type l ! -exec test -e {} \; -exec rm -f {} +'
+    only_if '! test -d /Applications/Docker.app'
+    not_if 'test ! -d "$HOME/.docker/cli-plugins" || ! find "$HOME/.docker/cli-plugins" -type l ! -exec test -e {} \; -print -quit | grep -q .'
+  end
   # Warn if Docker Desktop is still installed - remind user to uninstall it
   # once colima has been verified working. Not auto-uninstalled to avoid
   # surprising users mid-session.
   execute 'warn about lingering Docker Desktop' do
-    command 'echo "[dotfiles/docker] WARNING: Docker Desktop (/Applications/Docker.app) is still installed. After verifying colima works, run: brew uninstall --cask docker" >&2'
+    command 'echo "[dotfiles/docker] WARNING: Docker Desktop (/Applications/Docker.app) is still installed. After verifying colima works, run: brew uninstall --cask docker. Re-run this recipe after uninstalling Docker Desktop to remove stale ~/.docker/cli-plugins symlinks automatically." >&2'
     only_if 'test -d /Applications/Docker.app'
   end
 when 'ubuntu', 'debian'
