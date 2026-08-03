@@ -1,9 +1,5 @@
 {
   "mcpServers": {
-    "git": {
-      "command": "<%= ENV['HOME'] %>/<%= ENV['DOTFILES_ROLE'] == 'devcontainer' ? '.local/share/mise/shims/uvx' : '.local/bin/uvx' %>",
-      "args": ["mcp-server-git"]
-    },
     "playwright": {
       "command": "<%= ENV['HOME'] %>/.local/share/mise/shims/npx",
       "args": [
