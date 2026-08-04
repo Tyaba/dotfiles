@@ -48,6 +48,7 @@
 - CursorのbundleIDは`com.todesktop.230313mzl4w4u92`、Ghosttyは`com.mitchellh.ghostty`。いずれもKarabiner除外リストに含める
 - Cursorでは`lfs.vscode-emacs-friendly`拡張でEmacsキーバインドを使用。`C-x C-c`はエディタ開→タブ閉じ、全閉じ→ウィンドウ閉じの2段階動作（`keybindings.json`で設定）。closeWindowの条件に`!multipleEditorGroups`を含めるとチャットパネル等で不成立になるため削除済み
 - MCP serverのcommandや環境変数はフルパス指定が必要（例: `uvx`→`<%= ENV['HOME'] %>/.local/bin/uvx`）
+- `claude mcp add` の `-H, --header <header...>` は **variadic option**。次の option が来るまで引数を食い続けるため、位置引数 `<name> <commandOrUrl>` より**前**に置くと両方を飲み込んで `error: missing required argument 'name'` になる。`sync-claude-user-mcp.sh` では `--header` を必ず name/url の**後ろ**に置く。同スクリプトは `set -euo pipefail` かつ `execute` リソース経由なので、ここで落ちると `./install.sh` 全体が中断する（PR #64 と同じ連鎖故障）。macOS の bash は 3.2 のみで空配列の `${arr[@]}` が `set -u` 違反になるため、ヘッダ有無で分岐する形は維持が必要
 - PATH/補完は `.zshrc` 直書きせず `config/.zsh/lib/languages` に集約する
 - PR作成時のAI監査セクションは「変更内容」の直後に配置する
 - Claude Codeのmodel設定は`claude-opus-5`、permission modeは`auto`、サブエージェントも`opus`（通常コンテキスト）。`opus`エイリアスはorg default（`orgModelDefaultCache`）に引かれて意図より古いバージョンになるため、mainモデルはバージョンを明示ピンする

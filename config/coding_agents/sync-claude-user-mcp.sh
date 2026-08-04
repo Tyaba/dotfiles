@@ -76,8 +76,12 @@ while IFS= read -r row; do
         header_args+=(--header "$header")
       done < <(echo "$row" | base64 --decode | jq -r '.value.headers // {} | to_entries[] | "\(.key): \(.value)"')
 
+      # --header is a variadic option (`-H, --header <header...>`), so it keeps
+      # consuming arguments until the next option. Passing it before <name>
+      # <commandOrUrl> makes it swallow both positionals and the add fails with
+      # "missing required argument 'name'". It has to come last.
       if [ ${#header_args[@]} -gt 0 ]; then
-        claude mcp add --scope user --transport "$type" "${header_args[@]}" "$name" "$url" >/dev/null
+        claude mcp add --scope user --transport "$type" "$name" "$url" "${header_args[@]}" >/dev/null
       else
         claude mcp add --scope user --transport "$type" "$name" "$url" >/dev/null
       fi
