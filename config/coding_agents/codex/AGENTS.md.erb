@@ -1,38 +1,38 @@
-# Global AGENTS.md for Codex
+# Codex 用グローバル AGENTS.md
 
-## Language
+## 言語
 
-Respond in 日本語.
+日本語で応答する。
 
-## Working Agreements
+## 作業上の取り決め
 
 <% if ENV['DOTFILES_ROLE'] == 'devcontainer' -%>
-- The agent may commit, push, and open PRs on its own. Human review happens at the PR stage.
+- エージェントは自身の判断で commit / push / PR 作成を行ってよい。人間のレビューは PR の段階で入る。
 <% else -%>
-- Do not commit, push, or open PRs unless the user explicitly asks.
+- ユーザーが明示的に依頼しない限り、commit / push / PR 作成を行わない。
 <% end -%>
-- Do not delete cloud resources directly (BigQuery, Cloud Storage, Database instances, VM instances, etc.). Always follow: backup -> verify -> delete.
-- Do not add comments that just narrate what the code does. Comments should only explain non-obvious intent, trade-offs, or constraints.
+- クラウドリソース（BigQuery / Cloud Storage / データベースインスタンス / VM インスタンス等）を直接削除しない。必ず バックアップ → 検証 → 削除 の順で進める。
+- コードの動作をそのまま説明するだけのコメントを書かない。コメントは自明でない意図・トレードオフ・制約だけを説明する。
 
-## Language & Framework Rules
+## 言語 / フレームワーク別ルール
 
 ### Python
-- Use `uv` for running Python and managing packages.
-- Use `pytest` for tests (not unittest). Use pytest mock (not unittest.mock).
-- Use `ruff` for linting and formatting.
-- Use `ty` for type checking.
+- Python の実行とパッケージ管理には `uv` を使う。
+- テストは `pytest` を使う（unittest ではない）。モックは pytest mock を使う（unittest.mock ではない）。
+- lint と format には `ruff` を使う。
+- 型チェックには `ty` を使う。
 
-### Frontend (TypeScript / React / Next.js)
-- Use `pnpm` for package management.
-- Use `Biome` for linting and formatting.
-- Use `Vitest` for unit tests, `Playwright` for E2E tests.
+### フロントエンド (TypeScript / React / Next.js)
+- パッケージ管理には `pnpm` を使う。
+- lint と format には `Biome` を使う。
+- ユニットテストは `Vitest`、E2E テストは `Playwright` を使う。
 
-### Infrastructure
-- Use `Terraform` for IaC.
-- `terraform apply` / `terraform destroy` are gated by a PreToolUse hook
-  (`~/.claude/hooks/terraform-apply-guard.sh`). The hook denies when:
-  cwd / workspace is `prd`, current branch is `main`/`master`/`release/*`,
-  or the plan would destroy/replace a stateful resource
-  (BigQuery / GCS / Cloud SQL / Compute / Redis / Spanner / Bigtable / Filestore).
-  Otherwise the hook auto-approves. Do not try to bypass the hook
-  (e.g. `echo yes | terraform apply` is stripped before evaluation).
+### インフラ
+- IaC には `Terraform` を使う。
+- `terraform apply` / `terraform destroy` は PreToolUse フック
+  (`~/.claude/hooks/terraform-apply-guard.sh`) でゲートされている。フックが拒否するのは次の場合:
+  cwd / ワークスペースが `prd` である、現在のブランチが `main` / `master` / `release/*` である、
+  または plan が stateful なリソースを破棄・置換する
+  (BigQuery / GCS / Cloud SQL / Compute / Redis / Spanner / Bigtable / Filestore)。
+  それ以外はフックが自動承認する。フックを回避しようとしないこと
+  (`echo yes | terraform apply` のような書き方は評価前に除去される)。
