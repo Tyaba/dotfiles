@@ -19,6 +19,11 @@ writable_roots = ["<%= ENV['HOME'] %>/ghq"]
 network_access = true
 <% end -%>
 
+<%- context7_api_key = ENV['CONTEXT7_API_KEY'].to_s.strip -%>
 [mcp_servers.context7]
 command = "<%= ENV['HOME'] %>/.local/share/mise/shims/npx"
 args = ["-y", "@upstash/context7-mcp"]
+<% unless context7_api_key.empty? -%>
+# API key は args ではなく env で渡す。args だと `ps` に鍵が露出する
+env = { CONTEXT7_API_KEY = "<%= context7_api_key %>" }
+<% end -%>

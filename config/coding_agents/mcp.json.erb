@@ -16,9 +16,17 @@
 <%- yui_host = ENV['DOTFILES_ROLE'] == 'devcontainer' ? 'host.docker.internal' : 'localhost' -%>
       "args": ["-y", "supergateway", "--streamableHttp", "http://<%= yui_host %>:52981/mcp"]
     },
+<%- context7_api_key = ENV['CONTEXT7_API_KEY'].to_s.strip -%>
     "context7": {
       "type": "http",
+<%- if context7_api_key.empty? -%>
       "url": "https://mcp.context7.com/mcp"
+<%- else -%>
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "Authorization": "Bearer <%= context7_api_key %>"
+      }
+<%- end -%>
     },
     "codex": {
       "command": "codex",

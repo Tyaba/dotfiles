@@ -81,9 +81,76 @@ config/
     ├── cursor/             # Cursor-specific (rules/, hooks.json)
     ├── hooks/              # Shared hooks
     ├── skills/             # Shared skills
+    ├── private/            # Git-ignored secrets (secrets.env, denied_mcp_servers.json)
     ├── mcp.json.erb        # MCP server definitions (ERB template)
     ├── sync-claude-user-mcp.sh
     └── user-rules.md       # Shared user rules (Claude Code / Cursor)
+```
+
+### Secrets
+
+API keys are never committed. `lib/secrets.rb` resolves them into `ENV` before
+`roles/base/default.rb` renders the agent templates, so `mcp.json.erb` and
+`codex/config.toml.erb` can embed the values. Resolution order per key, first
+hit wins:
+
+| Tier | Source | Available where |
+|---|---|---|
+| 1 | An already-exported environment variable | everywhere (escape hatch, CI override) |
+| 2 | `config/coding_agents/private/secrets.env` | host only, git-ignored, offline |
+| 3 | GCP Secret Manager | host and devcontainer |
+
+Tier 3 is the source of truth and needs no per-machine setup — a fresh Mac or a
+rebuilt devcontainer picks up the keys from `./install.sh` alone. Add a key with:
+
+```shell
+gcloud_configuration="${DOTFILES_GCLOUD_CONFIGURATION:-good}"
+gcloud_project="${DOTFILES_GCP_PROJECT:-$(CLOUDSDK_ACTIVE_CONFIG_NAME="$gcloud_configuration" \
+  gcloud config configurations describe "$gcloud_configuration" \
+    --format='value(properties.core.project)')}"
+read -rs CONTEXT7_API_KEY   # paste, then Enter (nothing is echoed)
+printf '%s' "$CONTEXT7_API_KEY" | CLOUDSDK_ACTIVE_CONFIG_NAME="$gcloud_configuration" \
+  gcloud secrets create context7-api-key \
+    --project="$gcloud_project" \
+    --replication-policy=automatic --data-file=-
+```
+
+Use `printf`, not `echo`: a trailing newline in the secret would corrupt the
+`Authorization` header. Rotate with `gcloud secrets versions add` instead of
+`create`. Register the `ENV var -> secret name` mapping in the `gcp_secrets`
+hash at the top of `lib/secrets.rb`.
+
+The GCP project id is read from a named gcloud configuration rather than
+hardcoded, because this repository is public. The configuration defaults to
+`good`, can be overridden with `DOTFILES_GCLOUD_CONFIGURATION`, and is passed via
+`CLOUDSDK_ACTIVE_CONFIG_NAME` so both the project and authentication account are
+pinned regardless of the active configuration. `DOTFILES_GCP_PROJECT` overrides
+the project id directly. `~/.config/gcloud` is bind-mounted into devcontainers,
+so the same pinned lookup resolves there.
+
+Tier 2 stays useful for keys that do not belong in Secret Manager, or to work
+offline. One `KEY=value` per line (`export ` prefixes and quotes are tolerated):
+
+```shell
+mkdir -p config/coding_agents/private
+echo 'CONTEXT7_API_KEY=ctx7sk-...' >> config/coding_agents/private/secrets.env
+```
+
+Nothing here is fatal. When every tier misses, `lib/secrets.rb` logs a `WARN`
+and the templates omit the credential — the MCP server falls back to
+unauthenticated, rate-limited access. Watch for that warning after a
+`gcloud auth login` expires, since the render will quietly replace a working
+`~/.mcp.json` with a credential-less one.
+
+```mermaid
+flowchart TD
+    A["1. exported ENV var"] --> D[lib/secrets.rb]
+    B["2. private/secrets.env<br/>(git-ignored, host only)"] --> D
+    C["3. GCP Secret Manager<br/>via ~/.config/gcloud"] --> D
+    D --> E["~/.mcp.json<br/>Authorization: Bearer"]
+    D --> F["~/.codex/config.toml<br/>env table"]
+    E --> G[sync-claude-user-mcp.sh]
+    G --> H["~/.claude.json user scope<br/>--header preserved"]
 ```
 
 ### Deployment
@@ -117,17 +184,30 @@ flowchart TD
 
 ### Yui MCP proxy
 
-On macOS, `cookbooks/yui/default.rb` deploys a LaunchAgent for the Cloud Run proxy.
-The plist sets `CLOUDSDK_PYTHON` explicitly because launchd does not inherit zsh
-exports from `config/.zsh/lib/apps`; plist updates trigger an immediate unload/load
-so the running job uses the latest definition.
+`cookbooks/yui/default.rb` deploys the Cloud Run proxy as a macOS LaunchAgent or
+Linux systemd user service. The unit definitions do not hardcode a GCP project ID;
+they set `CLOUDSDK_ACTIVE_CONFIG_NAME` so gcloud resolves the project from that
+named configuration instead of the mutable active configuration. Override the
+configuration with `DOTFILES_GCLOUD_CONFIGURATION`; the default is `good`.
+
+The macOS plist still sets `CLOUDSDK_PYTHON` explicitly because launchd does not
+inherit zsh exports from `config/.zsh/lib/apps`. Unit updates trigger an immediate
+reload so the running job uses the latest definition.
 
 ```mermaid
 flowchart TD
-    A[cookbooks/yui/default.rb] --> B[Render LaunchAgent plist]
-    B --> C[Set CLOUDSDK_PYTHON for gcloud]
-    B --> D[Notify launchctl reload when plist changes]
-    D --> E[yui backend proxy serves MCP bridge]
+    A[cookbooks/yui/default.rb] --> B[lib/gcloud.rb]
+    B --> C[DOTFILES_GCLOUD_CONFIGURATION default: good]
+    C --> D{Platform}
+    D -->|macOS| E[Render LaunchAgent plist]
+    D -->|Linux| F[Render systemd user service]
+    E --> G[Set CLOUDSDK_ACTIVE_CONFIG_NAME]
+    F --> G
+    E --> H[Set CLOUDSDK_PYTHON for launchd]
+    G --> I[gcloud resolves core/project from named configuration]
+    H --> J[Reload changed unit]
+    I --> J
+    J --> K[yui backend proxy serves MCP bridge]
 ```
 
 ### Codex Offload (via MCP server)
