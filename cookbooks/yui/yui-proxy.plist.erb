@@ -12,13 +12,14 @@
         <string>proxy</string>
         <string>yui-backend</string>
         <string>--region=asia-northeast1</string>
-        <string>--project=aitech-good-s17536</string>
         <string>--port=<%= @port %></string>
     </array>
     <key>EnvironmentVariables</key>
     <dict>
         <key>CLOUDSDK_PYTHON</key>
         <string><%= @cloudsdk_python %></string>
+        <key>CLOUDSDK_ACTIVE_CONFIG_NAME</key>
+        <string><%= @gcloud_configuration %></string>
     </dict>
     <key>RunAtLoad</key>
     <false/>

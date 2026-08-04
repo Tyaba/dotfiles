@@ -1,3 +1,8 @@
+root_dir = File.expand_path('../..', File.dirname(__FILE__))
+include_recipe File.join(root_dir, 'lib/gcloud.rb')
+
+gcloud_configuration = ENV['DOTFILES_GCLOUD_CONFIGURATION']
+
 case node[:platform]
 when 'darwin'
   plist_name = 'com.tepein.yui-proxy'
@@ -11,13 +16,14 @@ when 'darwin'
   end
 
   template plist_path do
-    source File.join(File.dirname(__FILE__), 'yui-proxy.plist.erb')
+    source File.expand_path('yui-proxy.plist.erb', File.dirname(__FILE__))
     user node[:user]
     mode '0644'
     variables(
       label: plist_name,
       gcloud: gcloud_path,
       cloudsdk_python: cloudsdk_python,
+      gcloud_configuration: gcloud_configuration,
       port: 52981,
     )
     notifies :run, "execute[reload #{plist_name}]", :immediately
@@ -29,10 +35,19 @@ when 'darwin'
 else
   service_path = "#{ENV['HOME']}/.config/systemd/user/yui-proxy.service"
 
-  remote_file service_path do
-    source File.join(File.dirname(__FILE__), 'files/yui-proxy.service')
-    owner node[:user]
+  execute 'reload yui-proxy user service' do
+    command 'systemctl --user daemon-reload && systemctl --user restart yui-proxy'
+    action :nothing
+  end
+
+  template service_path do
+    source File.expand_path('yui-proxy.service.erb', File.dirname(__FILE__))
+    user node[:user]
     mode '0644'
+    variables(
+      gcloud_configuration: gcloud_configuration,
+    )
+    notifies :run, 'execute[reload yui-proxy user service]', :immediately
   end
 
   link "#{ENV['HOME']}/.config/systemd/user/default.target.wants/yui-proxy.service" do

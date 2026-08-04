@@ -66,7 +66,21 @@ while IFS= read -r row; do
   case "$type" in
     http|sse)
       url=$(decode '.value.url')
-      claude mcp add --scope user --transport "$type" "$name" "$url" >/dev/null
+
+      # Carry over any "headers" object (e.g. context7's Authorization: Bearer).
+      # Without this the user-scope entry loses its credentials and the server
+      # silently falls back to unauthenticated (rate-limited) access.
+      header_args=()
+      while IFS= read -r header; do
+        [ -z "$header" ] && continue
+        header_args+=(--header "$header")
+      done < <(echo "$row" | base64 --decode | jq -r '.value.headers // {} | to_entries[] | "\(.key): \(.value)"')
+
+      if [ ${#header_args[@]} -gt 0 ]; then
+        claude mcp add --scope user --transport "$type" "${header_args[@]}" "$name" "$url" >/dev/null
+      else
+        claude mcp add --scope user --transport "$type" "$name" "$url" >/dev/null
+      fi
       ;;
     stdio)
       cmd=$(decode '.value.command')

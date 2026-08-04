@@ -13,6 +13,11 @@ end
 root_dir = File.expand_path('../../..', __FILE__)
 include_recipe File.join(root_dir, 'lib', 'helper')
 
+# Exports API keys into ENV for the coding-agent templates rendered below
+# (~/.mcp.json, ~/.codex/config.toml). See lib/secrets.rb for the resolution
+# order. Must run before those templates.
+include_recipe File.join(root_dir, 'lib', 'secrets')
+
 # Coding agents (Cursor / Claude Code shared config)
 # Skills (shared)
 dotfile '.cursor/skills' => 'coding_agents/skills'

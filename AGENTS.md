@@ -23,6 +23,11 @@
 - ターミナルのカラーテーマはダーク×ウォーム系が好み（ネイビー系は嫌い）
 - 個人の設定をプロジェクトの`.claude/rules/`に持ち込まない。グローバル設定（`~/.claude/CLAUDE.md`）で管理する
 - Context7はClaude・Codex両方に MCP server として登録（`mcp.json.erb` / `codex/config.toml.erb`）。Claude は HTTP エンドポイント、Codex は stdio (`npx @upstash/context7-mcp`) を使用。Codex は Claude の MCP 接続を継承しないため、offload 時にライブラリドキュメントを参照させるには Codex 側にも登録が必要
+- コーディングエージェント用の API キーは `lib/secrets.rb` が 3 段で解決して ENV に入れ、ERB が埋め込む。優先順は (1) 既存の ENV → (2) `config/coding_agents/private/secrets.env`（gitignore 済み・ホストのみ）→ (3) GCP Secret Manager。正本は Secret Manager で、鍵を増やすときは `gcp_secrets` ハッシュに `ENV 名 => secret 名` を追加する
+- devcontainer は dotfiles を GitHub から clone するため `private/` が存在しないが、`~/.config/gcloud` がディレクトリ丸ごと rw bind mount されている（`configurations/` も `credentials.db` も入る）ので Secret Manager 経由で解決できる。この仕組みにより tyaba-env 側の devcontainer.json 変更は不要。稼働中の devcontainer 4 つで実測確認済み（`CLOUDSDK_CONFIG` の上書きなし、virtiofs の権限問題もなし）
+- GCP project ID はリポジトリが public なためハードコードせず、gcloud の `good` configuration から引く。`--project` だけだと認証アカウントは active configuration 依存になるため、`CLOUDSDK_ACTIVE_CONFIG_NAME` で構成ごと固定してアカウントも決め打ちする（`active_config` は host と devcontainer で共有されるので、host で `gcloud config configurations activate` すると全コンテナに波及する）。構成名は `DOTFILES_GCLOUD_CONFIGURATION`、project は `DOTFILES_GCP_PROJECT` で上書き可。構成名のデフォルト `good` は `lib/gcloud.rb` が単一の正で、`lib/secrets.rb` と `cookbooks/yui` の両方がそこから引く
+- GCP project ID の直書きはリポジトリ全体で禁止。`cookbooks/yui` の LaunchAgent / systemd user service も `--project=` を持たず、`CLOUDSDK_ACTIVE_CONFIG_NAME` をプロセス環境変数として渡して解決する（生成物にも project 名が残らない）。ただし **project ID は過去のコミット `05a6bae` / `495dad9` に残っており、public リポジトリの履歴からは消えていない**。今後の露出を止める措置であって遡及的な秘匿ではない
+- 鍵が全段で解決できないと WARN を出して無認証にフォールバックする。`gcloud auth login` の期限切れ時に、動いていた `~/.mcp.json` が鍵なしで上書きされる点に注意
 - 複数リポジトリの並列作業はtmuxセッション分離で行う（Ghosttyタブ複製ではなく）
 - tmuxのprefixはCtrl+Space（デフォルトのCtrl+Bはカーソル移動と競合するため変更済み）
 - Codexオフロードの移譲判断はrate limit依存ではなくタスク性質ベース。Claudeが特に優れる領域（設計・大規模リファクタ・MCP連携）以外は基本的にCodexに自動移譲する
