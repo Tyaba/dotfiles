@@ -11,6 +11,10 @@
       "type": "http",
       "url": "https://ai.todoist.net/mcp"
     },
+    "adcom": {
+      "type": "http",
+      "url": "https://api.x-ad.com/mcp"
+    },
     "yui": {
       "command": "<%= ENV['HOME'] %>/.local/share/mise/shims/npx",
 <%- yui_host = ENV['DOTFILES_ROLE'] == 'devcontainer' ? 'host.docker.internal' : 'localhost' -%>
