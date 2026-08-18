@@ -45,7 +45,7 @@ $EDITOR roles/$(uname)/default.rb
 - devcontainer features already installed `git` / `gh` / `gcloud` / `mise` / `claude`
 - project `.mise.toml` installs language runtimes (`python` / `uv` / `node` / `pnpm`)
 
-It deploys only user-level dotfiles (`.claude/`, `.codex/`, `.cursor/`, `.mcp.json`, `.gitconfig`, zsh config) and the Codex CLI (needed by the `codex` MCP server in `~/.mcp.json`). Heavy cookbooks (emacs / docker / ghostty / redis / brew / GUI apps) and macOS-only setup are skipped.
+It deploys only user-level dotfiles (`.claude/`, `.config/codex/`, `.cursor/`, `.mcp.json`, `.gitconfig`, zsh config) and the Codex CLI (needed by the `codex` MCP server in `~/.mcp.json`). Heavy cookbooks (emacs / docker / ghostty / redis / brew / GUI apps) and macOS-only setup are skipped.
 
 Run without sudo:
 
@@ -54,6 +54,49 @@ DOTFILES_ROLE=devcontainer ./install.sh
 ```
 
 `install.sh` detects the env var and runs mitamae as the workspace user (no `sudo -E`), since this role only touches `$HOME`. `lib/recipe.rb` then routes to `roles/devcontainer/default.rb` instead of the platform default.
+
+#### CODEX_HOME isolation
+
+tyaba-env bind-mounts the host's `~/.codex` into every container read-write so
+`codex login` is shared. Rendering `config.toml` / `AGENTS.md` there does not
+work, because the two sides need different content:
+
+- `mcp_servers.context7`'s `command` and `writable_roots` embed `$HOME`
+  (`/Users/...` vs `/home/vscode`)
+- `sandbox_mode` is `workspace-write` on the host, `danger-full-access` in a
+  container
+- `AGENTS.md` grants autonomous commit / push / PR only in a container
+
+One shared file means whichever side ran `install.sh` last wins and the other
+reads settings that do not apply to it. Codex's own state (`state_5.sqlite`,
+`sessions/`) was likewise written concurrently by the host and every container.
+
+So in devcontainers `roles/base/default.rb` renders into a container-local
+`CODEX_HOME` and only `auth.json` is linked back to the shared mount:
+
+```
+host                                  devcontainer
+~/.codex/                             ~/.config/codex/       (container-local)
+  config.toml  workspace-write          config.toml  danger-full-access
+  AGENTS.md    commit needs approval    AGENTS.md    commit is autonomous
+  state_5.sqlite                        state_5.sqlite
+  auth.json  <-------- rw mount ------- auth.json (symlink)
+```
+
+`CODEX_HOME` is codex's own override -- `codex --help` documents
+`$CODEX_HOME/<name>.config.toml`. It has to reach every path that starts codex,
+since Claude Code does not spawn stdio servers through a login shell:
+
+| Launch path | Where `CODEX_HOME` is set |
+|---|---|
+| Interactive `codex` | `config/.zsh/lib/apps` (probes for the directory, as the file is shared with the host) |
+| `~/.mcp.json` codex entry | `mcp.json.erb` renders an `env` block |
+| `~/.claude.json` user scope | `sync-claude-user-mcp.sh` forwards `env` as `--env` |
+
+Codex rewrites `auth.json` as temp-file + rename on token refresh, which
+replaces the symlink with a regular file. `roles/devcontainer/default.rb`
+detects that, promotes the newer container-side token to the shared location,
+and restores the link.
 
 ### mise managed tools
 
@@ -148,7 +191,7 @@ flowchart TD
     B["2. private/secrets.env<br/>(git-ignored, host only)"] --> D
     C["3. GCP Secret Manager<br/>via ~/.config/gcloud"] --> D
     D --> E["~/.mcp.json<br/>Authorization: Bearer"]
-    D --> F["~/.codex/config.toml<br/>env table"]
+    D --> F["$CODEX_HOME/config.toml<br/>env table"]
     E --> G[sync-claude-user-mcp.sh]
     G --> H["~/.claude.json user scope<br/>--header preserved"]
 ```
@@ -162,7 +205,7 @@ flowchart TD
 | `config/coding_agents/claude/settings.json` | `~/.claude/settings.json` |
 | `config/coding_agents/skills/` | `~/.claude/skills/`, `~/.cursor/skills/` |
 | `config/coding_agents/mcp.json.erb` | `~/.mcp.json`, `~/.cursor/mcp.json` |
-| `config/coding_agents/codex/AGENTS.md` | `~/.codex/AGENTS.md` |
+| `config/coding_agents/codex/AGENTS.md.erb` | `$CODEX_HOME/AGENTS.md` (`~/.codex` on hosts, `~/.config/codex` in devcontainers) |
 
 After rendering `~/.mcp.json`, `roles/base/default.rb` runs
 `config/coding_agents/sync-claude-user-mcp.sh`. The script reads the rendered MCP
@@ -222,7 +265,8 @@ codex login          # Authenticate with ChatGPT Enterprise (one-time)
 **Key features:**
 - `base-instructions` parameter allows dynamic injection of project-specific rules into Codex
 - `codex-reply` enables multi-turn Codex sessions via `threadId`
-- `~/.codex/AGENTS.md` provides static global rules for direct Codex CLI usage
+- `$CODEX_HOME/AGENTS.md` provides static global rules for direct Codex CLI usage
+  (see [CODEX_HOME isolation](#codex_home-isolation) for why the path differs in devcontainers)
 
 **Constraints:**
 - Requires local OAuth authentication (browser flow) -- not available in CI/headless environments

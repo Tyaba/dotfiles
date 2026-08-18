@@ -75,7 +75,9 @@ devcontainer は workspace を bind mount しているため、`rm -rf` / `git r
 
 ### writable_roots
 
-`~/.codex/config.toml`（dotfiles: `config/coding_agents/codex/config.toml.erb`）で `$HOME/ghq` を通してあるので、ghq 配下のリポジトリ間で参照・書き込みが必要なコマンドは追加設定なしで通る想定。
+`$CODEX_HOME/config.toml`（dotfiles: `config/coding_agents/codex/config.toml.erb`）で `$HOME/ghq` を通してあるので、ghq 配下のリポジトリ間で参照・書き込みが必要なコマンドは追加設定なしで通る想定。
+
+`$CODEX_HOME` は host では `~/.codex`、devcontainer では `~/.config/codex`。devcontainer では `~/.codex` が host と rw bind mount で共有されており、`$HOME` 絶対パスと `sandbox_mode` が両立しないため分離してある（`auth.json` のみ symlink で共有）。なお devcontainer は `danger-full-access` なので `writable_roots` は bypass される。
 
 ## stuck 検知
 

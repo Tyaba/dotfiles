@@ -33,6 +33,17 @@
 <%- end -%>
     },
     "codex": {
+<%#
+  devcontainer: ~/.codex is a rw bind mount shared with the host, so
+  roles/base renders config.toml / AGENTS.md into ~/.config/codex instead.
+  Claude Code spawns this server without a login shell, so the
+  config/.zsh/lib/apps export is not inherited -- set CODEX_HOME here too.
+-%>
+<%- if ENV['DOTFILES_ROLE'] == 'devcontainer' -%>
+      "env": {
+        "CODEX_HOME": "<%= ENV['HOME'] %>/.config/codex"
+      },
+<%- end -%>
       "command": "codex",
       "args": [
         "mcp-server",

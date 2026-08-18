@@ -77,26 +77,53 @@ template "#{ENV['HOME']}/.claude/settings.json" do
 end
 
 # Codex-specific
+#
+# In devcontainers, ~/.codex is a rw bind mount of the *host's* ~/.codex
+# (tyaba-env's devcontainer.json mounts the whole directory so `codex login`
+# is shared). Rendering config.toml / AGENTS.md there makes the host and every
+# container fight over one file: whichever ran install.sh last wins, and the
+# loser reads the other side's $HOME-absolute paths (mcp_servers.context7's
+# `command`, writable_roots) plus the wrong sandbox_mode and commit policy.
+# Codex's own state (state_5.sqlite, sessions/) is concurrently written by all
+# of them for the same reason.
+#
+# Point CODEX_HOME at a container-local directory instead and share only
+# auth.json (symlinked back in roles/devcontainer/default.rb). CODEX_HOME is an
+# officially supported override -- see `codex --help`, which documents
+# `$CODEX_HOME/<name>.config.toml` for --profile.
 codex_agents_erb = File.join(root_dir, 'config/coding_agents/codex/AGENTS.md.erb')
 codex_config_erb = File.join(root_dir, 'config/coding_agents/codex/config.toml.erb')
 
-directory "#{ENV['HOME']}/.codex" do
+codex_home =
+  if ENV['DOTFILES_ROLE'] == 'devcontainer'
+    "#{ENV['HOME']}/.config/codex"
+  else
+    "#{ENV['HOME']}/.codex"
+  end
+
+# ~/.config is created above only when /etc/systemd exists. Declare it here too
+# so the devcontainer CODEX_HOME does not depend on that unrelated condition.
+directory "#{ENV['HOME']}/.config" do
   user node[:user] if node[:user]
 end
 
-execute "rm -f #{ENV['HOME']}/.codex/AGENTS.md" do
-  only_if "test -L #{ENV['HOME']}/.codex/AGENTS.md"
+directory codex_home do
+  user node[:user] if node[:user]
 end
-template "#{ENV['HOME']}/.codex/AGENTS.md" do
+
+execute "rm -f #{codex_home}/AGENTS.md" do
+  only_if "test -L #{codex_home}/AGENTS.md"
+end
+template "#{codex_home}/AGENTS.md" do
   source codex_agents_erb
   user node[:user] if node[:user]
   mode '0644'
 end
 
-execute "rm -f #{ENV['HOME']}/.codex/config.toml" do
-  only_if "test -L #{ENV['HOME']}/.codex/config.toml"
+execute "rm -f #{codex_home}/config.toml" do
+  only_if "test -L #{codex_home}/config.toml"
 end
-template "#{ENV['HOME']}/.codex/config.toml" do
+template "#{codex_home}/config.toml" do
   source codex_config_erb
   user node[:user] if node[:user]
   mode '0644'

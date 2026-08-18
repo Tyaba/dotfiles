@@ -30,6 +30,16 @@ if command -v kubectl >/dev/null 2>&1; then
     source <(kubectl completion zsh)
 fi
 
+# Codex CLI
+# In devcontainers ~/.codex is a rw bind mount of the host's directory, so
+# roles/base renders config.toml / AGENTS.md into ~/.config/codex instead and
+# links only auth.json back. Follow that for direct CLI use. This file is
+# shared with the host, where the directory does not exist, so probe for it
+# rather than branching on DOTFILES_ROLE (not exported into shells).
+if [ -f "$HOME/.config/codex/config.toml" ]; then
+  export CODEX_HOME="$HOME/.config/codex"
+fi
+
 # pre-commit
 export PRE_COMMIT_COLOR=always
 

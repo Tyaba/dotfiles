@@ -93,10 +93,33 @@ while IFS= read -r row; do
         args+=("$a")
       done < <(echo "$row" | base64 --decode | jq -r '.value.args[]?')
 
-      if [ ${#args[@]} -gt 0 ]; then
-        claude mcp add --scope user "$name" -- "$cmd" "${args[@]}" >/dev/null
+      # Carry over any "env" object (e.g. codex's CODEX_HOME in devcontainers).
+      # Claude Code spawns stdio servers without a login shell, so a dropped
+      # env means codex reads the wrong CODEX_HOME and silently loads the
+      # host's config.toml out of the shared ~/.codex bind mount.
+      #
+      # -e is variadic like --header, but the documented form puts it after
+      # <name> and before the `--` separator, so the positionals are safe.
+      env_args=()
+      while IFS= read -r kv; do
+        [ -z "$kv" ] && continue
+        env_args+=(--env "$kv")
+      done < <(echo "$row" | base64 --decode | jq -r '.value.env // {} | to_entries[] | "\(.key)=\(.value)"')
+
+      # macOS ships bash 3.2 only, where expanding an empty array trips
+      # `set -u`. Both optional lists need a presence check, hence the 4 cases.
+      if [ ${#env_args[@]} -gt 0 ]; then
+        if [ ${#args[@]} -gt 0 ]; then
+          claude mcp add --scope user "$name" "${env_args[@]}" -- "$cmd" "${args[@]}" >/dev/null
+        else
+          claude mcp add --scope user "$name" "${env_args[@]}" -- "$cmd" >/dev/null
+        fi
       else
-        claude mcp add --scope user "$name" -- "$cmd" >/dev/null
+        if [ ${#args[@]} -gt 0 ]; then
+          claude mcp add --scope user "$name" -- "$cmd" "${args[@]}" >/dev/null
+        else
+          claude mcp add --scope user "$name" -- "$cmd" >/dev/null
+        fi
       fi
       ;;
     *)

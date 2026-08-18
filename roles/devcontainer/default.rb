@@ -70,6 +70,56 @@ end
 
 include_role 'base'
 
+# Share only the codex login with the host.
+#
+# roles/base renders config.toml / AGENTS.md into ~/.config/codex here instead
+# of ~/.codex, because ~/.codex is a rw bind mount of the host's directory and
+# both sides need different $HOME-absolute paths and sandbox settings. That
+# leaves auth.json -- the one file worth sharing -- on the wrong side, so link
+# it back. Everything else in CODEX_HOME (state_5.sqlite, sessions/) is now
+# container-local, which also stops several codex processes from writing one
+# sqlite file.
+execute 'link codex auth.json to the host-shared ~/.codex' do
+  command <<~SH
+    set -eu
+    LINK="#{ENV['HOME']}/.config/codex/auth.json"
+    TARGET="#{ENV['HOME']}/.codex/auth.json"
+
+    # roles/base already created this, but ln -s fails hard if it is missing
+    # and mitamae would abort the whole run over a symlink.
+    mkdir -p "$(dirname "$LINK")"
+
+    if [ -L "$LINK" ]; then
+      # Repoint if it aims somewhere stale.
+      if [ "$(readlink "$LINK")" != "$TARGET" ]; then
+        rm "$LINK"
+        ln -s "$TARGET" "$LINK"
+      fi
+    elif [ -f "$LINK" ]; then
+      # codex rewrites auth.json as temp-file + rename on token refresh, which
+      # replaces the symlink with a regular file. That copy is newer than the
+      # shared one, so promote it before restoring the link.
+      #
+      # Only promote a non-empty file. This overwrites the login shared by the
+      # host and every other container, so a truncated or half-written file
+      # here must not take the working token down with it.
+      if [ -s "$LINK" ]; then
+        mv "$LINK" "$TARGET"
+        ln -s "$TARGET" "$LINK"
+      else
+        echo "auth.json at $LINK is empty; keeping the shared token" >&2
+        rm "$LINK"
+        ln -s "$TARGET" "$LINK"
+      fi
+    else
+      # A dangling link is fine: `codex login` writes through it and the token
+      # lands in the shared mount.
+      ln -s "$TARGET" "$LINK"
+    fi
+  SH
+  user node[:user] if node[:user]
+end
+
 # mise's npm backend (`mise use -g 'npm:...'`) shells out to `npm view` to
 # resolve the latest version. That call goes through the `npm` mise shim,
 # which needs an active node version to dispatch to. The dotfiles install.sh
