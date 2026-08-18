@@ -123,10 +123,12 @@ end
 execute "rm -f #{codex_home}/config.toml" do
   only_if "test -L #{codex_home}/config.toml"
 end
+# 0600, not 0644: this file embeds CONTEXT7_API_KEY in its `env` table. Codex's
+# own auth.json is 0600 for the same reason, and nothing else needs to read it.
 template "#{codex_home}/config.toml" do
   source codex_config_erb
   user node[:user] if node[:user]
-  mode '0644'
+  mode '0600'
 end
 
 # MCP settings (template generates both Cursor and Claude Code configs)
@@ -139,10 +141,12 @@ end
 execute "rm -f #{ENV['HOME']}/.mcp.json" do
   only_if "test -L #{ENV['HOME']}/.mcp.json"
 end
+# 0600: carries the context7 Authorization header. ~/.claude.json, which the
+# sync below copies it into, is already 0600.
 template "#{ENV['HOME']}/.mcp.json" do
   source mcp_erb
   user node[:user] if node[:user]
-  mode '0644'
+  mode '0600'
 end
 
 sync_user_mcp = File.join(root_dir, 'config/coding_agents/sync-claude-user-mcp.sh')
@@ -166,10 +170,11 @@ end
 execute "rm -f #{ENV['HOME']}/.cursor/mcp.json" do
   only_if "test -L #{ENV['HOME']}/.cursor/mcp.json"
 end
+# 0600: same rendered content as ~/.mcp.json, same Authorization header.
 template "#{ENV['HOME']}/.cursor/mcp.json" do
   source mcp_erb
   user node[:user] if node[:user]
-  mode '0644'
+  mode '0600'
 end
 
 # Rust settings
