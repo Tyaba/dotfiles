@@ -1,0 +1,94 @@
+# herdr configuration
+# 配置先: ~/.config/herdr/config.toml
+# .tmux.conf からの移行版。tmux と 1:1 で対応しない項目は各行のコメントに理由を記す。
+
+[theme]
+# tmux の Gruvbox Dark ステータスバー配色に対応する組み込みテーマ
+name = "gruvbox"
+
+[theme.custom]
+# status-left / window-status-current で使っていた orange
+accent = "#d65d0e"
+
+[terminal]
+# set -g default-shell /bin/zsh
+default_shell = "/bin/zsh"
+# split-window -c "#{pane_current_path}" / new-window -c 相当。既定値だが意図として明示する
+new_cwd = "follow"
+
+[keys]
+# unbind C-b / set -g prefix C-Space
+prefix = "ctrl+space"
+
+# bind r source-file ~/.tmux.conf
+reload_config = "prefix+r"
+# 既定の resize_mode = "prefix+r" と衝突する。衝突すると後勝ちの側が黙って無効化されるため明示的に退避
+resize_mode = "prefix+shift+r"
+
+# bind | split-window -h → 左右に並べる
+split_vertical = "prefix+|"
+# bind - split-window -v → 上下に積む
+split_horizontal = "prefix+minus"
+new_tab = "prefix+c"
+
+# bind h/j/k/l select-pane -L/-D/-U/-R（herdr の既定値と一致）
+focus_pane_left = "prefix+h"
+focus_pane_down = "prefix+j"
+focus_pane_up = "prefix+k"
+focus_pane_right = "prefix+l"
+
+# bind -r H/J/K/L resize-pane。herdr には -r（連続入力）に相当する概念がなく 1 打ごとに確定する
+resize_pane_left = "prefix+shift+h"
+resize_pane_down = "prefix+shift+j"
+resize_pane_up = "prefix+shift+k"
+resize_pane_right = "prefix+shift+l"
+
+# bind -r C-h previous-window / C-l next-window
+previous_tab = "prefix+ctrl+h"
+next_tab = "prefix+ctrl+l"
+
+# bind -r "<" / ">" swap-window -d
+move_tab_previous = "prefix+<"
+move_tab_next = "prefix+>"
+
+# bind w / bind s choose-tree。goto は agent 一覧を含む navigate モード
+workspace_picker = "prefix+w"
+goto = "prefix+s"
+# 既定の settings = "prefix+s" を goto に譲る
+settings = "prefix+shift+s"
+
+# tmux 既定の筋肉記憶に合わせる（herdr 既定と異なるもの）
+detach = "prefix+d"             # herdr 既定は prefix+q
+rename_tab = "prefix+comma"     # tmux の prefix+,
+close_tab = "prefix+ampersand"  # tmux の prefix+&
+edit_scrollback = "prefix+["    # copy-mode の入口を流用。機能は等価ではない（README 参照）
+
+[ui]
+# set -g status-position bottom
+tab_bar_position = "bottom"
+# set -g status-right の日付・時刻・ホスト名
+tab_bar_right = [
+  { type = "datetime", format = "%Y-%m-%d %H:%M" },
+  { type = "hostname" },
+]
+# setw -g monitor-activity on の代替。エージェント状態を pane 枠と記号で示す
+show_agent_labels_on_pane_borders = true
+status_indicators = "symbols"
+
+[session]
+# tmux-resurrect / tmux-continuum によるセッション復元に相当
+resume_agents_on_restore = true
+
+[experimental]
+# @resurrect-capture-pane-contents 'on' に相当（サーバ再起動をまたいで画面履歴を保持）
+pane_history = true
+# prefix が Ctrl+Space のため、IME 有効中でも prefix が通るようにする（macOS）
+switch_ascii_input_source_in_prefix = true
+# Claude Code の pane で日本語入力の変換候補ウィンドウがカーソルに追従するようにする
+reveal_hidden_cursor_for_cjk_ime = true
+cjk_ime_agents = ["claude"]
+
+[advanced]
+# set -g history-limit 1000000 に相当。単位は「行」ではなく「バイト」で、
+# 1,000,000 行は概算 100MB/pane。5 並列なら 500MB を見込む。抑えたい場合は既定の 10000000 に戻す
+scrollback_limit_bytes = 100000000
