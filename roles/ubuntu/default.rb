@@ -30,7 +30,9 @@ include_cookbook 'uv'
 include_cookbook 'bun'
 include_cookbook 'claude'
 include_cookbook 'herdr'
-dotfile '.config/herdr'
+# herdr は ~/.config/herdr に herdr.sock を作るため、ディレクトリごとではなく
+# config.toml だけを symlink する (socket がリポジトリ作業ツリーに落ちるのを避ける)
+dotfile '.config/herdr/config.toml'
 include_cookbook 'gemini-cli'
 include_cookbook 'ghostty'
 include_cookbook 'yui'
