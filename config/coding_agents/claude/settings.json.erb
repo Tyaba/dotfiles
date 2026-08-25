@@ -135,6 +135,16 @@
         "hooks": [
           {
             "type": "command",
+            "command": "python3 ~/.claude/hooks/pre-tool-block-destructive.py",
+            "statusMessage": "破壊的コマンドを検査中..."
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/git-push-gate.sh",
+            "statusMessage": "push 先ブランチを検査中..."
+          },
+          {
+            "type": "command",
             "command": "~/.claude/hooks/terraform-apply-guard.sh",
             "timeout": 120,
             "statusMessage": "terraform 操作の安全性を検証中..."
