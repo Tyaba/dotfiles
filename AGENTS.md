@@ -28,8 +28,8 @@
 - GCP project ID はリポジトリが public なためハードコードせず、gcloud の `good` configuration から引く。`--project` だけだと認証アカウントは active configuration 依存になるため、`CLOUDSDK_ACTIVE_CONFIG_NAME` で構成ごと固定してアカウントも決め打ちする（`active_config` は host と devcontainer で共有されるので、host で `gcloud config configurations activate` すると全コンテナに波及する）。構成名は `DOTFILES_GCLOUD_CONFIGURATION`、project は `DOTFILES_GCP_PROJECT` で上書き可。構成名のデフォルト `good` は `lib/gcloud.rb` が単一の正で、`lib/secrets.rb` と `cookbooks/yui` の両方がそこから引く
 - GCP project ID の直書きはリポジトリ全体で禁止。`cookbooks/yui` の LaunchAgent / systemd user service も `--project=` を持たず、`CLOUDSDK_ACTIVE_CONFIG_NAME` をプロセス環境変数として渡して解決する（生成物にも project 名が残らない）。ただし **project ID は過去のコミット `05a6bae` / `495dad9` に残っており、public リポジトリの履歴からは消えていない**。今後の露出を止める措置であって遡及的な秘匿ではない
 - 鍵が全段で解決できないと WARN を出して無認証にフォールバックする。`gcloud auth login` の期限切れ時に、動いていた `~/.mcp.json` が鍵なしで上書きされる点に注意
-- 複数リポジトリの並列作業はtmuxセッション分離で行う（Ghosttyタブ複製ではなく）
-- tmuxのprefixはCtrl+Space（デフォルトのCtrl+Bはカーソル移動と競合するため変更済み）
+- 複数リポジトリの並列作業はherdrのworkspace分離で行う（Ghosttyタブ複製ではなく）。herdrはtmux互換の階層を持つエージェント対応マルチプレクサで、workspace/tab/paneがtmuxのsession/window/paneに対応する
+- マルチプレクサのprefixはherdr・tmuxともCtrl+Space（どちらもデフォルトのCtrl+Bがカーソル移動と競合するため変更済み）。`cookbooks/darwin_base` が入力ソース切替のショートカットをF18へ退避させているのはこのため
 - Codexオフロードの移譲判断はrate limit依存ではなくタスク性質ベース。Claudeが特に優れる領域（設計・大規模リファクタ・MCP連携）以外は基本的にCodexに自動移譲する
 - スキルはMCPのresources/prompts/toolsスキーマでは提供されない情報がある場合にのみ作成する。MCPツールのパラメータが自己記述的なら別途スキル化は不要
 - オフロード機構は将来的にモデル非依存を目指す。orchestrator+workerの組み合わせを柔軟に（Opus+Codex、Opus+Sonnet、Opus+Opusのコンテキスト分離等）
@@ -67,3 +67,6 @@
 - `claude mcp add` の `-e, --env <env...>` も `--header` と同じ variadic option。ただし stdio は `--` 区切りがあり、公式例も `claude mcp add my-server -e K=v -- npx ...` と `<name>` の後に置く形なので位置引数は安全。bash 3.2 の空配列問題があるため `env` と `args` の有無で 4 分岐が必要
 - codex はトークン更新時に auth.json を temp + rename で置き換えるため、symlink が実ファイルに差し替わることがある。`roles/devcontainer/default.rb` はその場合 container 側の新しい方を共有先へ `mv` して昇格させてから link を張り直す
 - ローカル開発プロキシ基盤: `cookbooks/{dnsmasq,mkcert,traefik}` で構成。dnsmasq が `.test` 全体を 127.0.0.1 解決し (`.tyaba.test` も配下として到達)、開発者向け hostname は `*.tyaba.test` に統一 (Chrome / Firefox は TLD 直下 2 labels の wildcard 証明書を拒否するため)。`~/.tyaba/proxy/` の Traefik v3 が Docker socket を watch して `traefik.enable=true` ラベル付きコンテナへ HTTPS ルーティング。docker network 名 `tyaba-proxy` (external)、dashboard `http://localhost:8080/dashboard/`、wildcard 証明書 mkcert 生成 `~/.tyaba/proxy/certs/_wildcard.tyaba.test.pem`。
+- tmuxからherdrへ移行済み。設定は `config/.config/herdr/config.toml` に置き `dotfile '.config/herdr/config.toml'` でファイル単位に symlink する（herdr が `~/.config/herdr/herdr.sock` を作るため、ディレクトリごと symlink すると socket がリポジトリ作業ツリーに落ちる）。`.tmux.conf` と `package 'tmux'` は退避先として残してある
+- herdrのエージェント検出は2段構成で、**どのエージェントか**の識別はpaneの前景プロセス名で行い、**状態**（idle/working/blocked/done）は画面出力のスクレイピングで判定する。このため `devcontainer exec` のようなラッパー経由で起動したエージェントは前景プロセスがラッパーになり識別に失敗する。回避策は起動側（host）で `HERDR_AGENT=claude` を渡すこと
+- Claude Codeの状態表示はherdrの `integration install claude` が生成する SessionStart hook が担う。hookは `~/.claude/hooks/herdr-agent-state.sh` に生成され、`~/.claude/hooks` が `config/coding_agents/hooks` への symlink のためリポジトリ作業ツリーに落ちる。バージョン依存の生成物なのでコミットせず .gitignore 済み（`cookbooks/herdr` 参照）

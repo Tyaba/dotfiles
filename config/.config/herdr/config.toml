@@ -1,0 +1,54 @@
+# herdr configuration
+# 配置先: ~/.config/herdr/config.toml
+#
+# キーバインドは tmux 時代に実際に使っていた 2 つ (prefix と一覧) だけを設定し、
+# 残りは herdr の既定値に従う。.tmux.conf のバインドを網羅的に移植することはしない。
+# 既定値と一致する項目も書かない (既定値は `herdr --default-config` で確認できる)。
+
+[theme]
+# tmux の Gruvbox Dark ステータスバー配色に対応する組み込みテーマ (既定は catppuccin)
+name = "gruvbox"
+
+[theme.custom]
+# status-left / window-status-current で使っていた orange
+accent = "#d65d0e"
+
+[terminal]
+# set -g default-shell /bin/zsh (既定は空でログインシェルに従う)
+default_shell = "/bin/zsh"
+
+[keys]
+# unbind C-b / set -g prefix C-Space
+prefix = "ctrl+space"
+
+# bind s choose-tree 相当。goto は workspace / tab / pane / エージェントを
+# 一覧から選ぶピッカー (既定は prefix+g)。
+# 既定の settings = "prefix+s" と同じ打鍵になるが、明示指定した goto が優先される
+# (実機確認済み)。settings 側はキーボードから引けなくなるので UI の menu から開く
+goto = "prefix+s"
+
+[ui]
+# set -g status-position bottom (既定は top)
+tab_bar_position = "bottom"
+# set -g status-right の日付・時刻・ホスト名
+tab_bar_right = [
+  { type = "datetime", format = "%Y-%m-%d %H:%M" },
+  { type = "hostname" },
+]
+# setw -g monitor-activity on の代替。エージェント状態を pane 枠と記号で示す
+show_agent_labels_on_pane_borders = true
+status_indicators = "symbols"
+
+[experimental]
+# @resurrect-capture-pane-contents 'on' に相当 (サーバ再起動をまたいで画面履歴を保持)
+pane_history = true
+# prefix が Ctrl+Space のため、IME 有効中でも prefix が通るようにする (macOS)
+switch_ascii_input_source_in_prefix = true
+# Claude Code の pane で日本語入力の変換候補ウィンドウがカーソルに追従するようにする
+reveal_hidden_cursor_for_cjk_ime = true
+cjk_ime_agents = ["claude"]
+
+[advanced]
+# set -g history-limit 1000000 に相当。単位は「行」ではなく「バイト」で、
+# 1,000,000 行は概算 100MB/pane。5 並列なら 500MB を見込む。抑えたい場合は既定の 10000000 に戻す
+scrollback_limit_bytes = 100000000
