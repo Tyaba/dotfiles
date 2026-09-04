@@ -36,12 +36,9 @@
       "mcp__claude_ai_Slack__*"
     ],
     "deny": [
-      "Read(*credentials.json)",
-      "Read(./secrets/**)",
-      "Read(*/.env)",
-      "Read(*/.env.*)",
-      "Read(**/id_rsa*)",
-      "Read(**/id_ed25519*)",
+      "Read(~/.config/gcloud/**)",
+      "Read(~/.claude/.credentials.json)",
+      "Read(~/.ssh/**)",
       "Edit(*credentials.json)",
       "Edit(*/.env)",
       "Edit(*/.env.*)",
