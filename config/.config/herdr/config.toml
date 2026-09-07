@@ -1,8 +1,9 @@
 # herdr configuration
 # 配置先: ~/.config/herdr/config.toml
 #
-# キーバインドは tmux 時代に実際に使っていた 2 つ (prefix と一覧) だけを設定し、
-# 残りは herdr の既定値に従う。.tmux.conf のバインドを網羅的に移植することはしない。
+# キーバインドは tmux 時代に実際に使っていた 2 つ (prefix と一覧) と、tmux に
+# 対応概念が無いエージェント移動だけを設定し、残りは herdr の既定値に従う。
+# .tmux.conf のバインドを網羅的に移植することはしない。
 # 既定値と一致する項目も書かない (既定値は `herdr --default-config` で確認できる)。
 
 [theme]
@@ -26,6 +27,15 @@ prefix = "ctrl+space"
 # 既定の settings = "prefix+s" と同じ打鍵になるが、明示指定した goto が優先される
 # (実機確認済み)。settings 側はキーボードから引けなくなるので UI の menu から開く
 goto = "prefix+s"
+
+# エージェント間の移動。next_agent / previous_agent / focus_agent は herdr の
+# 既定では 3 つとも未割り当てで、tmux にも対応概念が無いため定番の打鍵が無い。
+# `a` は既定バインドが 1 つも使っていない文字なので衝突しない。
+next_agent = "prefix+a"
+previous_agent = "prefix+shift+a"
+# N 番目のエージェントへ直接飛ぶ。herdr のドキュメントが示す例に従う
+# (`ctrl+alt+*` の直接バインドは terminal / OS に奪われることがあるため使わない)。
+focus_agent = "prefix+alt+1..9"
 
 [ui]
 # set -g status-position bottom (既定は top)
