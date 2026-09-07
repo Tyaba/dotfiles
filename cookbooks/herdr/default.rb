@@ -23,6 +23,10 @@ else
   raise NotImplementedError
 end
 
+# herdr は ~/.config/herdr に herdr.sock を作るため、ディレクトリごとではなく
+# config.toml だけを symlink する (socket がリポジトリ作業ツリーに落ちるのを避ける)
+dotfile '.config/herdr/config.toml'
+
 # エージェント状態通知の hook。
 #
 # `herdr integration install claude` が 2 つのことをする:
@@ -41,4 +45,14 @@ end
 execute 'install herdr claude integration' do
   command "#{herdr_bin} integration install claude"
   not_if "#{herdr_bin} integration status | grep -q '^claude: current'"
+end
+
+# herdr はキーバインドを常駐 server が保持しており、TUI クライアントを
+# 開き直しても config.toml は再読込されない。symlink を張り替えただけでは
+# 設定変更が反映されないため、install.sh の中で明示的に reload させる。
+#
+# CI・初回セットアップ・devcontainer など server が起動していない環境でも
+# install.sh 全体を落とさないため、reload 失敗時は成功扱いにする。
+execute 'reload herdr config' do
+  command "#{herdr_bin} server reload-config || true"
 end
