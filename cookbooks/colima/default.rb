@@ -23,11 +23,23 @@ when 'darwin'
 
   # Colima は新規インスタンス作成時だけ ~/.colima/_templates/default.yaml を読む。
   # ~/.colima/default/colima.yaml は colima start が書き出す生成物であり、
-  # 既存 VM の固定設定 (arch / vmType / runtime / mountType / network) は後から変更できないため、
-  # テンプレート差分がある場合は自動 delete せず利用者に再作成判断を委ねる。
-  # brew services 管理下では launchd が再起動するため、再作成時は先にサービスを停止する。
+  # cpu / memory / disk は colima stop 後の colima start で既存 VM へ反映できる。
+  # ただし disk は拡張のみ可能で縮小はできない。
+  # 固定設定 (arch / vmType / runtime / mountType / network) は後から変更できないため、
+  # テンプレート差分がある場合は自動変更せず利用者に反映方法の判断を委ねる。
+  # brew services 管理下では launchd が再起動するため、in-place 拡張後は VM を停止してから
+  # サービスへ引き渡す。
   execute 'warn about existing Colima instance with stale template' do
-    command 'echo "[dotfiles/colima] WARNING: Colima default instance already exists, so template changes will not be applied. Recreate it manually with: brew services stop colima && colima delete && brew services start colima" >&2'
+    command <<~SH
+      template='#{files_dir}/colima.yaml'
+      cpu=$(awk '$1 == "cpu:" { print $2; exit }' "$template")
+      memory=$(awk '$1 == "memory:" { print $2; exit }' "$template")
+      disk=$(awk '$1 == "disk:" { print $2; exit }' "$template")
+
+      echo "[dotfiles/colima] WARNING: Colima default instance already exists, so template changes will not be applied automatically." >&2
+      echo "[dotfiles/colima] For cpu/memory/disk growth, update the existing VM in place: brew services stop colima && colima start --cpu ${cpu} --memory ${memory} --disk ${disk} && colima stop && brew services start colima" >&2
+      echo "[dotfiles/colima] Delete and recreate only when changing fixed settings such as arch/vmType/runtime/mountType/network: brew services stop colima && colima delete && brew services start colima" >&2
+    SH
     only_if "! cmp -s #{files_dir}/colima.yaml #{colima_config} && #{colima_default_exists}"
   end
 

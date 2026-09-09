@@ -9,10 +9,13 @@
 #   ~/.config/gcloud (access_tokens.db rotation で書き込み) や
 #   ~/.config/gh を bind mount するために必須
 
+# ホストは 12 CPU / 64 GiB RAM。cpu は全コア、memory はホストの半分を VM に割り当てる。
+# disk は VM 内 /var/lib/docker になる datadisk のサイズ。sparse file なので実使用分しか
+# ホストを消費しない。拡張のみ可能で縮小はできない。
 cpu: 12
-memory: 16
+memory: 32
 swap: 1
-disk: 128
+disk: 160
 
 # ~/.colima/_templates/default.yaml は新規インスタンス作成時に完全な設定として扱われる。
 # 省略した項目が Colima の embedded defaults ではなくゼロ値になる場合があるため明示する。
