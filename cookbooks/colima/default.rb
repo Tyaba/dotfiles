@@ -65,6 +65,28 @@ when 'darwin'
     command 'brew services start colima'
     not_if colima_service_started
   end
+
+  # brew services が started でも VM が止まっていることがあるため、状態を直接確認する。
+  execute 'colima start (ensure VM is running)' do
+    command 'brew services restart colima'
+    not_if 'colima status >/dev/null 2>&1'
+  end
+
+  # 起動直後は docker.sock がまだ準備中のことがあるため、最大 60 秒だけ待つ。
+  # タイムアウトしても docker 依存レシピ側の skip ガードへ進めるため失敗扱いにしない。
+  execute 'wait for docker daemon via colima' do
+    command <<~SH
+      for _ in $(seq 1 30); do
+        if docker info >/dev/null 2>&1; then
+          exit 0
+        fi
+        sleep 2
+      done
+
+      echo "[dotfiles/colima] WARNING: Docker daemon did not become ready within 60 seconds after starting Colima; Docker-dependent later recipes will be skipped." >&2
+      exit 0
+    SH
+  end
 else
   # colima は macOS 専用。他 OS では何もしない (native docker daemon を使う)
 end

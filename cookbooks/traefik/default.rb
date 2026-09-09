@@ -10,6 +10,8 @@ files_dir = File.join(File.dirname(__FILE__), 'files')
 
 case node[:platform]
 when 'darwin'
+  docker_daemon_available = 'docker info >/dev/null 2>&1'
+
   execute "mkdir -p #{certs_dir}" do
     not_if "test -d #{certs_dir}"
   end
@@ -40,7 +42,13 @@ when 'darwin'
     not_if "test -f #{certs_dir}/_wildcard.tyaba.test.pem"
   end
 
+  execute 'warn about unavailable docker daemon for tyaba proxy' do
+    command 'echo "[dotfiles/traefik] WARNING: Docker daemon is unavailable, so skipped tyaba-proxy network creation and container startup. Start Colima and re-run install.sh to apply them." >&2'
+    only_if "! #{docker_daemon_available}"
+  end
+
   execute 'docker network create tyaba-proxy' do
+    only_if docker_daemon_available
     not_if 'docker network inspect tyaba-proxy >/dev/null 2>&1'
   end
 
@@ -51,6 +59,7 @@ when 'darwin'
   # 既存ユーザに反映されず、今回の TLS バグと同じ落とし穴になる)。
   execute 'docker compose up tyaba proxy' do
     command "docker compose -f #{proxy_dir}/docker-compose.yaml up -d"
+    only_if docker_daemon_available
   end
 else
   raise NotImplementedError
