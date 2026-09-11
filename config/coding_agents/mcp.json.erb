@@ -1,5 +1,22 @@
 {
   "mcpServers": {
+<%#
+  devcontainer: one container is shared by every parallel Claude session, and a
+  stdio server is spawned per session -- `npx` wrapper plus the server itself,
+  ~190MB and 3 processes each. A single `@playwright/mcp --port 8931` daemon
+  serves them all instead; each client still gets its own MCP session and its
+  own browser. The daemon is started by the launcher (mise task) before claude.
+  Host role keeps stdio: there is no daemon to talk to there.
+
+  The server rejects requests whose Host header does not match what it bound to,
+  so the URL must say localhost, not 127.0.0.1.
+-%>
+<%- if ENV['DOTFILES_ROLE'] == 'devcontainer' -%>
+    "playwright": {
+      "type": "http",
+      "url": "http://localhost:8931/mcp"
+    },
+<%- else -%>
     "playwright": {
       "command": "<%= ENV['HOME'] %>/.local/share/mise/shims/npx",
       "args": [
@@ -7,6 +24,7 @@
         "@playwright/mcp@latest"
       ]
     },
+<%- end -%>
     "todoist": {
       "type": "http",
       "url": "https://ai.todoist.net/mcp"
@@ -15,10 +33,15 @@
       "type": "http",
       "url": "https://api.x-ad.com/mcp"
     },
-    "yui": {
-      "command": "<%= ENV['HOME'] %>/.local/share/mise/shims/npx",
+<%#
+  yui speaks streamable HTTP directly, which Claude Code supports natively, so
+  the supergateway stdio bridge in front of it was pure overhead: an `npx`
+  wrapper plus a node process (~190MB, 3 PIDs) spawned per session.
+-%>
 <%- yui_host = ENV['DOTFILES_ROLE'] == 'devcontainer' ? 'host.docker.internal' : 'localhost' -%>
-      "args": ["-y", "supergateway", "--streamableHttp", "http://<%= yui_host %>:52981/mcp"]
+    "yui": {
+      "type": "http",
+      "url": "http://<%= yui_host %>:52981/mcp"
     },
 <%- context7_api_key = ENV['CONTEXT7_API_KEY'].to_s.strip -%>
     "context7": {
