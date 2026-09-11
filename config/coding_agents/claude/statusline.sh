@@ -10,12 +10,15 @@ FIELDS=$(jq -r '
   , (.cost.total_cost_usd // 0)
   , (.cost.total_lines_added // 0)
   , (.cost.total_lines_removed // 0)
-  , (if .rate_limits.five_hour.used_percentage == null then ""
-     else (.rate_limits.five_hour.used_percentage | round | tostring) end)
-  , (if .rate_limits.seven_day.used_percentage == null then ""
-     else (.rate_limits.seven_day.used_percentage | round | tostring) end)
+  # An absent rate limit is emitted as "-", not "": tab is IFS whitespace, so
+  # `read` collapses adjacent tabs and an empty five_hour would otherwise shift
+  # seven_day into FIVE_H and label the weekly number "5h:".
+  , (.rate_limits.five_hour.used_percentage | if . == null then "-" else round end)
+  , (.rate_limits.seven_day.used_percentage | if . == null then "-" else round end)
   ] | @tsv' <<< "$input")
 IFS=$'\t' read -r MODEL PCT COST LINES_ADD LINES_DEL FIVE_H WEEK <<< "$FIELDS"
+[ "$FIVE_H" = "-" ] && FIVE_H=""
+[ "$WEEK" = "-" ] && WEEK=""
 MODEL=${MODEL:-?}
 PCT=${PCT:-0}
 COST=${COST:-0}
