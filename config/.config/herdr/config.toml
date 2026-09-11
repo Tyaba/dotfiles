@@ -62,3 +62,14 @@ cjk_ime_agents = ["claude"]
 # set -g history-limit 1000000 に相当。単位は「行」ではなく「バイト」で、
 # 1,000,000 行は概算 100MB/pane。5 並列なら 500MB を見込む。抑えたい場合は既定の 10000000 に戻す
 scrollback_limit_bytes = 100000000
+
+# Claude Code は OSC 0/2 で作業中の要約をターミナルタイトルに随時書き出す。
+# herdr はそれを terminal_title として保持しているので、サイドバーの claude 行に
+# 1 行だけ差し込む (_stripped は先頭のスピナー記号と続く空白を落とした形)。
+# 既定のスタイルは dim なので、gruvbox の標準前景を明示して読めるようにする。
+[ui.sidebar.agents.rows_by_agent]
+claude = [
+  ["state_icon", "workspace", "tab"],
+  [{ token = "terminal_title_stripped", fg = "#ebdbb2", dim = false }],
+  ["agent"],
+]
