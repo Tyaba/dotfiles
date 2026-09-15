@@ -38,6 +38,9 @@
 #   - `bash -c 'find ...'` のようにサブシェル起動を挟むと解析しない
 #     （他の gate と共通の穴なので、ここだけ塞いでも意味がない）
 #   - heredoc 本文は解析対象から外す（strip_heredocs の理由を参照）
+#   - `cd <dir> && grep -rn X sub/` のように cd を跨ぐ形は、cd 以降の相対 path を
+#     解決できないため絶対 path しか見ない。フックに渡る cwd は Bash ツール実行前の
+#     ものなので、相対 path を cwd 基準で解決すると別ディレクトリを誤って判定する
 
 set -uo pipefail
 
@@ -213,9 +216,17 @@ CMD=$(strip_heredocs <<<"$CMD")
 # 継続行が自分の 'find' トークンを持たず、フラグが一切検査されない。
 SEGMENTS=$(split_segments "${CMD//\\$'\n'/ }")
 
+# 前段の segment で cwd が変わったか。フックに渡るのは Bash ツール実行前の cwd で、
+# コマンド内の cd は反映されないため、cd 以降は相対 path を解決できない。
+CD_SEEN=0
+
 while IFS= read -r SEG; do
   read -ra TOKS <<<"$SEG"
   [ "${#TOKS[@]}" -eq 0 ] && continue
+
+  case "${TOKS[0]}" in
+    cd | */cd | pushd | popd) CD_SEEN=1 ;;
+  esac
 
   # ツールの特定。前置 env 代入とラッパを読み飛ばしてから最初の候補を採る。
   TOOL=""
@@ -326,11 +337,26 @@ while IFS= read -r SEG; do
       done
       if [ "${#PATHS[@]}" -eq 0 ]; then
         [ "$SAW_FILE" = 1 ] && continue
+        [ "$CD_SEEN" = 1 ] && continue
         PATHS=("$PWD")
       fi
       ;;
   esac
-  [ "${#PATHS[@]}" -eq 0 ] && PATHS=("$PWD")
+  if [ "${#PATHS[@]}" -eq 0 ]; then
+    [ "$CD_SEEN" = 1 ] && continue
+    PATHS=("$PWD")
+  fi
+
+  # cd 済みの segment では絶対 path だけを手がかりにする。相対 path は cd 前の cwd を
+  # 基準に解決してしまい、実在判定も起点の推定も当てにならない。
+  if [ "$CD_SEEN" = 1 ]; then
+    ABS=()
+    for p in "${PATHS[@]}"; do
+      case "$p" in /*) ABS+=("$p") ;; esac
+    done
+    [ "${#ABS[@]}" -eq 0 ] && continue
+    PATHS=("${ABS[@]}")
+  fi
 
   for p in "${PATHS[@]}"; do
     is_wide_root "$p" || continue
