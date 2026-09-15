@@ -41,6 +41,8 @@
 #   - `cd <dir> && grep -rn X sub/` のように cd を跨ぐ形は、cd 以降の相対 path を
 #     解決できないため絶対 path しか見ない。フックに渡る cwd は Bash ツール実行前の
 #     ものなので、相対 path を cwd 基準で解決すると別ディレクトリを誤って判定する
+#   - `grep -rn X "$DIR"` のように operand が変数・コマンド置換を含む形は展開できない
+#     ため無判定。cwd 起点と決めつけると、実際には狭い探索を deny してしまう
 
 set -uo pipefail
 
@@ -232,6 +234,7 @@ while IFS= read -r SEG; do
   TOOL=""
   TOOL_AT=-1
   BYPASS=0
+  UNRESOLVED=0
   for ((i = 0; i < ${#TOKS[@]}; i++)); do
     case "${TOKS[$i]}" in
       sudo | time | nohup | setsid | command | env | xargs | nice | ionice) continue ;;
@@ -327,6 +330,9 @@ while IFS= read -r SEG; do
       for ((i = TOOL_AT + 1; i < ${#TOKS[@]}; i++)); do
         case "${TOKS[$i]}" in
           -*) continue ;;
+          # 変数・コマンド置換はフック側で展開できない。実在判定が必ず外れるので
+          # 「パターンだった」と誤読しないよう未解決として記録する。
+          *'$'* | *'`'*) UNRESOLVED=1; continue ;;
         esac
         strip_token "${TOKS[$i]}"
         if [ -d "$STRIPPED" ]; then
@@ -335,27 +341,41 @@ while IFS= read -r SEG; do
           SAW_FILE=1
         fi
       done
-      if [ "${#PATHS[@]}" -eq 0 ]; then
-        [ "$SAW_FILE" = 1 ] && continue
-        [ "$CD_SEEN" = 1 ] && continue
-        PATHS=("$PWD")
-      fi
+      # 実在ファイルだけが operand なら tree walk しないので無判定。
+      [ "${#PATHS[@]}" -eq 0 ] && [ "$SAW_FILE" = 1 ] && continue
       ;;
   esac
-  if [ "${#PATHS[@]}" -eq 0 ]; then
-    [ "$CD_SEEN" = 1 ] && continue
-    PATHS=("$PWD")
+  # 変数・コマンド置換を含む path は手がかりから外す（find の path operand は
+  # 実在判定を通さずそのまま入るため、ここでも落とす）。
+  if [ "${#PATHS[@]}" -gt 0 ]; then
+    RESOLVED=()
+    for p in "${PATHS[@]}"; do
+      case "$p" in
+        *'$'* | *'`'*) UNRESOLVED=1 ;;
+        *) RESOLVED+=("$p") ;;
+      esac
+    done
+    PATHS=()
+    [ "${#RESOLVED[@]}" -gt 0 ] && PATHS=("${RESOLVED[@]}")
   fi
 
   # cd 済みの segment では絶対 path だけを手がかりにする。相対 path は cd 前の cwd を
   # 基準に解決してしまい、実在判定も起点の推定も当てにならない。
-  if [ "$CD_SEEN" = 1 ]; then
+  if [ "$CD_SEEN" = 1 ] && [ "${#PATHS[@]}" -gt 0 ]; then
     ABS=()
     for p in "${PATHS[@]}"; do
       case "$p" in /*) ABS+=("$p") ;; esac
     done
-    [ "${#ABS[@]}" -eq 0 ] && continue
-    PATHS=("${ABS[@]}")
+    PATHS=()
+    [ "${#ABS[@]}" -gt 0 ] && PATHS=("${ABS[@]}")
+  fi
+
+  # 手がかりが 1 つも残らなかったとき。cwd 起点と決めつけられるのは、cd も
+  # 未解決 operand も無い場合だけ。
+  if [ "${#PATHS[@]}" -eq 0 ]; then
+    [ "$CD_SEEN" = 1 ] && continue
+    [ "$UNRESOLVED" = 1 ] && continue
+    PATHS=("$PWD")
   fi
 
   for p in "${PATHS[@]}"; do
