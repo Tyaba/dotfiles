@@ -136,6 +136,7 @@
           {
             "type": "command",
             "command": "~/.claude/hooks/find-scope-gate.sh",
+            "timeout": 10,
             "statusMessage": "検索範囲を検査中..."
           }
         ]
@@ -200,9 +201,9 @@
   # 持たせておかないと settings.json の再描画（install.sh の再実行を含む）で
   # 毎回失われる。
   if ENV['DOTFILES_ROLE'] == 'devcontainer'
-%>
+-%>
   "skipDangerousModePermissionPrompt": true,
-<% end %>
+<% end -%>
   "voiceEnabled": true,
   "theme": "dark-daltonized"
 }
