@@ -132,6 +132,11 @@
             "command": "~/.claude/hooks/terraform-apply-guard.sh",
             "timeout": 120,
             "statusMessage": "terraform 操作の安全性を検証中..."
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/find-scope-gate.sh",
+            "statusMessage": "検索範囲を検査中..."
           }
         ]
       }
