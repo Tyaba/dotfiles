@@ -191,6 +191,18 @@
     "mode": "hold"
   },
   "skipAutoPermissionPrompt": true,
+<%
+  # defaultMode=bypassPermissions で起動すると Claude Code が毎回危険モードの
+  # 確認プロンプトを出す。devcontainer は blast radius が container 内に閉じる
+  # ので抑止する。
+  #
+  # この値は Claude Code が実行時に settings.json へ直接書き込むため、erb 側に
+  # 持たせておかないと settings.json の再描画（install.sh の再実行を含む）で
+  # 毎回失われる。
+  if ENV['DOTFILES_ROLE'] == 'devcontainer'
+%>
+  "skipDangerousModePermissionPrompt": true,
+<% end %>
   "voiceEnabled": true,
   "theme": "dark-daltonized"
 }
