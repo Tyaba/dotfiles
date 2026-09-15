@@ -68,10 +68,23 @@
       },
 <%- end -%>
       "command": "codex",
+<%#
+  sandbox_mode must be branched here as well, not only in
+  codex/config.toml.erb. codex resolves `-c key=value` with a higher
+  precedence than $CODEX_HOME/config.toml, so a hardcoded
+  workspace-write in args silently overrides the danger-full-access the
+  devcontainer config renders -- and the container has no unprivileged
+  user namespaces, so every shell call inside codex dies with
+  `bwrap: No permissions to create a new namespace`.
+-%>
       "args": [
         "mcp-server",
         "-c", "approval_policy=never",
+<%- if ENV['DOTFILES_ROLE'] == 'devcontainer' -%>
+        "-c", "sandbox_mode=danger-full-access"
+<%- else -%>
         "-c", "sandbox_mode=workspace-write"
+<%- end -%>
       ]
     }
   }

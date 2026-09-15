@@ -66,8 +66,10 @@ tyaba-env の `mise run claude` は 1 container/repo で session ごとに `.wor
 
 - `approval-policy="never"`
 - `sandbox`:
-  - devcontainer 内 (`$DOTFILES_ROLE=devcontainer`): `"danger-full-access"` をデフォルトに昇格。blast radius は container 内で閉じるので、`/tmp` や `~/.cache` への書き込みも含めて確認不要で許可する
+  - devcontainer 内 (`/.dockerenv` が存在する): `"danger-full-access"` をデフォルトに昇格。blast radius は container 内で閉じるので、`/tmp` や `~/.cache` への書き込みも含めて確認不要で許可する。ubuntu ベースの container は非特権 user namespace が無効なので、`"workspace-write"` で呼ぶと Codex 内のシェル実行が `bwrap: No permissions to create a new namespace` で全滅し、`approval-policy="never"` のため昇格も拒否されて「何も編集していないのに完了報告が返る」状態になる
   - host 直 (それ以外): `"workspace-write"`。workspace 外パスを触る必要があるときのみ `"danger-full-access"` への昇格を検討し、その旨をユーザに確認する
+
+判定に `$DOTFILES_ROLE` を使わないこと。`DOTFILES_ROLE=devcontainer` は `install.sh` と ERB 描画時にしか設定されず、実行中のシェルには export されていない。`REMOTE_CONTAINERS` / `DEVCONTAINER` 系の env も立たないため、実行時に参照できる container マーカーは `/.dockerenv` の存在だけ (`install.sh` も同じ判定をしている)。
 
 ### 破壊的操作前の注意（devcontainer）
 
