@@ -12,6 +12,16 @@ define :dotfile do
       user node[:user] if node[:user]
     end
 
+    # Mitamae's link resource uses ln -sfn-like behavior: when the target path
+    # is a real directory, it creates the symlink inside that directory instead
+    # of replacing it. Back up user-created directories first so dotfile links
+    # land at the intended path without deleting their contents.
+    execute "backup existing directory at #{link_from}" do
+      command %Q[mv "#{link_from}" "#{link_from}.bak.$(date +%Y%m%d%H%M%S)"]
+      only_if %Q[test -d "#{link_from}" && ! test -L "#{link_from}"]
+      user node[:user] if node[:user]
+    end
+
     link link_from do
       to File.join(root_dir, "config/#{link_to}")
       user node[:user] if node[:user]

@@ -207,6 +207,15 @@ flowchart TD
 | `config/coding_agents/mcp.json.erb` | `~/.mcp.json`, `~/.cursor/mcp.json` |
 | `config/coding_agents/codex/AGENTS.md.erb` | `$CODEX_HOME/AGENTS.md` (`~/.codex` on hosts, `~/.config/codex` in devcontainers) |
 
+Directory targets such as `~/.claude/agents/` and `~/.claude/output-styles/`
+need one extra step. Mitamae's `link` resource behaves like `ln -sfn`: when the
+target is already a real directory it drops the symlink *inside* that directory
+and still logs success, so the dotfile silently never takes effect. Saving a
+user-scope subagent through Claude Code's `/agents` command creates exactly that
+state. The `dotfile` definition in `lib/helper.rb` therefore moves a pre-existing
+real directory to `<target>.bak.<timestamp>` before linking, rather than deleting
+it, so user-created files are kept.
+
 After rendering `~/.mcp.json`, `roles/base/default.rb` runs
 `config/coding_agents/sync-claude-user-mcp.sh`. The script reads the rendered MCP
 definitions and registers them with `claude mcp add --scope user`, then prunes

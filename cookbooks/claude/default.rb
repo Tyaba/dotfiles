@@ -48,7 +48,7 @@ end
 # settings.json in ~/.claude/plugins/*.json, which dotfiles does not manage.
 execute 'add openai codex plugin marketplace' do
   command '$HOME/.local/bin/claude plugin marketplace add openai/codex-plugin-cc'
-  not_if 'test -d $HOME/.claude/plugins/marketplaces/openai-codex'
+  not_if '$HOME/.local/bin/claude plugin marketplace list 2>/dev/null | grep -q openai-codex'
 end
 
 execute 'install claude plugin codex' do
