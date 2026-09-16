@@ -253,9 +253,14 @@ flowchart TD
     J --> K[yui backend proxy serves MCP bridge]
 ```
 
-### Codex Offload (via MCP server)
+### Codex Offload (via the codex-offload subagent)
 
-Claude Code tasks are automatically offloaded to Codex via the `codex mcp-server` MCP integration. Claude calls `mcp__codex__codex` as a regular tool, enabling natural auto-delegation. Delegation criteria are defined in `config/coding_agents/user-rules.md`.
+Claude Code tasks are automatically offloaded to Codex through the `codex-offload` subagent
+(`config/coding_agents/claude/agents/codex-offload.md`), which shells out to `codex exec`. Delegation
+criteria are defined in `config/coding_agents/user-rules.md`.
+
+This used to run over MCP (`codex mcp-server`), which codex 0.154.0 removed. `codex exec` is a core
+subcommand, so the codex version no longer has to be pinned.
 
 **Setup (after `./install.sh`):**
 ```shell
@@ -263,10 +268,17 @@ codex login          # Authenticate with ChatGPT Enterprise (one-time)
 ```
 
 **Key features:**
-- `base-instructions` parameter allows dynamic injection of project-specific rules into Codex
-- `codex-reply` enables multi-turn Codex sessions via `threadId`
+- The subagent runs in its own context, so Codex's streaming output does not fill Claude's
+- `codex exec resume --last` continues the same Codex thread for follow-up instructions
+- `sandbox_mode` / `approval_policy` come from `$CODEX_HOME/config.toml` -- `workspace-write` on the host,
+  `danger-full-access` in devcontainers -- and are never passed on the command line
 - `$CODEX_HOME/AGENTS.md` provides static global rules for direct Codex CLI usage
   (see [CODEX_HOME isolation](#codex_home-isolation) for why the path differs in devcontainers)
+
+**Host also gets the official plugin:** `codex@openai-codex` (openai/codex-plugin-cc) is installed by
+`cookbooks/claude/default.rb` and adds the `/codex:review` command family. It is not installed in
+devcontainers: it hardcodes a `workspace-write` sandbox and ignores `config.toml`, and the container has no
+unprivileged user namespaces, so bubblewrap fails and it reports success without editing anything.
 
 **Constraints:**
 - Requires local OAuth authentication (browser flow) -- not available in CI/headless environments

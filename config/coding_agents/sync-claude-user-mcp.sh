@@ -93,10 +93,11 @@ while IFS= read -r row; do
         args+=("$a")
       done < <(echo "$row" | base64 --decode | jq -r '.value.args[]?')
 
-      # Carry over any "env" object (e.g. codex's CODEX_HOME in devcontainers).
-      # Claude Code spawns stdio servers without a login shell, so a dropped
-      # env means codex reads the wrong CODEX_HOME and silently loads the
-      # host's config.toml out of the shared ~/.codex bind mount.
+      # Carry over any "env" object. Claude Code spawns stdio servers without a
+      # login shell, so anything a server needs from the shell environment has
+      # to be declared in mcp.json and forwarded here. No current server relies
+      # on this (the codex entry that did was removed when offloading moved to
+      # `codex exec`), but dropping env silently would be hard to debug.
       #
       # -e is variadic like --header, but the documented form puts it after
       # <name> and before the `--` separator, so the positionals are safe.

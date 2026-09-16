@@ -9,14 +9,12 @@ flutter = "latest"
 ruby = "latest"
 go = "latest"
 "npm:@devcontainers/cli" = "latest"
-# Pinned, not "latest": codex 0.154.0 removed the `mcp-server` subcommand that
-# the codex MCP entry in config/coding_agents/mcp.json.erb starts. On 0.154.0
-# `codex mcp-server` is parsed as the optional [PROMPT] positional, so codex
-# tries to open its interactive TUI and exits ("TERM is set to \"dumb\"") and
-# Claude Code reports the codex server as a failed connection. 0.153.0 is the
-# last version that still serves MCP over stdio. Keep this in sync with
-# CODEX_VERSION in roles/devcontainer/default.rb.
-"npm:@openai/codex" = "0.153.0"
+# Unpinned again: the 0.153.0 pin existed only because Claude Code reached codex
+# through `codex mcp-server`, which 0.154.0 removed. Offloading now goes through
+# `codex exec` (see config/coding_agents/claude/agents/codex-offload.md), a core
+# subcommand present in both 0.153.0 and 0.154.0, so there is nothing left to
+# pin to. Keep this in sync with CODEX_VERSION in roles/devcontainer/default.rb.
+"npm:@openai/codex" = "latest"
 
 [settings]
 experimental = true

@@ -1,8 +1,28 @@
 {
   "env": {
     "BASH_DEFAULT_TIMEOUT_MS": "30000",
-    "BASH_MAX_TIMEOUT_MS": "120000",
+<%#
+  Ceiling, not the default. Offloading to codex runs `codex exec` as a single
+  foreground Bash call (config/coding_agents/claude/agents/codex-offload.md),
+  which routinely takes several minutes; the old 120s ceiling killed it
+  mid-edit. Commands that do not ask for a longer timeout still get 30s.
+-%>
+    "BASH_MAX_TIMEOUT_MS": "1800000",
     "CLAUDE_CODE_SUBAGENT_MODEL": "opus",
+<%#
+  The codex-offload subagent runs `codex exec` through the Bash tool, and the
+  Bash tool is not a login shell (BASH_ENV is cleared below), so the
+  CODEX_HOME export in config/.zsh/lib/apps never reaches it. Without this,
+  codex inside the devcontainer falls back to ~/.codex -- which is a rw bind
+  mount of the *host's* directory -- and picks up sandbox_mode=workspace-write.
+  The container has no unprivileged user namespaces, so every shell call then
+  dies in bwrap and codex reports success without editing anything.
+-%>
+<%- if ENV['DOTFILES_ROLE'] == 'devcontainer' -%>
+    "CODEX_HOME": "<%= ENV['HOME'] %>/.config/codex",
+<%- else -%>
+    "CODEX_HOME": "<%= ENV['HOME'] %>/.codex",
+<%- end -%>
     "CLAUDE_CODE_DISABLE_1M_CONTEXT": "1",
     "BASH_ENV": "",
     "ENV": "",
@@ -23,7 +43,6 @@
       "mcp__yui__*",
       "mcp__playwright__*",
       "mcp__todoist__*",
-      "mcp__codex__*",
       "mcp__claude_ai__*",
       "mcp__claude_ai_Excalidraw__*",
       "mcp__claude_ai_Figma__*",
@@ -180,10 +199,36 @@
     "type": "command",
     "command": "~/.claude/statusline.sh"
   },
+<%
+  # Claude Code writes these two keys itself when `claude plugin install` runs,
+  # so they have to be declared here as well or every settings.json re-render
+  # silently uninstalls the plugins.
+  #
+  # The codex plugin is host-only: it hardcodes a workspace-write sandbox that
+  # the devcontainer's missing user namespaces cannot satisfy. See the install
+  # block in cookbooks/claude/default.rb, which only roles/darwin and
+  # roles/ubuntu include.
+  host_role = ENV['DOTFILES_ROLE'] != 'devcontainer'
+-%>
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true,
+<%- if host_role -%>
+    "pyright-lsp@claude-plugins-official": true,
+    "codex@openai-codex": true
+<%- else -%>
     "pyright-lsp@claude-plugins-official": true
+<%- end -%>
   },
+<%- if host_role -%>
+  "extraKnownMarketplaces": {
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      }
+    }
+  },
+<%- end -%>
   "outputStyle": "Structured",
   "language": "日本語",
   "effortLevel": "high",
