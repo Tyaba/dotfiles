@@ -142,9 +142,22 @@ end
 # role runs without sudo, so the system-wide npm prefix (/usr/lib/node_modules)
 # is not writable. mise installs into ~/.local/share/mise/installs and
 # creates a shim under ~/.local/share/mise/shims (already on PATH).
+#
+# Pinned, not `latest`: codex 0.154.0 removed the `mcp-server` subcommand
+# (deprecated with a warning since ~0.150). Under 0.154.0 `codex mcp-server`
+# is parsed as the optional [PROMPT] positional instead, so codex tries to
+# launch its interactive TUI and dies with `TERM is set to "dumb"`, and the
+# codex MCP server never comes up inside the container. 0.153.0 is the last
+# version that still serves MCP over stdio. Before bumping this, confirm the
+# target version still has `mcp-server` in `codex --help`; when it is gone for
+# good, mcp.json.erb's codex entry needs a different transport.
+CODEX_VERSION = '0.153.0'
+
 execute 'install codex cli (mise npm backend)' do
-  command "mise use -g 'npm:@openai/codex@latest'"
-  not_if 'command -v codex'
+  command "mise use -g 'npm:@openai/codex@#{CODEX_VERSION}'"
+  # Version-aware guard: a plain `command -v codex` would leave an already
+  # installed (and MCP-broken) 0.154.0 in place on an existing container.
+  not_if "codex --version 2>/dev/null | grep -qF '#{CODEX_VERSION}'"
 end
 
 # Install Claude Code CLI via mise instead of relying on the devcontainer feature.

@@ -9,7 +9,14 @@ flutter = "latest"
 ruby = "latest"
 go = "latest"
 "npm:@devcontainers/cli" = "latest"
-"npm:@openai/codex" = "latest"
+# Pinned, not "latest": codex 0.154.0 removed the `mcp-server` subcommand that
+# the codex MCP entry in config/coding_agents/mcp.json.erb starts. On 0.154.0
+# `codex mcp-server` is parsed as the optional [PROMPT] positional, so codex
+# tries to open its interactive TUI and exits ("TERM is set to \"dumb\"") and
+# Claude Code reports the codex server as a failed connection. 0.153.0 is the
+# last version that still serves MCP over stdio. Keep this in sync with
+# CODEX_VERSION in roles/devcontainer/default.rb.
+"npm:@openai/codex" = "0.153.0"
 
 [settings]
 experimental = true
