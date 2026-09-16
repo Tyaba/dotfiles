@@ -54,6 +54,7 @@ dotfile '.cursor/hooks.json' => 'coding_agents/cursor/hooks.json'
 
 # Claude Code-specific
 dotfile '.claude/CLAUDE.md' => 'coding_agents/claude/CLAUDE.md'
+dotfile '.claude/agents' => 'coding_agents/claude/agents'
 dotfile '.claude/output-styles' => 'coding_agents/claude/output-styles'
 dotfile '.claude/statusline.sh' => 'coding_agents/claude/statusline.sh'
 dotfile '.claude/render-diagram.sh' => 'coding_agents/claude/render-diagram.sh'

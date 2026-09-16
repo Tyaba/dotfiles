@@ -135,29 +135,23 @@ execute 'pin global node for mise npm backend' do
   not_if 'mise which npm >/dev/null 2>&1'
 end
 
-# Codex CLI is referenced by ~/.mcp.json (codex MCP server). Without it,
-# claude logs MCP startup errors on every launch.
+# Codex CLI is the offload target for Claude Code: the codex-offload subagent
+# (config/coding_agents/claude/agents/codex-offload.md) shells out to
+# `codex exec`. Without it, every offload fails.
 #
 # Install via mise's npm backend instead of `npm install -g`: the devcontainer
 # role runs without sudo, so the system-wide npm prefix (/usr/lib/node_modules)
 # is not writable. mise installs into ~/.local/share/mise/installs and
 # creates a shim under ~/.local/share/mise/shims (already on PATH).
 #
-# Pinned, not `latest`: codex 0.154.0 removed the `mcp-server` subcommand
-# (deprecated with a warning since ~0.150). Under 0.154.0 `codex mcp-server`
-# is parsed as the optional [PROMPT] positional instead, so codex tries to
-# launch its interactive TUI and dies with `TERM is set to "dumb"`, and the
-# codex MCP server never comes up inside the container. 0.153.0 is the last
-# version that still serves MCP over stdio. Before bumping this, confirm the
-# target version still has `mcp-server` in `codex --help`; when it is gone for
-# good, mcp.json.erb's codex entry needs a different transport.
-CODEX_VERSION = '0.153.0'
+# `latest`, not pinned. The old 0.153.0 pin was tied to `codex mcp-server`,
+# which 0.154.0 deleted; `codex exec` is a core subcommand and is unaffected.
+# Keep this in sync with config/mise/config.toml.erb.
+CODEX_VERSION = 'latest'
 
 execute 'install codex cli (mise npm backend)' do
   command "mise use -g 'npm:@openai/codex@#{CODEX_VERSION}'"
-  # Version-aware guard: a plain `command -v codex` would leave an already
-  # installed (and MCP-broken) 0.154.0 in place on an existing container.
-  not_if "codex --version 2>/dev/null | grep -qF '#{CODEX_VERSION}'"
+  not_if 'mise which codex >/dev/null 2>&1'
 end
 
 # Install Claude Code CLI via mise instead of relying on the devcontainer feature.
