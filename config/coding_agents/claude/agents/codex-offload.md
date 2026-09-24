@@ -25,7 +25,7 @@ codex は working root を sandbox と git 解決の基点にするため、こ�
    ```bash
    OUT=$(mktemp)
    LOG=$(mktemp)
-   codex exec -C <cwd の絶対パス> --json -o "$OUT" "<タスク指示>" >"$LOG" 2>&1
+   codex exec -C <cwd の絶対パス> --json -o "$OUT" "<タスク指示>" </dev/null >"$LOG" 2>&1
    rc=$?
    echo "codex exit=$rc  (events: $LOG)"
    cat "$OUT"
@@ -34,6 +34,11 @@ codex は working root を sandbox と git 解決の基点にするため、こ�
    - `-C <dir>`: agent の working root。存在しないパスを渡すとモデルターンに入る前に
      `Error: No such file or directory (os error 2)` / exit 1 で落ちるので、誤ったディレクトリで
      走り出す事故が起きない。`cd` で代用しない
+   - `</dev/null`: **必須**。`codex exec` は stdin が TTY でないと「piped」と判定し、
+     プロンプトを引数で渡していても stdin を `<stdin>` ブロックとして読み足そうとする
+     (`codex exec --help` の PROMPT 引数の説明)。Bash ツールから渡る stdin はパイプで、
+     書き込み側が親プロセスに握られたまま閉じないことがあるため、EOF が来ず無限に待つ。
+     `</dev/null` を付けると即 EOF になり、この待ちが起きなくなる
    - `-o <file>`: 最終メッセージだけを別ファイルに書き出す。JSONL から探す必要がなくなる
    - `--json`: 進捗イベントを JSONL で受け取る。`item.completed` イベントは各シェル実行の出力を
      丸ごと含み、テストスイートを走らせるタスクでは膨大になるため、stdout に流さず `$LOG` へ
@@ -44,6 +49,19 @@ codex は working root を sandbox と git 解決の基点にするため、こ�
 4. 完了後、`git -C <cwd> status --short` と `git -C <cwd> diff --stat` で実際の差分を確認する。
    `-C` を省くと別リポジトリを見て「差分なし」と誤報告する。
 5. Codex の最終メッセージと、実際に変わったファイルの一覧を報告する。
+
+## 進まないときの見分け方
+
+`codex exec` が無言で止まったら、次の 3 点で stdin 待ちかどうかが判別できる。
+
+- `$LOG` の中身が `Reading additional input from stdin...` の 1 行だけ（39 バイト）
+- `-o` に渡したファイルが 0 バイト、`$CODEX_HOME/sessions/` に今回の rollout が作られていない
+- プロセスは生存しているが CPU 0.0%（`ps -o pid,etime,%cpu,command -p <pid>`）
+
+これはモデルターンに入る前に stdin の EOF を待って固まっている状態で、待っても進まない。
+`</dev/null` の付け忘れが原因なので、プロセスを落として付け直して再実行する。
+`codex exec` は 30 分の Bash タイムアウトを丸ごと使い切るまで黙っているため、
+呼び出し後に `$LOG` が上記の 1 行で止まっていないかを早めに確認する。
 
 ## sandbox と承認ポリシーを引数で渡さない
 
@@ -68,7 +86,7 @@ devcontainer が `danger-full-access` なのは、ubuntu ベースのコンテ�
 ```bash
 OUT=$(mktemp)
 LOG=$(mktemp)
-cd <cwd の絶対パス> && codex exec resume --last --json -o "$OUT" "<追加指示>" >"$LOG" 2>&1
+cd <cwd の絶対パス> && codex exec resume --last --json -o "$OUT" "<追加指示>" </dev/null >"$LOG" 2>&1
 rc=$?
 echo "codex exit=$rc  (events: $LOG)"
 cat "$OUT"
