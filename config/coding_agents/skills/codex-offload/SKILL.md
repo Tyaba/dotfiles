@@ -34,7 +34,9 @@ description: Claude から Codex CLI へコード変更系タスクを移譲す�
 
 Task ツールで `codex-offload` サブエージェント（`~/.claude/agents/codex-offload.md`、dotfiles の実体は
 `config/coding_agents/claude/agents/codex-offload.md`）を起動する。サブエージェントが内部で
-`codex exec --json -o <file> "<プロンプト>"` を実行し、`git diff` で実際の差分を確認してから結果を返す。
+`codex exec --json -o <file> "<プロンプト>" </dev/null` を実行し、`git diff` で実際の差分を確認してから
+結果を返す。`</dev/null` は必須で、これが無いと `codex exec` が stdin の EOF を待って
+モデルターンに入る前に固まる（詳細は agent 定義の「進まないときの見分け方」）。
 
 サブエージェントに渡す指示に必ず含めるもの：
 
@@ -44,7 +46,7 @@ Task ツールで `codex-offload` サブエージェント（`~/.claude/agents/c
 
 移譲後は Codex の出力を検証してユーザーに報告する。Codex の回答を鵜呑みにして転記するのは禁止。
 
-追加指示で同じスレッドを続ける場合は `codex exec resume --last "<追加指示>"`。新しいスレッドを立てると、
+追加指示で同じスレッドを続ける場合は `codex exec resume --last "<追加指示>" </dev/null`。新しいスレッドを立てると、
 直前の変更内容を Codex が把握していない状態からやり直しになる。
 
 ## sandbox と承認ポリシーを引数で渡さない
