@@ -25,6 +25,7 @@ codex は working root を sandbox と git 解決の基点にするため、こ�
    ```bash
    OUT=$(mktemp)
    LOG=$(mktemp)
+   echo "OUT=$OUT LOG=$LOG"
    codex exec -C <cwd の絶対パス> --json -o "$OUT" "<タスク指示>" </dev/null >"$LOG" 2>&1
    rc=$?
    echo "codex exit=$rc  (events: $LOG)"
@@ -43,6 +44,9 @@ codex は working root を sandbox と git 解決の基点にするため、こ�
    - `--json`: 進捗イベントを JSONL で受け取る。`item.completed` イベントは各シェル実行の出力を
      丸ごと含み、テストスイートを走らせるタスクでは膨大になるため、stdout に流さず `$LOG` へ
      リダイレクトする。流したままだと Bash ツール出力が切り詰められ、最後に出る `cat "$OUT"` が落ちる
+   - `echo "OUT=... LOG=..."` は `codex exec` より**前**に置く。`$OUT` / `$LOG` はこの Bash 呼び出しの
+     シェル変数で、次の呼び出しには引き継がれない。タイムアウトで打ち切られると後ろの `echo` は走らないため、
+     先に出しておかないと途中経過のログを後から開けなくなる
    - `rc` を必ず確認する。`rc` が 0 以外、または `$OUT` が空なら失敗している。`cat "$OUT"` が
      最後のコマンドだとブロック全体が常に exit 0 になり、失敗が成功に見えるので `rc=$?` を省かない
    - Bash ツールの `timeout` に `1800000`（30 分）を指定する。既定の 30 秒ではまず足りない
@@ -66,21 +70,23 @@ Codex が終わってもループが自分を見つけ続けて抜けられず�
 （2026-09-29 に実際に発生した）。
 
 30 分に収まりそうにないタスクは、裏に回すのではなくタスクを分割して呼び出し元に返す。
-Bash ツールが 30 分で打ち切った場合は、`$LOG` の末尾と `git -C <cwd> status --short` を確認し、
+Bash ツールが 30 分で打ち切った場合は、冒頭で出力された `LOG=<パス>` の実パスを使って
+（`tail -40 <パス>`。`$LOG` は次の Bash 呼び出しでは空になっている）ログの末尾と `git -C <cwd> status --short` を確認し、
 途中までの差分とともに打ち切られたことを報告する。
 
 ## 進まないときの見分け方
 
-`codex exec` が無言で止まったら、次の 3 点で stdin 待ちかどうかが判別できる。
+`codex exec` は前面で実行しているため、走っている間は同じサブエージェントから様子を見ることはできない。
+以下は Bash ツールのタイムアウトで打ち切られた**後**に、冒頭で出力された `OUT=` / `LOG=` の実パスを使って
+行う切り分けで、この 3 点で stdin 待ちだったかどうかが判別できる。
 
-- `$LOG` の中身が `Reading additional input from stdin...` の 1 行だけ（39 バイト）
+- `LOG=` のファイルの中身が `Reading additional input from stdin...` の 1 行だけ（39 バイト）
 - `-o` に渡したファイルが 0 バイト、`$CODEX_HOME/sessions/` に今回の rollout が作られていない
-- プロセスは生存しているが CPU 0.0%（`ps -o pid,etime,%cpu,command -p <pid>`）
+- プロセスが残っていれば CPU 0.0%（`ps -o pid,etime,%cpu,command -p <pid>`）。残っていたら `kill <pid>` で落とす
 
 これはモデルターンに入る前に stdin の EOF を待って固まっている状態で、待っても進まない。
-`</dev/null` の付け忘れが原因なので、プロセスを落として付け直して再実行する。
-`codex exec` は 30 分の Bash タイムアウトを丸ごと使い切るまで黙っているため、
-呼び出し後に `$LOG` が上記の 1 行で止まっていないかを早めに確認する。
+`</dev/null` の付け忘れが原因なので、付け直して再実行する。この状態では 30 分のタイムアウトを
+丸ごと待つことになり、途中で気づく手段はない。実行前にコマンドに `</dev/null` が入っているかを必ず確認する。
 
 ## sandbox と承認ポリシーを引数で渡さない
 
@@ -105,6 +111,7 @@ devcontainer が `danger-full-access` なのは、ubuntu ベースのコンテ�
 ```bash
 OUT=$(mktemp)
 LOG=$(mktemp)
+echo "OUT=$OUT LOG=$LOG"
 cd <cwd の絶対パス> && codex exec resume --last --json -o "$OUT" "<追加指示>" </dev/null >"$LOG" 2>&1
 rc=$?
 echo "codex exit=$rc  (events: $LOG)"
