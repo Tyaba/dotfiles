@@ -37,6 +37,9 @@ Task ツールで `codex-offload` サブエージェント（`~/.claude/agents/c
 `codex exec --json -o <file> "<プロンプト>" </dev/null` を実行し、`git diff` で実際の差分を確認してから
 結果を返す。`</dev/null` は必須で、これが無いと `codex exec` が stdin の EOF を待って
 モデルターンに入る前に固まる（詳細は agent 定義の「進まないときの見分け方」）。
+`codex exec` は前面で実行して Bash ツールの `timeout` で待つ。`run_in_background` や `pgrep` の
+待機ループで待つと、ループが自分自身にマッチして終わらないことがある（詳細は agent 定義の
+「バックグラウンドに回さない」）。
 
 サブエージェントに渡す指示に必ず含めるもの：
 
