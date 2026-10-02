@@ -73,3 +73,4 @@
 - tmuxからherdrへ移行済み。設定は `config/.config/herdr/config.toml` に置き `dotfile '.config/herdr/config.toml'` でファイル単位に symlink する（herdr が `~/.config/herdr/herdr.sock` を作るため、ディレクトリごと symlink すると socket がリポジトリ作業ツリーに落ちる）。`.tmux.conf` と `package 'tmux'` は退避先として残してある
 - herdrのエージェント検出は2段構成で、**どのエージェントか**の識別はpaneの前景プロセス名で行い、**状態**（idle/working/blocked/done）は画面出力のスクレイピングで判定する。このため `devcontainer exec` のようなラッパー経由で起動したエージェントは前景プロセスがラッパーになり識別に失敗する。回避策は起動側（host）で `HERDR_AGENT=claude` を渡すこと
 - Claude Codeの状態表示はherdrの `integration install claude` が生成する SessionStart hook が担う。hookは `~/.claude/hooks/herdr-agent-state.sh` に生成され、`~/.claude/hooks` が `config/coding_agents/hooks` への symlink のためリポジトリ作業ツリーに落ちる。バージョン依存の生成物なのでコミットせず .gitignore 済み（`cookbooks/herdr` 参照）
+- Claude Code は claude.ai の配布スキル（`anthropic-skills:*`）を `~/.claude/skills/synced/<UUID>/` に同期する。`~/.claude/skills` が `config/coding_agents/skills` への symlink のため、これもリポジトリ作業ツリーに落ちる。ディレクトリ名に org / アカウントの UUID を含む生成物なのでコミットせず .gitignore 済み
