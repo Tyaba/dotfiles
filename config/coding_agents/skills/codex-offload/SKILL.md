@@ -41,6 +41,12 @@ Task ツールで `codex-offload` サブエージェント（`~/.claude/agents/c
 待機ループで待つと、ループが自分自身にマッチして終わらないことがある（詳細は agent 定義の
 「バックグラウンドに回さない」）。
 
+**呼び出し元（親セッション）も待機ループを書かない。** サブエージェントの完了は Agent の完了通知として
+自動で届く。親が `pgrep -f "codex exec"` や `git status` の変化を `sleep` で回して待つと、Bash ツールは
+コマンド全文を自分のシェルの argv に載せて実行するため `pgrep -f` が常にそのシェルに一致し、Codex が
+3〜4 分で終わっていてもループが 30 分のタイムアウトまで抜けない（2026-10-15 に親セッションで発生）。
+`pgrep -f` / `pkill -f` は `pgrep-self-match-gate.sh`（PreToolUse hook）が deny する。
+
 サブエージェントに渡す指示に必ず含めるもの：
 
 - **作業ディレクトリの絶対パス**。codex は cwd を sandbox と git 解決の基点にする。worktree 運用では特に重要（後述）

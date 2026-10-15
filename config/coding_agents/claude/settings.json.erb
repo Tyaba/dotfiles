@@ -157,6 +157,12 @@
             "command": "~/.claude/hooks/find-scope-gate.sh",
             "timeout": 10,
             "statusMessage": "検索範囲を検査中..."
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/pgrep-self-match-gate.sh",
+            "timeout": 10,
+            "statusMessage": "プロセス検索を検査中..."
           }
         ]
       }
