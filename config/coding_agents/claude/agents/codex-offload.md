@@ -20,6 +20,8 @@ codex は working root を sandbox と git 解決の基点にするため、こ�
 1. 呼び出し元から渡されたタスク指示と作業ディレクトリを確認する。作業ディレクトリの指定がなければ、現在の
    リポジトリルート（`git rev-parse --show-toplevel`）を使う。以降、このパスを `<cwd>` と書く。
 2. 移譲前の状態を記録する: `git -C <cwd> status --short` と `git -C <cwd> rev-parse --abbrev-ref HEAD`。
+   あわせて `command -v codex-link-auth >/dev/null 2>&1 && codex-link-auth` を実行する。devcontainer で
+   `auth.json` の symlink がトークン更新で外れていたら張り直す（host では何もしない）。理由は下の「認証の切り分け」
 3. `codex exec -C <cwd>` で実行する。
 
    ```bash
@@ -87,6 +89,20 @@ Bash ツールが 30 分で打ち切った場合は、冒頭で出力された `
 これはモデルターンに入る前に stdin の EOF を待って固まっている状態で、待っても進まない。
 `</dev/null` の付け忘れが原因なので、付け直して再実行する。この状態では 30 分のタイムアウトを
 丸ごと待つことになり、途中で気づく手段はない。実行前にコマンドに `</dev/null` が入っているかを必ず確認する。
+
+## 認証の切り分け
+
+`$LOG` に HTTP 400 / 401 や `Not logged in` が出たら、次の順に確認して結果を報告する。自分で
+`codex login` / `codex logout` はしない（devcontainer の `logout` は host と共有のログインを消す）。
+
+1. `echo $CODEX_HOME`: devcontainer なら `~/.config/codex`、host なら空か `~/.codex`
+2. `ls -l "${CODEX_HOME:-$HOME/.codex}/auth.json"`: devcontainer では `~/.codex/auth.json` への symlink のはず。
+   普通のファイルになっていたら、トークン更新で symlink が外れてコンテナだけのログインを使っている。
+   `codex-link-auth` で張り直す（共有先より新しければ昇格、古ければ捨てる）
+3. `codex login status`: `Logged in using ChatGPT` 等が出るか
+4. `codex exec --skip-git-repo-check "reply with OK" </dev/null`: 最小の呼び出しが通るか。
+   ログイン済みなのに `The '<model>' model is not supported when using Codex with a ChatGPT account.` が
+   出るなら認証ではなくモデル設定の問題。`$CODEX_HOME/config.toml` の `model` を確認する
 
 ## sandbox と承認ポリシーを引数で渡さない
 

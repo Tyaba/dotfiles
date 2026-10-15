@@ -94,9 +94,38 @@ since Claude Code does not spawn stdio servers through a login shell:
 | `~/.claude.json` user scope | `sync-claude-user-mcp.sh` forwards `env` as `--env` |
 
 Codex rewrites `auth.json` as temp-file + rename on token refresh, which
-replaces the symlink with a regular file. `roles/devcontainer/default.rb`
-detects that, promotes the newer container-side token to the shared location,
-and restores the link.
+replaces the symlink with a regular file. From then on the container keeps its
+own login, and a re-login on the host does not reach it. The repair lives in
+`config/coding_agents/codex/link-auth.sh`, linked as `~/.local/bin/codex-link-auth`
+and run from three places:
+
+- `install.sh` (`roles/devcontainer/default.rb`)
+- every interactive shell in a devcontainer (`config/.zsh/lib/apps`)
+- the `codex-offload` subagent, before each `codex exec`
+
+The container-side copy is promoted to the shared location only when it is
+newer than the shared one. Otherwise the host (or another container) logged in
+again after it was written, so the stale copy is discarded. The script does
+nothing on the host, where `~/.config/codex/config.toml` does not exist.
+
+```mermaid
+flowchart TD
+    A{~/.config/codex/config.toml exists?} -->|no: host| Z[do nothing]
+    A -->|yes: devcontainer| B{state of ~/.config/codex/auth.json}
+    B -->|symlink to ~/.codex/auth.json| Z
+    B -->|symlink elsewhere| R[relink]
+    B -->|missing| R
+    B -->|regular file| C{non-empty and newer than ~/.codex/auth.json, or shared file missing?}
+    C -->|yes| P[move it to ~/.codex/auth.json, then relink]
+    C -->|no| D[discard it, then relink]
+```
+
+The host's `~/.codex/config.toml` must keep `cli_auth_credentials_store = "file"`
+(rendered by `config/coding_agents/codex/config.toml.erb`). With the keyring
+store the token never lands in `auth.json`, so containers cannot read it.
+`config.toml.erb` also leaves `model` unset: with ChatGPT-account auth the
+account decides which models are available, and pinning one it does not offer
+makes every request fail with HTTP 400.
 
 ### mise managed tools
 

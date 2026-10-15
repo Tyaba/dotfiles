@@ -7,9 +7,14 @@ sandbox_mode = "danger-full-access"
 sandbox_mode = "workspace-write"
 <% end -%>
 
-model = "gpt-5.5"
+# model は固定しない。ChatGPT アカウント認証では使えるモデルがアカウント側で決まり、
+# 使えないモデルを書くと全リクエストが HTTP 400 になる。model_context_window も
+# 特定モデル前提の値なので、モデルの既定に任せる
 model_reasoning_effort = "high"
-model_context_window = 1000000
+
+# 認証情報は keyring ではなく $CODEX_HOME/auth.json に保存する。devcontainer は
+# host の ~/.codex/auth.json を bind mount 経由で共有するため、keyring だと読めない
+cli_auth_credentials_store = "file"
 
 <% if ENV['DOTFILES_ROLE'] == 'devcontainer' -%>
 # danger-full-access では [sandbox_workspace_write] セクションは bypass されるため省略

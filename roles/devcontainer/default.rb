@@ -79,44 +79,12 @@ include_role 'base'
 # it back. Everything else in CODEX_HOME (state_5.sqlite, sessions/) is now
 # container-local, which also stops several codex processes from writing one
 # sqlite file.
+# The link itself breaks on every token refresh, so the repair lives in a
+# script that interactive shells and the codex-offload subagent also run.
+link_codex_auth = File.expand_path('../../../config/coding_agents/codex/link-auth.sh', __FILE__)
+
 execute 'link codex auth.json to the host-shared ~/.codex' do
-  command <<~SH
-    set -eu
-    LINK="#{ENV['HOME']}/.config/codex/auth.json"
-    TARGET="#{ENV['HOME']}/.codex/auth.json"
-
-    # roles/base already created this, but ln -s fails hard if it is missing
-    # and mitamae would abort the whole run over a symlink.
-    mkdir -p "$(dirname "$LINK")"
-
-    if [ -L "$LINK" ]; then
-      # Repoint if it aims somewhere stale.
-      if [ "$(readlink "$LINK")" != "$TARGET" ]; then
-        rm "$LINK"
-        ln -s "$TARGET" "$LINK"
-      fi
-    elif [ -f "$LINK" ]; then
-      # codex rewrites auth.json as temp-file + rename on token refresh, which
-      # replaces the symlink with a regular file. That copy is newer than the
-      # shared one, so promote it before restoring the link.
-      #
-      # Only promote a non-empty file. This overwrites the login shared by the
-      # host and every other container, so a truncated or half-written file
-      # here must not take the working token down with it.
-      if [ -s "$LINK" ]; then
-        mv "$LINK" "$TARGET"
-        ln -s "$TARGET" "$LINK"
-      else
-        echo "auth.json at $LINK is empty; keeping the shared token" >&2
-        rm "$LINK"
-        ln -s "$TARGET" "$LINK"
-      fi
-    else
-      # A dangling link is fine: `codex login` writes through it and the token
-      # lands in the shared mount.
-      ln -s "$TARGET" "$LINK"
-    fi
-  SH
+  command "bash #{link_codex_auth}"
   user node[:user] if node[:user]
 end
 

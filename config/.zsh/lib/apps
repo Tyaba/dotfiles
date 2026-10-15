@@ -38,6 +38,9 @@ fi
 # rather than branching on DOTFILES_ROLE (not exported into shells).
 if [ -f "$HOME/.config/codex/config.toml" ]; then
   export CODEX_HOME="$HOME/.config/codex"
+  # A token refresh replaces the auth.json symlink with a regular file, which
+  # splits this container's login from the host's. Repair it on every shell.
+  command -v codex-link-auth >/dev/null 2>&1 && { codex-link-auth || true; }
 fi
 
 # pre-commit

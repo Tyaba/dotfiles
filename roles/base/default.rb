@@ -163,6 +163,13 @@ link "#{ENV['HOME']}/.local/bin/claude-sync-mcp" do
   to sync_user_mcp
 end
 
+# codex-link-auth repairs the devcontainer's auth.json symlink after codex
+# replaces it on token refresh (see roles/devcontainer). It is a no-op on the
+# host, so expose it everywhere and let callers run it unconditionally.
+link "#{ENV['HOME']}/.local/bin/codex-link-auth" do
+  to File.join(root_dir, 'config/coding_agents/codex/link-auth.sh')
+end
+
 execute 'sync ~/.mcp.json into claude user scope' do
   command "bash #{sync_user_mcp}"
   user node[:user] if node[:user]
