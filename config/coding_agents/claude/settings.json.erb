@@ -157,6 +157,23 @@
             "command": "~/.claude/hooks/find-scope-gate.sh",
             "timeout": 10,
             "statusMessage": "検索範囲を検査中..."
+          },
+          {
+            "type": "command",
+            "command": "python3 ~/.claude/hooks/pgrep-self-match-gate.py",
+            "timeout": 10,
+            "statusMessage": "プロセス検索を検査中..."
+          }
+        ]
+      },
+      {
+        "matcher": "Monitor",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ~/.claude/hooks/pgrep-self-match-gate.py",
+            "timeout": 10,
+            "statusMessage": "プロセス検索を検査中..."
           }
         ]
       }

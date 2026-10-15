@@ -13,6 +13,7 @@ Claude Code 固有の注意：
 - `codex-offload` は Task ツールで起動するサブエージェント（`~/.claude/agents/codex-offload.md`）。内部で `codex exec` を実行する。以前の `mcp__codex__codex` は codex 0.154.0 の `mcp-server` 削除で消滅した
 - ホストでは公式プラグイン `codex@openai-codex` も入っており、人間が明示的に使うレビュー系コマンド（`/codex:review` 等）と `codex-rescue` サブエージェントが利用できる。devcontainer では sandbox の都合で無効（`codex-offload` を使う）
 - 読み取り中心の探索は Explore サブエージェント、書き込み系は Codex、と使い分ける
+- `codex-offload` の完了は Agent の完了通知で受け取る。親セッションから `pgrep` / `sleep` のループで `codex exec` プロセスや差分の出現を監視しない（Bash ツール内の `pgrep -f` はコマンドに書いたパターンが自分のシェルに一致して終わらない。`pgrep-self-match-gate.py` hook が deny する）。結果が出るまで先に進めないなら、通知を待ってターンを終える
 
 ## サブエージェント
 - **大規模な読み取り中心の探索**: Task ツール（Explore エージェント）
