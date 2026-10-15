@@ -96,6 +96,12 @@ devcontainer は workspace を bind mount しているため、`rm -rf` / `git r
 
 `$CODEX_HOME` は host では `~/.codex`、devcontainer では `~/.config/codex`。devcontainer では `~/.codex` が host と rw bind mount で共有されており、`$HOME` 絶対パスと `sandbox_mode` が両立しないため分離してある（`auth.json` のみ symlink で共有）。なお devcontainer は `danger-full-access` なので `writable_roots` は bypass される。
 
+## 認証が通らないとき
+
+codex はトークン更新時に `auth.json` を temp + rename で置き換えるため、devcontainer の symlink が普通のファイルに変わり、コンテナだけ古いログインを使い続けることがある。`codex-link-auth`（dotfiles: `config/coding_agents/codex/link-auth.sh`）が張り直す。シェル起動時と `codex-offload` サブエージェントの `codex exec` 前に自動で走る。
+
+それでも HTTP 400 / 401 や `Not logged in` が出たら、`echo $CODEX_HOME` → `ls -l "$CODEX_HOME/auth.json"`（symlink か）→ `codex login status` → `codex exec --skip-git-repo-check "reply with OK" </dev/null` の順に切り分ける（詳細は agent 定義の「認証の切り分け」）。コンテナ内で `codex logout` しない。host と共有のログインが消える。ログインし直すのは host 側で行う。
+
 ## stuck 検知
 
 同じ仮説で 2–3 回試して失敗したら、追加試行せず Codex に移譲する。
