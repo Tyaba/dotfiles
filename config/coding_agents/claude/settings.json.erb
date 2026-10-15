@@ -160,7 +160,18 @@
           },
           {
             "type": "command",
-            "command": "~/.claude/hooks/pgrep-self-match-gate.sh",
+            "command": "python3 ~/.claude/hooks/pgrep-self-match-gate.py",
+            "timeout": 10,
+            "statusMessage": "プロセス検索を検査中..."
+          }
+        ]
+      },
+      {
+        "matcher": "Monitor",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ~/.claude/hooks/pgrep-self-match-gate.py",
             "timeout": 10,
             "statusMessage": "プロセス検索を検査中..."
           }

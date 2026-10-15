@@ -70,8 +70,8 @@ codex は working root を sandbox と git 解決の基点にするため、こ�
 （`bash -c 'until ! kill -0 $(pgrep -f "codex exec -C <dir>") ...'`）にもマッチする。
 Codex が終わってもループが自分を見つけ続けて抜けられず、サブエージェントが結果を返さないまま止まる
 （2026-09-29 に実際に発生した）。Bash ツールはコマンド全文をシェルの argv に載せるので、
-`pgrep -f` はパターンを問わず常に自分のシェルに一致する。`pgrep -f` / `pkill -f` は
-`pgrep-self-match-gate.sh`（PreToolUse hook）が deny する。
+パターンの文字列をコマンドに書いた `pgrep -f` は（ループの外に書いても）自分のシェルに一致する。
+`pgrep -f` / `pkill -f` は `pgrep-self-match-gate.py`（PreToolUse hook）が deny する。
 
 30 分に収まりそうにないタスクは、裏に回すのではなくタスクを分割して呼び出し元に返す。
 Bash ツールが 30 分で打ち切った場合は、冒頭で出力された `LOG=<パス>` の実パスを使って
