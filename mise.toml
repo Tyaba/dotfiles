@@ -1,0 +1,544 @@
+# mise 2026.10.10 向けの移行草案。適用前の未完了事項は MIGRATION-NOTES.md を参照。
+# host: mise bootstrap
+# devcontainer: mise bootstrap --only dotfiles,tools,task -E devcontainer
+# config/mise/config.toml は将来の配置元であり、今回はまだ作成しない。
+
+[vars]
+role = "host"
+codex_home = "~/.codex"
+gcloud_configuration = "{{ env.DOTFILES_GCLOUD_CONFIGURATION | default(value='good') }}"
+
+[bootstrap.secrets]
+context7_api_key = { env = "CONTEXT7_API_KEY", description = "Context7 API key supplied by the future shell wrapper" }
+
+[bootstrap.packages]
+# basic / git / rust / mise / go と共通 CLI。brew は Linux にもあるため OS を限定する。
+"brew:curl" = { os = "macos" }
+"brew:zip" = { os = "macos" }
+"brew:tmux" = { os = "macos" }
+"brew:git" = { os = "macos" }
+"brew:git-lfs" = { os = "macos" }
+"brew:cmake" = { os = "macos" }
+"brew:pkg-config" = { os = "macos" }
+"brew:openssl" = { os = "macos" }
+"brew:tflint" = { os = "macos" }
+"brew:go" = { os = "macos" }
+"brew:htop" = { os = "macos" }
+"brew:emacs" = { os = "macos" }
+"brew:eza" = { os = "macos" }
+"brew:nkf" = { os = "macos" }
+"brew:gh" = { os = "macos" }
+"brew:gibo" = { os = "macos" }
+"brew:gemini-cli" = { os = "macos" }
+"brew:k6" = { os = "macos" }
+"brew:herdr" = { os = "macos" }
+"brew:ca-certificates" = { os = "macos" }
+"brew:gnupg" = { os = "macos" }
+"apt:curl" = { os = "linux" }
+"apt:zip" = { os = "linux" }
+"apt:tmux" = { os = "linux" }
+"apt:git" = { os = "linux" }
+"apt:git-lfs" = { os = "linux" }
+"apt:cmake" = { os = "linux" }
+"apt:pkg-config" = { os = "linux" }
+"apt:golang" = { os = "linux" }
+"apt:htop" = { os = "linux" }
+"apt:emacs" = { os = "linux" }
+"apt:eza" = { os = "linux" }
+"apt:nkf" = { os = "linux" }
+"apt:zsh" = { os = "linux" }
+"apt:locales" = { os = "linux" }
+"apt:openssh-client" = { os = "linux" }
+"apt:xclip" = { os = "linux" }
+"apt:build-essential" = { os = "linux" }
+"apt:libssl-dev" = { os = "linux" }
+"apt:zlib1g-dev" = { os = "linux" }
+"apt:libbz2-dev" = { os = "linux" }
+"apt:libreadline-dev" = { os = "linux" }
+"apt:libsqlite3-dev" = { os = "linux" }
+"apt:libncursesw5-dev" = { os = "linux" }
+"apt:xz-utils" = { os = "linux" }
+"apt:tk-dev" = { os = "linux" }
+"apt:libxml2-dev" = { os = "linux" }
+"apt:libxmlsec1-dev" = { os = "linux" }
+"apt:libffi-dev" = { os = "linux" }
+"apt:liblzma-dev" = { os = "linux" }
+"apt:python3-setuptools" = { os = "linux" }
+"apt:libwayland-cursor0" = { os = "linux" }
+"apt:libwayland-dev" = { os = "linux" }
+"apt:libxcb-render0-dev" = { os = "linux" }
+"apt:libxcb-shape0-dev" = { os = "linux" }
+"apt:libxcb-xfixes0-dev" = { os = "linux" }
+"apt:ca-certificates" = { os = "linux" }
+"apt:gnupg" = { os = "linux" }
+"apt:lsb-release" = { os = "linux" }
+"apt:sound-theme-freedesktop" = { os = "linux" }
+"apt:pulseaudio-utils" = { os = "linux" }
+# 外部 apt source は pre-packages hook で先に配置する。
+"apt:gh" = { os = "linux" }
+"apt:k6" = { os = "linux" }
+"apt:redis" = { os = "linux" }
+"apt:docker-ce" = { os = "linux" }
+"apt:docker-ce-cli" = { os = "linux" }
+"apt:containerd.io" = { os = "linux" }
+"apt:docker-buildx-plugin" = { os = "linux" }
+"apt:docker-compose-plugin" = { os = "linux" }
+# Ubuntu 専用の software-properties-common と Debian 専用の
+# apt-transport-https は os=linux で区別できず、pre-packages に残す。
+# "apt:software-properties-common" = { os = "linux" }
+# "apt:apt-transport-https" = { os = "linux" }
+
+# darwin role のみ。Docker は cask ではなく CLI formula。
+"brew:mas" = { os = "macos" }
+"brew:colima" = { os = "macos" }
+"brew:docker" = { os = "macos" }
+"brew:docker-compose" = { os = "macos" }
+"brew:docker-buildx" = { os = "macos" }
+"brew:docker-credential-helper" = { os = "macos" }
+"brew:dnsmasq" = { os = "macos" }
+"brew:mkcert" = { os = "macos" }
+"brew:nss" = { os = "macos" }
+"brew:helm" = { os = "macos" }
+"brew:jq" = { os = "macos" }
+"brew:gnu-sed" = { os = "macos" }
+"mas:1352778147" = { os = "macos" } # bitwarden: ブラウザ統合のため App Store 版
+"mas:539883307" = { os = "macos" } # line
+"brew-cask:android-studio" = { os = "macos" }
+"brew-cask:aqua-voice" = { os = "macos" }
+"brew-cask:chatgpt" = { os = "macos" }
+"brew-cask:cursor" = { os = "macos" }
+"brew-cask:cursor-cli" = { os = "macos" }
+"brew-cask:discord" = { os = "macos" }
+"brew-cask:font-meslo-lg-nerd-font" = { os = "macos" }
+"brew-cask:ghostty" = { os = "macos" }
+"brew-cask:linear-linear" = { os = "macos" }
+"brew-cask:obs" = { os = "macos" }
+"brew-cask:raycast" = { os = "macos" }
+"brew-cask:slack" = { os = "macos" }
+"brew-cask:vivaldi" = { os = "macos" }
+"brew-cask:vlc" = { os = "macos" }
+"brew-cask:xquartz" = { os = "macos" }
+"brew-cask:zoom" = { os = "macos" }
+# gcloud / karabiner-elements は package 呼び出しのみで --cask の証拠がない。
+# manager/token 確認後に google-cloud-sdk と karabiner-elements を追加する。
+
+[bootstrap.brew.taps]
+# darwin_base の原文を保存。tap の現存・必要性は要確認。
+"homebrew/cask-fonts" = "https://github.com/Homebrew/homebrew-cask-fonts.git"
+
+[dotfiles]
+# 生成キャッシュがソースへ書き込まれないよう、ディレクトリを実体として残す。
+"~/.claude" = { source = "config/coding_agents/claude", mode = "symlink-each", exclude = ["*.erb"] }
+"~/.cursor" = { source = "config/coding_agents/cursor", mode = "symlink-each", exclude = ["*.erb", "state"] }
+"~/.claude/skills" = { source = "config/coding_agents/skills", mode = "symlink-each", exclude = ["synced"] }
+"~/.cursor/skills" = { source = "config/coding_agents/skills", mode = "symlink-each", exclude = ["synced"] }
+"~/.claude/hooks" = { source = "config/coding_agents/hooks", mode = "symlink-each", exclude = ["herdr-agent-state.sh", "state", "__pycache__"] }
+"~/.cursor/hooks" = { source = "config/coding_agents/hooks", mode = "symlink-each", exclude = ["herdr-agent-state.sh", "state", "__pycache__"] }
+"~/.claude/user-rules.md" = { source = "config/coding_agents/user-rules.md" }
+"~/.local/bin/claude-sync-mcp" = { source = "config/coding_agents/sync-claude-user-mcp.sh" }
+"~/.local/bin/codex-link-auth" = { source = "config/coding_agents/codex/link-auth.sh" }
+"~/.cargo/config.toml" = { source = "config/.cargo/config.toml" }
+"~/.config/boto" = { source = "config/.config/boto" }
+"~/.config/sheldon" = { source = "config/.config/sheldon" }
+"~/.zsh" = { source = "config/.zsh" }
+"~/.zshrc" = { source = "config/.zshrc" }
+"~/.zshrc.darwin" = { source = "config/.zshrc.darwin", variants = [{ os = "macos" }] }
+"~/.zshrc.Linux" = { source = "config/.zshrc.Linux", variants = [{ os = "linux" }] }
+"~/.config/ghostty" = { source = "config/.config/ghostty", variants = [{ os = "macos" }] }
+"~/.config/karabiner" = { source = "config/.config/karabiner", variants = [{ os = "macos" }] }
+"~/.config/mise/config.toml" = { source = "config/mise/config.toml" }
+# 以下も dotfile 変換先。ただし既存ファイル保持 / host 限定の条件は task に残す。
+# "~/.gitconfig" = { source = "config/.gitconfig" }
+# "~/.gitignore_global" = { source = "config/.gitignore_global" }
+# "~/.tmux.conf" = { source = "config/.tmux.conf" }
+# "~/.config/herdr/config.toml" = { source = "config/.config/herdr/config.toml" }
+# "~/.ssh/config.d/00-base.config" = { source = "config/.ssh/config.d/00-base.config" }
+# "~/.ssh/config.d/10-darwin.config" = { source = "config/.ssh/config.d/10-darwin.config" }
+# 未変換の ERB を Tera として配らない。以下は書き直し後の配置予定。
+# "~/.claude/settings.json" = { source = "config/coding_agents/claude/settings.json.tera", mode = "template" }
+# "~/.cursor/rules/user-rules.mdc" = { source = "config/coding_agents/cursor/rules/user-rules.mdc.tera", mode = "template" }
+# "~/.mcp.json" = { source = "config/coding_agents/mcp.json.tera", mode = "template", permissions = "0600" }
+# "~/.cursor/mcp.json" = { source = "config/coding_agents/mcp.json.tera", mode = "template", permissions = "0600" }
+# "~/.codex/config.toml" = { source = "config/coding_agents/codex/config.toml.tera", mode = "template", permissions = "0600" }
+# "~/.codex/AGENTS.md" = { source = "config/coding_agents/codex/AGENTS.md.tera", mode = "template" }
+
+[bootstrap.repos]
+"~/.fzf" = { url = "https://github.com/junegunn/fzf.git" }
+# ghq cookbook に clone 対象はない。fzf の --depth 1 は宣言の受け皿なし。
+
+[bootstrap.user]
+login_shell = "/bin/zsh"
+
+[bootstrap.mise_shell_activate]
+# config/.zshrc 側の既存 activation と重複させない（notes 参照）。
+
+[bootstrap.directories."/etc/resolver"]
+os = "macos"
+owner = "root"
+group = "wheel"
+mode = "0755"
+
+[bootstrap.files."/etc/resolver/test"]
+os = "macos"
+content = "nameserver 127.0.0.1\n"
+owner = "root"
+group = "wheel"
+mode = "0644"
+
+[bootstrap.macos.defaults]
+"com.apple.finder" = { AppleShowAllFiles = true }
+# 元の defaults write は型指定なしなので文字列を維持する。
+"com.apple.inputmethod.Kotoeri" = { JIMPrefLiveConversionKey = "1" }
+"NSGlobalDomain" = { AppleShowAllExtension = true, "com.apple.mouse.tapBehavior" = 1, "com.apple.trackpad.scaling" = 3.0, "com.apple.mouse.scaling" = 3.0 }
+"com.apple.menuextra.battery" = { ShowPercent = "YES" }
+# Clicking は同じ cookbook 内で bool true の後に int 1 で上書きされる。
+"com.apple.driver.AppleBluetoothMultitouch.trackpad" = { Clicking = 1, TrackpadRightClick = 1 }
+"com.apple.AppleMultitouchTrackpad" = { Clicking = 1, TrackpadRightClick = 1 }
+"com.apple.desktopservices" = { DSDontWriteNetworkStores = true, DSDontWriteUSBStores = true }
+
+[[bootstrap.macos.defaults_entries]]
+domain = "com.apple.screensaver"
+key = "idleTime"
+host = "current"
+value = 0
+
+[[bootstrap.macos.defaults_entries]]
+domain = "NSGlobalDomain"
+key = "com.apple.mouse.tapBehavior"
+host = "current"
+value = 1
+
+[bootstrap.macos.launchd.agents.yui-proxy]
+# 旧 com.tepein.yui-proxy から dev.mise.yui-proxy への切替は別途必要。
+program = "/opt/homebrew/bin/gcloud"
+args = ["run", "services", "proxy", "yui-backend", "--region=asia-northeast1", "--port=52981"]
+environment = { CLOUDSDK_PYTHON = "{{ env.HOME }}/.local/share/mise/installs/python/3.12/bin/python3.12", CLOUDSDK_ACTIVE_CONFIG_NAME = "{{ vars.gcloud_configuration }}" }
+run_at_load = false
+keep_alive = true
+stdout_path = "/tmp/yui-proxy.log"
+stderr_path = "/tmp/yui-proxy.log"
+
+[bootstrap.linux.systemd.units.yui-proxy]
+description = "yui MCP proxy (gcloud run services proxy)"
+type = "simple"
+exec_start = "%h/.bin/google-cloud-sdk/bin/gcloud run services proxy yui-backend --region=asia-northeast1 --port=52981"
+environment = { CLOUDSDK_ACTIVE_CONFIG_NAME = "{{ vars.gcloud_configuration }}" }
+restart = "always"
+restart_sec = "5"
+wanted_by = ["default.target"]
+start = true
+
+[bootstrap.hooks]
+# packages を選ばない devcontainer ではこの hook も実行されない。
+pre-packages = '''
+set -eu
+if [ "{{ vars.role }}" != host ]; then exit 0; fi
+case "$(uname -s)" in
+  Darwin)
+    export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+    if ! command -v brew >/dev/null 2>&1; then
+      NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+    ;;
+  Linux)
+    . /etc/os-release
+    case "$ID" in ubuntu|debian) ;; *) echo "Unsupported apt distribution: $ID" >&2; exit 1;; esac
+    # 鍵取得は packages より前なので、この最小依存だけ先に導入する。
+    if ! command -v curl >/dev/null 2>&1 || ! command -v gpg >/dev/null 2>&1; then
+      sudo apt-get update
+      sudo apt-get install -y ca-certificates curl gnupg
+    fi
+    if [ "$ID" = ubuntu ]; then distro_package=software-properties-common; else distro_package=apt-transport-https; fi
+    if ! dpkg-query -W -f='${Status}' "$distro_package" 2>/dev/null | grep -q 'install ok installed'; then
+      sudo apt-get update
+      sudo apt-get install -y "$distro_package"
+    fi
+    sudo install -d -m 0755 /etc/apt/keyrings /usr/share/keyrings
+    changed=0
+    if [ ! -s /etc/apt/keyrings/githubcli-archive-keyring.gpg ]; then
+      curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg >/dev/null
+      sudo chmod a+r /etc/apt/keyrings/githubcli-archive-keyring.gpg
+      changed=1
+    fi
+    if [ ! -s /usr/share/keyrings/k6-archive-keyring.gpg ]; then
+      curl -fsSL https://dl.k6.io/key.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/k6-archive-keyring.gpg >/dev/null
+      changed=1
+    fi
+    if [ ! -s /usr/share/keyrings/redis-archive-keyring.gpg ]; then
+      curl -fsSL https://packages.redis.io/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/redis-archive-keyring.gpg >/dev/null
+      changed=1
+    fi
+    if [ ! -s /etc/apt/keyrings/docker.asc ]; then
+      sudo curl -fsSL "https://download.docker.com/linux/$ID/gpg" -o /etc/apt/keyrings/docker.asc
+      sudo chmod a+r /etc/apt/keyrings/docker.asc
+      changed=1
+    fi
+    put_source() {
+      if ! test -f "$1" || ! grep -qxF "$2" "$1"; then
+        printf '%s\n' "$2" | sudo tee "$1" >/dev/null
+        changed=1
+      fi
+    }
+    arch=$(dpkg --print-architecture)
+    put_source /etc/apt/sources.list.d/github-cli.list "deb [arch=$arch signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main"
+    put_source /etc/apt/sources.list.d/k6.list 'deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main'
+    put_source /etc/apt/sources.list.d/redis.list "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $VERSION_CODENAME main"
+    put_source /etc/apt/sources.list.d/docker.list "deb [arch=$arch signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/$ID $VERSION_CODENAME stable"
+    if [ "$changed" = 1 ]; then sudo apt-get update; fi
+    ;;
+esac
+'''
+# plugin は tools の初回インストールより前に登録しなければならない。
+pre-tools = '''
+set -eu
+export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"
+if ! mise plugin ls | grep -q '^kubectl'; then mise plugin install kubectl https://github.com/asdf-community/asdf-kubectl.git; fi
+if ! mise plugin ls | grep -q '^pnpm'; then mise plugin install pnpm https://github.com/jonathanmorley/asdf-pnpm.git; fi
+if ! mise plugin ls | grep -q '^ghq'; then mise plugin install ghq https://github.com/kajisha/asdf-ghq.git; fi
+'''
+
+[tasks.bootstrap]
+description = "Mitamae の命令的処理を移した草案（未完了事項は MIGRATION-NOTES.md）"
+shell = "bash -c"
+dir = "{{ config_root }}"
+run = '''
+set -euo pipefail
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.bun/bin:$HOME/.local/share/mise/shims:/opt/homebrew/bin:/usr/local/bin:$PATH"
+repo="$PWD"
+# 元の git dotfile の not_if を維持し、既存の個別設定を置き換えない。
+for path in .gitconfig .gitignore_global; do
+  if [ ! -e "$HOME/$path" ] && [ ! -L "$HOME/$path" ]; then ln -s "$repo/config/$path" "$HOME/$path"; fi
+done
+if [ "{{ vars.role }}" = devcontainer ]; then
+  mise run bootstrap:devcontainer
+  exit 0
+fi
+mise run bootstrap:host
+'''
+
+[tasks."bootstrap:host"]
+shell = "bash -c"
+dir = "{{ config_root }}"
+run = '''
+set -euo pipefail
+[ "{{ vars.role }}" = host ] || exit 0
+repo="$PWD"
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.bun/bin:$HOME/.local/share/mise/shims:/opt/homebrew/bin:/usr/local/bin:$PATH"
+link_host_file() {
+  source_path="$repo/config/$1"
+  target_path="$HOME/$1"
+  mkdir -p "$(dirname "$target_path")"
+  if [ -d "$target_path" ] && [ ! -L "$target_path" ]; then
+    mv "$target_path" "$target_path.bak.$(date +%Y%m%d%H%M%S)"
+  fi
+  if [ "$(readlink "$target_path" 2>/dev/null || true)" != "$source_path" ]; then ln -sfn "$source_path" "$target_path"; fi
+}
+for path in .tmux.conf .config/herdr/config.toml .ssh/config.d/00-base.config; do link_host_file "$path"; done
+if [ "$(uname -s)" = Darwin ]; then link_host_file .ssh/config.d/10-darwin.config; fi
+chmod 700 "$HOME/.ssh"
+ssh_config="$HOME/.ssh/config"
+include_line='Include ~/.ssh/config.d/*.config'
+if [ ! -e "$ssh_config" ]; then
+  printf '%s\n' "$include_line" > "$ssh_config"
+  chmod 600 "$ssh_config"
+elif ! grep -qxF "$include_line" "$ssh_config"; then
+  tmp=$(mktemp)
+  { printf '%s\n\n' "$include_line"; cat "$ssh_config"; } > "$tmp"
+  cat "$tmp" > "$ssh_config"
+  rm -f "$tmp"
+fi
+
+if [ ! -x "$HOME/.cargo/bin/rustc" ]; then curl -fsSL https://sh.rustup.rs | sh -s -- -y; fi
+if ! rustup component list --installed | grep -q '^rust-src'; then rustup component add rust-src; fi
+if ! rustup toolchain list | grep -q '^nightly'; then rustup toolchain install nightly; fi
+# rustup update の毎回実行は固定状態へ収束しないため保留（notes 参照）。
+for crate in cargo-edit bat exa du-dust bottom rustfmt rust-script cargo-update cargo-deps cargo-benchcmp cargo-expand cargo-make hexyl jless hyperfine wasm-pack ripgrep procs fd-find tokei sheldon; do
+  if ! cargo install --list | grep -q "^$crate v"; then cargo install --locked --force --verbose "$crate"; fi
+done
+if [ -x "$HOME/.fzf/install" ] && { [ ! -x "$HOME/.fzf/bin/fzf" ] || [ ! -f "$HOME/.fzf.zsh" ]; }; then "$HOME/.fzf/install" --all; fi
+if ! command -v uv >/dev/null 2>&1; then curl -LsSf https://astral.sh/uv/install.sh | INSTALLER_NO_MODIFY_PATH=1 sh; fi
+if [ ! -x "$HOME/.bun/bin/bun" ]; then curl -fsSL https://bun.sh/install | bash; fi
+if [ ! -f "$HOME/.local/bin/claude" ]; then curl -fsSL https://claude.ai/install.sh | bash; fi
+if ! command -v typescript-language-server >/dev/null 2>&1; then npm install -g typescript-language-server typescript; fi
+if ! command -v pyright-langserver >/dev/null 2>&1; then "$HOME/.local/bin/uv" tool install pyright; fi
+for plugin in typescript-lsp pyright-lsp; do
+  if ! "$HOME/.local/bin/claude" plugin list 2>/dev/null | grep -q "$plugin"; then
+    "$HOME/.local/bin/claude" plugin install "$plugin@claude-plugins-official" --scope user
+  fi
+done
+if ! "$HOME/.local/bin/claude" plugin marketplace list 2>/dev/null | grep -q openai-codex; then
+  "$HOME/.local/bin/claude" plugin marketplace add openai/codex-plugin-cc
+fi
+if ! "$HOME/.local/bin/claude" plugin list 2>/dev/null | grep -q codex@openai-codex; then
+  "$HOME/.local/bin/claude" plugin install codex@openai-codex --scope user
+fi
+if [ -z "${REMOTE_CONTAINERS:-}" ] && ! gh extension list | grep -q gh-q; then gh extension install kawarimidoll/gh-q; fi
+
+case "$(uname -s)" in
+  Darwin) mise run bootstrap:macos ;;
+  Linux) mise run bootstrap:linux ;;
+esac
+if ! herdr integration status | grep -q '^claude: current'; then herdr integration install claude; fi
+herdr server reload-config || true
+if [ -f "$HOME/.mcp.json" ]; then bash "$repo/config/coding_agents/sync-claude-user-mcp.sh"; fi
+bash "$repo/config/coding_agents/codex/link-auth.sh"
+# ~/.zsh は repo へのリンク。旧 cookbook の append はここでは行わない。
+'''
+
+[tasks."bootstrap:linux"]
+shell = "bash -c"
+dir = "{{ config_root }}"
+run = '''
+set -euo pipefail
+[ "{{ vars.role }}" = host ] && [ "$(uname -s)" = Linux ] || exit 0
+if ! command -v tflint >/dev/null 2>&1; then
+  curl -fsSL https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+fi
+if [ ! -d "$HOME/.bin/google-cloud-sdk" ]; then
+  installer=$(mktemp)
+  curl -fsSL https://sdk.cloud.google.com -o "$installer"
+  bash "$installer" --disable-prompts --install-dir "$HOME/.bin"
+  rm -f "$installer"
+fi
+if ! command -v gemini >/dev/null 2>&1; then npm install -g @google/gemini-cli; fi
+if [ ! -x "$HOME/.local/bin/herdr" ]; then curl -fsSL https://herdr.dev/install.sh | sh; fi
+if ! infocmp xterm-ghostty >/dev/null 2>&1; then tic -x "$PWD/cookbooks/ghostty/files/xterm-ghostty.terminfo"; fi
+if ! id -nG | tr ' ' '\n' | grep -qx docker; then sudo gpasswd -a "$(id -un)" docker; fi
+# github_binary の CPU 固定、locale の逆向き guard、Compose v2.29.2 の
+# 手動ダウンロード、crcmod の導入先は要判断として notes に残す。
+'''
+
+[tasks."bootstrap:macos"]
+shell = "bash -c"
+dir = "{{ config_root }}"
+run = '''
+set -euo pipefail
+[ "{{ vars.role }}" = host ] && [ "$(uname -s)" = Darwin ] || exit 0
+repo="$PWD"
+brew_prefix=$(brew --prefix)
+
+# docker: 認証や既存の設定を保ったまま必要なキーだけ更新する。
+DOCKER_CLI_PLUGIN_DIR="$brew_prefix/lib/docker/cli-plugins" uv run --no-project python - <<'PY'
+import json
+import os
+from pathlib import Path
+path = Path.home() / ".docker/config.json"
+data = json.loads(path.read_text()) if path.exists() else {}
+if not isinstance(data, dict):
+    raise SystemExit("Docker config.json must be an object")
+before = json.dumps(data, sort_keys=True)
+dirs = data.get("cliPluginsExtraDirs")
+if not isinstance(dirs, list):
+    dirs = []
+plugin_dir = os.environ["DOCKER_CLI_PLUGIN_DIR"]
+if plugin_dir not in dirs:
+    dirs.append(plugin_dir)
+data["cliPluginsExtraDirs"] = dirs
+data["credsStore"] = "osxkeychain"
+if json.dumps(data, sort_keys=True) != before:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_name(path.name + ".tmp")
+    tmp.write_text(json.dumps(data, indent=2) + "\n")
+    tmp.replace(path)
+PY
+if [ -d /Applications/Docker.app ]; then
+  echo 'Docker Desktop が残っています。Colima の動作確認後に手動で移行してください。' >&2
+fi
+# dangling symlink の削除は移行対象の確認後に別途行う。
+
+# colima: 設定差分だけでは既存 VM を再作成しない。
+colima_template="$HOME/.colima/_templates/default.yaml"
+mkdir -p "$(dirname "$colima_template")"
+if ! cmp -s "$repo/cookbooks/colima/files/colima.yaml" "$colima_template"; then
+  if colima list 2>/dev/null | awk 'NR > 1 && $1 == "default" {found=1} END {exit !found}'; then
+    echo '既存 Colima VM にはテンプレート差分が自動反映されません。設定変更方法は別途判断してください。' >&2
+  fi
+  install -m 0644 "$repo/cookbooks/colima/files/colima.yaml" "$colima_template"
+fi
+colima_service_started() {
+  brew services list 2>/dev/null | awk '$1 == "colima" && $2 == "started" {found=1} END {exit !found}'
+}
+if ! colima_service_started; then
+  if colima status >/dev/null 2>&1; then colima stop; fi
+  brew services start colima
+fi
+if ! colima status >/dev/null 2>&1; then brew services restart colima; fi
+for ((attempt = 0; attempt < 30; attempt++)); do
+  if docker info >/dev/null 2>&1; then break; fi
+  sleep 2
+done
+
+# dnsmasq: 設定変更時だけ再起動し、停止状態なら起動する。
+dnsmasq_config="$brew_prefix/etc/dnsmasq.d/tyaba-test.conf"
+mkdir -p "$(dirname "$dnsmasq_config")"
+dnsmasq_changed=0
+if [ ! -f "$dnsmasq_config" ] || ! grep -qxF 'address=/test/127.0.0.1' "$dnsmasq_config"; then
+  printf '%s\n' 'address=/test/127.0.0.1' > "$dnsmasq_config"
+  dnsmasq_changed=1
+fi
+if [ "$dnsmasq_changed" = 1 ]; then
+  sudo "$(command -v brew)" services restart dnsmasq
+elif ! pgrep -x dnsmasq >/dev/null; then
+  sudo "$(command -v brew)" services start dnsmasq
+fi
+if ! security find-certificate -c mkcert /Library/Keychains/System.keychain >/dev/null 2>&1; then mkcert -install; fi
+
+# traefik: Docker 不在でも設定と証明書は配置する。
+proxy_dir="$HOME/.tyaba/proxy"
+certs_dir="$proxy_dir/certs"
+mkdir -p "$certs_dir"
+for file in docker-compose.yaml traefik.yaml dynamic.yaml; do
+  if ! cmp -s "$repo/cookbooks/traefik/files/$file" "$proxy_dir/$file"; then
+    install -m 0644 "$repo/cookbooks/traefik/files/$file" "$proxy_dir/$file"
+  fi
+done
+if [ ! -f "$certs_dir/_wildcard.tyaba.test.pem" ] || [ ! -f "$certs_dir/_wildcard.tyaba.test-key.pem" ]; then
+  (cd "$certs_dir" && mkcert -cert-file _wildcard.tyaba.test.pem -key-file _wildcard.tyaba.test-key.pem '*.tyaba.test' tyaba.test)
+fi
+if docker info >/dev/null 2>&1; then
+  if ! docker network inspect tyaba-proxy >/dev/null 2>&1; then docker network create tyaba-proxy; fi
+  docker compose -f "$proxy_dir/docker-compose.yaml" up -d
+else
+  echo 'Docker daemon が未起動のため、tyaba-proxy network 作成と Compose 起動をスキップしました。' >&2
+fi
+
+# darwin_base の構造化 plist 編集と pmset は shell のまま移す。
+plist="$HOME/Library/Preferences/com.apple.HIToolbox.plist"
+if ! defaults read com.apple.HIToolbox AppleEnabledInputSources 2>/dev/null | grep -q com.apple.inputmethod.Kotoeri; then
+  idx=$(/usr/libexec/PlistBuddy -c 'Print :AppleEnabledInputSources' "$plist" | grep -cE '^    Dict \{')
+  /usr/libexec/PlistBuddy \
+    -c "Add :AppleEnabledInputSources:$idx dict" \
+    -c "Add :AppleEnabledInputSources:$idx:Bundle\ ID string com.apple.inputmethod.Kotoeri" \
+    -c "Add :AppleEnabledInputSources:$idx:Input\ Mode string com.apple.inputmethod.Japanese" \
+    -c "Add :AppleEnabledInputSources:$idx:InputSourceKind string Input Mode" "$plist"
+  killall cfprefsd
+fi
+if [ "$(osascript -e 'tell application "System Events" to tell appearance preferences to get dark mode')" != true ]; then
+  osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to true'
+fi
+shortcuts="$HOME/Library/Preferences/com.apple.symbolichotkeys.plist"
+if ! /usr/libexec/PlistBuddy -c 'Print :AppleSymbolicHotKeys:60:value:parameters:1' "$shortcuts" 2>/dev/null | grep -qx 79; then
+  /usr/libexec/PlistBuddy \
+    -c 'Set :AppleSymbolicHotKeys:60:enabled true' \
+    -c 'Set :AppleSymbolicHotKeys:60:value:parameters:0 65535' \
+    -c 'Set :AppleSymbolicHotKeys:60:value:parameters:1 79' \
+    -c 'Set :AppleSymbolicHotKeys:60:value:parameters:2 0' "$shortcuts"
+fi
+for key in 61 64 65; do
+  if ! /usr/libexec/PlistBuddy -c "Print :AppleSymbolicHotKeys:$key:enabled" "$shortcuts" 2>/dev/null | grep -qx false; then
+    /usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:$key:enabled false" "$shortcuts"
+  fi
+done
+for key in KeyboardShortcutPreSAE KeyboardShortcutSAE; do
+  if ! /usr/libexec/PlistBuddy -c "Print :$key:enabled" "$HOME/Library/Preferences/com.apple.Siri.plist" 2>/dev/null | grep -qx false; then
+    /usr/libexec/PlistBuddy -c "Set :$key:enabled false" "$HOME/Library/Preferences/com.apple.Siri.plist"
+  fi
+done
+for key in sleep displaysleep disksleep; do
+  if ! pmset -g | awk -v key="$key" '$1 == key && $2 == 60 {found=1} END {exit !found}'; then sudo pmset -a "$key" 60; fi
+done
+raycast_plist="$repo/config/.config/com.raycast.macos.plist"
+if [ -f "$raycast_plist" ] && ! defaults read com.raycast.macos raycastGlobalHotkey >/dev/null 2>&1; then
+  defaults import com.raycast.macos "$raycast_plist"
+fi
+'''
