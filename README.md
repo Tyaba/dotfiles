@@ -55,20 +55,35 @@ DOTFILES_ROLE=devcontainer ./install.sh
 
 `install.sh` detects the env var and runs mitamae as the workspace user (no `sudo -E`), since this role only touches `$HOME`. `lib/recipe.rb` then routes to `roles/devcontainer/default.rb` instead of the platform default.
 
-#### macOS の gh 認証情報共有
+#### gh credentials on macOS
 
-macOS の `gh` シェル関数は `gh auth login` / `gh auth refresh` に
-`--insecure-storage` がなければ自動で追加する。トークンをキーチェーンではなく
-`~/.config/gh/hosts.yml` に平文保存し、ホストの `~/.config/gh` を読み取り専用で
-bind mount する devcontainer から参照できるようにする。
-macOS の cookbook は、既存の `~/.config/gh` を `0700`、`hosts.yml` を `0600` に保つ。
-`hosts.yml` の作成や内容の変更は行わない。
+The macOS cookbook links the executable `config/shims/gh` wrapper into
+`~/.local/share/dotfiles/shims`. The macOS zsh configuration prepends this
+directory to `PATH` after the Homebrew and Ruby entries, so the wrapper takes
+precedence over Homebrew's `gh`. It also applies to Claude Code's Bash tool and
+`!` commands that inherit zsh's `PATH`, even without loading zsh functions.
+
+For `gh auth login` and `gh auth refresh`, the wrapper appends
+`--insecure-storage` and prints a notice to stderr unless an argument already
+specifies `--insecure-storage` or `--insecure-storage=...`. It then executes the
+first executable `gh` in `PATH` whose resolved path differs from the wrapper's.
+Other subcommands pass through unchanged, and the real command's exit status
+is preserved. If no real `gh` is found, the wrapper reports an error and exits
+with status `127`.
+
+This keeps tokens in plaintext in `~/.config/gh/hosts.yml`, where devcontainers
+can read them through the read-only bind mount of the host's `~/.config/gh`;
+they cannot access the macOS Keychain. The cookbook keeps the existing config
+directory at `0700` and `hosts.yml` at `0600`, without creating or modifying the
+contents of `hosts.yml`.
 
 ```mermaid
 flowchart LR
-    A["macOS: gh auth login / refresh"] --> B["gh 関数が --insecure-storage を保証"]
-    B --> C["~/.config/gh/hosts.yml に保存"]
-    C --> D["devcontainer が read-only mount から参照"]
+    A["macOS: interactive zsh / Claude Code Bash tool / ! commands"] --> B["gh wrapper in the first PATH directory"]
+    B --> C["auth login / refresh: append --insecure-storage if absent"]
+    C --> D["Execute the real gh, skipping the wrapper's resolved path"]
+    D --> E["Store token in ~/.config/gh/hosts.yml"]
+    E --> F["devcontainer reads the read-only bind mount"]
 ```
 
 #### CODEX_HOME isolation

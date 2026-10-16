@@ -13,6 +13,12 @@ export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 # You must edit the version if ruby's latest changes in brew
 export PATH="/opt/homebrew/lib/ruby/gems/3.2.0/bin:$PATH"
 
+# devcontainer はキーチェーンを参照できないため、gh のトークンを hosts.yml に保存する shim を優先する。
+case ":$PATH:" in
+  *":$HOME/.local/share/dotfiles/shims:"*) ;;
+  *) export PATH="$HOME/.local/share/dotfiles/shims:$PATH" ;;
+esac
+
 # export OPENBLAS=$(/opt/homebrew/bin/brew --prefix openblas)
 export CFLAGS="-falign-functions=8 ${CFLAGS}"
 
@@ -34,25 +40,6 @@ export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 # Google Cloud SDK Python setting
 export CLOUDSDK_PYTHON=$HOME/.local/share/mise/installs/python/3.12/bin/python
-
-# devcontainer はキーチェーンを参照できないため、gh のトークンを hosts.yml に保存する。
-function gh() {
-  if [[ "${1-}" == auth && ( "${2-}" == login || "${2-}" == refresh ) ]]; then
-    local arg
-    local insecure_storage=false
-    for arg in "$@"; do
-      if [[ "$arg" == --insecure-storage ]]; then
-        insecure_storage=true
-        break
-      fi
-    done
-    if [[ "$insecure_storage" == false ]]; then
-      set -- "$@" --insecure-storage
-      print -ru2 -- 'gh: added --insecure-storage because devcontainers read the token from ~/.config/gh/hosts.yml'
-    fi
-  fi
-  command gh "$@"
-}
 
 # PulseAudioを起動し、認証クッキーを自動同期してSSH接続する関数
 function ssh-sound() {

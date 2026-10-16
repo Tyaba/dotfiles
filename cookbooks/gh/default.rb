@@ -2,6 +2,17 @@ case node[:platform]
     when 'darwin'
         package 'gh'
 
+        root_dir = File.expand_path('../../..', __FILE__)
+        shims_dir = "#{ENV['HOME']}/.local/share/dotfiles/shims"
+
+        directory shims_dir do
+            user node[:user] if node[:user]
+        end
+
+        link "#{shims_dir}/gh" do
+            to File.join(root_dir, 'config/shims/gh')
+        end
+
         gh_dir = "#{ENV["HOME"]}/.config/gh"
         gh_hosts_file = "#{gh_dir}/hosts.yml"
 
