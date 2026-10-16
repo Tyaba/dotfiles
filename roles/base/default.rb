@@ -170,6 +170,11 @@ link "#{ENV['HOME']}/.local/bin/codex-link-auth" do
   to File.join(root_dir, 'config/coding_agents/codex/link-auth.sh')
 end
 
+# Expose staged agent commands for the user to run with Claude Code's `! h`.
+link "#{ENV['HOME']}/.local/bin/h" do
+  to File.join(root_dir, 'config/coding_agents/handoff/h.sh')
+end
+
 execute 'sync ~/.mcp.json into claude user scope' do
   command "bash #{sync_user_mcp}"
   user node[:user] if node[:user]
