@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Bash / Monitor ツール用の PreToolUse hook。`pgrep -f` / `pkill -f` を deny する。
 
-動機（2026-10-15、artista-vita-zwei の TDD セッション）:
+動機（2026-10-15）:
   親セッションが codex-offload サブエージェントの完了を待つために
   `for i in $(seq 1 58); do if ! pgrep -f "bin/codex exec" ...; then break; fi; sleep 30; done`
   を run_in_background で回した。Codex 本体は毎回 3〜4 分で終わっていたのに、
