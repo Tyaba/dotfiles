@@ -151,6 +151,7 @@ config/
     ├── claude/             # Claude Code-specific (settings.json, CLAUDE.md, etc.)
     ├── codex/              # Codex CLI-specific (AGENTS.md)
     ├── cursor/             # Cursor-specific (rules/, hooks.json)
+    ├── handoff/            # Staged shell command runner (h)
     ├── hooks/              # Shared hooks
     ├── skills/             # Shared skills
     ├── private/            # Git-ignored secrets (secrets.env, denied_mcp_servers.json)
@@ -158,6 +159,35 @@ config/
     ├── sync-claude-user-mcp.sh
     └── user-rules.md       # Shared user rules (Claude Code / Cursor)
 ```
+
+### Staged commands (`h`)
+
+`roles/base/default.rb` links `config/coding_agents/handoff/h.sh` as
+`~/.local/bin/h`. An agent writes a shell script to the path returned by
+`h --path`; the user runs it with `h` or Claude Code's `! h`. The command is
+printed before execution, with no confirmation prompt, so captured output and
+non-interactive stdin work. `h --show` previews without consuming, and
+`h --help` prints usage.
+
+Staging files live in `${XDG_CACHE_HOME:-$HOME/.cache}/claude-handoff/`.
+The filename is the first 16 hex characters of SHA-256 of the Git toplevel
+(or `$PWD` outside Git), with no trailing newline in the hash input, plus
+`.sh`. Subdirectories share their repository's staging file; worktrees have
+separate files. `--path` creates the cache directory but not the staging file.
+
+```mermaid
+flowchart TD
+    A[Agent gets h --path and writes a script] --> B[User runs h or ! h]
+    B --> C{Staging file exists?}
+    C -->|no| D[Message on stderr and exit 1]
+    C -->|yes| E[Print header, script contents, and separator]
+    E --> F[Move script to hash.last.sh]
+    F --> G[Run bash in the current directory and return its exit code]
+```
+
+The staged file is consumed before execution, including on failure; another
+`h` cannot repeat it. The latest script remains as `<hash>.last.sh`.
+Run the isolated tests with `bats config/coding_agents/handoff/h.bats`.
 
 ### Secrets
 
