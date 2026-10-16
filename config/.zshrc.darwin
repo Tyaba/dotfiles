@@ -35,6 +35,25 @@ export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 # Google Cloud SDK Python setting
 export CLOUDSDK_PYTHON=$HOME/.local/share/mise/installs/python/3.12/bin/python
 
+# devcontainer はキーチェーンを参照できないため、gh のトークンを hosts.yml に保存する。
+function gh() {
+  if [[ "${1-}" == auth && ( "${2-}" == login || "${2-}" == refresh ) ]]; then
+    local arg
+    local insecure_storage=false
+    for arg in "$@"; do
+      if [[ "$arg" == --insecure-storage ]]; then
+        insecure_storage=true
+        break
+      fi
+    done
+    if [[ "$insecure_storage" == false ]]; then
+      set -- "$@" --insecure-storage
+      print -ru2 -- 'gh: added --insecure-storage because devcontainers read the token from ~/.config/gh/hosts.yml'
+    fi
+  fi
+  command gh "$@"
+}
+
 # PulseAudioを起動し、認証クッキーを自動同期してSSH接続する関数
 function ssh-sound() {
   # 接続先ホスト名が指定されていない場合はエラー

@@ -55,6 +55,22 @@ DOTFILES_ROLE=devcontainer ./install.sh
 
 `install.sh` detects the env var and runs mitamae as the workspace user (no `sudo -E`), since this role only touches `$HOME`. `lib/recipe.rb` then routes to `roles/devcontainer/default.rb` instead of the platform default.
 
+#### macOS の gh 認証情報共有
+
+macOS の `gh` シェル関数は `gh auth login` / `gh auth refresh` に
+`--insecure-storage` がなければ自動で追加する。トークンをキーチェーンではなく
+`~/.config/gh/hosts.yml` に平文保存し、ホストの `~/.config/gh` を読み取り専用で
+bind mount する devcontainer から参照できるようにする。
+macOS の cookbook は、既存の `~/.config/gh` を `0700`、`hosts.yml` を `0600` に保つ。
+`hosts.yml` の作成や内容の変更は行わない。
+
+```mermaid
+flowchart LR
+    A["macOS: gh auth login / refresh"] --> B["gh 関数が --insecure-storage を保証"]
+    B --> C["~/.config/gh/hosts.yml に保存"]
+    C --> D["devcontainer が read-only mount から参照"]
+```
+
 #### CODEX_HOME isolation
 
 tyaba-env bind-mounts the host's `~/.codex` into every container read-write so
