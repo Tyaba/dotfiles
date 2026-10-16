@@ -1,4 +1,6 @@
 # repo specific
+# gh の認証情報は絶対にコミットしない。
+config/.config/gh/
 bin/mitamae*
 tmp/*
 config/.hotkey/*.exe
