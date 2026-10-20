@@ -16,7 +16,10 @@
 #
 # 決定ポリシー:
 #   - 増幅要因を持つルート起点の無制限走査   -> deny（書き換え形を提示する）
-#   - -prune / 浅い深さ制限で降下を止めている -> fall through
+#   - 浅い深さ制限で降下を止めている           -> fall through
+#   - -prune がルート直下の増幅要因を全部名指し -> fall through
+#     （ファイルシステムルートと $HOME は -prune では許さない。2026-10-20 に
+#     `find / -path /proc -prune -o -name X` が /proc 以外を 18 分走査した）
 #   - 増幅要因のない小さなリポジトリ          -> fall through
 #   - それ以外                                -> fall through（無判定）
 #
@@ -98,6 +101,7 @@ strip_token() {
 }
 
 HEAVY_HIT=""
+WIDE_RP=""
 
 # ルートが「全走査を止めるべき対象」かを判定する。stat は最大 8 回で、いずれも
 # ルート直下しか見ないため mount が詰まっていても 1 階層分で済む。
@@ -121,6 +125,7 @@ is_wide_root() {
   rp=${rp%/.}
   rp=${rp%/}
   [ -z "$rp" ] && rp=/
+  WIDE_RP=$rp
 
   # 増幅要因の有無を問わず常に広いルート。
   case "$rp" in
@@ -146,6 +151,23 @@ depth_limited() {
   re="(^|[[:space:]])($2)([[:space:]]+|=)([0-9]+)"
   [[ $seg =~ $re ]] || return 1
   [ "${BASH_REMATCH[4]}" -le 3 ]
+}
+
+# -prune が降下を本当に止めているかを判定する。-prune の存在だけでは足りない:
+# `find / -path /proc -prune -o ...` は /proc 以外を全部歩く。ルート直下にある
+# 増幅要因を segment がすべて名指ししているときだけ止めていると見なす。
+# ファイルシステムルートと $HOME は増幅要因を列挙しきれないので常に不可。
+prune_covers_heavy() {
+  local seg=$1 d re
+
+  case "$HEAVY_HIT" in "(filesystem root)" | "(home)") return 1 ;; esac
+
+  for d in "${HEAVY_DIRS[@]}"; do
+    [ -d "$WIDE_RP/$d" ] || continue
+    re="(^|[[:space:]/'\"])${d//./\\.}([[:space:]/'\"]|$)"
+    [[ $seg =~ $re ]] || return 1
+  done
+  return 0
 }
 
 # heredoc 本文はコマンドではない。`<<` の終端ワードまでを解析対象から外す。
@@ -281,10 +303,12 @@ while IFS= read -r SEG; do
   # 降下を実際に止めているかの判定。`-not -path` / `-path` は出力を絞るだけで
   # descent を止めないため限定に数えない — 今回の事故はまさにこれで、
   # `-not -path '*/node_modules/*'` を付けたまま 136 万エントリを stat していた。
+  # -prune は起点が決まるまで判定できないので、ここでは有無だけ記録する。
+  HAS_PRUNE=0
   case "$TOOL" in
     find)
-      [[ $SEG =~ $PRUNE_RE ]] && continue
       depth_limited "$SEG" '-maxdepth' && continue
+      [[ $SEG =~ $PRUNE_RE ]] && HAS_PRUNE=1
       ;;
     fd)
       depth_limited "$SEG" '--max-depth|--maxdepth|-d' && continue
@@ -380,6 +404,26 @@ while IFS= read -r SEG; do
 
   for p in "${PATHS[@]}"; do
     is_wide_root "$p" || continue
+    [ "$HAS_PRUNE" = 1 ] && prune_covers_heavy "$SEG" && continue
+
+    case "$HEAVY_HIT" in
+      "(filesystem root)" | "(home)")
+        PRUNE_HINT=$(
+          printf '%s\n' \
+            "起点が ${p} の走査は -prune を足しても許可しません。探索先を特定してから絞ってください:" \
+            "  python3 -c 'import <pkg>, os; print(os.path.dirname(<pkg>.__file__))'   # Python パッケージの場所" \
+            "  uv run python -c '...'                                                  # プロジェクトの venv 内なら" \
+            "  command -v <cmd> / dpkg -L <pkg>                                         # 実行ファイル・apt パッケージ"
+        )
+        ;;
+      *)
+        PRUNE_HINT=$(
+          printf '%s\n' \
+            "gitignore 対象の生成物（ビルド出力・メディア等）を探すなら、降下そのものを止める形にしてください（ルート直下の ${HEAVY_DIRS[*]} のうち実在するものは全部 -prune に含めること）:" \
+            "  find ${p} \\( -name .worktrees -o -name .venv -o -name .uv-cache -o -name node_modules -o -name .git \\) -prune -o -name '<pattern>' -print"
+        )
+        ;;
+    esac
 
     emit_deny "$(
       printf '%s\n' \
@@ -393,8 +437,7 @@ while IFS= read -r SEG; do
         "  git ls-files '<pattern>'         # tracked のみ" \
         "  find <探索先の分かっているディレクトリ> -name '<pattern>'" \
         "" \
-        "gitignore 対象の生成物（ビルド出力・メディア等）を探すなら、降下そのものを止める形にしてください:" \
-        "  find ${p} \\( -name .worktrees -o -name .venv -o -name .uv-cache -o -name node_modules -o -name .git \\) -prune -o -name '<pattern>' -print" \
+        "$PRUNE_HINT" \
         "" \
         "この mount は virtiofs で、metadata が並列度に対して超線形に劣化します。全走査 1 本で全セッションが数十分止まります。どうしても必要なら CLAUDE_ALLOW_FULL_TREE_SCAN=1 を前置してください。"
     )"
