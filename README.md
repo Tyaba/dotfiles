@@ -336,6 +336,22 @@ The macOS plist still sets `CLOUDSDK_PYTHON` explicitly because launchd does not
 inherit zsh exports from `config/.zsh/lib/apps`. Unit updates trigger an immediate
 reload so the running job uses the latest definition.
 
+The cookbook links `yui-proxy-run` and `yui-proxy-restart` into `~/.local/bin`
+and renders `yui-login` there. Run `yui-login` (or `! yui-login` from Claude Code)
+to authenticate with the configured gcloud configuration, restart the proxy,
+and poll `/status` for up to 15 seconds. A readiness timeout prints a warning
+without failing an otherwise successful login. The zsh `gcloud()` wrapper also
+uses `yui-proxy-restart` after successful `auth login` or `auth revoke`.
+
+Both services start `yui-proxy-run`, which preserves stdout/stderr and detects
+reauthentication errors. It sends a desktop notification at most once every
+30 minutes, using `${TMPDIR:-/tmp}/yui-proxy-auth-notified`, and retries every
+60 seconds until credentials recover. Linux falls back to a log message when
+`notify-send` is unavailable. Other exits retain gcloud's exit status and leave
+restarts to launchd/systemd. Signals stop the child process or retry sleep.
+`YUI_PROXY_GCLOUD` and `YUI_PROXY_PORT` select the executable and local port;
+`YUI_PROXY_RETRY_INTERVAL` can shorten the retry delay for testing.
+
 ```mermaid
 flowchart TD
     A[cookbooks/yui/default.rb] --> B[lib/gcloud.rb]
@@ -349,7 +365,14 @@ flowchart TD
     G --> I[gcloud resolves core/project from named configuration]
     H --> J[Reload changed unit]
     I --> J
-    J --> K[yui backend proxy serves MCP bridge]
+    J --> K[yui-proxy-run starts gcloud proxy]
+    K --> L{Authentication error?}
+    L -->|Yes| M[Notify at most once per 30 minutes]
+    M --> N[Wait for exit and sleep 60 seconds]
+    N --> K
+    L -->|No, process exits| O[Return exit status to launchd/systemd]
+    P[yui-login or successful zsh gcloud auth login] --> Q[yui-proxy-restart]
+    Q --> J
 ```
 
 ### Codex Offload (via the codex-offload subagent)

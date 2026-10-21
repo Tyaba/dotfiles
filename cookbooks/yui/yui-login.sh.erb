@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+config=${DOTFILES_GCLOUD_CONFIGURATION:-<%= @gcloud_configuration %>}
+if ! command -v yui-proxy-restart >/dev/null 2>&1; then
+  echo '[yui-proxy] yui-proxy-restart is not on PATH' >&2
+  exit 1
+fi
+
+CLOUDSDK_ACTIVE_CONFIG_NAME="$config" gcloud auth login "$@"
+yui-proxy-restart restart
+
+deadline=$((SECONDS + 15))
+while (( SECONDS < deadline )); do
+  timeout=$((deadline - SECONDS))
+  if (( timeout > 3 )); then timeout=3; fi
+  if response=$(curl -fs -m "$timeout" http://localhost:52981/status); then
+    printf '[yui-proxy] ready: %s\n' "$response"
+    exit 0
+  fi
+  if (( SECONDS < deadline )); then sleep 1; fi
+done
+
+# Login succeeded; a slow proxy startup should not report an auth failure.
+echo '[yui-proxy] warning: login succeeded, but the proxy is not ready; check the proxy logs' >&2

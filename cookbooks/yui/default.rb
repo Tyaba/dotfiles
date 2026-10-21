@@ -3,6 +3,23 @@ include_recipe File.join(root_dir, 'lib/gcloud.rb')
 
 gcloud_configuration = ENV['DOTFILES_GCLOUD_CONFIGURATION']
 
+directory "#{ENV['HOME']}/.local/bin" do
+  user node[:user] if node[:user]
+end
+
+%w[yui-proxy-restart yui-proxy-run].each do |name|
+  link "#{ENV['HOME']}/.local/bin/#{name}" do
+    to File.join(root_dir, "cookbooks/yui/#{name}.sh")
+  end
+end
+
+template "#{ENV['HOME']}/.local/bin/yui-login" do
+  source File.join(root_dir, 'cookbooks/yui/yui-login.sh.erb')
+  user node[:user] if node[:user]
+  mode '0755'
+  variables(gcloud_configuration: gcloud_configuration)
+end
+
 case node[:platform]
 when 'darwin'
   plist_name = 'com.tepein.yui-proxy'
@@ -22,6 +39,7 @@ when 'darwin'
     variables(
       label: plist_name,
       gcloud: gcloud_path,
+      proxy_run: "#{ENV['HOME']}/.local/bin/yui-proxy-run",
       cloudsdk_python: cloudsdk_python,
       gcloud_configuration: gcloud_configuration,
       port: 52981,
