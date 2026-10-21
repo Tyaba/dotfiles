@@ -26,6 +26,9 @@ C. Generic destructive patterns (env-independent):
      (``-R`` is optional; both wide-open recursive and single-target forms
      are blocked).
    - ``curl ... | sh|bash`` / ``wget ... | sh|bash`` pipeline execution.
+   - ``codex logout``. In a devcontainer it deletes the login shared with
+     the host, and the container cannot log back in when the organization
+     disables device-code auth. Log in and out on the host instead.
 
 D. Bypass: when ``CLAUDE_HOOK_BYPASS=1`` is set, exit 0 immediately.
 
@@ -150,6 +153,10 @@ _CHMOD_WIDE = re.compile(
 _CURL_PIPE = re.compile(
     _CMD_START
     + r"(?:curl|wget)\s+[^|;&]+\|\s*(?:sudo\s+)?(?:sh|bash)\b"
+)
+
+_CODEX_LOGOUT = re.compile(
+    _CMD_START + r"(?:sudo\s+)?(?:env\s+(?:\S+=\S*\s+)*)?codex\s+logout\b"
 )
 
 
@@ -317,6 +324,12 @@ def _block_generic_destructive(cmd: str) -> None:
 
     if _CURL_PIPE.search(cmd):
         _block("piping curl/wget output into sh/bash detected")
+
+    if _CODEX_LOGOUT.search(cmd):
+        _block(
+            "codex logout deletes the Codex login shared with the host; "
+            "run codex login / logout on the host instead"
+        )
 
 
 def main() -> None:
