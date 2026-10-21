@@ -27,8 +27,10 @@ when 'darwin'
   gcloud_path = '/opt/homebrew/bin/gcloud'
   cloudsdk_python = "#{ENV['HOME']}/.local/share/mise/installs/python/3.12/bin/python3.12"
 
+  # launchd can defer speculative spawns even with RunAtLoad/KeepAlive;
+  # kickstart after loading to ensure the job starts immediately.
   execute "reload #{plist_name}" do
-    command "launchctl unload #{plist_path} || true; launchctl load #{plist_path}"
+    command "launchctl unload #{plist_path} || true; launchctl load #{plist_path}; launchctl kickstart -k gui/$(id -u)/#{plist_name}"
     action :nothing
   end
 
@@ -48,6 +50,7 @@ when 'darwin'
   end
 
   execute "launchctl load #{plist_path}" do
+    command "launchctl load #{plist_path}; launchctl kickstart -k gui/$(id -u)/#{plist_name}"
     not_if "launchctl list | grep #{plist_name}"
   end
 else

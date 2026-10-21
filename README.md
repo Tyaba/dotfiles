@@ -334,7 +334,8 @@ configuration with `DOTFILES_GCLOUD_CONFIGURATION`; the default is `good`.
 
 The macOS plist still sets `CLOUDSDK_PYTHON` explicitly because launchd does not
 inherit zsh exports from `config/.zsh/lib/apps`. Unit updates trigger an immediate
-reload so the running job uses the latest definition.
+reload so the running job uses the latest definition. On macOS, both initial load
+and reload run `launchctl kickstart -k` after loading to prevent speculative-spawn deferral.
 
 The cookbook links `yui-proxy-run` and `yui-proxy-restart` into `~/.local/bin`
 and renders `yui-login` there. Run `yui-login` (or `! yui-login` from Claude Code)
