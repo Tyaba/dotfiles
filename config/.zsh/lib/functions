@@ -8,23 +8,11 @@ function gcloud() {
 	command gcloud "$@"
 	local ret=$?
 	if [[ $ret -eq 0 && "$1" == "auth" && ("$2" == "login" || "$2" == "revoke") ]]; then
-		if [[ "$(uname)" == "Darwin" ]]; then
-			local plist="$HOME/Library/LaunchAgents/com.tepein.yui-proxy.plist"
+		if command -v yui-proxy-restart >/dev/null 2>&1; then
 			if [[ "$2" == "revoke" ]]; then
-				echo "[yui-proxy] stopping proxy (auth revoked)"
-				launchctl unload "$plist" 2>/dev/null
+				yui-proxy-restart stop
 			else
-				echo "[yui-proxy] restarting proxy with new credentials..."
-				launchctl unload "$plist" 2>/dev/null
-				launchctl load "$plist"
-			fi
-		else
-			if [[ "$2" == "revoke" ]]; then
-				echo "[yui-proxy] stopping proxy (auth revoked)"
-				systemctl --user stop yui-proxy 2>/dev/null
-			else
-				echo "[yui-proxy] restarting proxy with new credentials..."
-				systemctl --user restart yui-proxy
+				yui-proxy-restart restart
 			fi
 		fi
 	fi

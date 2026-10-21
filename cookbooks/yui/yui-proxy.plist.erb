@@ -6,23 +6,21 @@
     <string><%= @label %></string>
     <key>ProgramArguments</key>
     <array>
-        <string><%= @gcloud %></string>
-        <string>run</string>
-        <string>services</string>
-        <string>proxy</string>
-        <string>yui-backend</string>
-        <string>--region=asia-northeast1</string>
-        <string>--port=<%= @port %></string>
+        <string><%= @proxy_run %></string>
     </array>
     <key>EnvironmentVariables</key>
     <dict>
+        <key>YUI_PROXY_GCLOUD</key>
+        <string><%= @gcloud %></string>
+        <key>YUI_PROXY_PORT</key>
+        <string><%= @port %></string>
         <key>CLOUDSDK_PYTHON</key>
         <string><%= @cloudsdk_python %></string>
         <key>CLOUDSDK_ACTIVE_CONFIG_NAME</key>
         <string><%= @gcloud_configuration %></string>
     </dict>
     <key>RunAtLoad</key>
-    <false/>
+    <true/>
     <key>KeepAlive</key>
     <true/>
     <key>StandardOutPath</key>

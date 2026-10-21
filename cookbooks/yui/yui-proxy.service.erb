@@ -4,7 +4,9 @@ Description=yui MCP proxy (gcloud run services proxy)
 [Service]
 Type=simple
 Environment=CLOUDSDK_ACTIVE_CONFIG_NAME=<%= @gcloud_configuration %>
-ExecStart=%h/.bin/google-cloud-sdk/bin/gcloud run services proxy yui-backend --region=asia-northeast1 --port=52981
+Environment=YUI_PROXY_GCLOUD=%h/.bin/google-cloud-sdk/bin/gcloud
+Environment=YUI_PROXY_PORT=52981
+ExecStart=%h/.local/bin/yui-proxy-run
 Restart=always
 RestartSec=5
 

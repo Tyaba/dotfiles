@@ -3,6 +3,23 @@ include_recipe File.join(root_dir, 'lib/gcloud.rb')
 
 gcloud_configuration = ENV['DOTFILES_GCLOUD_CONFIGURATION']
 
+directory "#{ENV['HOME']}/.local/bin" do
+  user node[:user] if node[:user]
+end
+
+%w[yui-proxy-restart yui-proxy-run].each do |name|
+  link "#{ENV['HOME']}/.local/bin/#{name}" do
+    to File.join(root_dir, "cookbooks/yui/#{name}.sh")
+  end
+end
+
+template "#{ENV['HOME']}/.local/bin/yui-login" do
+  source File.join(root_dir, 'cookbooks/yui/yui-login.sh.erb')
+  user node[:user] if node[:user]
+  mode '0755'
+  variables(gcloud_configuration: gcloud_configuration)
+end
+
 case node[:platform]
 when 'darwin'
   plist_name = 'com.tepein.yui-proxy'
@@ -10,8 +27,10 @@ when 'darwin'
   gcloud_path = '/opt/homebrew/bin/gcloud'
   cloudsdk_python = "#{ENV['HOME']}/.local/share/mise/installs/python/3.12/bin/python3.12"
 
+  # launchd can defer speculative spawns even with RunAtLoad/KeepAlive;
+  # kickstart after loading to ensure the job starts immediately.
   execute "reload #{plist_name}" do
-    command "launchctl unload #{plist_path} || true; launchctl load #{plist_path}"
+    command "launchctl unload #{plist_path} || true; launchctl load #{plist_path}; launchctl kickstart -k gui/$(id -u)/#{plist_name}"
     action :nothing
   end
 
@@ -22,6 +41,7 @@ when 'darwin'
     variables(
       label: plist_name,
       gcloud: gcloud_path,
+      proxy_run: "#{ENV['HOME']}/.local/bin/yui-proxy-run",
       cloudsdk_python: cloudsdk_python,
       gcloud_configuration: gcloud_configuration,
       port: 52981,
@@ -30,6 +50,7 @@ when 'darwin'
   end
 
   execute "launchctl load #{plist_path}" do
+    command "launchctl load #{plist_path}; launchctl kickstart -k gui/$(id -u)/#{plist_name}"
     not_if "launchctl list | grep #{plist_name}"
   end
 else
