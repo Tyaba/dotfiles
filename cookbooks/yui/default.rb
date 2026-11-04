@@ -7,12 +7,6 @@ directory "#{ENV['HOME']}/.local/bin" do
   user node[:user] if node[:user]
 end
 
-%w[yui-proxy-restart yui-proxy-run].each do |name|
-  link "#{ENV['HOME']}/.local/bin/#{name}" do
-    to File.join(root_dir, "cookbooks/yui/#{name}.sh")
-  end
-end
-
 template "#{ENV['HOME']}/.local/bin/yui-login" do
   source File.join(root_dir, 'cookbooks/yui/yui-login.sh.erb')
   user node[:user] if node[:user]
@@ -34,6 +28,37 @@ when 'darwin'
     action :nothing
   end
 
+  reload_resource = "execute[reload #{plist_name}]"
+else
+  service_path = "#{ENV['HOME']}/.config/systemd/user/yui-proxy.service"
+
+  execute 'reload yui-proxy user service' do
+    command 'systemctl --user daemon-reload && systemctl --user restart yui-proxy'
+    action :nothing
+  end
+
+  reload_resource = 'execute[reload yui-proxy user service]'
+end
+
+%w[yui-proxy-restart yui-proxy-run].each do |name|
+  path = "#{ENV['HOME']}/.local/bin/#{name}"
+  shell_path = "'#{path.gsub("'") { %q('\\'') }}'"
+
+  execute "remove legacy symlink #{path}" do
+    command "rm -f #{shell_path}"
+    only_if "test -L #{shell_path}"
+  end
+
+  remote_file path do
+    source File.join(root_dir, "cookbooks/yui/#{name}.sh")
+    user node[:user] if node[:user]
+    mode '0755'
+    notifies :run, reload_resource, :delayed
+  end
+end
+
+case node[:platform]
+when 'darwin'
   template plist_path do
     source File.expand_path('yui-proxy.plist.erb', File.dirname(__FILE__))
     user node[:user]
@@ -54,13 +79,6 @@ when 'darwin'
     not_if "launchctl list | grep #{plist_name}"
   end
 else
-  service_path = "#{ENV['HOME']}/.config/systemd/user/yui-proxy.service"
-
-  execute 'reload yui-proxy user service' do
-    command 'systemctl --user daemon-reload && systemctl --user restart yui-proxy'
-    action :nothing
-  end
-
   template service_path do
     source File.expand_path('yui-proxy.service.erb', File.dirname(__FILE__))
     user node[:user]
