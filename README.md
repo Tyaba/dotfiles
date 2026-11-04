@@ -337,8 +337,10 @@ inherit zsh exports from `config/.zsh/lib/apps`. Unit updates trigger an immedia
 reload so the running job uses the latest definition. On macOS, both initial load
 and reload run `launchctl kickstart -k` after loading to prevent speculative-spawn deferral.
 
-The cookbook links `yui-proxy-run` and `yui-proxy-restart` into `~/.local/bin`
-and renders `yui-login` there. Run `yui-login` (or `! yui-login` from Claude Code)
+The cookbook copies `yui-proxy-run` and `yui-proxy-restart` into `~/.local/bin`
+and renders `yui-login` there. Copies keep the service executable available when a
+checkout branch switch removes the source scripts; broken symlinks caused launchd
+to fail with EX_CONFIG 78. Run `yui-login` (or `! yui-login` from Claude Code)
 to authenticate with the configured gcloud configuration, restart the proxy,
 and poll `/status` for up to 15 seconds. A readiness timeout prints a warning
 without failing an otherwise successful login. The zsh `gcloud()` wrapper also
@@ -364,8 +366,9 @@ flowchart TD
     F --> G
     E --> H[Set CLOUDSDK_PYTHON for launchd]
     G --> I[gcloud resolves core/project from named configuration]
-    H --> J[Reload changed unit]
+    H --> J[Reload proxy service]
     I --> J
+    R[Copy proxy scripts] --> J
     J --> K[yui-proxy-run starts gcloud proxy]
     K --> L{Authentication error?}
     L -->|Yes| M[Notify at most once per 30 minutes]
