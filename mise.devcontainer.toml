@@ -1,0 +1,64 @@
+# mise bootstrap --only dotfiles,tools,task -E devcontainer 用の追加設定。
+# 親の packages/services 等を消さず、--only で対象から外す。
+
+[vars]
+role = "devcontainer"
+codex_home = "~/.config/codex"
+
+[dotfiles]
+# Codex の Tera 化後に配置する。host の ~/.codex を親で有効化すると
+# 追加ロードでは除去できないため、親側も現段階ではコメントに留める。
+# "~/.config/codex/config.toml" = { source = "config/coding_agents/codex/config.toml.tera", mode = "template", permissions = "0600" }
+# "~/.config/codex/AGENTS.md" = { source = "config/coding_agents/codex/AGENTS.md.tera", mode = "template" }
+# ~/.claude.json と auth.json はローカル状態を退避・比較する必要があるため task で処理する。
+
+[tasks."bootstrap:devcontainer"]
+description = "devcontainer の永続状態とユーザー領域の CLI を設定する草案"
+shell = "bash -c"
+dir = "{{ config_root }}"
+run = '''
+set -euo pipefail
+[ "{{ vars.role }}" = devcontainer ] || exit 0
+export DOTFILES_ROLE=devcontainer
+export CODEX_HOME="$HOME/.config/codex"
+export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"
+repo="$PWD"
+mkdir -p "$HOME/.claude" "$CODEX_HOME"
+claude_link="$HOME/.claude.json"
+claude_target="$HOME/.claude/.claude.json"
+if [ -f "$claude_link" ] && [ ! -L "$claude_link" ]; then
+  if [ -e "$claude_target" ] && [ ! -L "$claude_target" ]; then
+    mv "$claude_link" "$claude_link.pre-link.bak.$(date +%s)"
+  else
+    mv "$claude_link" "$claude_target"
+  fi
+fi
+if [ ! -s "$claude_target" ]; then printf '{}\n' > "$claude_target"; fi
+if [ -L "$claude_link" ]; then
+  if [ "$(readlink "$claude_link")" != "$claude_target" ]; then
+    rm "$claude_link"
+    ln -s "$claude_target" "$claude_link"
+  fi
+elif [ ! -e "$claude_link" ]; then
+  ln -s "$claude_target" "$claude_link"
+fi
+# config.toml 未描画の初回は既存 helper 自身の guard により何もしない。
+bash "$repo/config/coding_agents/codex/link-auth.sh"
+
+# 現行 role の guard を維持。グローバル設定の symlink への書込みは要判断。
+if ! mise which npm >/dev/null 2>&1; then mise use -g node@lts && mise install -y; fi
+if ! mise which codex >/dev/null 2>&1; then mise use -g 'npm:@openai/codex@latest'; fi
+if ! mise which claude >/dev/null 2>&1; then mise use -g 'npm:@anthropic-ai/claude-code@latest'; fi
+if ! mise exec -- claude --version >/dev/null 2>&1; then
+  install_root=$(mise where npm:@anthropic-ai/claude-code)
+  package_dir="$install_root/node_modules/@anthropic-ai/claude-code"
+  if [ ! -e "$package_dir/install.cjs" ]; then
+    echo "Claude Code postinstall script not found: $package_dir/install.cjs" >&2
+    exit 1
+  fi
+  (cd "$package_dir" && mise exec -- node install.cjs)
+fi
+if command -v claude >/dev/null 2>&1 && [ -f "$HOME/.mcp.json" ]; then
+  bash "$repo/config/coding_agents/sync-claude-user-mcp.sh"
+fi
+'''
