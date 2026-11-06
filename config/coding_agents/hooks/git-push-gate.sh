@@ -5,8 +5,9 @@
 # 決定ポリシー:
 #   - 保護対象外への通常 push           -> 自動 allow
 #   - 保護対象ブランチへの push        -> ask（承認プロンプト）
-#   - force-push（--force, --force-with-lease, -f, refspec 先頭の '+',
-#     --mirror, --all）                 -> ask
+#   - force-push（--force, --force-with-lease, -f, refspec 先頭の '+'）
+#                                       -> ask（opt-in 時は下記）
+#   - --mirror, --all                   -> ask
 #   - それ以外                          -> fall through（無判定）
 #
 # 保護対象の集合は '|'、','、空白で区切った bash `case` パターンのリスト
@@ -19,6 +20,12 @@
 # この上書きが緩めるのは「通常 push」の gate だけ。force-push はここで無条件に
 # gate され続け、pre-tool-block-destructive.py も保護対象ブランチへの force-push
 # に独自の hard deny を保持する。
+#
+# CLAUDE_ALLOW_FORCE_PUSH_UNPROTECTED=1 を設定すると、使い捨てブランチへの
+# force-push を確認なしで通す。宛先が main / master / develop か保護対象の
+# いずれかに当たる force-push は引き続き ask になる（CLAUDE_PROTECTED_BRANCHES
+# を空にしても main / master / develop は外れない）。--mirror / --all は全ブランチ
+# に及ぶので opt-in でも ask のまま。
 #
 # 既知の誤検知（fail-closed 方向）: クォート文字列をシェルとして解釈しないため、
 # 同一 segment 内のクォート文字列に保護ブランチ名の後続語があると refspec 候補に
@@ -46,6 +53,14 @@ PROTECTED_BRANCHES="${CLAUDE_PROTECTED_BRANCHES-main|master}"
 # `read -d ''` は区切りの NUL に出会わず常に 1 で終了するので、`|| true` を付けて
 # 将来このファイルに `set -e` が入っても無害にしておく。
 IFS=$'|, \t\r\n' read -r -d '' -a PROTECTED_PATTERNS <<<"$PROTECTED_BRANCHES" || true
+
+# force-push を通す opt-in。"1" 以外（未設定・空・"0" など）は従来どおり ask。
+ALLOW_FORCE=0
+[ "${CLAUDE_ALLOW_FORCE_PUSH_UNPROTECTED-}" = 1 ] && ALLOW_FORCE=1
+
+# opt-in でも force-push を必ず gate する宛先。CLAUDE_PROTECTED_BRANCHES の
+# 値に関わらず固定する。
+FORCE_PROTECTED_PATTERNS=(main master develop)
 
 INPUT=$(cat)
 CMD=$(printf '%s' "$INPUT" | jq -r '.tool_input.command // empty')
@@ -108,16 +123,26 @@ while IFS= read -r SEG; do
   [ "$PUSH_AT" -lt 0 ] && continue
   SAW_PUSH=1
 
-  # force / wide push の検出（フラグ形式）。この segment にスコープを絞り、
-  # コマンドライン中の別の場所にある無関係な `--force` で発火しないようにする。
-  if printf '%s' "$SEG" | grep -qE '(^|[[:space:]])(--force(-with-lease)?|--mirror|--all)([[:space:]=]|$)'; then
-    emit ask "Force or wide git push detected; explicit approval required"
+  # wide push の検出。全ブランチに及ぶので opt-in でも ask にする。この segment
+  # にスコープを絞り、コマンドライン中の別の場所にある無関係なフラグで発火
+  # しないようにする。
+  if printf '%s' "$SEG" | grep -qE '(^|[[:space:]])(--mirror|--all)([[:space:]=]|$)'; then
+    emit ask "Wide git push detected; explicit approval required"
+  fi
+
+  # force push の検出（フラグ形式）。opt-in していなければその場で ask、
+  # していれば宛先の判定まで持ち越す。
+  SEG_FORCE=0
+  if printf '%s' "$SEG" | grep -qE '(^|[[:space:]])--force(-with-lease)?([[:space:]=]|$)'; then
+    [ "$ALLOW_FORCE" = 1 ] || emit ask "Force git push detected; explicit approval required"
+    SEG_FORCE=1
   fi
   # `-f` は他の短オプションと束ねられ得る（`git push -fu origin feat/x`）。
   # `git push` の短オプションで 'f' を使うものは他に無いので、単一ダッシュの
   # 束の中の 'f' は force を意味する。
   if printf '%s' "$SEG" | grep -qE '(^|[[:space:]])-[[:alnum:]]*f[[:alnum:]]*([[:space:]]|$)'; then
-    emit ask "git push with -f (force) detected"
+    [ "$ALLOW_FORCE" = 1 ] || emit ask "git push with -f (force) detected"
+    SEG_FORCE=1
   fi
 
   # 'push' 以降のトークンからフラグを除き、positional 引数
@@ -153,8 +178,11 @@ while IFS= read -r SEG; do
     rs=${rs//\"/}
     rs=${rs//\'/}
     [ -z "$rs" ] && continue
+    RS_FORCE=$SEG_FORCE
     if [[ "$rs" == +* ]]; then
-      emit ask "Refspec '$rs' has force prefix '+'"
+      [ "$ALLOW_FORCE" = 1 ] || emit ask "Refspec '$rs' has force prefix '+'"
+      RS_FORCE=1
+      rs=${rs#+}
     fi
     if [[ "$rs" == *:* ]]; then
       DST=${rs#*:}
@@ -162,6 +190,13 @@ while IFS= read -r SEG; do
       DST=$rs
     fi
     DST=${DST#refs/heads/}
+    if [ "$RS_FORCE" = 1 ]; then
+      for pat in "${FORCE_PROTECTED_PATTERNS[@]}"; do
+        case "$DST" in
+          "$pat") emit ask "Force push targets protected branch '$DST'" ;;
+        esac
+      done
+    fi
     for pat in ${PROTECTED_PATTERNS[@]+"${PROTECTED_PATTERNS[@]}"}; do
       [ -z "$pat" ] && continue
       case "$DST" in
