@@ -93,7 +93,7 @@ end
 # which needs an active node version to dispatch to. The dotfiles install.sh
 # runs mitamae from ~/dotfiles where no .mise.toml exists, so without a
 # globally-pinned node mise aborts with "No version is set for shim: npm"
-# and the downstream codex / claude installs both fail with a confusing
+# and the downstream claude install fails with a confusing
 # "No such file or directory (os error 2)" error.
 #
 # Pin and install an LTS node globally so the npm shim resolves to a real
@@ -107,19 +107,24 @@ end
 # (config/coding_agents/claude/agents/codex-offload.md) shells out to
 # `codex exec`. Without it, every offload fails.
 #
-# Install via mise's npm backend instead of `npm install -g`: the devcontainer
-# role runs without sudo, so the system-wide npm prefix (/usr/lib/node_modules)
-# is not writable. mise installs into ~/.local/share/mise/installs and
-# creates a shim under ~/.local/share/mise/shims (already on PATH).
+# Install via mise's aqua backend, which downloads the prebuilt Rust binary
+# from openai/codex GitHub Releases into ~/.local/share/mise/installs and
+# creates a shim under ~/.local/share/mise/shims (already on PATH). It needs
+# neither sudo nor node, unlike the former `npm:@openai/codex` entry.
+#
+# Containers provisioned before the switch still carry `npm:@openai/codex` in
+# their global mise config. Drop it first so only one backend provides the
+# `codex` shim, and gate on the aqua install itself rather than on
+# `mise which codex`, which the old npm install would also satisfy.
 #
 # `latest`, not pinned. The old 0.153.0 pin was tied to `codex mcp-server`,
 # which 0.154.0 deleted; `codex exec` is a core subcommand and is unaffected.
 # Keep this in sync with config/mise/config.toml.erb.
 CODEX_VERSION = 'latest'
 
-execute 'install codex cli (mise npm backend)' do
-  command "mise use -g 'npm:@openai/codex@#{CODEX_VERSION}'"
-  not_if 'mise which codex >/dev/null 2>&1'
+execute 'install codex cli (mise aqua backend)' do
+  command "(mise unuse -g 'npm:@openai/codex' >/dev/null 2>&1 || true) && mise use -g 'aqua:openai/codex@#{CODEX_VERSION}'"
+  not_if 'mise where aqua:openai/codex >/dev/null 2>&1'
 end
 
 # Install Claude Code CLI via mise instead of relying on the devcontainer feature.
