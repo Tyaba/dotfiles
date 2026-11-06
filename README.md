@@ -220,6 +220,43 @@ The staged file is consumed before execution, including on failure; another
 `h` cannot repeat it. The latest script remains as `<hash>.last.sh`.
 Run the isolated tests with `bats config/coding_agents/handoff/h.bats`.
 
+### Public text leak gate
+
+This repository is public, and GitHub keeps the edit history of PR and issue
+bodies. `config/coding_agents/hooks/public-text-leak-gate.py` is a Claude Code
+`PreToolUse` hook on Bash that denies a command when the text it would publish
+contains a personal identifier or a secret.
+
+- Inspected: `gh pr|issue|release|gist|api|repo|discussion|label` text flags,
+  body files and heredoc bodies; `git commit` / `git tag` messages and the
+  added lines of the diff being committed; for `git push`, the messages,
+  author/committer and added lines of commits not on any remote. The rest of
+  the command line (such as `cd <home path> &&`) is not inspected.
+- Identifiers: the login user name (generic names such as `vscode` are
+  skipped), the account and project of the gcloud configuration named by
+  `DOTFILES_GCLOUD_CONFIGURATION` (default `good`), and extra words in
+  `~/.config/leak-gate/denylist` (one per line, `re:` prefix for a regex; keep
+  this file out of the repository). Known token formats (GitHub, Slack,
+  Google, AWS, Anthropic, OpenAI, PEM private keys) are also detected.
+- There is no bypass for the agent. For a false positive, the user runs the
+  command with `!`.
+- Not covered: bodies passed through shell variables, and publishing outside
+  the Bash tool (Codex, MCP).
+
+```mermaid
+flowchart TD
+    A[Bash tool call] --> B{gh publish / git commit, tag, push?}
+    B -->|no| Z[No decision]
+    B -->|yes| C[Collect published text: flags, body files, heredocs, diffs, unpushed commits]
+    C --> D[Build patterns: user name, gcloud account/project, denylist, token formats]
+    D --> E{Any match?}
+    E -->|no| Z
+    E -->|yes| F[Deny with masked match and location]
+```
+
+Run the tests with
+`python3 -I config/coding_agents/hooks/public-text-leak-gate.test.py`.
+
 ### Secrets
 
 API keys are never committed. `lib/secrets.rb` resolves them into `ENV` before

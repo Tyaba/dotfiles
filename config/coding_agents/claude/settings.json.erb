@@ -148,6 +148,12 @@
           },
           {
             "type": "command",
+            "command": "python3 ~/.claude/hooks/public-text-leak-gate.py",
+            "timeout": 30,
+            "statusMessage": "公開テキストの個人識別子・秘密を検査中..."
+          },
+          {
+            "type": "command",
             "command": "~/.claude/hooks/terraform-apply-guard.sh",
             "timeout": 120,
             "statusMessage": "terraform 操作の安全性を検証中..."
