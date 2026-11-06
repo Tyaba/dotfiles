@@ -56,9 +56,9 @@ execute 'install claude plugin codex' do
   not_if '$HOME/.local/bin/claude plugin list 2>/dev/null | grep -q codex@openai-codex'
 end
 
-# Codex CLI itself is installed by the mise npm backend declared in
-# config/mise/config.toml.erb, not here. A plain `npm install -g` was fragile:
-# npm globals are per-node-version, so a node bump (e.g. 20 -> 24) orphaned
-# codex while the leftover mise shim let `not_if 'which codex'` skip the
-# reinstall, leaving the CLI dead. mise pins codex independently of the active
-# node, surviving node upgrades.
+# Codex CLI itself is installed by the mise aqua backend (`aqua:openai/codex`)
+# declared in config/mise/config.toml.erb, not here. A plain `npm install -g`
+# was fragile: npm globals are per-node-version, so a node bump (e.g. 20 -> 24)
+# orphaned codex while the leftover mise shim let `not_if 'which codex'` skip
+# the reinstall, leaving the CLI dead. The aqua backend fetches the prebuilt
+# binary from GitHub Releases and does not depend on node at all.

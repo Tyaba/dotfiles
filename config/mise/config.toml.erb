@@ -14,7 +14,12 @@ go = "latest"
 # `codex exec` (see config/coding_agents/claude/agents/codex-offload.md), a core
 # subcommand present in both 0.153.0 and 0.154.0, so there is nothing left to
 # pin to. Keep this in sync with CODEX_VERSION in roles/devcontainer/default.rb.
-"npm:@openai/codex" = "latest"
+#
+# Installed through the aqua backend, which downloads the prebuilt Rust binary
+# from openai/codex GitHub Releases. Unlike `npm:@openai/codex` (a node wrapper
+# around the same binary), it does not depend on any node version. Note that
+# `mise install codex` alone resolves to this same aqua:openai/codex entry.
+"aqua:openai/codex" = "latest"
 
 [settings]
 experimental = true
