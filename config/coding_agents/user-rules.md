@@ -31,12 +31,14 @@
   - 矛盾を見つけたら `detect_conflicts` → `resolve_conflicts` で整理
   - 旧トリプル系（`add_triples` / `search_memory` / `search_triples` / `delete_triples` / `cleanup_duplicates`）は移行期間中の互換用。**新規記録には使わない**
   - 詳細: `mcp-yui` skill
-- **codex**: MCP ではなく `codex-offload` サブエージェント経由。コード変更は下の「Codex オフロード」
+- **codex**: MCP ではなく `codex-offload` サブエージェント経由。Claude Enterprise のときだけ使う（下の「Codex オフロード」）
 - **notion** / **slack** / **playwright** / **todoist**: 該当操作は必ず MCP 経由（curl / API 直叩き禁止）
 
 ## Codex オフロード（最優先チェックポイント）
 
-**コード変更を伴うタスクはデフォルトで Codex に移譲する。** `Edit` / `Write` / `NotebookEdit` / コード生成系 `Bash` を初めて呼ぶ前に、以下のゲートを**順に**通過すること：
+**前提: Codex オフロードは Claude Code を Claude Enterprise で動かしているときだけ行う。** Claude Max・Vertex AI・Bedrock・API キーで動かしているときは**移譲禁止**で、コード変更は Claude が `Edit` / `Write` で直接実装する（この節の移譲ゲートは適用しない）。現在のプランはセッション開始時に `codex-offload-plan-gate.py` hook が文脈に注入し、Enterprise 以外での `codex-offload` / `codex:codex-rescue` / `codex exec` は同 hook が deny する。
+
+**Enterprise のときは、コード変更を伴うタスクをデフォルトで Codex に移譲する。** `Edit` / `Write` / `NotebookEdit` / コード生成系 `Bash` を初めて呼ぶ前に、以下のゲートを**順に**通過すること：
 
 0. **前段の手続き型ルールが未実行ではないか？** TDD（`/red` → `/green` → `/refactor`）や、プロジェクト側 `CLAUDE.md` が要求する手続き（`pr-template` 遵守・DDD レイヤー確認・DB マイグレーション手順など）がある場合、**前段手続きを先に開始**する。移譲ゲートは前段ルールに優先しない。移譲は**ワークフローの 1 フェーズ単位**で行い、複数フェーズを一括で詰め込まないこと（詳細・例は `codex-offload` skill）
 1. 下の「Claude に残すタスク」に該当するか？ YES なら Claude で実装。
@@ -50,6 +52,7 @@
 - MCP を活用した外部サービス連携（yui / Slack / Notion / Todoist 等）
 - **手続き型ワークフローのオーケストレーション**: TDD サイクルのフェーズ進行判断とフェーズ間の検証・コミット、`pr-template` 等のテンプレに沿った PR description 組み立て、DDD レイヤー確認、DB マイグレーション手順管理など。個別フェーズ内のコード変更は Codex に移譲してよい
 - **PR description / commit message 等の文章組み立て**（テンプレ準拠が必要なため Claude が書く）
+- **Claude Enterprise 以外で動いている場合**（Max / Vertex AI / Bedrock / API キー）: 全タスクを Claude が実装する
 - **Codex の疎通が取れない場合**: `codex` CLI が無い / 認証が切れている環境 (CI 上の Claude Code Action 等)。この場合は Claude 自身が `Edit` / `Write` を直接実行する。コスト要因 (Anthropic API 従量) は発生するが品質縮退ではない
 - ユーザーが明示的に「自分で書いて」と指示したとき
 
@@ -62,7 +65,7 @@
 | 条件 | スキル |
 |---|---|
 | yui MCP を使う時（会話開始時・事実を得た時） | mcp-yui |
-| Codex に移譲する時 | codex-offload |
+| Codex に移譲する時（Claude Enterprise のときのみ） | codex-offload |
 | 「E2Eテスト」「結合テスト」「動作確認」を依頼された | e2e-testing |
 | ユーザーに `! <command>` の実行を依頼したくなった（権限拒否・ホスト限定操作） | handoff |
 

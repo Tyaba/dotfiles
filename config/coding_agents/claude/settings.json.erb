@@ -138,6 +138,16 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ~/.claude/hooks/codex-offload-plan-gate.py session-start",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "PreToolUse": [
@@ -177,6 +187,21 @@
             "command": "python3 ~/.claude/hooks/pgrep-self-match-gate.py",
             "timeout": 10,
             "statusMessage": "プロセス検索を検査中..."
+          },
+          {
+            "type": "command",
+            "command": "python3 ~/.claude/hooks/codex-offload-plan-gate.py",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "Agent|Task|Skill",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ~/.claude/hooks/codex-offload-plan-gate.py",
+            "timeout": 5
           }
         ]
       },
