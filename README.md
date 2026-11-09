@@ -238,6 +238,9 @@ contains a personal identifier or a secret.
   `~/.config/leak-gate/denylist` (one per line, `re:` prefix for a regex; keep
   this file out of the repository). Known token formats (GitHub, Slack,
   Google, AWS, Anthropic, OpenAI, PEM private keys) are also detected.
+- After a match, the hook checks repository visibility with `gh`. In private or
+  internal repositories it ignores identifier matches but still blocks secrets;
+  if visibility cannot be determined, it blocks all matches as for public repositories.
 - There is no bypass for the agent. For a false positive, the user runs the
   command with `!`.
 - Not covered: bodies passed through shell variables, and publishing outside
@@ -251,7 +254,11 @@ flowchart TD
     C --> D[Build patterns: user name, gcloud account/project, denylist, token formats]
     D --> E{Any match?}
     E -->|no| Z
-    E -->|yes| F[Deny with masked match and location]
+    E -->|yes| F[Check repository visibility with gh]
+    F -->|private or internal| G[Keep secret matches only]
+    F -->|public or lookup failed| H[Deny with masked match and location]
+    G -->|no secrets| Z
+    G -->|secrets found| H
 ```
 
 Run the tests with

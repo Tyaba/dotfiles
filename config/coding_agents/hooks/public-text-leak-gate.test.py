@@ -9,7 +9,7 @@ import json, os, subprocess, sys, tempfile
 from pathlib import Path
 
 HOOK = str(Path(__file__).with_name("public-text-leak-gate.py"))
-tmpdir = tempfile.TemporaryDirectory(dir=Path.cwd())
+tmpdir = tempfile.TemporaryDirectory()
 tmp = Path(tmpdir.name)
 fake_bin = tmp / "bin"
 fake_bin.mkdir()
