@@ -68,10 +68,42 @@ if [ -n "$WEEK" ]; then
     RATE="${RATE:+$RATE }${RATE_7_COLOR}7d:${WEEK}%${RESET}"
 fi
 
+# Plan badge: which subscription this session bills against. The statusline
+# input carries no account info, so read the OAuth account that Claude Code
+# caches in ~/.claude.json (or $CLAUDE_CONFIG_DIR/.claude.json). The file is
+# a few hundred KB, so grep the two keys instead of parsing it with jq.
+# ANTHROPIC_API_KEY takes precedence over OAuth when set, so it wins here too.
+plan_badge() {
+    local cfg org tier label color
+    if [ -n "${ANTHROPIC_API_KEY:-}" ]; then
+        printf '%b' '\033[41;97;1m API \033[0m'
+        return
+    fi
+    cfg="${CLAUDE_CONFIG_DIR:-$HOME}/.claude.json"
+    [ -r "$cfg" ] || return
+    org=$(grep -o '"organizationType": *"[^"]*"' "$cfg" 2>/dev/null | head -n1)
+    org=${org%\"}; org=${org##*\"}
+    tier=$(grep -o '"organizationRateLimitTier": *"[^"]*"' "$cfg" 2>/dev/null | head -n1)
+    tier=${tier%\"}; tier=${tier##*\"}
+    case $org in
+        claude_enterprise) label="ENTERPRISE"; color='\033[45;97;1m' ;;
+        claude_max)
+            label="MAX"
+            case $tier in *_20x*) label="MAX 20x" ;; *_5x*) label="MAX 5x" ;; esac
+            color='\033[43;30;1m' ;;
+        claude_team) label="TEAM"; color='\033[44;97;1m' ;;
+        claude_pro) label="PRO"; color='\033[42;30;1m' ;;
+        "") return ;;
+        *) label=${org#claude_}; color='\033[47;30;1m' ;;
+    esac
+    printf '%b' "${color} ${label} \033[0m"
+}
+PLAN=$(plan_badge)
+
 printf -v COST_FMT '$%.2f' "$COST"
 RATE_SECTION=""
 [ -n "$RATE" ] && RATE_SECTION=" │ ${RATE}"
-echo -e "${DIM}[${MODEL}]${RESET} ${BAR_COLOR}${BAR} ${PCT}%${RESET} │ ${CYAN}${COST_FMT}${RESET} │ ${GREEN}+${LINES_ADD}${RESET}/${RED}-${LINES_DEL}${RESET}${RATE_SECTION}"
+echo -e "${PLAN:+$PLAN }${DIM}[${MODEL}]${RESET} ${BAR_COLOR}${BAR} ${PCT}%${RESET} │ ${CYAN}${COST_FMT}${RESET} │ ${GREEN}+${LINES_ADD}${RESET}/${RED}-${LINES_DEL}${RESET}${RATE_SECTION}"
 
 # ---------------------------------------------------------------------------
 # Line 2: git status + changed files.
