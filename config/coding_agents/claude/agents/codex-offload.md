@@ -1,6 +1,6 @@
 ---
 name: codex-offload
-description: コード変更を伴うタスクを Codex CLI (`codex exec`) に移譲する。バグ修正・テスト作成・lint 修正・単一機能実装・ドキュメント生成・CI 失敗調査など、Claude 自身が実装しないタスクで使う。自分ではコードを書かず、Codex の実行と結果検証だけを行う。
+description: コード変更を伴うタスクを Codex CLI (`codex exec`) に移譲する。Claude Enterprise で動いているときだけ使う（Max / Vertex AI 等では使わず Claude が直接実装する）。バグ修正・テスト作成・lint 修正・単一機能実装・ドキュメント生成・CI 失敗調査など、Claude 自身が実装しないタスクで使う。自分ではコードを書かず、Codex の実行と結果検証だけを行う。
 tools: Bash, Read, Grep, Glob
 model: sonnet
 ---

@@ -5,7 +5,7 @@
 
 ## Codex オフロード
 
-`user-rules.md` の「Codex オフロード」節と `codex-offload` skill に従い、**コード変更を伴うタスクはデフォルトで `codex-offload` サブエージェントに移譲する**。
+`user-rules.md` の「Codex オフロード」節と `codex-offload` skill に従い、**Claude Enterprise で動いているときだけ**、コード変更を伴うタスクをデフォルトで `codex-offload` サブエージェントに移譲する。Claude Max / Vertex AI 等では移譲禁止で、Claude が直接実装する（`codex-offload-plan-gate.py` hook がセッション開始時にプランを注入し、Enterprise 以外の Codex 呼び出しを deny する）。
 
 Claude Code 固有の注意：
 
@@ -20,7 +20,7 @@ Claude Code 固有の注意：
 - **異なるブランチで並列作業**: 必ず `isolation: "worktree"` を指定（同一 CWD での並列 `git checkout` は競合）
 
 ## TDD
-実装追加時は `/red` → `/green` → `/refactor` を順に実行し、各フェーズ完了時にコミット。各フェーズの実装自体は Codex 移譲可、サイクル進行は Claude が担う。
+実装追加時は `/red` → `/green` → `/refactor` を順に実行し、各フェーズ完了時にコミット。各フェーズの実装自体は Codex 移譲可（Enterprise のときのみ）、サイクル進行は Claude が担う。
 
 <tone_preference>
 応答は簡潔に。結論は末尾に短く置き、そこだけ読んで分かるように書く（「案 B」「その関数」のようなラベル参照をせず毎回中身を書く）。

@@ -1,11 +1,15 @@
 ---
 name: codex-offload
-description: Claude から Codex CLI へコード変更系タスクを移譲する際の呼び出し手順・移譲の粒度・sandbox 設定の根拠をまとめたスキル。移譲は `codex-offload` サブエージェント経由で行う。
+description: Claude から Codex CLI へコード変更系タスクを移譲する際の呼び出し手順・移譲の粒度・sandbox 設定の根拠をまとめたスキル。移譲は `codex-offload` サブエージェント経由で行う。Claude Enterprise で動いているときだけ使う。
 ---
 
 # Codex オフロード
 
-コード変更を伴うタスクはデフォルトで Codex に移譲する。Claude が自ら実装するのは
+**Claude Code を Claude Enterprise で動かしているときだけ使う。** Claude Max・Vertex AI・Bedrock・API キーでは
+移譲禁止で、Claude が直接実装する。判定と強制は `codex-offload-plan-gate.py` hook
+（dotfiles: `config/coding_agents/hooks/codex-offload-plan-gate.py`）が行う。
+
+Enterprise のときは、コード変更を伴うタスクをデフォルトで Codex に移譲する。Claude が自ら実装するのは
 `user-rules.md` の「Claude に残すタスク」に該当する場合のみ。
 
 ## 着手前ゲート
