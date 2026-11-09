@@ -31,6 +31,9 @@
 
 判定:
   検出したら deny。allow は返さない（他の gate を短絡させないため）。
+  private / internal リポジトリでは識別子検査を省略し、秘密検査は続ける。
+  private リポジトリの PR / コミットは外部に公開されず、社内 GCP project ID 等で
+  止める必要がないため。
   モデル側の回避手段（環境変数など）は用意しない。誤検知なら理由を添えて
   ユーザーに `!` での実行を依頼する。
   解析中の例外は検査対象をコマンド全体に広げて続行する（fail-closed 寄り）。
@@ -85,7 +88,7 @@ def _word_pattern(word: str) -> str:
     return r"(?<![A-Za-z0-9])" + re.escape(word) + r"(?![A-Za-z0-9])"
 
 
-def collect_patterns() -> list[tuple[str, re.Pattern[str]]]:
+def collect_patterns() -> list[tuple[str, re.Pattern[str], str]]:
     words: list[tuple[str, str]] = []
 
     try:
@@ -114,13 +117,13 @@ def collect_patterns() -> list[tuple[str, re.Pattern[str]]]:
         if project:
             words.append(("GCP project ID", project))
 
-    patterns: list[tuple[str, re.Pattern[str]]] = []
+    patterns: list[tuple[str, re.Pattern[str], str]] = []
     seen: set[str] = set()
     for label, w in words:
         if w.lower() in seen:
             continue
         seen.add(w.lower())
-        patterns.append((label, re.compile(_word_pattern(w), re.IGNORECASE)))
+        patterns.append((label, re.compile(_word_pattern(w), re.IGNORECASE), "identifier"))
 
     denylist = Path(os.environ.get("LEAK_GATE_DENYLIST") or Path.home() / ".config" / "leak-gate" / "denylist")
     if denylist.is_file():
@@ -130,14 +133,14 @@ def collect_patterns() -> list[tuple[str, re.Pattern[str]]]:
                 continue
             try:
                 if line.startswith("re:"):
-                    patterns.append(("denylist", re.compile(line[3:], re.IGNORECASE)))
+                    patterns.append(("denylist", re.compile(line[3:], re.IGNORECASE), "identifier"))
                 elif len(line) >= 3:
-                    patterns.append(("denylist", re.compile(_word_pattern(line), re.IGNORECASE)))
+                    patterns.append(("denylist", re.compile(_word_pattern(line), re.IGNORECASE), "identifier"))
             except re.error:
                 continue
 
     for label, rx in SECRET_PATTERNS:
-        patterns.append((label, re.compile(rx)))
+        patterns.append((label, re.compile(rx), "secret"))
     return patterns
 
 
@@ -359,15 +362,15 @@ def mask(s: str) -> str:
     return s[:2] + "*" * max(len(s) - 2, 1) if len(s) > 2 else "*" * len(s)
 
 
-def scan(targets: list[tuple[str, str]], patterns) -> list[str]:
-    hits: list[str] = []
+def scan(targets: list[tuple[str, str]], patterns) -> list[tuple[str, str]]:
+    hits: list[tuple[str, str]] = []
     for where, text in targets:
         if not text:
             continue
-        for label, rx in patterns:
+        for label, rx, category in patterns:
             m = rx.search(text)
             if m:
-                hits.append(f"- {where}: {label}（{mask(m.group(0))}）")
+                hits.append((category, f"- {where}: {label}（{mask(m.group(0))}）"))
     return hits
 
 
@@ -396,10 +399,22 @@ def main() -> None:
     if not hits:
         return
 
+    try:
+        result = subprocess.run(
+            ["gh", "repo", "view", "--json", "visibility", "-q", ".visibility"],
+            cwd=cwd, capture_output=True, text=True, timeout=10,
+        )
+        if result.returncode == 0 and result.stdout.strip() in ("PRIVATE", "INTERNAL"):
+            hits = [(category, hit) for category, hit in hits if category == "secret"]
+    except (OSError, subprocess.SubprocessError):
+        pass
+    if not hits:
+        return
+
     reason = (
         "公開先に出るテキストに個人識別子または秘密が含まれています。public リポジトリでは"
         "PR / Issue の本文は編集履歴に残り、push したコミットも消せません。\n"
-        + "\n".join(dict.fromkeys(hits))
+        + "\n".join(dict.fromkeys(hit for _, hit in hits))
         + "\n\n該当箇所を削除するか `~` / `<user>` 等のプレースホルダに置き換えてから再実行してください。"
         "コミット済みなら push 前に履歴を書き換えてください。"
         "誤検知だと判断した場合は、理由を説明してユーザーに `!` での実行を依頼してください。"
