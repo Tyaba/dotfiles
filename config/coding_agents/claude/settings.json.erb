@@ -128,6 +128,16 @@
             "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; fi"
           }
         ]
+      },
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/yui-proxy-check.sh",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "PreToolUse": [
