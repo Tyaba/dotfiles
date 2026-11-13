@@ -20,6 +20,9 @@ bash "$here/ensure.sh" >/dev/null || true
 # Exec the next `claude` on PATH that is not this wrapper.
 while IFS= read -r candidate; do
   [ "$(readlink -f "$candidate")" = "$self" ] && continue
+  [ -x "$candidate" ] || continue
+  # The first runnable candidate replaces this process; the loop never resumes.
+  # shellcheck disable=SC2093
   exec "$candidate" "$@"
 done < <(type -ap claude)
 
