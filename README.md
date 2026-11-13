@@ -423,6 +423,43 @@ flowchart TD
     Q --> J
 ```
 
+### Shared Playwright MCP daemon (devcontainer)
+
+In the devcontainer role, `mcp.json.erb` points `playwright` at one shared
+`@playwright/mcp --port 8931` daemon (`http://localhost:8931/mcp`) instead of
+spawning a stdio server per session. `config/coding_agents/playwright-mcp/ensure.sh`
+is the only place that starts it: it does nothing when a daemon is already
+listening, and otherwise starts one under `flock`, so parallel sessions start one
+daemon at most. After the daemon is up, it installs the matching Chromium in the
+background (`npx -p @playwright/mcp@latest playwright install`, plus `--with-deps`
+on a fresh container). The daemon log is `/tmp/playwright-mcp.log`.
+
+Claude Code connects MCP servers concurrently with SessionStart hooks and does not
+retry a server that failed. A hook alone therefore cannot start the daemon in time.
+`roles/devcontainer` links `claude-wrapper.sh` as `~/.local/bin/claude`, which
+precedes the mise-managed CLI on PATH. The wrapper runs `ensure.sh` and then execs
+the real CLI, so every launch path (`bash -lc`, zsh, herdr) has the daemon
+listening before MCP connects. If `~/.local/bin/claude` is a regular file (Claude
+Code's native installer), the link is not created. The SessionStart hook
+`hooks/playwright-mcp-ensure.sh` covers sessions that bypassed the wrapper: when it
+had to start the daemon, it tells the user to reconnect `playwright` with `/mcp`.
+
+```mermaid
+flowchart TD
+    A[claude on PATH] --> B[~/.local/bin/claude wrapper]
+    B --> C[ensure.sh]
+    S[SessionStart hook fallback] --> C
+    C --> D{localhost:8931 listening?}
+    D -->|Yes| E[Reuse the running daemon]
+    D -->|No| F[flock, then re-check]
+    F -->|Started by another session| E
+    F -->|Still down| G[setsid npx @playwright/mcp --port 8931]
+    G --> H[Install matching Chromium in background]
+    E --> I[exec the real Claude Code CLI]
+    H --> I
+    I --> J[MCP connects to http://localhost:8931/mcp]
+```
+
 ### Codex Offload (via the codex-offload subagent)
 
 Claude Code tasks are automatically offloaded to Codex through the `codex-offload` subagent

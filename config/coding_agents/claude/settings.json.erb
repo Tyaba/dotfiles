@@ -139,6 +139,18 @@
           }
         ]
       },
+<%- if ENV['DOTFILES_ROLE'] == 'devcontainer' -%>
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/playwright-mcp-ensure.sh",
+            "timeout": 30
+          }
+        ]
+      },
+<%- end -%>
       {
         "matcher": "",
         "hooks": [

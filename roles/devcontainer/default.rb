@@ -171,6 +171,23 @@ execute 'materialize claude code native binary (mise npm backend postinstall)' d
   not_if 'mise exec -- claude --version >/dev/null 2>&1'
 end
 
+# Shadow the claude CLI with a wrapper that starts the shared Playwright MCP
+# daemon (http://localhost:8931/mcp, see config/coding_agents/mcp.json.erb)
+# when none is running, then execs the real CLI. Claude Code connects MCP
+# servers concurrently with SessionStart hooks and never retries, so the daemon
+# has to be up before the CLI starts; a PATH entry is the one point every
+# launch path (`bash -lc`, zsh, herdr) goes through. ~/.local/bin precedes the
+# mise-managed CLI on PATH.
+#
+# Leave a real file alone: it would be Claude Code's native installer, which
+# also uses ~/.local/bin/claude.
+claude_wrapper = File.expand_path('../../../config/coding_agents/playwright-mcp/claude-wrapper.sh', __FILE__)
+
+link "#{ENV['HOME']}/.local/bin/claude" do
+  to claude_wrapper
+  not_if "test -e #{ENV['HOME']}/.local/bin/claude && ! test -L #{ENV['HOME']}/.local/bin/claude"
+end
+
 # Re-run the user-scope MCP sync after the claude CLI is installed.
 #
 # The base role attempts this earlier, but at that point this role has not

@@ -5,7 +5,10 @@
   stdio server is spawned per session -- `npx` wrapper plus the server itself,
   ~190MB and 3 processes each. A single `@playwright/mcp --port 8931` daemon
   serves them all instead; each client still gets its own MCP session and its
-  own browser. The daemon is started by the launcher (mise task) before claude.
+  own browser. config/coding_agents/playwright-mcp/ensure.sh starts it when
+  none is running and reuses it otherwise; the `claude` wrapper (linked as
+  ~/.local/bin/claude by roles/devcontainer) runs it before the CLI connects
+  MCP servers, and a SessionStart hook runs it as a fallback.
   Host role keeps stdio: there is no daemon to talk to there.
 
   The server rejects requests whose Host header does not match what it bound to,
