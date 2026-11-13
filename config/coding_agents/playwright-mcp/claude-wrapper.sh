@@ -18,13 +18,17 @@ here="$(dirname "$self")"
 bash "$here/ensure.sh" >/dev/null || true
 
 # Exec the next `claude` on PATH that is not this wrapper.
-while IFS= read -r candidate; do
+# Collect the candidates before the loop instead of feeding the loop from a
+# process substitution: `exec` inside such a loop hands the pipe to Claude Code
+# as its stdin, and the remaining candidate paths are read as the first prompt.
+mapfile -t candidates < <(type -ap claude)
+for candidate in "${candidates[@]}"; do
   [ "$(readlink -f "$candidate")" = "$self" ] && continue
   [ -x "$candidate" ] || continue
   # The first runnable candidate replaces this process; the loop never resumes.
   # shellcheck disable=SC2093
   exec "$candidate" "$@"
-done < <(type -ap claude)
+done
 
 echo "claude wrapper: the Claude Code CLI was not found on PATH" >&2
 exit 127
