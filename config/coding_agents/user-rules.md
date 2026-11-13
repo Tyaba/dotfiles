@@ -32,7 +32,8 @@
   - 旧トリプル系（`add_triples` / `search_memory` / `search_triples` / `delete_triples` / `cleanup_duplicates`）は移行期間中の互換用。**新規記録には使わない**
   - 詳細: `mcp-yui` skill
 - **codex**: MCP ではなく `codex-offload` サブエージェント経由。Claude Enterprise のときだけ使う（下の「Codex オフロード」）
-- **notion** / **slack** / **playwright** / **todoist**: 該当操作は必ず MCP 経由（curl / API 直叩き禁止）
+- **slack** / **notion**: 既定では読み書き禁止（MCP / CLI / API のいずれも使わない）。プロジェクトの `CLAUDE.md` / `CLAUDE.local.md` が許可したリポジトリだけ、そこで指定された手段（公式 CLI / 公式 MCP 等）で使う。投稿・更新の前には必ずユーザーの確認を取る
+- **playwright** / **todoist**: 該当操作は必ず MCP 経由（curl / API 直叩き禁止）
 
 ## Codex オフロード（最優先チェックポイント）
 
