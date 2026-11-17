@@ -1,3 +1,5 @@
+# Claude Code を最初に入れ、以降の cookbook が失敗してもその環境の claude でトラブルシュートできるようにする
+include_cookbook 'claude-cli'
 include_role 'base'
 dotfile ".tmux.conf"
 dotfile '.zsh'
@@ -20,7 +22,6 @@ include_cookbook 'aqua-voice'
 include_cookbook 'chatgpt'
 ## 状況把握
 include_cookbook 'htop'
-include_cookbook 'cursor'
 include_cookbook 'karabiner-elements'
 include_cookbook 'ghostty'
 dotfile '.config/ghostty'

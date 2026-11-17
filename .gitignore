@@ -4,7 +4,6 @@ config/.config/gh/
 bin/mitamae*
 tmp/*
 config/.hotkey/*.exe
-.cursor/hooks/state/
 config/.config/karabiner/assets/complex_modifications/tyaba_emacs.json
 cookbooks/traefik/files/certs/*.pem
 config/coding_agents/private/

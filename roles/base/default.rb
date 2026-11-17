@@ -18,39 +18,15 @@ include_recipe File.join(root_dir, 'lib', 'helper')
 # order. Must run before those templates.
 include_recipe File.join(root_dir, 'lib', 'secrets')
 
-# Coding agents (Cursor / Claude Code shared config)
+# Coding agents (Claude Code shared config)
 # Skills (shared)
-dotfile '.cursor/skills' => 'coding_agents/skills'
 dotfile '.claude/skills' => 'coding_agents/skills'
 
 # Hooks (shared)
-dotfile '.cursor/hooks' => 'coding_agents/hooks'
 dotfile '.claude/hooks' => 'coding_agents/hooks'
 
 # User rules (shared across all workspaces)
 dotfile '.claude/user-rules.md' => 'coding_agents/user-rules.md'
-
-user_rules_erb = File.join(root_dir, 'config/coding_agents/cursor/rules/user-rules.mdc.erb')
-user_rules_md = File.read(File.join(root_dir, 'config/coding_agents/user-rules.md'))
-
-execute "rm -f #{ENV['HOME']}/.cursor/rules" do
-  only_if "test -L #{ENV['HOME']}/.cursor/rules"
-end
-
-directory "#{ENV['HOME']}/.cursor/rules" do
-  user node[:user] if node[:user]
-end
-
-template "#{ENV['HOME']}/.cursor/rules/user-rules.mdc" do
-  source user_rules_erb
-  variables(user_rules: user_rules_md)
-  user node[:user] if node[:user]
-  mode '0644'
-end
-
-# Cursor-specific
-dotfile '.cursor/rules/coding.mdc' => 'coding_agents/cursor/rules/coding.mdc'
-dotfile '.cursor/hooks.json' => 'coding_agents/cursor/hooks.json'
 
 # Claude Code-specific
 dotfile '.claude/CLAUDE.md' => 'coding_agents/claude/CLAUDE.md'
@@ -132,12 +108,8 @@ template "#{codex_home}/config.toml" do
   mode '0600'
 end
 
-# MCP settings (template generates both Cursor and Claude Code configs)
+# MCP settings (Claude Code)
 mcp_erb = File.join(root_dir, 'config/coding_agents/mcp.json.erb')
-
-directory "#{ENV['HOME']}/.cursor" do
-  user node[:user] if node[:user]
-end
 
 execute "rm -f #{ENV['HOME']}/.mcp.json" do
   only_if "test -L #{ENV['HOME']}/.mcp.json"
@@ -178,16 +150,6 @@ end
 execute 'sync ~/.mcp.json into claude user scope' do
   command "bash #{sync_user_mcp}"
   user node[:user] if node[:user]
-end
-
-execute "rm -f #{ENV['HOME']}/.cursor/mcp.json" do
-  only_if "test -L #{ENV['HOME']}/.cursor/mcp.json"
-end
-# 0600: same rendered content as ~/.mcp.json, same Authorization header.
-template "#{ENV['HOME']}/.cursor/mcp.json" do
-  source mcp_erb
-  user node[:user] if node[:user]
-  mode '0600'
 end
 
 # Rust settings

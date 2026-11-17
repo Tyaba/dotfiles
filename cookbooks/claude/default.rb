@@ -1,13 +1,5 @@
-# Install Claude Code CLI
-case node[:platform]
-when 'darwin', 'ubuntu', 'debian'
-  execute 'install claude code' do
-    command 'curl -fsSL https://claude.ai/install.sh | bash'
-    not_if 'test -f $HOME/.local/bin/claude'
-  end
-else
-  raise NotImplementedError
-end
+# Claude Code CLI itself (roles normally install it earlier, before roles/base)
+include_cookbook 'claude-cli'
 
 # LSP binaries for Claude Code plugins
 execute 'install typescript-language-server' do
