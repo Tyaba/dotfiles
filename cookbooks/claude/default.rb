@@ -1,6 +1,10 @@
 # Claude Code CLI itself (roles normally install it earlier, before roles/base)
 include_cookbook 'claude-cli'
 
+# Steps that write under $HOME (~/.claude, ~/.local) set `user` so that, on
+# Linux where mitamae runs under `sudo -E`, they run as the login user instead
+# of root. See cookbooks/claude-cli for details.
+
 # LSP binaries for Claude Code plugins
 execute 'install typescript-language-server' do
   command 'npm install -g typescript-language-server typescript'
@@ -10,6 +14,7 @@ end
 execute 'install pyright' do
   command '$HOME/.local/bin/uv tool install pyright'
   not_if 'which pyright-langserver'
+  user node[:user] if node[:user]
 end
 
 # Claude Code LSP plugins (user scope)
@@ -17,6 +22,7 @@ end
   execute "install claude plugin #{plugin}" do
     command "$HOME/.local/bin/claude plugin install #{plugin}@claude-plugins-official --scope user"
     not_if "$HOME/.local/bin/claude plugin list 2>/dev/null | grep -q #{plugin}"
+    user node[:user] if node[:user]
   end
 end
 
@@ -41,11 +47,13 @@ end
 execute 'add openai codex plugin marketplace' do
   command '$HOME/.local/bin/claude plugin marketplace add openai/codex-plugin-cc'
   not_if '$HOME/.local/bin/claude plugin marketplace list 2>/dev/null | grep -q openai-codex'
+  user node[:user] if node[:user]
 end
 
 execute 'install claude plugin codex' do
   command '$HOME/.local/bin/claude plugin install codex@openai-codex --scope user'
   not_if '$HOME/.local/bin/claude plugin list 2>/dev/null | grep -q codex@openai-codex'
+  user node[:user] if node[:user]
 end
 
 # Codex CLI itself is installed by the mise aqua backend (`aqua:openai/codex`)
