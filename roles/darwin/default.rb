@@ -1,6 +1,6 @@
-# Claude Code を最初に入れ、以降の cookbook が失敗してもその環境の claude でトラブルシュートできるようにする
-include_cookbook 'claude-cli'
 include_role 'base'
+# Claude Code を早めに入れ、以降の cookbook が失敗してもその環境の claude でトラブルシュートできるようにする
+include_cookbook 'claude-cli'
 dotfile ".tmux.conf"
 dotfile '.zsh'
 include_cookbook 'darwin_base'

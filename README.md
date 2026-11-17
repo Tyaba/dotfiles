@@ -31,16 +31,18 @@ appendWindowsPath = false
 ./install.sh
 ```
 
-The host roles (`roles/darwin`, `roles/ubuntu`) install the Claude Code CLI first
-(`cookbooks/claude-cli`), before `roles/base` and every other cookbook. If a later
-cookbook fails, `claude` is already available on that machine for troubleshooting.
-Plugins and LSP binaries are installed later by `cookbooks/claude`, because they
-need npm / uv and the rendered `~/.claude/settings.json`.
+The host roles (`roles/darwin`, `roles/ubuntu`) install the Claude Code CLI
+(`cookbooks/claude-cli`) right after `roles/base`, ahead of the other cookbooks. If
+a later cookbook fails, `claude` is already available on that machine for
+troubleshooting. Plugins and LSP binaries are installed later by
+`cookbooks/claude`, because they need npm / uv and the rendered
+`~/.claude/settings.json`. The devcontainer role does not use either cookbook; it
+installs `claude` through mise's npm backend.
 
 ```mermaid
 flowchart LR
-    A[install.sh] --> B[cookbooks/claude-cli<br/>Claude Code CLI]
-    B --> C[roles/base<br/>dotfiles, settings.json, MCP sync]
+    A[install.sh] --> B[roles/base<br/>dotfiles, settings.json]
+    B --> C[cookbooks/claude-cli<br/>Claude Code CLI]
     C --> D[other cookbooks]
     D --> E[cookbooks/claude<br/>plugins, LSP]
 ```
