@@ -19,7 +19,7 @@
 - Pythonの実行はuvを使う。テストはpytest。uvは公式インストーラー（curl）で導入
 - pnpmは日常のパッケージ管理用、bunはランタイム/hook用として共存する
 - Raycastのウィンドウ操作ホットキーはplistに出ないため手動設定が必要。Spotlight・Siri/Apple IntelligenceのCmd+Spaceは競合するため無効化（`darwin_base/default.rb`で自動化済み）
-- `.cursor/hooks/state` はGit管理しない。認証情報・機密情報はコミットしない。リポジトリはpublicである
+- 認証情報・機密情報はコミットしない。リポジトリはpublicである
 - ターミナルのカラーテーマはダーク×ウォーム系が好み（ネイビー系は嫌い）
 - 個人の設定をプロジェクトの`.claude/rules/`に持ち込まない。グローバル設定（`~/.claude/CLAUDE.md`）で管理する
 - Context7はClaude・Codex両方に MCP server として登録（`mcp.json.erb` / `codex/config.toml.erb`）。Claude は HTTP エンドポイント、Codex は stdio (`npx @upstash/context7-mcp`) を使用。Codex は Claude の MCP 接続を継承しないため、offload 時にライブラリドキュメントを参照させるには Codex 側にも登録が必要
@@ -38,15 +38,13 @@
 
 - プロビジョニングはMitamae + `./install.sh`。cookbooksでパッケージ管理する
 - MCP設定は `config/coding_agents/mcp.json.erb` のERBテンプレートからMitamaeで生成する。ERB変数はインスタンス変数参照（`<%= @name %>`）
-- Cursor/Claude Code設定は `config/coding_agents/` に集約。共通ユーザ設定は `user-rules.md`、共通スキルは `skills/`、ツール固有は `cursor/`・`claude/` に分離
+- Claude Code / Codex 設定は `config/coding_agents/` に集約。共通ユーザ設定は `user-rules.md`、共通スキルは `skills/`、ツール固有は `claude/`・`codex/` に分離。Cursor はサポート対象外（cookbook・`~/.cursor/` 配下の設定配布を削除済み）
 - CLAUDE.mdは`@~/.claude/user-rules.md`で共通ユーザ設定、`@AGENTS.md`でワークスペース固有設定をインポートする構成
-- Cursorは`user-rules.mdc.erb`テンプレートから`~/.cursor/rules/user-rules.mdc`を生成し、全ワークスペースに共通ユーザ設定を適用
 - Raycast設定の保存は `bin/raycast-export`、適用は `defaults import com.raycast.macos`。Spectacleは削除済み
 - キーボードはHHKB-Hybrid_2（Bluetooth接続）。CapsLock→left_controlはKarabiner simple_modificationsで変換
 - Karabiner-Elementsのcomplex_modificationsでEmacs風キーバインドを全体適用（除外アプリリスト付き）。`FromModifiers.optional`のデフォルトに`["caps_lock"]`が必要
 - IME切り替え: Ctrl+\ → (Karabiner) → `japanese_eisuu`/`japanese_kana` → macOSネイティブ入力ソース切り替え。一方向キーのため二重発火なし、`select_input_source`のCJKVバグも回避。F18経由・`select_input_source`直接方式はいずれも非推奨
-- CursorのbundleIDは`com.todesktop.230313mzl4w4u92`、Ghosttyは`com.mitchellh.ghostty`。いずれもKarabiner除外リストに含める
-- Cursorでは`lfs.vscode-emacs-friendly`拡張でEmacsキーバインドを使用。`C-x C-c`はエディタ開→タブ閉じ、全閉じ→ウィンドウ閉じの2段階動作（`keybindings.json`で設定）。closeWindowの条件に`!multipleEditorGroups`を含めるとチャットパネル等で不成立になるため削除済み
+- GhosttyのbundleIDは`com.mitchellh.ghostty`。Karabiner除外リストに含める
 - MCP serverのcommandや環境変数はフルパス指定が必要（例: `uvx`→`<%= ENV['HOME'] %>/.local/bin/uvx`）
 - `claude mcp add` の `-H, --header <header...>` は **variadic option**。次の option が来るまで引数を食い続けるため、位置引数 `<name> <commandOrUrl>` より**前**に置くと両方を飲み込んで `error: missing required argument 'name'` になる。`sync-claude-user-mcp.sh` では `--header` を必ず name/url の**後ろ**に置く。同スクリプトは `set -euo pipefail` かつ `execute` リソース経由なので、ここで落ちると `./install.sh` 全体が中断する（PR #64 と同じ連鎖故障）。macOS の bash は 3.2 のみで空配列の `${arr[@]}` が `set -u` 違反になるため、ヘッダ有無で分岐する形は維持が必要
 - mitamae の`link`リソースは`ln -sfn`相当で、リンク先が既に**実ディレクトリ**だと差し替えずにその中にリンクを作り、しかも成功ログ（`exist will change from 'false' to 'true'`）を出すため無言で壊れる。Claude Code の`/agents`でユーザースコープのサブエージェントを保存すると`~/.claude/agents`が実ディレクトリになりこの状態に入る。`lib/helper.rb`の`dotfile`定義は`link`の前に実ディレクトリを`<target>.bak.<timestamp>`へ`mv`で退避する（`rm -rf`にしないのはユーザー作成のエージェント定義が消えるため）

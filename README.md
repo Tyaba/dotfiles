@@ -31,6 +31,20 @@ appendWindowsPath = false
 ./install.sh
 ```
 
+The host roles (`roles/darwin`, `roles/ubuntu`) install the Claude Code CLI first
+(`cookbooks/claude-cli`), before `roles/base` and every other cookbook. If a later
+cookbook fails, `claude` is already available on that machine for troubleshooting.
+Plugins and LSP binaries are installed later by `cookbooks/claude`, because they
+need npm / uv and the rendered `~/.claude/settings.json`.
+
+```mermaid
+flowchart LR
+    A[install.sh] --> B[cookbooks/claude-cli<br/>Claude Code CLI]
+    B --> C[roles/base<br/>dotfiles, settings.json, MCP sync]
+    C --> D[other cookbooks]
+    D --> E[cookbooks/claude<br/>plugins, LSP]
+```
+
 ### Add new cookbook
 ```shell
 mkdir cookbooks/:app_name
@@ -45,7 +59,7 @@ $EDITOR roles/$(uname)/default.rb
 - devcontainer features already installed `git` / `gh` / `gcloud` / `mise` / `claude`
 - project `.mise.toml` installs language runtimes (`python` / `uv` / `node` / `pnpm`)
 
-It deploys only user-level dotfiles (`.claude/`, `.config/codex/`, `.cursor/`, `.mcp.json`, `.gitconfig`, zsh config) and the Codex CLI (needed by the `codex` MCP server in `~/.mcp.json`). Heavy cookbooks (emacs / docker / ghostty / redis / brew / GUI apps) and macOS-only setup are skipped.
+It deploys only user-level dotfiles (`.claude/`, `.config/codex/`, `.mcp.json`, `.gitconfig`, zsh config) and the Codex CLI (needed by the `codex` MCP server in `~/.mcp.json`). Heavy cookbooks (emacs / docker / ghostty / redis / brew / GUI apps) and macOS-only setup are skipped.
 
 Run without sudo:
 
@@ -181,14 +195,13 @@ config/
 └── coding_agents/
     ├── claude/             # Claude Code-specific (settings.json, CLAUDE.md, etc.)
     ├── codex/              # Codex CLI-specific (AGENTS.md)
-    ├── cursor/             # Cursor-specific (rules/, hooks.json)
     ├── handoff/            # Staged shell command runner (h)
     ├── hooks/              # Shared hooks
     ├── skills/             # Shared skills
     ├── private/            # Git-ignored secrets (secrets.env, denied_mcp_servers.json)
     ├── mcp.json.erb        # MCP server definitions (ERB template)
     ├── sync-claude-user-mcp.sh
-    └── user-rules.md       # Shared user rules (Claude Code / Cursor)
+    └── user-rules.md       # Shared user rules (Claude Code)
 ```
 
 ### Staged commands (`h`)
@@ -337,8 +350,8 @@ flowchart TD
 | Source | Target |
 |---|---|
 | `config/coding_agents/claude/settings.json` | `~/.claude/settings.json` |
-| `config/coding_agents/skills/` | `~/.claude/skills/`, `~/.cursor/skills/` |
-| `config/coding_agents/mcp.json.erb` | `~/.mcp.json`, `~/.cursor/mcp.json` |
+| `config/coding_agents/skills/` | `~/.claude/skills/` |
+| `config/coding_agents/mcp.json.erb` | `~/.mcp.json` |
 | `config/coding_agents/codex/AGENTS.md.erb` | `$CODEX_HOME/AGENTS.md` (`~/.codex` on hosts, `~/.config/codex` in devcontainers) |
 
 Directory targets such as `~/.claude/agents/` and `~/.claude/output-styles/`
@@ -360,12 +373,10 @@ MCP server is intentionally omitted because regular shell `git` covers the use c
 ```mermaid
 flowchart TD
     A[config/coding_agents/mcp.json.erb] --> B[Render ~/.mcp.json]
-    A --> C[Render ~/.cursor/mcp.json]
     B --> D[sync-claude-user-mcp.sh]
     D --> E[claude mcp add/remove --scope user]
     E --> F[~/.claude.json top-level mcpServers]
     F --> G[Claude Code reads MCP servers independent of cwd]
-    C --> H[Cursor and cwd-ancestor clients]
 ```
 
 ### Yui MCP proxy

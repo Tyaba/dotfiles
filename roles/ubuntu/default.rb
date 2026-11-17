@@ -1,4 +1,6 @@
 # coding: utf-8
+# Claude Code を最初に入れ、以降の cookbook が失敗してもその環境の claude でトラブルシュートできるようにする
+include_cookbook 'claude-cli'
 include_role 'base'
 dotfile ".tmux.conf"
 dotfile '.zsh'
