@@ -3,18 +3,3 @@ function clean_downloads() {
 	duration=$1
 	fd -0 --changed-before "${duration}" --hidden . ~/Downloads | xargs -0 -I {} mv {} ~/.Trash
 }
-
-function gcloud() {
-	command gcloud "$@"
-	local ret=$?
-	if [[ $ret -eq 0 && "$1" == "auth" && ("$2" == "login" || "$2" == "revoke") ]]; then
-		if command -v yui-proxy-restart >/dev/null 2>&1; then
-			if [[ "$2" == "revoke" ]]; then
-				yui-proxy-restart stop
-			else
-				yui-proxy-restart restart
-			fi
-		fi
-	fi
-	return $ret
-}

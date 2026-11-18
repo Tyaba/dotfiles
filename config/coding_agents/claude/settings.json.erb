@@ -40,7 +40,6 @@
       "List(*)",
       "WebFetch(*)",
       "WebSearch(*)",
-      "mcp__yui__*",
       "mcp__playwright__*",
       "mcp__todoist__*",
       "mcp__claude_ai__*",
@@ -52,7 +51,8 @@
       "mcp__claude_ai_Google_Drive__*",
       "mcp__claude_ai_Notion__*",
       "mcp__claude_ai_SlackDB__*",
-      "mcp__claude_ai_Slack__*"
+      "mcp__claude_ai_Slack__*",
+      "mcp__claude_ai_yui__*"
     ],
     "deny": [
       "Read(~/.config/gcloud/**)",
@@ -126,16 +126,6 @@
           {
             "type": "command",
             "command": "if [ \"$(uname)\" = \"Darwin\" ]; then afplay /System/Library/Sounds/Submarine.aiff; fi"
-          }
-        ]
-      },
-      {
-        "matcher": "startup|resume",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash ~/.claude/hooks/yui-proxy-check.sh",
-            "timeout": 5
           }
         ]
       },
