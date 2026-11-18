@@ -49,7 +49,7 @@ execute "rm -f #{ENV['HOME']}/.claude/settings.json" do
 end
 template "#{ENV['HOME']}/.claude/settings.json" do
   source claude_settings_erb
-  user node[:user] if node[:user]
+  owner node[:user] if node[:user]
   mode '0644'
 end
 
@@ -93,7 +93,7 @@ execute "rm -f #{codex_home}/AGENTS.md" do
 end
 template "#{codex_home}/AGENTS.md" do
   source codex_agents_erb
-  user node[:user] if node[:user]
+  owner node[:user] if node[:user]
   mode '0644'
 end
 
@@ -104,7 +104,7 @@ end
 # own auth.json is 0600 for the same reason, and nothing else needs to read it.
 template "#{codex_home}/config.toml" do
   source codex_config_erb
-  user node[:user] if node[:user]
+  owner node[:user] if node[:user]
   mode '0600'
 end
 
@@ -118,7 +118,7 @@ end
 # sync below copies it into, is already 0600.
 template "#{ENV['HOME']}/.mcp.json" do
   source mcp_erb
-  user node[:user] if node[:user]
+  owner node[:user] if node[:user]
   mode '0600'
 end
 

@@ -9,7 +9,7 @@ end
 
 template "#{ENV['HOME']}/.local/bin/yui-login" do
   source File.join(root_dir, 'cookbooks/yui/yui-login.sh.erb')
-  user node[:user] if node[:user]
+  owner node[:user] if node[:user]
   mode '0755'
   variables(gcloud_configuration: gcloud_configuration)
 end
@@ -51,7 +51,7 @@ end
 
   remote_file path do
     source File.join(root_dir, "cookbooks/yui/#{name}.sh")
-    user node[:user] if node[:user]
+    owner node[:user] if node[:user]
     mode '0755'
     notifies :run, reload_resource, :delayed
   end
@@ -61,7 +61,7 @@ case node[:platform]
 when 'darwin'
   template plist_path do
     source File.expand_path('yui-proxy.plist.erb', File.dirname(__FILE__))
-    user node[:user]
+    owner node[:user]
     mode '0644'
     variables(
       label: plist_name,
@@ -81,7 +81,7 @@ when 'darwin'
 else
   template service_path do
     source File.expand_path('yui-proxy.service.erb', File.dirname(__FILE__))
-    user node[:user]
+    owner node[:user]
     mode '0644'
     variables(
       gcloud_configuration: gcloud_configuration,
