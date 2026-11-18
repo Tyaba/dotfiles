@@ -33,9 +33,22 @@ case node[:platform]
 when 'darwin'
     package 'tflint'
 else
+    # The upstream install_linux.sh was removed from the repository, so fetch
+    # the release archive directly.
     execute 'install tflint' do
-        command 'curl -s https://raw.githubusercontent.com/terraform-linters/' +\
-        'tflint/master/install_linux.sh | bash'
+        command <<~'SH'
+            set -eu
+            case "$(uname -m)" in
+              x86_64) arch=amd64 ;;
+              aarch64|arm64) arch=arm64 ;;
+              *) echo "unsupported architecture: $(uname -m)" >&2; exit 1 ;;
+            esac
+            tmp="$(mktemp -d)"
+            trap 'rm -rf "$tmp"' EXIT
+            curl -fsSL -o "$tmp/tflint.zip" "https://github.com/terraform-linters/tflint/releases/latest/download/tflint_linux_${arch}.zip"
+            unzip -o -q "$tmp/tflint.zip" -d "$tmp"
+            install -m 0755 "$tmp/tflint" /usr/local/bin/tflint
+        SH
         not_if 'which tflint'
     end
 end
@@ -43,11 +56,13 @@ end
 execute "install mise kubectl plugin" do
     command "#{ENV['HOME']}/.local/bin/mise plugin install kubectl https://github.com/asdf-community/asdf-kubectl.git"
     not_if "#{ENV['HOME']}/.local/bin/mise plugin | grep -q kubectl"
+    user node[:user]
 end
 
 execute "install mise pnpm plugin" do
     command "#{ENV['HOME']}/.local/bin/mise plugin install pnpm https://github.com/jonathanmorley/asdf-pnpm.git"
     not_if "#{ENV['HOME']}/.local/bin/mise plugin | grep -q pnpm"
+    user node[:user]
 end
 
 mise_config_erb = File.expand_path('../../config/mise/config.toml.erb', File.dirname(__FILE__))
@@ -62,7 +77,7 @@ end
 
 template "#{ENV['HOME']}/.config/mise/config.toml" do
     source mise_config_erb
-    user node[:user]
+    owner node[:user]
     mode '0644'
 end
 

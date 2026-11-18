@@ -67,15 +67,17 @@ define :user_service, action: [] do
   return unless node[:user]
 
   name = params[:name]
+  # sudo-rs ignores -E, so pass the variable systemctl needs to find the user bus.
+  systemctl = "sudo -u #{node[:user]} env XDG_RUNTIME_DIR=/run/user/$(id -u #{node[:user]}) systemctl --user"
   Array(params[:action]).each do |action|
     case action
     when :enable
-      execute "sudo -E -u #{node[:user]} systemctl --user enable #{name}" do
-        not_if "sudo -E -u #{node[:user]} systemctl --user --quiet is-enabled #{name}"
+      execute "#{systemctl} enable #{name}" do
+        not_if "#{systemctl} --quiet is-enabled #{name}"
       end
     when :start
-      execute "sudo -E -u #{node[:user]} systemctl --user start #{name}" do
-        not_if "sudo -E -u #{node[:user]} systemctl --user --quiet is-active #{name}"
+      execute "#{systemctl} start #{name}" do
+        not_if "#{systemctl} --quiet is-active #{name}"
       end
     end
   end

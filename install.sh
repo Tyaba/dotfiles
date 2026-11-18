@@ -28,5 +28,11 @@ fi
 
 case "$(uname)" in
   "Darwin")  bin/mitamae local $@ lib/recipe.rb ;;
-  *) sudo -E bin/mitamae local $@ lib/recipe.rb ;;
+  *)
+    # Ask for the password while stdin is still the terminal. mitamae then runs
+    # without a terminal on stdin: under sudo-rs, apt-get started directly by the
+    # package resource otherwise stops (state T) after dpkg has finished.
+    sudo -v
+    sudo -E bin/mitamae local $@ lib/recipe.rb </dev/null
+    ;;
 esac
