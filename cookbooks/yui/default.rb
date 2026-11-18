@@ -32,8 +32,11 @@ when 'darwin'
 else
   service_path = "#{ENV['HOME']}/.config/systemd/user/yui-proxy.service"
 
+  # mitamae runs as root, so address the login user's systemd manager explicitly.
+  systemctl = "sudo -u #{node[:user]} env XDG_RUNTIME_DIR=/run/user/$(id -u #{node[:user]}) systemctl --user"
+
   execute 'reload yui-proxy user service' do
-    command 'systemctl --user daemon-reload && systemctl --user restart yui-proxy'
+    command "#{systemctl} daemon-reload && #{systemctl} restart yui-proxy"
     action :nothing
   end
 
