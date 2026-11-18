@@ -36,16 +36,6 @@
       "type": "http",
       "url": "https://api.x-ad.com/mcp"
     },
-<%#
-  yui speaks streamable HTTP directly, which Claude Code supports natively, so
-  the supergateway stdio bridge in front of it was pure overhead: an `npx`
-  wrapper plus a node process (~190MB, 3 PIDs) spawned per session.
--%>
-<%- yui_host = ENV['DOTFILES_ROLE'] == 'devcontainer' ? 'host.docker.internal' : 'localhost' -%>
-    "yui": {
-      "type": "http",
-      "url": "http://<%= yui_host %>:52981/mcp"
-    },
 <%- context7_api_key = ENV['CONTEXT7_API_KEY'].to_s.strip -%>
     "context7": {
       "type": "http",

@@ -24,7 +24,7 @@
 
 発火条件に合致したら**必ず**使う（推測・シミュレートは禁止）。
 
-- **yui** (`mcp__yui__*`) — **必須**:
+- **yui** (`mcp__claude_ai_yui__*`) — **必須**:
   - 会話の最初の応答の直前に `search_knowledge`（「吉野哲平」＋タスクキーワード）
   - 事実を得たら同ターン内に `add_facts`（`category` と `confidence` 必須、機密情報のみ禁止）
   - 「覚えていません」と返す前に必ず `search_knowledge`
