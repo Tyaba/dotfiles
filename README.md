@@ -381,61 +381,6 @@ flowchart TD
     F --> G[Claude Code reads MCP servers independent of cwd]
 ```
 
-### Yui MCP proxy
-
-`cookbooks/yui/default.rb` deploys the Cloud Run proxy as a macOS LaunchAgent or
-Linux systemd user service. The unit definitions do not hardcode a GCP project ID;
-they set `CLOUDSDK_ACTIVE_CONFIG_NAME` so gcloud resolves the project from that
-named configuration instead of the mutable active configuration. Override the
-configuration with `DOTFILES_GCLOUD_CONFIGURATION`; the default is `good`.
-
-The macOS plist still sets `CLOUDSDK_PYTHON` explicitly because launchd does not
-inherit zsh exports from `config/.zsh/lib/apps`. Unit updates trigger an immediate
-reload so the running job uses the latest definition. On macOS, both initial load
-and reload run `launchctl kickstart -k` after loading to prevent speculative-spawn deferral.
-
-The cookbook copies `yui-proxy-run` and `yui-proxy-restart` into `~/.local/bin`
-and renders `yui-login` there. Copies keep the service executable available when a
-checkout branch switch removes the source scripts; broken symlinks caused launchd
-to fail with EX_CONFIG 78. Run `yui-login` (or `! yui-login` from Claude Code)
-to authenticate with the configured gcloud configuration, restart the proxy,
-and poll `/status` for up to 15 seconds. A readiness timeout prints a warning
-without failing an otherwise successful login. The zsh `gcloud()` wrapper also
-uses `yui-proxy-restart` after successful `auth login` or `auth revoke`.
-
-Both services start `yui-proxy-run`, which preserves stdout/stderr and detects
-reauthentication errors. It sends a desktop notification at most once every
-30 minutes, using `${TMPDIR:-/tmp}/yui-proxy-auth-notified`, and retries every
-60 seconds until credentials recover. Linux falls back to a log message when
-`notify-send` is unavailable. Other exits retain gcloud's exit status and leave
-restarts to launchd/systemd. Signals stop the child process or retry sleep.
-`YUI_PROXY_GCLOUD` and `YUI_PROXY_PORT` select the executable and local port;
-`YUI_PROXY_RETRY_INTERVAL` can shorten the retry delay for testing.
-
-```mermaid
-flowchart TD
-    A[cookbooks/yui/default.rb] --> B[lib/gcloud.rb]
-    B --> C[DOTFILES_GCLOUD_CONFIGURATION default: good]
-    C --> D{Platform}
-    D -->|macOS| E[Render LaunchAgent plist]
-    D -->|Linux| F[Render systemd user service]
-    E --> G[Set CLOUDSDK_ACTIVE_CONFIG_NAME]
-    F --> G
-    E --> H[Set CLOUDSDK_PYTHON for launchd]
-    G --> I[gcloud resolves core/project from named configuration]
-    H --> J[Reload proxy service]
-    I --> J
-    R[Copy proxy scripts] --> J
-    J --> K[yui-proxy-run starts gcloud proxy]
-    K --> L{Authentication error?}
-    L -->|Yes| M[Notify at most once per 30 minutes]
-    M --> N[Wait for exit and sleep 60 seconds]
-    N --> K
-    L -->|No, process exits| O[Return exit status to launchd/systemd]
-    P[yui-login or successful zsh gcloud auth login] --> Q[yui-proxy-restart]
-    Q --> J
-```
-
 ### Shared Playwright MCP daemon (devcontainer)
 
 In the devcontainer role, `mcp.json.erb` points `playwright` at one shared
