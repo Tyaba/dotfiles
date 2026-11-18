@@ -9,18 +9,21 @@ certs_dir = "#{proxy_dir}/certs"
 files_dir = File.join(File.dirname(__FILE__), 'files')
 
 case node[:platform]
-when 'darwin'
+when 'darwin', 'ubuntu', 'debian'
   docker_daemon_available = 'docker info >/dev/null 2>&1'
 
   execute "mkdir -p #{certs_dir}" do
+    user node[:user] if node[:user]
     not_if "test -d #{certs_dir}"
   end
 
   execute "install -m 0644 #{files_dir}/docker-compose.yaml #{proxy_dir}/docker-compose.yaml" do
+    user node[:user] if node[:user]
     not_if "cmp -s #{files_dir}/docker-compose.yaml #{proxy_dir}/docker-compose.yaml"
   end
 
   execute "install -m 0644 #{files_dir}/traefik.yaml #{proxy_dir}/traefik.yaml" do
+    user node[:user] if node[:user]
     not_if "cmp -s #{files_dir}/traefik.yaml #{proxy_dir}/traefik.yaml"
   end
 
@@ -28,6 +31,7 @@ when 'darwin'
   # 無視するため、動的設定として dynamic.yaml に分離して providers.file 経由で
   # ロードする。詳細は cookbooks/traefik/files/traefik.yaml のコメント参照。
   execute "install -m 0644 #{files_dir}/dynamic.yaml #{proxy_dir}/dynamic.yaml" do
+    user node[:user] if node[:user]
     not_if "cmp -s #{files_dir}/dynamic.yaml #{proxy_dir}/dynamic.yaml"
   end
 
@@ -39,6 +43,7 @@ when 'darwin'
     # の命名で揃える。dnsmasq は `.test` 全体を 127.0.0.1 に返すので
     # `.tyaba.test` も追加設定なしで到達する。
     command "cd #{certs_dir} && mkcert -cert-file _wildcard.tyaba.test.pem -key-file _wildcard.tyaba.test-key.pem \"*.tyaba.test\" tyaba.test"
+    user node[:user] if node[:user]
     not_if "test -f #{certs_dir}/_wildcard.tyaba.test.pem"
   end
 
@@ -48,6 +53,7 @@ when 'darwin'
   end
 
   execute 'docker network create tyaba-proxy' do
+    user node[:user] if node[:user]
     only_if docker_daemon_available
     not_if 'docker network inspect tyaba-proxy >/dev/null 2>&1'
   end
@@ -59,6 +65,7 @@ when 'darwin'
   # 既存ユーザに反映されず、今回の TLS バグと同じ落とし穴になる)。
   execute 'docker compose up tyaba proxy' do
     command "docker compose -f #{proxy_dir}/docker-compose.yaml up -d"
+    user node[:user] if node[:user]
     only_if docker_daemon_available
   end
 else
