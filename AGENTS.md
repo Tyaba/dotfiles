@@ -50,7 +50,7 @@
 - mitamae の`link`リソースは`ln -sfn`相当で、リンク先が既に**実ディレクトリ**だと差し替えずにその中にリンクを作り、しかも成功ログ（`exist will change from 'false' to 'true'`）を出すため無言で壊れる。Claude Code の`/agents`でユーザースコープのサブエージェントを保存すると`~/.claude/agents`が実ディレクトリになりこの状態に入る。`lib/helper.rb`の`dotfile`定義は`link`の前に実ディレクトリを`<target>.bak.<timestamp>`へ`mv`で退避する（`rm -rf`にしないのはユーザー作成のエージェント定義が消えるため）
 - PATH/補完は `.zshrc` 直書きせず `config/.zsh/lib/languages` に集約する
 - PR作成時のAI監査セクションは「変更内容」の直後に配置する
-- Claude Codeのmodel設定は`claude-opus-5`、permission modeは`auto`、サブエージェントも`opus`（通常コンテキスト）。`opus`エイリアスはorg default（`orgModelDefaultCache`）に引かれて意図より古いバージョンになるため、mainモデルはバージョンを明示ピンする
+- Claude Codeのmodel設定は`claude-opus-5-5`、permission modeは`auto`、サブエージェントも`opus`（通常コンテキスト）。`opus`エイリアスはorg default（`orgModelDefaultCache`）に引かれて意図より古いバージョンになるため、mainモデルはバージョンを明示ピンする
 - Claude Codeは`ANTHROPIC_API_KEY`が設定されているとOAuth/EnterpriseよりAPIキー認証が優先され、`/status`のLogin methodが「Claude API Account」になる。Enterpriseサブスク枠とstatusline入力の`rate_limits`（5時間・7日ウィンドウ）はOAuth（`/login`）で意味があり、APIキー主体では空になりやすい
 - statusline の 1 行目先頭にプランバッジ（`ENTERPRISE` 紫 / `MAX 5x`・`MAX 20x` 黄 / `TEAM` / `PRO` / `API` 赤）を出す。statusline 入力 JSON にアカウント情報が無いため、`~/.claude.json`（`$CLAUDE_CONFIG_DIR` 優先）の `oauthAccount.organizationType` と `organizationRateLimitTier` を grep で読む（200KB 超あるので jq では読まない）。`ANTHROPIC_API_KEY` があれば OAuth より優先されるため `API` を出す。ファイルを毎回読むので、`/login` でアカウントを切り替えると起動済みのセッションも次の描画からバッジが変わる
 - `terraform apply` / `terraform destroy` は PreToolUse hook で多層ガード（cwd の env 判定 `dev`/`stg`/`prd`、`git branch` 判定 main/master/release/*、plan 内容に stateful resource [BQ/GCS/SQL/VM/Redis/Spanner/Bigtable/Filestore] の replace/destroy 検出のいずれかでも該当すれば deny）。`echo yes | terraform apply` 等の wrapper は hook 内で剥がされる。hook スクリプトは `config/coding_agents/hooks/terraform-apply-guard.sh`
