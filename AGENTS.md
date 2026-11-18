@@ -50,6 +50,7 @@
 - mitamae の`link`リソースは`ln -sfn`相当で、リンク先が既に**実ディレクトリ**だと差し替えずにその中にリンクを作り、しかも成功ログ（`exist will change from 'false' to 'true'`）を出すため無言で壊れる。Claude Code の`/agents`でユーザースコープのサブエージェントを保存すると`~/.claude/agents`が実ディレクトリになりこの状態に入る。`lib/helper.rb`の`dotfile`定義は`link`の前に実ディレクトリを`<target>.bak.<timestamp>`へ`mv`で退避する（`rm -rf`にしないのはユーザー作成のエージェント定義が消えるため）
 - mitamae の `file` / `template` / `remote_file` に `user` 属性を付けない（所有者は `owner` で指定する）。`user` を付けると一時ファイル `/tmp/<timestamp>` を `sudo -u <user> touch` で作った後に root の mitamae 本体が書き込み用に開くため、`fs.protected_regular=2`（Ubuntu の既定）の sticky ディレクトリでは `Permission denied - open /tmp/<timestamp> (Errno::EACCES)` で落ちる
 - root で動く mitamae から `systemctl --user` を呼ぶときは `sudo -u <user> env XDG_RUNTIME_DIR=/run/user/<uid> systemctl --user ...` の形にする。root のまま実行すると `$DBUS_SESSION_BUS_ADDRESS and $XDG_RUNTIME_DIR not defined` で失敗し、Ubuntu 26.04 の sudo-rs は `sudo -E` を無視するため環境変数の引き継ぎにも頼れない
+- Linux の `install.sh` は `sudo -v` で先に認証してから、mitamae の標準入力を `/dev/null` にして実行する。Ubuntu 26.04 の sudo-rs 配下では、mitamae の `package` リソースが直接起動した `apt-get` が dpkg の完了後に停止状態（`T`）のまま終わらないことがあった（golang と eza で再現）
 - PATH/補完は `.zshrc` 直書きせず `config/.zsh/lib/languages` に集約する
 - PR作成時のAI監査セクションは「変更内容」の直後に配置する
 - Claude Codeのmodel設定は`claude-opus-5`、permission modeは`auto`、サブエージェントも`opus`（通常コンテキスト）。`opus`エイリアスはorg default（`orgModelDefaultCache`）に引かれて意図より古いバージョンになるため、mainモデルはバージョンを明示ピンする
