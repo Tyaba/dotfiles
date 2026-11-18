@@ -18,21 +18,6 @@ end
   # universeを入れるために、launchpad-getkeysをinstallしたい。
   # launchpad-getkeysはデフォルトでinstallできないので、ppaを追加する。
 case node[:platform]
-when 'ubuntu'
-  execute 'locale-gen' do
-    command "
-    sudo add-apt-repository -y ppa:nilarimogard/webupd8 &&
-    sudo apt-get update &&
-    sudo apt-get install -y launchpad-getkeys &&
-    sudo apt-get update &&
-    sudo add-apt-repository -y universe &&
-    sudo apt-get update &&
-    sudo apt-get install -y locales-all &&
-    sudo locale-gen en_US.UTF-8 &&
-    sudo update-locale --no-checks LANG=en_US.UTF-8
-    "
-  not_if "locale | grep 'Cannot set'"
-  end
 when 'debian'
   execute 'locale gen' do
     command '
