@@ -1,5 +1,8 @@
 alias gist='gist-paste'
 
+# Kubectl
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
 if [ -n "$SSH_CONNECTION" ]; then
   export PULSE_SERVER="tcp:localhost:24713"
   export PULSE_COOKIE="$HOME/.config/pulse/cookie"
