@@ -53,3 +53,5 @@ include_cookbook 'sound-theme-freedesktop'
 include_cookbook 'pulseaudio'
 # 必須でない開発系
 include_cookbook 'redis'
+# デスクトップ環境専用の設定
+include_role 'ubuntu_gui' if has_package?('gnome-shell')

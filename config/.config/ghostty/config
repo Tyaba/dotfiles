@@ -35,3 +35,7 @@ keybind = super+alt+left=goto_split:left
 keybind = super+alt+right=goto_split:right
 keybind = super+alt+up=goto_split:top
 keybind = super+alt+down=goto_split:bottom
+
+# Keybinds — macOS defaults that Linux does not bind
+keybind = super+c=copy_to_clipboard
+keybind = super+v=paste_from_clipboard

@@ -34,6 +34,56 @@ when 'darwin'
     command "sudo \"$(which brew)\" services restart dnsmasq"
     action :nothing
   end
+when 'ubuntu', 'debian'
+  # systemd-resolved owns port 53, so dnsmasq listens on a separate local port
+  # and resolved forwards only the .test domain to it.
+  directory '/etc/dnsmasq.d'
+
+  # The config must exist before the package starts the service on port 53.
+  file '/etc/dnsmasq.d/tyaba-test.conf' do
+    content <<~CONF
+      port=5354
+      listen-address=127.0.0.1
+      bind-interfaces
+      no-resolv
+      no-hosts
+      address=/test/127.0.0.1
+    CONF
+    mode '644'
+    owner 'root'
+    group 'root'
+    notifies :run, 'execute[restart dnsmasq]', :delayed
+  end
+
+  package 'dnsmasq'
+
+  execute 'systemctl enable --now dnsmasq' do
+    not_if 'systemctl is-enabled dnsmasq && systemctl is-active dnsmasq'
+  end
+
+  execute 'restart dnsmasq' do
+    command 'systemctl restart dnsmasq'
+    action :nothing
+  end
+
+  directory '/etc/systemd/resolved.conf.d'
+
+  file '/etc/systemd/resolved.conf.d/tyaba-test.conf' do
+    content <<~CONF
+      [Resolve]
+      DNS=127.0.0.1:5354
+      Domains=~test
+    CONF
+    mode '644'
+    owner 'root'
+    group 'root'
+    notifies :run, 'execute[restart systemd-resolved]', :delayed
+  end
+
+  execute 'restart systemd-resolved' do
+    command 'systemctl restart systemd-resolved'
+    action :nothing
+  end
 else
   raise NotImplementedError
 end

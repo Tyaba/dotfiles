@@ -47,6 +47,64 @@ flowchart LR
     D --> E[cookbooks/claude<br/>plugins, LSP]
 ```
 
+### Ubuntu desktop (GUI only)
+`roles/ubuntu` includes `roles/ubuntu_gui` only when `gnome-shell` is installed, so
+servers without GNOME skip it. Add desktop-only packages and settings to
+`roles/ubuntu_gui/default.rb`.
+
+The role installs:
+
+- Ghostty from the Ubuntu archive, with `config/.config/ghostty` linked to
+  `~/.config/ghostty`.
+- JetBrainsMono Nerd Font under `~/.local/share/fonts`, used by the Ghostty config.
+- GNOME settings: Super+D and Super+Alt+Left/Right are freed for Ghostty splits,
+  hidden files are shown, and the screen turns off after one hour.
+- [Vicinae](https://vicinae.com), a Raycast-compatible launcher, because Raycast has
+  no Linux build.
+- [xremap](https://github.com/xremap/xremap) with `config/.config/xremap/config.yml`,
+  the Linux counterpart of the Karabiner-Elements rules. Super acts like the macOS
+  Command key, and Emacs-style editing keys work outside Ghostty, Emacs, VS Code,
+  and Cursor.
+- `wl-clipboard`, used by the `pbcopy` and `pbpaste` aliases on Wayland.
+- The local development proxy for `*.tyaba.test`: dnsmasq, mkcert, and Traefik.
+
+xremap starts at the next login, when the `input` group membership and its GNOME
+extension take effect. Members of the `input` group can read keyboard input, so any
+process running as the login user can too.
+
+dnsmasq listens on `127.0.0.1:5354` because systemd-resolved owns port 53.
+systemd-resolved forwards only the `.test` domain to dnsmasq.
+
+Super+Space toggles the launcher. The cookbook removes that key from GNOME's
+input source switching and keeps the other input source shortcuts. The Vicinae
+GNOME extension is enabled at the next login.
+
+Vicinae is installed under `~/.local` without elevated capabilities, so snippet
+expansion and paste into other applications are unavailable.
+
+```mermaid
+flowchart LR
+    A[roles/ubuntu] --> B{gnome-shell installed?}
+    B -- no --> C[skip]
+    B -- yes --> D[roles/ubuntu_gui]
+    D --> E[cookbooks/vicinae<br/>launcher, Super+Space]
+    D --> F[ghostty package<br/>~/.config/ghostty]
+    D --> G[cookbooks/jetbrains-mono-nerd-font]
+    D --> H[cookbooks/gnome-settings<br/>shortcuts, hidden files, screen timeout]
+    D --> I[cookbooks/xremap<br/>Super and Emacs-style keys]
+    D --> J[wl-clipboard package]
+    D --> K[cookbooks/dnsmasq, mkcert, traefik<br/>*.tyaba.test proxy]
+```
+
+```mermaid
+flowchart LR
+    A[Browser] -->|app.tyaba.test| B[systemd-resolved]
+    B -->|.test only| C[dnsmasq<br/>127.0.0.1:5354]
+    C -->|127.0.0.1| A
+    A -->|HTTPS :443| D[Traefik container]
+    D -->|traefik.enable=true| E[Project containers]
+```
+
 ### Add new cookbook
 ```shell
 mkdir cookbooks/:app_name

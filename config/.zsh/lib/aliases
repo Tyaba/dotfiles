@@ -15,8 +15,13 @@ if [[ -o interactive ]]; then
     # dust replaces du
     alias du="dust"
     # クリップボードコピー/ペースト
-    alias pbcopy="xclip -selection clipboard"
-    alias pbpaste="xclip -selection c -o"
+    if [[ -n "$WAYLAND_DISPLAY" ]] && (( $+commands[wl-copy] )); then
+        alias pbcopy="wl-copy"
+        alias pbpaste="wl-paste --no-newline"
+    else
+        alias pbcopy="xclip -selection clipboard"
+        alias pbpaste="xclip -selection c -o"
+    fi
 fi
 
 alias python3="python"

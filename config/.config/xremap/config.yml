@@ -1,0 +1,69 @@
+# Linux counterpart of config/.config/karabiner/karabiner.json.
+# xremap reads physical keys, so CapsLock is mapped here as well as in XKB.
+modmap:
+  - name: CapsLock to Control
+    remap:
+      CapsLock: Ctrl_L
+
+keymap:
+  - name: Mac-style Super shortcuts
+    application:
+      not: [com.mitchellh.ghostty]
+    remap:
+      Super-a: C-a
+      Super-c: C-c
+      Super-f: C-f
+      Super-l: C-l
+      Super-n: C-n
+      Super-q: C-q
+      Super-r: C-r
+      Super-s: C-s
+      Super-t: C-t
+      Super-v: C-v
+      Super-w: C-w
+      Super-x: C-x
+      Super-z: C-z
+
+  - name: Emacs-style editing
+    application:
+      not: [com.mitchellh.ghostty, Emacs, emacs, Code, code, Cursor, cursor]
+    remap:
+      # Function keys
+      C-KEY_5: F5
+      C-KEY_6: F6
+      C-KEY_7: F7
+
+      # Cursor movement, extending the selection while the mark is set
+      C-f: { with_mark: right }
+      C-b: { with_mark: left }
+      C-p: { with_mark: up }
+      C-n: { with_mark: down }
+      C-a: { with_mark: home }
+      C-e: { with_mark: end }
+      C-v: { with_mark: pagedown }
+      M-v: { with_mark: pageup }
+      M-f: { with_mark: C-right }
+      M-b: { with_mark: C-left }
+
+      # Selection
+      C-space: { set_mark: true }
+      C-leftbrace: { set_mark: true }
+      C-g: [esc, { set_mark: false }]
+
+      # Editing
+      C-d: [delete, { set_mark: false }]
+      C-h: [backspace, { set_mark: false }]
+      C-k: [Shift-end, C-x, { set_mark: false }]
+      C-w: [C-x, { set_mark: false }]
+      M-w: [C-c, { set_mark: false }]
+      C-y: [C-v, { set_mark: false }]
+      C-u: [C-z, { set_mark: false }]
+      C-s: [C-f, { set_mark: false }]
+
+      # C-x prefix
+      C-x:
+        remap:
+          C-s: [C-s, { set_mark: false }]
+          C-c: [C-w, { set_mark: false }]
+          C-f: [C-o, { set_mark: false }]
+          u: [C-z, { set_mark: false }]
