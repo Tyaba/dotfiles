@@ -26,7 +26,8 @@ def config_dir(org: str | None) -> str:
 BASE_ENV = {
     k: v
     for k, v in os.environ.items()
-    if k not in ("CLAUDE_CODE_USE_VERTEX", "CLAUDE_CODE_USE_BEDROCK", "ANTHROPIC_API_KEY")
+    if k
+    not in ("CLAUDE_CODE_USE_VERTEX", "CLAUDE_CODE_USE_BEDROCK", "ANTHROPIC_API_KEY", "CODEX_OFFLOAD_ALLOW_ANY_PLAN")
 }
 
 
@@ -114,6 +115,27 @@ case(
 # 判定できない場合は禁止側に倒す
 case("no .claude.json", decision(agent("codex-offload"), None), "deny")
 
+# CODEX_OFFLOAD_ALLOW_ANY_PLAN が真ならプランに関係なく通す
+ALLOW_ANY = {"CODEX_OFFLOAD_ALLOW_ANY_PLAN": "1"}
+case("override max agent", decision(agent("codex-offload"), "claude_max", ALLOW_ANY), "pass")
+case("override max codex exec", decision(bash("codex exec hi </dev/null"), "claude_max", ALLOW_ANY), "pass")
+case(
+    "override vertex",
+    decision(agent("codex-offload"), "claude_max", {**ALLOW_ANY, "CLAUDE_CODE_USE_VERTEX": "1"}),
+    "pass",
+)
+case("override unknown plan", decision(agent("codex-offload"), None, ALLOW_ANY), "pass")
+case(
+    "override disabled by 0",
+    decision(agent("codex-offload"), "claude_max", {"CODEX_OFFLOAD_ALLOW_ANY_PLAN": "0"}),
+    "deny",
+)
+case(
+    "override empty",
+    decision(agent("codex-offload"), "claude_max", {"CODEX_OFFLOAD_ALLOW_ANY_PLAN": ""}),
+    "deny",
+)
+
 # 不正な入力では何もしない
 env = dict(BASE_ENV, CLAUDE_CONFIG_DIR=config_dir("claude_max"))
 r = subprocess.run([sys.executable, HOOK], check=False, input="not json", capture_output=True, text=True, env=env)
@@ -135,6 +157,12 @@ case(
     "session-start vertex",
     "禁止" if "Vertex AI" in out["additionalContext"] and "禁止" in out["additionalContext"] else "other",
     "禁止",
+)
+out = json.loads(run(None, "claude_max", ALLOW_ANY, mode="session-start"))["hookSpecificOutput"]
+case(
+    "session-start override",
+    "有効" if "有効" in out["additionalContext"] and "禁止" not in out["additionalContext"] else "other",
+    "有効",
 )
 
 passed = sum(ok for _, ok in cases)
