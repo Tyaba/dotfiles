@@ -8,6 +8,7 @@ description: Claude から Codex CLI へコード変更系タスクを移譲す�
 **Claude Code を Claude Enterprise で動かしているときだけ使う。** Claude Max・Vertex AI・Bedrock・API キーでは
 移譲禁止で、Claude が直接実装する。判定と強制は `codex-offload-plan-gate.py` hook
 （dotfiles: `config/coding_agents/hooks/codex-offload-plan-gate.py`）が行う。
+例外として、環境変数 `CODEX_OFFLOAD_ALLOW_ANY_PLAN` が真のプロジェクトではプランに関係なく Enterprise と同じ扱いにする。
 
 Enterprise のときは、コード変更を伴うタスクをデフォルトで Codex に移譲する。Claude が自ら実装するのは
 `user-rules.md` の「Claude に残すタスク」に該当する場合のみ。
