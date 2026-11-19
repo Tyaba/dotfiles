@@ -37,7 +37,7 @@
 
 ## Codex オフロード（最優先チェックポイント）
 
-**前提: Codex オフロードは Claude Code を Claude Enterprise で動かしているときだけ行う。** Claude Max・Vertex AI・Bedrock・API キーで動かしているときは**移譲禁止**で、コード変更は Claude が `Edit` / `Write` で直接実装する（この節の移譲ゲートは適用しない）。現在のプランはセッション開始時に `codex-offload-plan-gate.py` hook が文脈に注入し、Enterprise 以外での `codex-offload` / `codex:codex-rescue` / `codex exec` は同 hook が deny する。
+**前提: Codex オフロードは Claude Code を Claude Enterprise で動かしているときだけ行う。** Claude Max・Vertex AI・Bedrock・API キーで動かしているときは**移譲禁止**で、コード変更は Claude が `Edit` / `Write` で直接実装する（この節の移譲ゲートは適用しない）。現在のプランはセッション開始時に `codex-offload-plan-gate.py` hook が文脈に注入し、Enterprise 以外での `codex-offload` / `codex:codex-rescue` / `codex exec` は同 hook が deny する。例外として、環境変数 `CODEX_OFFLOAD_ALLOW_ANY_PLAN` が真のプロジェクトではプランに関係なく Enterprise と同じ扱いにする（セッション開始時の文脈注入に従う）。
 
 **Enterprise のときは、コード変更を伴うタスクをデフォルトで Codex に移譲する。** `Edit` / `Write` / `NotebookEdit` / コード生成系 `Bash` を初めて呼ぶ前に、以下のゲートを**順に**通過すること：
 

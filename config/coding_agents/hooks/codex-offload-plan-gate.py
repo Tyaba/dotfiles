@@ -21,6 +21,10 @@
      （claude_enterprise / claude_max / ...）。ファイルが数百 KB あるので正規表現で読む
   判定できない場合は「Enterprise ではない」として扱う（許可するのは Enterprise と確認できた時だけ）。
 
+プロジェクト単位の例外:
+  CODEX_OFFLOAD_ALLOW_ANY_PLAN が真なら、プランに関係なく Codex への移譲を有効にする。
+  特定のプロジェクトの dev container の環境変数などで設定する。
+
 allow は返さない（他の gate の判定を短絡させないため）。
 入力 JSON の解析に失敗した場合は何もしない。
 """
@@ -78,8 +82,19 @@ def label(plan: str) -> str:
     return PLAN_LABELS.get(plan, plan)
 
 
+def allow_any_plan() -> bool:
+    return _truthy("CODEX_OFFLOAD_ALLOW_ANY_PLAN")
+
+
 def session_start(plan: str) -> None:
-    if plan == "claude_enterprise":
+    if allow_any_plan():
+        msg = (
+            f"現在の Claude Code の課金経路: {label(plan)}。"
+            "CODEX_OFFLOAD_ALLOW_ANY_PLAN により、このプロジェクトではプランに関係なく Codex オフロードは有効。"
+            "user-rules.md の「Codex オフロード」節の移譲ゲートを Enterprise と同じく適用し、"
+            "コード変更は codex-offload サブエージェントに移譲する。"
+        )
+    elif plan == "claude_enterprise":
         msg = (
             f"現在の Claude Code の課金経路: {label(plan)}。"
             "Codex オフロードは有効。user-rules.md の「Codex オフロード」節に従い、"
@@ -118,7 +133,7 @@ def pre_tool_use(plan: str) -> None:
         data = json.load(sys.stdin)
     except (json.JSONDecodeError, ValueError):
         return
-    if plan == "claude_enterprise" or not is_codex_call(data):
+    if plan == "claude_enterprise" or allow_any_plan() or not is_codex_call(data):
         return
     reason = (
         f"Codex オフロードは Claude Enterprise のときだけ使う方針です（現在: {label(plan)}）。"
